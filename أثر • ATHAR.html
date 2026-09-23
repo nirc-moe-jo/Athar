@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>أَثَـر • ATHAR | المنظومة المعيارية الموحدة</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700&family=JetBrains+Mono:wght@400;500;600&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-sky: #faf9f6;
+      --surface-pure: #ffffff;
+      --ink-deep: #141619;
+      --ink-soft: #5e656e;
+      --ink-subtle: #9ea5af;
+      --border-whisper: rgba(0, 0, 0, 0.07);
+      
+      --accent-gold: #c89b3c;
+      --accent-gold-soft: rgba(200, 155, 60, 0.12);
+      --accent-emerald: #10b981;
+      --accent-rose: #f43f5e;
+
+      --radius-organic: 24px;
+      --radius-pill: 9999px;
+      --font-body: 'Readex Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-quran: 'Amiri', serif;
+      --font-code: 'JetBrains Mono', monospace;
+
+      --ease-genesis: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-body); -webkit-tap-highlight-color: transparent; }
+
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      background-color: var(--bg-sky);
+      color: var(--ink-deep);
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* 1. الترويسة الموحدة المنضبطة هندسياً */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 10px clamp(8px, 2.5vw, 28px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: clamp(8px, 1.5vw, 16px);
+      z-index: 100;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(250, 249, 246, 0.98) 0%, rgba(250, 249, 246, 0.85) 80%, transparent 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      max-width: 100vw;
+    }
+
+    /* حيز الشعار الصافي ذو العرض الثابت والمستقر */
+    .brand-stable-stage {
+      display: flex;
+      align-items: center;
+      gap: 7.5px;
+      height: 36px;
+      width: 86px;
+      min-width: 86px;
+      max-width: 86px;
+      pointer-events: auto;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    /* نطفة الأثر: في المنتصف الرأسي تماماً بمحاذاة الشعار */
+    .genesis-seed-pulse {
+      width: 7.5px;
+      height: 7.5px;
+      background: var(--ink-deep);
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulseOrigin 3.2s infinite var(--ease-genesis);
+      margin-top: 1px;
+    }
+    @keyframes pulseOrigin {
+      0% { box-shadow: 0 0 0 0 rgba(20, 22, 25, 0.28); transform: scale(0.9); }
+      50% { box-shadow: 0 0 0 7px rgba(20, 22, 25, 0); transform: scale(1.2); }
+      100% { box-shadow: 0 0 0 0 rgba(20, 22, 25, 0); transform: scale(0.9); }
+    }
+
+    /* الشعار ككتلة واحدة نقية ومستحيلة الانفصال */
+    .brand-logo-text {
+      font-size: clamp(15px, 3vw, 16.5px);
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      line-height: 1;
+      white-space: nowrap;
+      transition: opacity 0.4s var(--ease-genesis), transform 0.4s var(--ease-genesis), filter 0.4s var(--ease-genesis);
+      transform-origin: center right;
+    }
+    .brand-logo-text.fading {
+      opacity: 0;
+      transform: scale(0.92);
+      filter: blur(3px);
+    }
+
+    /* حيز مصباح البصيرة المعزول تماماً عن أي تغيير */
+    .insight-stable-deck {
+      flex: 1;
+      min-width: 0;
+      max-width: 440px;
+      height: 36px;
+      pointer-events: auto;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(200, 155, 60, 0.25);
+      border-radius: var(--radius-pill);
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(200, 155, 60, 0.06);
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .insight-stable-deck:hover {
+      border-color: var(--accent-gold);
+      box-shadow: 0 4px 14px rgba(200, 155, 60, 0.14);
+    }
+
+    .bulb-beacon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--accent-gold-soft);
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* نافذة العرض المقنعة للآيات والأحاديث */
+    .insight-masked-viewport {
+      flex: 1;
+      min-width: 0;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+      mask-image: linear-gradient(to left, black 0%, black 90%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to left, black 0%, black 90%, transparent 100%);
+    }
+
+    /* النص القرآني والنبوي: معزول ومحمي من أي تغيير */
+    .insight-kinetic-text {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      white-space: nowrap;
+      font-family: var(--font-body) !important;
+      font-size: 11px !important;
+      color: #78350f;
+      font-weight: 500;
+      line-height: 36px;
+      display: inline-block;
+      transition: opacity 0.4s var(--ease-genesis);
+      will-change: right, opacity;
+    }
+
+    /* أدوات الترويسة اليسرى المحصنة الدائمة */
+    .tools-cluster {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      pointer-events: auto;
+      flex-shrink: 0;
+    }
+
+    /* زر «الإعلانات والإعلامات» الرسمي الرصين */
+    .btn-notif-official {
+      height: 32px;
+      padding: 0 8px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid var(--border-whisper);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--ink-soft);
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s var(--ease-genesis);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+      flex-shrink: 0;
+    }
+    .btn-notif-official:hover { color: var(--ink-deep); border-color: rgba(0,0,0,0.18); transform: scale(1.02); }
+    .btn-notif-official:active { transform: scale(0.95); }
+
+    .btn-notif-label {
+      font-size: 10.5px;
+      font-weight: 600;
+      display: none;
+    }
+    @media (min-width: 640px) { .btn-notif-label { display: inline; } }
+
+    .signal-dot-live {
+      width: 6.5px;
+      height: 6.5px;
+      background: var(--accent-rose);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--accent-rose);
+      animation: pulseSignal 2s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulseSignal {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* كود ورمز الفريق الدائم الظهور */
+    .team-code-pill {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid var(--border-whisper);
+      padding: 0 9px;
+      height: 32px;
+      border-radius: var(--radius-pill);
+      font-size: 10.5px;
+      font-family: var(--font-code);
+      font-weight: 600;
+      color: var(--ink-deep);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+      letter-spacing: 0.5px;
+    }
+
+    /* 2. مدرج الأفق المنزلق للشاشات */
+    .horizon-runway {
+      flex: 1;
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      padding: 64px clamp(10px, 2.5vw, 32px) 85px;
+      gap: clamp(14px, 2.5vw, 32px);
+      align-items: center;
+    }
+    .horizon-runway::-webkit-scrollbar { display: none; }
+
+    .flight-frame-card {
+      flex: 0 0 min(880px, calc(100vw - clamp(20px, 5vw, 64px)));
+      height: 100%;
+      scroll-snap-align: center;
+      background: var(--surface-pure);
+      border-radius: var(--radius-organic);
+      border: 1px solid var(--border-whisper);
+      box-shadow: 0 12px 36px -10px rgba(0, 0, 0, 0.035);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transform-origin: center center;
+      animation: cardGenesis 0.8s var(--ease-genesis) backwards;
+    }
+    @keyframes cardGenesis {
+      0% { opacity: 0; transform: scale(0.92); filter: blur(6px); }
+      100% { opacity: 1; transform: scale(1); filter: blur(0); }
+    }
+
+    .module-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      background: transparent;
+    }
+
+    /* 3. شريط الأفق السفلي العربي الرصين */
+    .horizon-dock {
+      position: fixed;
+      bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-whisper);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      border-radius: var(--radius-pill);
+      padding: 4px 6px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      z-index: 100;
+      max-width: calc(100vw - 16px);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .horizon-dock::-webkit-scrollbar { display: none; }
+
+    .horizon-btn {
+      border: none;
+      background: transparent;
+      padding: 7px clamp(8px, 1.8vw, 15px);
+      border-radius: var(--radius-pill);
+      font-size: clamp(10.5px, 2.3vw, 12px);
+      font-weight: 600;
+      color: var(--ink-soft);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.25s var(--ease-genesis);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .horizon-btn.active {
+      background: var(--ink-deep);
+      color: #ffffff;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+    }
+    .node-idx { font-family: var(--font-code); font-size: 9px; opacity: 0.5; }
+
+    /* النوافذ المنبثقة المتولدة */
+    .genesis-modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 17, 21, 0.45);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      padding: 16px;
+    }
+    .genesis-modal-card {
+      background: #ffffff;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 480px;
+      padding: 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+      border: 1px solid rgba(0,0,0,0.06);
+      transform-origin: center;
+      animation: modalBloom 0.3s var(--ease-genesis);
+    }
+    @keyframes modalBloom {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* توحيد خط عنوان قبس البصيرة والمصدر */
+    .modal-harmonized-meta {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      color: #92400e;
+      text-align: center;
+      display: block;
+      letter-spacing: 0.2px;
+    }
+
+    .modal-quran-text {
+      font-family: var(--font-quran);
+      font-size: 19px;
+      line-height: 1.8;
+      color: #1c1917;
+      text-align: center;
+      margin: 16px 0;
+    }
+
+    .btn-close-modal {
+      width: 100%;
+      background: #f4f4f5;
+      border: none;
+      padding: 10px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      cursor: pointer;
+      margin-top: 16px;
+    }
+    .btn-close-modal:hover { background: #e4e4e7; color: var(--ink-deep); }
+  </style>
+</head>
+<body>
+
+  <!-- 1. الترويسة الموحدة المنضبطة هندسياً -->
+  <header>
+    
+    <!-- حيز الشعار النقي: الكلمة غير مجزأة إطلاقاً والراء متصلة حتماً -->
+    <div class="brand-stable-stage">
+      <div class="genesis-seed-pulse" title="نواة الأثر الحي"></div>
+      <div class="brand-logo-text" id="brandLogo">أَثَـر</div>
+    </div>
+
+    <!-- حيز مصباح البصيرة المعزول تماماً عن التغيير -->
+    <div class="insight-stable-deck" onclick="openInsightModal()" title="انقر لقراءة قبس البصيرة كاملاً">
+      <div class="bulb-beacon">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
+          <path d="M9 18h6"/><path d="M10 22h4"/>
+        </svg>
+      </div>
+      <div class="insight-masked-viewport" id="insightViewport">
+        <div class="insight-kinetic-text" id="insightText">﴿ وَقُل رَّبِّ زِدْنِي عِلْمًا ﴾</div>
+      </div>
+    </div>
+
+    <!-- أدوات الترويسة اليسرى المحصنة الدائمة -->
+    <div class="tools-cluster">
+      <button class="btn-notif-official" onclick="openNotifModal()" title="الإعلانات والإعلامات الرسمية">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/>
+          <path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/>
+          <circle cx="12" cy="12" r="2"/>
+          <path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/>
+          <path d="M19.1 4.9C23 8.8 23 15.2 19.1 19.1"/>
+        </svg>
+        <span class="btn-notif-label">الإعلانات والإعلامات</span>
+        <span class="signal-dot-live"></span>
+      </button>
+
+      <div class="team-code-pill">AED-1101</div>
+    </div>
+  </header>
+
+  <!-- 2. مدرج الأفق المنزلق للشاشات الخمس المتخصصة -->
+  <main class="horizon-runway" id="runway">
+    <div class="flight-frame-card">
+      <iframe class="module-iframe" src="modules/01_منطلق_الأثر.html"></iframe>
+    </div>
+    <div class="flight-frame-card">
+      <iframe class="module-iframe" src="modules/02_مسار_التجريب.html"></iframe>
+    </div>
+    <div class="flight-frame-card">
+      <iframe class="module-iframe" src="modules/03_التجسيد_المادي.html"></iframe>
+    </div>
+    <div class="flight-frame-card">
+      <iframe class="module-iframe" src="modules/04_أمانة_الابتكار.html"></iframe>
+    </div>
+    <div class="flight-frame-card">
+      <iframe class="module-iframe" src="modules/05_بصمة_الصانع.html"></iframe>
+    </div>
+  </main>
+
+  <!-- 3. شريط الأفق السفلي (أسماء الفصول عربية راسخة وثابتة بلا تبديل) -->
+  <nav class="horizon-dock">
+    <button class="horizon-btn active" onclick="glideToModule(0, this)">
+      <span class="node-idx">01</span>
+      <span>المُنطلق</span>
+    </button>
+    <button class="horizon-btn" onclick="glideToModule(1, this)">
+      <span class="node-idx">02</span>
+      <span>التجريب</span>
+    </button>
+    <button class="horizon-btn" onclick="glideToModule(2, this)">
+      <span class="node-idx">03</span>
+      <span>التجسيد</span>
+    </button>
+    <button class="horizon-btn" onclick="glideToModule(3, this)">
+      <span class="node-idx">04</span>
+      <span>الابتكار</span>
+    </button>
+    <button class="horizon-btn" onclick="glideToModule(4, this)">
+      <span class="node-idx">05</span>
+      <span>البصمة</span>
+    </button>
+  </nav>
+
+  <!-- نافذة قبس البصيرة المنبثقة -->
+  <div class="genesis-modal-overlay" id="insightModal" onclick="if(event.target===this) closeInsightModal()">
+    <div class="genesis-modal-card">
+      <div style="display:flex; justify-content:center; margin-bottom:8px;">
+        <div class="bulb-beacon" style="width:28px; height:28px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+        </div>
+      </div>
+
+      <span class="modal-harmonized-meta">قبس من نور الوحي والعمل</span>
+      
+      <div class="modal-quran-text" id="modalFullQuote">﴿ إِنَّا لَا نُضِيعُ أَجْرَ مَنْ أَحْسَنَ عَمَلًا ﴾</div>
+
+      <span class="modal-harmonized-meta" id="modalQuoteSource">سورة الكهف · الآية 30</span>
+
+      <button class="btn-close-modal" onclick="closeInsightModal()">تمثّل المعنى ومواصلة الأثر</button>
+    </div>
+  </div>
+
+  <!-- نافذة « الإعلانات والإعلامات » الرسمية المعتمدة -->
+  <div class="genesis-modal-overlay" id="notifModal" onclick="if(event.target===this) closeNotifModal()">
+    <div class="genesis-modal-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f1f2f4; padding-bottom:8px; margin-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="signal-dot-live"></span>
+          <strong style="font-size:13.5px; color:var(--ink-deep);">الإعلانات والإعلامات</strong>
+        </div>
+        <span style="font-family:var(--font-code); font-size:10px; color:var(--ink-subtle);">LIVE STREAM</span>
+      </div>
+
+      <div style="background:#fafaf8; border:1px solid var(--border-whisper); padding:12px; border-radius:12px; margin-bottom:8px;">
+        <span style="font-size:10.5px; color:#92400e; font-weight:700;">إدارة المنظومة المركزية</span>
+        <h4 style="font-size:12px; margin:3px 0; color:var(--ink-deep);">تأكيد موثوقية الأثر وتكامل الحقول</h4>
+        <p style="font-size:11.5px; color:var(--ink-soft); line-height:1.5; margin:0;">
+          تم تفعيل تدقيق مصفوفة التحديات ودرع التحقق البشري من الذكاء الاصطناعي بنجاح لكافة أعضاء الفريق.
+        </p>
+      </div>
+
+      <button class="btn-close-modal" onclick="closeNotifModal()">إغلاق</button>
+    </div>
+  </div>
+
+  <script>
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+    // =========================================================================
+    // 1. تبادل الشعار النقي المصمت: « أَثَـر » ↔ « ATHAR » ككتلة واحدة أصيلة
+    // =========================================================================
+    let isArabicLogo = true;
+    const logoEl = document.getElementById('brandLogo');
+
+    setInterval(() => {
+      isArabicLogo = !isArabicLogo;
+      logoEl.classList.add('fading');
+      setTimeout(() => {
+        logoEl.textContent = isArabicLogo ? 'أَثَـر' : 'ATHAR';
+        logoEl.style.letterSpacing = isArabicLogo ? '-0.2px' : '0.5px';
+        logoEl.classList.remove('fading');
+      }, 400);
+    }, 4500);
+
+    // =========================================================================
+    // 2. خوارزمية البصيرة الحركية المكتملة (عرض كامل ➔ مهلة تأمل ➔ انتقال)
+    // =========================================================================
+    const INSIGHT_BANK = [
+      { short: "﴿ وَقُل رَّبِّ زِدْنِي عِلْمًا ﴾", full: "﴿ فَتَعَالَى اللَّهُ الْمَلِكُ الْحَقُّ ۗ وَلَا تَعْجَلْ بِالْقُرْآنِ مِن قَبْلِ أَن يُقْضَىٰ إِلَيْكَ وَحْيُهُ ۖ وَقُل رَّبِّ زِدْنِي عِلْمًا ﴾", src: "سورة طه · الآية 114" },
+      { short: "« إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ »", full: "« إِنَّ اللَّهَ تَعَالَى يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ »", src: "حديث شريف · رواه البيهقي" },
+      { short: "﴿ صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ ﴾", full: "﴿ صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ ۚ إِنَّهُ خَبِيرٌ بِمَا تَفْعَلُونَ ﴾", src: "سورة النمل · الآية 88" },
+      { short: "« مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ طَرِيقًا إِلَى الْجَنَّةِ »", full: "« وَمَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ »", src: "حديث شريف · صحيح مسلم" },
+      { short: "﴿ إِنَّا لَا نُضِيعُ أَجْرَ مَنْ أَحْسَنَ عَمَلًا ﴾", full: "﴿ إِنَّ الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ إِنَّا لَا نُضِيعُ أَجْرَ مَنْ أَحْسَنَ عَمَلًا ﴾", src: "سورة الكهف · الآية 30" }
+    ];
+
+    let currentInsightIdx = 0;
+    const insightTextEl = document.getElementById('insightText');
+    const viewportEl = document.getElementById('insightViewport');
+
+    async function runInsightLifecycle() {
+      while (true) {
+        const item = INSIGHT_BANK[currentInsightIdx];
+
+        insightTextEl.style.transition = 'none';
+        insightTextEl.style.right = '0px';
+        insightTextEl.style.opacity = '0';
+        insightTextEl.textContent = item.short;
+
+        await sleep(50);
+        insightTextEl.style.transition = 'opacity 0.4s ease';
+        insightTextEl.style.opacity = '1';
+
+        await sleep(2200);
+
+        const containerWidth = viewportEl.clientWidth;
+        const textWidth = insightTextEl.scrollWidth;
+        const overflow = textWidth - containerWidth;
+
+        if (overflow > 6) {
+          const scrollDuration = (overflow / 32);
+          insightTextEl.style.transition = `right ${scrollDuration}s linear`;
+          insightTextEl.style.right = `-${overflow + 8}px`;
+
+          await sleep(scrollDuration * 1000);
+        }
+
+        await sleep(3800);
+
+        insightTextEl.style.transition = 'opacity 0.5s ease';
+        insightTextEl.style.opacity = '0';
+        await sleep(500);
+
+        currentInsightIdx = (currentInsightIdx + 1) % INSIGHT_BANK.length;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      runInsightLifecycle();
+    });
+
+    function openInsightModal() {
+      const item = INSIGHT_BANK[currentInsightIdx];
+      document.getElementById('modalFullQuote').textContent = item.full;
+      document.getElementById('modalQuoteSource').textContent = item.src;
+      document.getElementById('insightModal').style.display = 'flex';
+    }
+    function closeInsightModal() { document.getElementById('insightModal').style.display = 'none'; }
+    function openNotifModal() { document.getElementById('notifModal').style.display = 'flex'; }
+    function closeNotifModal() { document.getElementById('notifModal').style.display = 'none'; }
+
+    // =========================================================================
+    // 3. ملاحة الأفق الثابتة والسلسة
+    // =========================================================================
+    const runway = document.getElementById('runway');
+    const cards = document.querySelectorAll('.flight-frame-card');
+    const buttons = document.querySelectorAll('.horizon-btn');
+
+    function glideToModule(index, btnEl) {
+      buttons.forEach(b => b.classList.remove('active'));
+      btnEl.classList.add('active');
+
+      cards[index].scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest'
+      });
+    }
+
+    runway.addEventListener('scroll', () => {
+      let closest = 0;
+      let minDiff = Infinity;
+      cards.forEach((card, idx) => {
+        const box = card.getBoundingClientRect();
+        const diff = Math.abs(box.left + box.width / 2 - window.innerWidth / 2);
+        if (diff < minDiff) { minDiff = diff; closest = idx; }
+      });
+      buttons.forEach((b, i) => b.classList.toggle('active', i === closest));
+    }, { passive: true });
+
+    document.addEventListener('keydown', (e) => {
+      let activeIdx = Array.from(buttons).findIndex(b => b.classList.contains('active'));
+      if (e.key === 'ArrowLeft' && activeIdx < cards.length - 1) glideToModule(activeIdx + 1, buttons[activeIdx + 1]);
+      else if (e.key === 'ArrowRight' && activeIdx > 0) glideToModule(activeIdx - 1, buttons[activeIdx - 1]);
+      if (e.key === 'Escape') { closeInsightModal(); closeNotifModal(); }
+    });
+  </script>
+</body>
+</html>
