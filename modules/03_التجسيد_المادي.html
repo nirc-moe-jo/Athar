@@ -2,155 +2,1336 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>أَثَـر • التجسيد المادي وبيان المكونات والعتاد</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #ffffff;
-      --text-main: #141619;
-      --text-muted: #5e656e;
-      --text-subtle: #9ea5af;
-      --border: rgba(0, 0, 0, 0.07);
-      --font-body: 'Readex Pro', sans-serif;
+      --bg-sky: #faf9f6;
+      --surface-pure: #ffffff;
+      --surface-card: #fafaf8;
+      
+      --ink-deep: #141619;
+      --ink-soft: #5e656e;
+      --ink-subtle: #9ea5af;
+
+      --border-whisper: rgba(0, 0, 0, 0.07);
+      --border-focus: rgba(20, 22, 25, 0.3);
+
+      --accent-valid: #10b981;
+      --accent-alert: #f43f5e;
+
+      --font-body: 'Readex Pro', -apple-system, sans-serif;
       --font-code: 'JetBrains Mono', monospace;
-      --ease-genesis: cubic-bezier(0.16, 1, 0.3, 1);
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-pill: 9999px;
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-body); }
-    body { background: var(--bg); color: var(--text-main); padding: clamp(20px, 3.5vw, 32px); line-height: 1.6; }
-
-    .module-container { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
-
-    .header-tag { font-family: var(--font-code); font-size: 11px; color: var(--text-subtle); letter-spacing: 0.5px; }
-    h2 { font-size: clamp(17px, 3vw, 20px); font-weight: 600; margin: 2px 0 12px; }
-
-    .top-budget-deck {
-      display: flex; justify-content: space-between; align-items: baseline;
-      border-bottom: 1px solid var(--border); padding-bottom: 12px;
-    }
-    .budget-tag { font-family: var(--font-code); font-size: 15px; font-weight: 700; color: #10b981; }
-
-    .bom-row {
-      display: grid; grid-template-columns: 2fr 3fr 1fr 20px; gap: 10px; padding: 10px 0;
-      border-bottom: 1px solid var(--border); align-items: center;
-    }
-    @media(max-width: 580px) { .bom-row { grid-template-columns: 1fr; } }
-    .bom-row input { border: none; background: transparent; outline: none; font-size: 13px; color: var(--text-main); }
-
-    /* مسرح الإسقاط المكاني التفاعلي */
-    .spatial-frame {
-      width: 100%; height: 260px; border: 1.5px dashed var(--border); border-radius: 16px;
-      background: #fafaf8; position: relative; display: flex; align-items: center; justify-content: center;
-      cursor: crosshair; overflow: hidden; margin-top: 8px; user-select: none;
-    }
-    .spatial-img { max-width: 100%; max-height: 100%; display: none; }
-    .pin-badge {
-      position: absolute; width: 24px; height: 24px; border-radius: 50%; background: var(--text-main);
-      color: #fff; font-family: var(--font-code); font-size: 11px; font-weight: 600; display: flex;
-      align-items: center; justify-content: center; transform: translate(-50%, -50%);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.25); border: 2px solid #fff;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
     }
 
-    .btn-quiet-add {
-      background: transparent; border: 1px dashed rgba(0,0,0,0.18); padding: 9px 20px;
-      border-radius: 30px; font-size: 12px; color: var(--text-muted); cursor: pointer; display: block; margin: 10px auto;
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      background-color: var(--surface-pure);
+      color: var(--ink-deep);
+    }
+
+    body {
+      padding: clamp(16px, 3.5vw, 36px) clamp(12px, 3vw, 28px);
+      line-height: 1.6;
+    }
+
+    .master-flow {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+    }
+
+    /* الترويسة الرئيسية */
+    .folio-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-whisper);
+    }
+    .folio-meta {
+      font-family: var(--font-code);
+      font-size: 10.5px;
+      color: var(--ink-subtle);
+      letter-spacing: 0.5px;
+    }
+    .folio-heading {
+      font-size: clamp(18px, 2.8vw, 22px);
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      color: var(--ink-deep);
+    }
+    .folio-brief {
+      font-size: 12.5px;
+      color: var(--ink-soft);
+      line-height: 1.65;
+    }
+
+    /* كتل الأقسام */
+    .stage-section {
+      background: var(--surface-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-whisper);
+      padding: clamp(14px, 3vw, 22px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      transition: all 0.3s var(--ease);
+    }
+    .stage-section:focus-within {
+      background: var(--surface-pure);
+      border-color: rgba(20, 22, 25, 0.2);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04);
+    }
+
+    .stage-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .stage-identity {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stage-num {
+      font-family: var(--font-code);
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      background: var(--surface-pure);
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-whisper);
+      flex-shrink: 0;
+    }
+    .stage-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink-deep);
+      line-height: 1.4;
+    }
+
+    /* شارات الترقيم التلقائي */
+    .auto-num-badge {
+      font-family: var(--font-code);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-deep);
+      background: var(--surface-pure);
+      padding: 3px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(20, 22, 25, 0.14);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* شارة التكلفة الإجمالية في ترويسة الجدول */
+    .total-cost-deck {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 6px;
+      background: var(--surface-pure);
+      border: 1px solid var(--border-whisper);
+      padding: 3px 12px;
+      border-radius: var(--radius-pill);
+    }
+    .total-cost-label {
+      font-size: 11px;
+      color: var(--ink-soft);
+    }
+    .total-cost-val {
+      font-family: var(--font-code);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--ink-deep);
+    }
+
+    /* الحقول النصية المعيارية */
+    textarea, input[type="text"], input[type="number"] {
+      width: 100%;
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: var(--ink-deep);
+      background: var(--surface-pure);
+      outline: none;
+      transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    }
+    textarea:focus, input[type="text"]:focus, input[type="number"]:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(20, 22, 25, 0.035);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 54px;
+    }
+
+    /* مصفوفة جدول المكونات والعتاد */
+    .catalog-ledger {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .catalog-item-card {
+      background: var(--surface-pure);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      scroll-margin-top: 20px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .catalog-item-card.highlighted {
+      border-color: var(--ink-deep);
+      box-shadow: 0 0 0 2px rgba(20, 22, 25, 0.15);
+    }
+
+    .catalog-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    
+    /* منظومة كبسولات الموضع وإلغاء التثبيت المتناغمة */
+    .pin-locator-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pinned-capsule-deck {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #f0fdf4;
+      border: 1px solid rgba(21, 128, 61, 0.25);
+      border-radius: var(--radius-pill);
+      padding: 2px 4px 2px 6px;
+    }
+    .btn-pin-trigger {
+      border: 1px solid var(--border-whisper);
+      background: var(--surface-card);
+      color: var(--ink-soft);
+      font-size: 10.5px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+    .btn-pin-trigger:hover {
+      border-color: var(--ink-deep);
+      color: var(--ink-deep);
+    }
+    .btn-pin-trigger.active-targeting {
+      background: var(--ink-deep);
+      color: #ffffff;
+      border-color: var(--ink-deep);
+      animation: targetingPulse 1.5s infinite;
+    }
+    @keyframes targetingPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    .btn-pin-trigger.has-pin {
+      background: transparent;
+      border: none;
+      color: #15803d;
+      font-weight: 600;
+      padding: 2px 6px;
+    }
+    
+    .btn-pin-unpin {
+      border: 1px solid rgba(21, 128, 61, 0.2);
+      background: #ffffff;
+      color: var(--ink-soft);
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-pin-unpin:hover {
+      color: var(--accent-alert);
+      border-color: rgba(185, 28, 28, 0.3);
+    }
+    
+    .unpin-confirm-deck {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      background: #ffffff;
+      padding: 1px 6px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(185, 28, 28, 0.3);
+    }
+    .unpin-confirm-deck.active {
+      display: inline-flex;
+    }
+    .btn-affirm-unpin {
+      border: none;
+      background: var(--accent-alert);
+      color: #ffffff;
+      font-size: 9.5px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+    }
+    .btn-cancel-unpin {
+      border: none;
+      background: transparent;
+      color: var(--ink-soft);
+      font-size: 9.5px;
+      cursor: pointer;
+      padding: 1px 3px;
+    }
+
+    /* شبكة الحقول */
+    .catalog-fields-tier1 {
+      display: grid;
+      grid-template-columns: 1.4fr 1.4fr 0.8fr;
+      gap: 8px;
+    }
+    @media(max-width: 600px) {
+      .catalog-fields-tier1 { grid-template-columns: 1fr; }
+    }
+    .catalog-fields-tier2 {
+      display: grid;
+      grid-template-columns: 1.5fr 1.2fr 1.3fr;
+      gap: 8px;
+    }
+    @media(max-width: 680px) {
+      .catalog-fields-tier2 { grid-template-columns: 1fr; }
+    }
+    .field-caption {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      margin-bottom: 2px;
+      display: block;
+    }
+    .external-link-btn {
+      font-size: 10px;
+      color: var(--ink-deep);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border-whisper);
+    }
+
+    /* نظام الحذف والتأكيد السلس للبطاقات */
+    .inline-action-slot {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-discrete-action {
+      border: none;
+      background: transparent;
+      color: var(--ink-subtle);
+      cursor: pointer;
+      font-size: 11px;
+      padding: 2px 4px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s var(--ease);
+    }
+    .btn-discrete-action:hover { color: var(--accent-alert); }
+
+    .confirm-pop-deck {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface-pure);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(185, 28, 28, 0.25);
+    }
+    .confirm-pop-deck.active {
+      display: inline-flex;
+    }
+    .btn-affirm-del {
+      border: none;
+      background: var(--accent-alert);
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+    }
+    .btn-cancel-del {
+      border: none;
+      background: transparent;
+      color: var(--ink-soft);
+      font-size: 10px;
+      cursor: pointer;
+      padding: 2px 4px;
+    }
+
+    /* مسرح صورة النموذج النهائي */
+    .blueprint-stage {
+      position: relative;
+      width: 100%;
+      min-height: 260px;
+      border: 1px dashed rgba(20, 22, 25, 0.16);
+      border-radius: var(--radius-sm);
+      background: var(--surface-pure);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: visible;
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .blueprint-stage.is-armed-target {
+      cursor: crosshair;
+      border-color: var(--ink-deep);
+      box-shadow: 0 0 0 2px rgba(20, 22, 25, 0.12);
+    }
+    .blueprint-img {
+      max-width: 100%;
+      max-height: 480px;
+      display: none;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    /* منصة إزالة الصورة مع التحذير */
+    .blueprint-del-shelf {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 30;
+      display: none;
+    }
+    .btn-stage-del {
+      background: var(--ink-deep);
+      color: #ffffff;
+      border: none;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 10px;
+      cursor: pointer;
+    }
+    .confirm-stage-deck {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface-pure);
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(185, 28, 28, 0.35);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    }
+    .confirm-stage-deck.active {
+      display: inline-flex;
+    }
+    .bp-del-warn-msg {
+      font-size: 10px;
+      color: var(--accent-alert);
+      font-weight: 500;
+    }
+
+    /* شريط التوجيه عند طور الاستهداف */
+    .targeting-hint-bar {
+      display: none;
+      position: absolute;
+      top: 10px;
+      background: var(--ink-deep);
+      color: #ffffff;
+      font-size: 11px;
+      padding: 5px 14px;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      z-index: 20;
+    }
+
+    /* دبابيس الترقيم الهندسية المصمتة */
+    .blueprint-pin {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background: var(--ink-deep);
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-code);
+      font-size: 11px;
+      font-weight: 700;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      transition: transform 0.2s;
+      z-index: 10;
+    }
+    .blueprint-pin:hover {
+      transform: translate(-50%, -50%) scale(1.22);
+    }
+
+    /* شبكة مراحل تطور التصميم الأربعة */
+    .evolution-quad-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    @media(max-width: 720px) {
+      .evolution-quad-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media(max-width: 440px) {
+      .evolution-quad-grid { grid-template-columns: 1fr; }
+    }
+
+    .evo-station-cell {
+      background: var(--surface-pure);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .evo-station-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink-deep);
+      text-align: center;
+      border-bottom: 1px solid var(--border-whisper);
+      padding-bottom: 4px;
+    }
+
+    .media-shelf-mini {
+      border: 1px dashed rgba(20, 22, 25, 0.16);
+      border-radius: var(--radius-sm);
+      background: var(--surface-card);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 4px;
+      cursor: pointer;
+      min-height: 100px;
+      position: relative;
+    }
+    .media-shelf-mini:hover { border-color: var(--ink-deep); }
+    .media-preview-mini {
+      max-width: 100%;
+      max-height: 110px;
+      border-radius: 4px;
+      display: none;
+      object-fit: contain;
+    }
+
+    /* زر الإضافة */
+    .btn-append-atom {
+      background: transparent;
+      border: 1px dashed var(--border-whisper);
+      border-radius: var(--radius-pill);
+      padding: 6px 14px;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      align-self: flex-start;
+      transition: all 0.2s;
+    }
+    .btn-append-atom:hover {
+      border-color: var(--ink-deep);
+      color: var(--ink-deep);
+    }
+
+    /* زر التلميح */
+    .beacon-btn {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-subtle);
+      cursor: pointer;
+      flex-shrink: 0;
+      padding: 0;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .beacon-btn:hover, .beacon-btn.active {
+      color: var(--ink-deep);
+      transform: scale(1.15);
+    }
+    .beacon-btn svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    /* النافذة العائمة المركزية المانعة للفيضان */
+    #masterTooltip {
+      position: fixed;
+      z-index: 100000;
+      background: #141619;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 1.55;
+      padding: 9px 13px;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(4px);
+      transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+      max-width: 250px;
+      box-sizing: border-box;
+      white-space: normal;
+    }
+    #masterTooltip.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* التذييل الرسمي */
+    .folio-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-whisper);
+      font-size: 10.5px;
+      font-family: var(--font-code);
+      color: var(--ink-subtle);
     }
   </style>
 </head>
 <body>
 
-  <div class="module-container">
-    <div>
-      <span class="header-tag">أَثَـر · HORIZON 03</span>
-      <div class="top-budget-deck">
-        <h2>التجسيد المادي وقائمة المكونات (BOM)</h2>
-        <span class="budget-tag" id="totalCostDisplay">0.00 د.أ</span>
-      </div>
-    </div>
+  <!-- حاوية التلميح المركزية الحرة المحسوبة برمجياً -->
+  <div id="masterTooltip"></div>
 
-    <div id="bomList">
-      <div class="bom-row">
-        <input type="text" placeholder="المكون والموديل (ESP32-S3)...">
-        <input type="text" placeholder="التبرير الهندسي لاختيار هذا الموديل تحديداً...">
-        <input type="number" step="0.5" placeholder="السعر" oninput="calc()" class="price-input" style="font-family:var(--font-code); text-align:center;">
-        <span style="cursor:pointer; color:#ef4444; font-size:11px;" onclick="this.closest('.bom-row').remove(); calc();">✕</span>
-      </div>
-      <div class="bom-row">
-        <input type="text" placeholder="محرك سيرفو NEMA17...">
-        <input type="text" placeholder="لتوفير عزم دقيق عند الترددات الحركية...">
-        <input type="number" step="0.5" placeholder="السعر" oninput="calc()" class="price-input" style="font-family:var(--font-code); text-align:center;">
-        <span style="cursor:pointer; color:#ef4444; font-size:11px;" onclick="this.closest('.bom-row').remove(); calc();">✕</span>
-      </div>
-    </div>
+  <div class="master-flow">
 
-    <button class="btn-quiet-add" onclick="addBomRow()">+ إدراج مكون جديد في الـ BOM</button>
+    <!-- الترويسة الرئيسية -->
+    <header class="folio-header">
+      <span class="folio-meta">ATHAR • HORIZON 03</span>
+      <h1 class="folio-heading">القسم الثالث: التصميم وبيان المكونات والعتاد</h1>
+      <p class="folio-brief">
+        تجسيد الفكرة في الواقع: حصر المكونات وعتاد المنظومة، الإسقاط المكاني المرقم للمجسم النهائي، ورصد النقلات التحسينية للتصميم عبر مراحله المتسلسلة.
+      </p>
+    </header>
 
-    <div style="margin-top: 14px; border-top: 1px solid var(--border); padding-top: 16px;">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <span style="font-size:13px; font-weight:600;">المخطط المكاني التفاعلي للمجسم النهائي:</span>
-        <button style="border:none; background:#f1f2f4; padding:5px 12px; border-radius:20px; font-size:11px; cursor:pointer;" onclick="document.getElementById('robotFile').click()">📷 رفع صورة النموذج</button>
-        <input type="file" id="robotFile" accept="image/*" style="display:none;" onchange="handleImage(this)">
+    <!-- 01: بيان المكونات والعتاد (BOM) -->
+    <section class="stage-section">
+      <div class="stage-bar">
+        <div class="stage-identity">
+          <span class="stage-num">01</span>
+          <h2 class="stage-title">بيان المكونات والعتاد ومسوغات الاختيار</h2>
+          
+          <button type="button" class="beacon-btn" data-tip="حصر المكونات المستخدمة مع تحديد الطراز الدقيق والتبرير المرتبط بالتحديات وإمكانية التطوير والكلفة ورابط الشراء." aria-label="إرشاد">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="total-cost-deck">
+          <span class="total-cost-label">المجموع التقديري:</span>
+          <span class="total-cost-val" id="totalCostDisplay">0.00 د.أ</span>
+        </div>
       </div>
 
-      <div class="spatial-frame" id="canvasBoard" onclick="dropPin(event)">
-        <span id="boardPrompt" style="font-size:12px; color:var(--text-subtle);">ارفع صورة النموذج النهائي ثم انقر لإسقاط أرقام المكونات مكانياً</span>
-        <img id="robotViewImg" class="spatial-img" alt="النموذج المكتمل">
+      <div class="catalog-ledger" id="catalogLedger"></div>
+
+      <button type="button" class="btn-append-atom" onclick="appendNewCatalogRow()">
+        + إدراج مكون جديد
+      </button>
+    </section>
+
+    <!-- 02: النموذج النهائي والإسقاط المكاني التوجيهي المرقم -->
+    <section class="stage-section">
+      <div class="stage-bar">
+        <div class="stage-identity">
+          <span class="stage-num">02</span>
+          <h2 class="stage-title">النموذج النهائي وترقيم المكونات</h2>
+
+          <button type="button" class="beacon-btn" data-tip="رفع صورة واضحة للنموذج المكتمل، ثم النقر على زر الموضع الخاص بأي مكون في الجدول أعلاه لإسقاط رقمه في مكانه الدقيق." aria-label="إرشاد">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </button>
+        </div>
       </div>
-    </div>
+
+      <!-- مسرح الإسقاط -->
+      <div class="blueprint-stage" id="blueprintStageBoard" onclick="handleBlueprintStageClick(event)">
+        <span id="blueprintPromptText" style="font-size:11.5px; color:var(--ink-soft); pointer-events:none;">
+          إرفاق صورة النموذج النهائي المكتمل (PNG أو JPEG)
+        </span>
+        <span class="targeting-hint-bar" id="targetingBanner">انقر الآن على موضع القطعة فوق الصورة لتثبيت رقمها</span>
+        
+        <!-- منصة إزالة صورة النموذج مع التحذير بخطوتين -->
+        <div class="blueprint-del-shelf" id="blueprintDelContainer" onclick="event.stopPropagation()">
+          <button type="button" class="btn-stage-del" id="btn_bp_del_init" onclick="armBlueprintDelete()">إزالة الصورة</button>
+          <div class="confirm-stage-deck" id="confirm_bp_del">
+            <span class="bp-del-warn-msg">سيتم مسح كافة المؤشرات المسقطة</span>
+            <button type="button" class="btn-affirm-del" onclick="confirmBlueprintDelete()">تأكيد الإزالة</button>
+            <button type="button" class="btn-cancel-del" onclick="disarmBlueprintDelete()">تراجع</button>
+          </div>
+        </div>
+
+        <input type="file" id="blueprintFileInput" accept="image/png, image/jpeg" style="display:none;" onchange="handleBlueprintImage(this)">
+        <img id="blueprintImageDisplay" class="blueprint-img" alt="النموذج النهائي">
+      </div>
+    </section>
+
+    <!-- 03: مراحل التطور الزمني للتصميم مع إمكانية إزالة الصور بخطوتين -->
+    <section class="stage-section">
+      <div class="stage-bar">
+        <div class="stage-identity">
+          <span class="stage-num">03</span>
+          <h2 class="stage-title">مراحل التطور الزمني للتصميم</h2>
+
+          <button type="button" class="beacon-btn" data-tip="توثيق التحول الهيكلي للمشروع عبر أربع محطات رئيسية من النموذج الأولي حتى الاعتماد النهائي." aria-label="إرشاد">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="evolution-quad-grid">
+        <!-- محطة 1 -->
+        <div class="evo-station-cell">
+          <span class="evo-station-label">المفهوم الأولي</span>
+          <div class="media-shelf-mini" onclick="handleMiniShelfClick('evo_file_0', event)">
+            <span class="field-caption" id="evo_lbl_0">صورة المحطة 01</span>
+            <input type="file" id="evo_file_0" accept="image/png, image/jpeg" style="display:none;" onchange="handleEvoImage(0, this)">
+            <img id="evo_prev_0" class="media-preview-mini" alt="محطة 01">
+
+            <!-- منصة إزالة الصورة بخطوتين -->
+            <div id="evo_del_container_0" style="display:none; position:absolute; top:4px; left:4px; z-index:10;" onclick="event.stopPropagation()">
+              <button type="button" class="btn-discrete-action" style="background:var(--ink-deep); color:#fff; font-size:9px; border-radius:var(--radius-pill); padding:2px 7px;" id="evo_del_init_0" onclick="armEvoDelete(0)">إزالة</button>
+              <div class="confirm-pop-deck" id="evo_del_confirm_0">
+                <button type="button" class="btn-affirm-del" onclick="confirmEvoDelete(0)">تأكيد</button>
+                <button type="button" class="btn-cancel-del" onclick="disarmEvoDelete(0)">تراجع</button>
+              </div>
+            </div>
+          </div>
+          <input type="text" id="evo_note_0" placeholder="أبرز التحسينات..." oninput="updateEvoNote(0, this.value)">
+        </div>
+
+        <!-- محطة 2 -->
+        <div class="evo-station-cell">
+          <span class="evo-station-label">المحاولة الثانية</span>
+          <div class="media-shelf-mini" onclick="handleMiniShelfClick('evo_file_1', event)">
+            <span class="field-caption" id="evo_lbl_1">صورة المحطة 02</span>
+            <input type="file" id="evo_file_1" accept="image/png, image/jpeg" style="display:none;" onchange="handleEvoImage(1, this)">
+            <img id="evo_prev_1" class="media-preview-mini" alt="محطة 02">
+
+            <!-- منصة إزالة الصورة بخطوتين -->
+            <div id="evo_del_container_1" style="display:none; position:absolute; top:4px; left:4px; z-index:10;" onclick="event.stopPropagation()">
+              <button type="button" class="btn-discrete-action" style="background:var(--ink-deep); color:#fff; font-size:9px; border-radius:var(--radius-pill); padding:2px 7px;" id="evo_del_init_1" onclick="armEvoDelete(1)">إزالة</button>
+              <div class="confirm-pop-deck" id="evo_del_confirm_1">
+                <button type="button" class="btn-affirm-del" onclick="confirmEvoDelete(1)">تأكيد</button>
+                <button type="button" class="btn-cancel-del" onclick="disarmEvoDelete(1)">تراجع</button>
+              </div>
+            </div>
+          </div>
+          <input type="text" id="evo_note_1" placeholder="أبرز التحسينات..." oninput="updateEvoNote(1, this.value)">
+        </div>
+
+        <!-- محطة 3 -->
+        <div class="evo-station-cell">
+          <span class="evo-station-label">التحسين الثالث</span>
+          <div class="media-shelf-mini" onclick="handleMiniShelfClick('evo_file_2', event)">
+            <span class="field-caption" id="evo_lbl_2">صورة المحطة 03</span>
+            <input type="file" id="evo_file_2" accept="image/png, image/jpeg" style="display:none;" onchange="handleEvoImage(2, this)">
+            <img id="evo_prev_2" class="media-preview-mini" alt="محطة 03">
+
+            <!-- منصة إزالة الصورة بخطوتين -->
+            <div id="evo_del_container_2" style="display:none; position:absolute; top:4px; left:4px; z-index:10;" onclick="event.stopPropagation()">
+              <button type="button" class="btn-discrete-action" style="background:var(--ink-deep); color:#fff; font-size:9px; border-radius:var(--radius-pill); padding:2px 7px;" id="evo_del_init_2" onclick="armEvoDelete(2)">إزالة</button>
+              <div class="confirm-pop-deck" id="evo_del_confirm_2">
+                <button type="button" class="btn-affirm-del" onclick="confirmEvoDelete(2)">تأكيد</button>
+                <button type="button" class="btn-cancel-del" onclick="disarmEvoDelete(2)">تراجع</button>
+              </div>
+            </div>
+          </div>
+          <input type="text" id="evo_note_2" placeholder="أبرز التحسينات..." oninput="updateEvoNote(2, this.value)">
+        </div>
+
+        <!-- محطة 4 -->
+        <div class="evo-station-cell">
+          <span class="evo-station-label">الاعتماد النهائي</span>
+          <div class="media-shelf-mini" onclick="handleMiniShelfClick('evo_file_3', event)">
+            <span class="field-caption" id="evo_lbl_3">صورة المحطة 04</span>
+            <input type="file" id="evo_file_3" accept="image/png, image/jpeg" style="display:none;" onchange="handleEvoImage(3, this)">
+            <img id="evo_prev_3" class="media-preview-mini" alt="محطة 04">
+
+            <!-- منصة إزالة الصورة بخطوتين -->
+            <div id="evo_del_container_3" style="display:none; position:absolute; top:4px; left:4px; z-index:10;" onclick="event.stopPropagation()">
+              <button type="button" class="btn-discrete-action" style="background:var(--ink-deep); color:#fff; font-size:9px; border-radius:var(--radius-pill); padding:2px 7px;" id="evo_del_init_3" onclick="armEvoDelete(3)">إزالة</button>
+              <div class="confirm-pop-deck" id="evo_del_confirm_3">
+                <button type="button" class="btn-affirm-del" onclick="confirmEvoDelete(3)">تأكيد</button>
+                <button type="button" class="btn-cancel-del" onclick="disarmEvoDelete(3)">تراجع</button>
+              </div>
+            </div>
+          </div>
+          <input type="text" id="evo_note_3" placeholder="أبرز التحسينات..." oninput="updateEvoNote(3, this.value)">
+        </div>
+      </div>
+    </section>
+
+    <!-- التذييل الرسمي -->
+    <footer class="folio-footer">
+      <span>البطولة الوطنية للابتكار والروبوت</span>
+      <span>AED-1101 • 03-DESIGN</span>
+    </footer>
+
   </div>
 
   <script>
-    function calc() {
-      let sum = 0;
-      document.querySelectorAll('.price-input').forEach(i => sum += parseFloat(i.value) || 0);
-      document.getElementById('totalCostDisplay').innerText = sum.toFixed(2) + " د.أ";
+    const STORAGE_KEY = 'ATHAR_DESIGN_SCHEMA_V4';
+    const BLUEPRINT_KEY = 'ATHAR_DESIGN_BLUEPRINT_V4';
+
+    let state = {
+      catalog: [
+        { name: "", model: "", reason: "", upgrade: "", cost: "", link: "", pin: null }
+      ],
+      evolution: [
+        { img: "", note: "" },
+        { img: "", note: "" },
+        { img: "", note: "" },
+        { img: "", note: "" }
+      ]
+    };
+
+    let activeTargetComponentIdx = null;
+
+    // ============================================================
+    // محرك التلميحات الذكي
+    // ============================================================
+    const tooltipEl = document.getElementById('masterTooltip');
+    let activeBeaconBtn = null;
+
+    function initMasterTooltipEngine() {
+      document.body.addEventListener('click', (e) => {
+        const btn = e.target.closest('.beacon-btn');
+        if (btn) {
+          if (activeBeaconBtn === btn && tooltipEl.classList.contains('visible')) {
+            hideTooltip();
+          } else {
+            showTooltip(btn);
+          }
+          return;
+        }
+
+        if (tooltipEl.classList.contains('visible')) {
+          hideTooltip();
+        }
+      });
+
+      window.addEventListener('scroll', () => {
+        if (tooltipEl.classList.contains('visible')) hideTooltip();
+      }, { passive: true });
     }
 
-    function addBomRow() {
-      const b = document.getElementById('bomList');
-      const d = document.createElement('div');
-      d.className = 'bom-row';
-      d.innerHTML = `
-        <input type="text" placeholder="المكون والموديل...">
-        <input type="text" placeholder="التبرير الهندسي...">
-        <input type="number" step="0.5" placeholder="السعر" oninput="calc()" class="price-input" style="font-family:var(--font-code); text-align:center;">
-        <span style="cursor:pointer; color:#ef4444; font-size:11px;" onclick="this.closest('.bom-row').remove(); calc();">✕</span>
-      `;
-      b.appendChild(d);
+    function showTooltip(btn) {
+      if (activeBeaconBtn) activeBeaconBtn.classList.remove('active');
+      activeBeaconBtn = btn;
+      btn.classList.add('active');
+
+      const text = btn.getAttribute('data-tip');
+      tooltipEl.textContent = text;
+      tooltipEl.classList.add('visible');
+
+      const btnRect = btn.getBoundingClientRect();
+      const tipRect = tooltipEl.getBoundingClientRect();
+      const tipWidth = tipRect.width;
+
+      let left = btnRect.left + (btnRect.width / 2) - (tipWidth / 2);
+      
+      const margin = 14;
+      const minLeft = margin;
+      const maxLeft = window.innerWidth - tipWidth - margin;
+      
+      left = Math.max(minLeft, Math.min(maxLeft, left));
+
+      let top = btnRect.bottom + 8;
+      if (top + tipRect.height > window.innerHeight - 10) {
+        top = btnRect.top - tipRect.height - 8;
+      }
+
+      tooltipEl.style.left = `${left}px`;
+      tooltipEl.style.top = `${top}px`;
     }
 
-    let pinCounter = 0;
-    function handleImage(input) {
-      if (input.files && input.files[0]) {
-        const r = new FileReader();
-        r.onload = e => {
-          const img = document.getElementById('robotViewImg');
-          img.src = e.target.result;
-          img.style.display = 'block';
-          document.getElementById('boardPrompt').style.display = 'none';
-        };
-        r.readAsDataURL(input.files[0]);
+    function hideTooltip() {
+      tooltipEl.classList.remove('visible');
+      if (activeBeaconBtn) {
+        activeBeaconBtn.classList.remove('active');
+        activeBeaconBtn = null;
       }
     }
 
-    function dropPin(e) {
-      const img = document.getElementById('robotViewImg');
-      if (img.style.display === 'none') return;
-      const rect = e.currentTarget.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-
-      pinCounter++;
-      const pin = document.createElement('div');
-      pin.className = 'pin-badge';
-      pin.style.left = x + '%';
-      pin.style.top = y + '%';
-      pin.innerText = pinCounter;
-      e.currentTarget.appendChild(pin);
+    function handleMiniShelfClick(targetInputId, e) {
+      if (e.target.closest('.beacon-btn') || e.target.closest('.confirm-pop-deck') || e.target.closest('.btn-discrete-action')) return;
+      document.getElementById(targetInputId).click();
     }
+
+    // ============================================================
+    // 1. إدارة جدول المكونات والعتاد (BOM)
+    // ============================================================
+    function renderCatalogLedger() {
+      const ledger = document.getElementById('catalogLedger');
+      ledger.innerHTML = '';
+      let sum = 0;
+
+      state.catalog.forEach((item, idx) => {
+        const num = idx + 1;
+        const formattedNum = num < 10 ? `0${num}` : `${num}`;
+        const costVal = parseFloat(item.cost) || 0;
+        sum += costVal;
+
+        const isTargetingThis = (activeTargetComponentIdx === idx);
+        const hasAssignedPin = !!item.pin;
+
+        const row = document.createElement('div');
+        row.className = 'catalog-item-card';
+        row.id = `catalog_item_${idx}`;
+        row.innerHTML = `
+          <div class="catalog-top-row">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="auto-num-badge">المكون ${formattedNum}</span>
+
+              <!-- كبسولة الموضع المتناغمة مع إلغاء التثبيت المهدّأ -->
+              <div class="pin-locator-group">
+                ${hasAssignedPin ? `
+                  <div class="pinned-capsule-deck" id="pin_deck_${idx}">
+                    <button type="button" class="btn-pin-trigger has-pin" onclick="toggleTargetingForComponent(${idx})">
+                      الموضع محدد (${formattedNum}) • إعادة التعيين
+                    </button>
+                    <button type="button" class="btn-pin-unpin" id="unpin_init_${idx}" onclick="armUnpin(${idx})">إلغاء التثبيت</button>
+                    <div class="unpin-confirm-deck" id="unpin_confirm_${idx}">
+                      <button type="button" class="btn-affirm-unpin" onclick="confirmUnpin(${idx})">تأكيد الإلغاء</button>
+                      <button type="button" class="btn-cancel-unpin" onclick="disarmUnpin(${idx})">تراجع</button>
+                    </div>
+                  </div>
+                ` : `
+                  <button type="button" 
+                    class="btn-pin-trigger ${isTargetingThis ? 'active-targeting' : ''}" 
+                    onclick="toggleTargetingForComponent(${idx})">
+                    ${isTargetingThis ? 'انقر فوق الصورة لتثبيت الموضع...' : 'تحديد الموضع على الصورة'}
+                  </button>
+                `}
+              </div>
+            </div>
+            
+            ${state.catalog.length > 1 ? `
+              <div class="inline-action-slot" id="cat_del_slot_${idx}">
+                <button type="button" class="btn-discrete-action" onclick="armCatalogDelete(${idx})">استبعاد</button>
+                <div class="confirm-pop-deck" id="cat_del_confirm_${idx}">
+                  <button type="button" class="btn-affirm-del" onclick="disarmAndExecuteCatalogDelete(${idx})">تأكيد الاستبعاد</button>
+                  <button type="button" class="btn-cancel-del" onclick="disarmCatalogDelete(${idx})">تراجع</button>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+
+          <!-- شبكة الحقول المنظمة في طبقتين متكاملتين -->
+          <div class="catalog-fields-tier1">
+            <div>
+              <span class="field-caption">المكون الرئيسي:</span>
+              <input type="text" placeholder="الاسم العام..." value="${escapeHtml(item.name)}" oninput="updateCatalogField(${idx}, 'name', this.value)">
+            </div>
+            <div>
+              <span class="field-caption">الطراز والإصدار:</span>
+              <input type="text" placeholder="الموديل الدقيق..." value="${escapeHtml(item.model)}" oninput="updateCatalogField(${idx}, 'model', this.value)">
+            </div>
+            <div>
+              <span class="field-caption">الكلفة (د.أ):</span>
+              <input type="number" step="0.5" placeholder="0.00" value="${item.cost}" oninput="updateCatalogCost(${idx}, this.value)" style="font-family:var(--font-code); font-weight:600;">
+            </div>
+          </div>
+
+          <div class="catalog-fields-tier2">
+            <div>
+              <span class="field-caption">مسوغات الاختيار:</span>
+              <input type="text" placeholder="صلته بالتحديات أو الاستراتيجية..." value="${escapeHtml(item.reason)}" oninput="updateCatalogField(${idx}, 'reason', this.value)">
+            </div>
+            <div>
+              <span class="field-caption">أفق التطوير المستقبلي:</span>
+              <input type="text" placeholder="خطة التحسين..." value="${escapeHtml(item.upgrade)}" oninput="updateCatalogField(${idx}, 'upgrade', this.value)">
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="field-caption">رابط الشراء:</span>
+                ${item.link ? `<a href="${escapeHtml(item.link)}" target="_blank" class="external-link-btn" title="فتح الرابط">فتح الرابط ↗</a>` : ''}
+              </div>
+              <input type="text" placeholder="https://..." value="${escapeHtml(item.link || '')}" oninput="updateCatalogField(${idx}, 'link', this.value)" style="direction:ltr; text-align:left; font-family:var(--font-code); font-size:11.5px;">
+            </div>
+          </div>
+        `;
+        ledger.appendChild(row);
+      });
+
+      document.getElementById('totalCostDisplay').innerText = sum.toFixed(2) + " د.أ";
+      renderBlueprintPins();
+    }
+
+    function toggleTargetingForComponent(idx) {
+      const img = document.getElementById('blueprintImageDisplay');
+      if (!img.src || img.style.display === 'none') {
+        document.getElementById('blueprintFileInput').click();
+        return;
+      }
+
+      if (activeTargetComponentIdx === idx) {
+        disarmTargetingMode();
+      } else {
+        activeTargetComponentIdx = idx;
+        const stage = document.getElementById('blueprintStageBoard');
+        stage.classList.add('is-armed-target');
+        document.getElementById('targetingBanner').style.display = 'block';
+        
+        document.querySelectorAll('.catalog-item-card').forEach(c => c.classList.remove('highlighted'));
+        document.getElementById(`catalog_item_${idx}`).classList.add('highlighted');
+        
+        renderCatalogLedger();
+        stage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    function disarmTargetingMode() {
+      activeTargetComponentIdx = null;
+      const stage = document.getElementById('blueprintStageBoard');
+      stage.classList.remove('is-armed-target');
+      document.getElementById('targetingBanner').style.display = 'none';
+      document.querySelectorAll('.catalog-item-card').forEach(c => c.classList.remove('highlighted'));
+      renderCatalogLedger();
+    }
+
+    function armUnpin(idx) {
+      document.getElementById(`unpin_init_${idx}`).style.display = 'none';
+      document.getElementById(`unpin_confirm_${idx}`).classList.add('active');
+    }
+
+    function disarmUnpin(idx) {
+      document.getElementById(`unpin_init_${idx}`).style.display = 'inline-block';
+      document.getElementById(`unpin_confirm_${idx}`).classList.remove('active');
+    }
+
+    function confirmUnpin(idx) {
+      state.catalog[idx].pin = null;
+      renderCatalogLedger();
+      persistMasterState();
+    }
+
+    function updateCatalogField(idx, field, val) {
+      state.catalog[idx][field] = val;
+      persistMasterState();
+    }
+
+    function updateCatalogCost(idx, val) {
+      state.catalog[idx].cost = val;
+      renderCatalogLedger();
+      persistMasterState();
+    }
+
+    function appendNewCatalogRow() {
+      const newIndex = state.catalog.length;
+      state.catalog.push({ name: "", model: "", reason: "", upgrade: "", cost: "", link: "", pin: null });
+      renderCatalogLedger();
+      persistMasterState();
+
+      requestAnimationFrame(() => {
+        const newCard = document.getElementById(`catalog_item_${newIndex}`);
+        if (newCard) {
+          newCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const firstInput = newCard.querySelector('input[type="text"]');
+          if (firstInput) setTimeout(() => firstInput.focus(), 350);
+        }
+      });
+    }
+
+    function armCatalogDelete(idx) {
+      document.querySelector(`#cat_del_slot_${idx} .btn-discrete-action`).style.display = 'none';
+      document.getElementById(`cat_del_confirm_${idx}`).classList.add('active');
+    }
+
+    function disarmCatalogDelete(idx) {
+      document.querySelector(`#cat_del_slot_${idx} .btn-discrete-action`).style.display = 'inline-block';
+      document.getElementById(`cat_del_confirm_${idx}`).classList.remove('active');
+    }
+
+    function disarmAndExecuteCatalogDelete(idx) {
+      if (activeTargetComponentIdx === idx) disarmTargetingMode();
+      state.catalog.splice(idx, 1);
+      renderCatalogLedger();
+      persistMasterState();
+    }
+
+    // ============================================================
+    // 2. إدارة الإسقاط المكاني وإزالة صورة النموذج
+    // ============================================================
+    function handleBlueprintImage(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          displayBlueprintImage(e.target.result);
+          try {
+            localStorage.setItem(BLUEPRINT_KEY, e.target.result);
+          } catch(err) {
+            console.warn('تجاوزت صورة المجسم الحجم المقترح للتخزين المحلي.');
+          }
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function displayBlueprintImage(src) {
+      const img = document.getElementById('blueprintImageDisplay');
+      img.src = src;
+      img.style.display = 'block';
+      document.getElementById('blueprintPromptText').style.display = 'none';
+      document.getElementById('blueprintDelContainer').style.display = 'block';
+    }
+
+    function armBlueprintDelete() {
+      document.getElementById('btn_bp_del_init').style.display = 'none';
+      document.getElementById('confirm_bp_del').classList.add('active');
+    }
+
+    function disarmBlueprintDelete() {
+      document.getElementById('btn_bp_del_init').style.display = 'inline-block';
+      document.getElementById('confirm_bp_del').classList.remove('active');
+    }
+
+    function confirmBlueprintDelete() {
+      const img = document.getElementById('blueprintImageDisplay');
+      img.src = '';
+      img.style.display = 'none';
+      document.getElementById('blueprintPromptText').style.display = 'block';
+      document.getElementById('blueprintDelContainer').style.display = 'none';
+      document.getElementById('blueprintFileInput').value = '';
+      localStorage.removeItem(BLUEPRINT_KEY);
+
+      state.catalog.forEach(item => { item.pin = null; });
+      disarmBlueprintDelete();
+      disarmTargetingMode();
+      renderCatalogLedger();
+      persistMasterState();
+    }
+
+    function handleBlueprintStageClick(e) {
+      const img = document.getElementById('blueprintImageDisplay');
+      
+      if (img.style.display === 'none' || !img.src) {
+        document.getElementById('blueprintFileInput').click();
+        return;
+      }
+
+      if (e.target.closest('#blueprintDelContainer')) {
+        return;
+      }
+
+      if (e.target.classList.contains('blueprint-pin')) {
+        const compIdx = parseInt(e.target.getAttribute('data-comp-idx'), 10);
+        const targetRow = document.getElementById(`catalog_item_${compIdx}`);
+        if (targetRow) {
+          document.querySelectorAll('.catalog-item-card').forEach(c => c.classList.remove('highlighted'));
+          targetRow.classList.add('highlighted');
+          targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+
+      if (activeTargetComponentIdx === null) {
+        return;
+      }
+
+      const stage = document.getElementById('blueprintStageBoard');
+      const rect = stage.getBoundingClientRect();
+      const xPercent = ((e.clientX - rect.left) / rect.width) * 100;
+      const yPercent = ((e.clientY - rect.top) / rect.height) * 100;
+
+      state.catalog[activeTargetComponentIdx].pin = {
+        x: xPercent.toFixed(1),
+        y: yPercent.toFixed(1)
+      };
+
+      disarmTargetingMode();
+      persistMasterState();
+    }
+
+    function renderBlueprintPins() {
+      document.querySelectorAll('.blueprint-pin').forEach(p => p.remove());
+      const stage = document.getElementById('blueprintStageBoard');
+
+      state.catalog.forEach((item, idx) => {
+        if (item.pin && item.pin.x && item.pin.y) {
+          const num = idx + 1;
+          const formattedNum = num < 10 ? `0${num}` : `${num}`;
+
+          const pin = document.createElement('div');
+          pin.className = 'blueprint-pin';
+          pin.style.left = item.pin.x + '%';
+          pin.style.top = item.pin.y + '%';
+          pin.innerText = formattedNum;
+          pin.setAttribute('data-comp-idx', idx);
+          pin.title = `المكون ${formattedNum}: ${item.name || 'بدون اسم'}`;
+          stage.appendChild(pin);
+        }
+      });
+    }
+
+    // ============================================================
+    // 3. مراحل التطور الزمني للتصميم وإزالة صورها بخطوتين
+    // ============================================================
+    function handleEvoImage(idx, input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          state.evolution[idx].img = e.target.result;
+          displayEvoImage(idx, e.target.result);
+          persistMasterState();
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function displayEvoImage(idx, src) {
+      const img = document.getElementById(`evo_prev_${idx}`);
+      const lbl = document.getElementById(`evo_lbl_${idx}`);
+      const del = document.getElementById(`evo_del_container_${idx}`);
+      if (img && src) {
+        img.src = src;
+        img.style.display = 'block';
+        if (lbl) lbl.style.display = 'none';
+        if (del) del.style.display = 'block';
+      }
+    }
+
+    function armEvoDelete(idx) {
+      document.getElementById(`evo_del_init_${idx}`).style.display = 'none';
+      document.getElementById(`evo_del_confirm_${idx}`).classList.add('active');
+    }
+
+    function disarmEvoDelete(idx) {
+      document.getElementById(`evo_del_init_${idx}`).style.display = 'inline-block';
+      document.getElementById(`evo_del_confirm_${idx}`).classList.remove('active');
+    }
+
+    function confirmEvoDelete(idx) {
+      state.evolution[idx].img = "";
+      const img = document.getElementById(`evo_prev_${idx}`);
+      const lbl = document.getElementById(`evo_lbl_${idx}`);
+      const del = document.getElementById(`evo_del_container_${idx}`);
+      const fileInput = document.getElementById(`evo_file_${idx}`);
+      
+      if (img) { img.src = ""; img.style.display = 'none'; }
+      if (lbl) { lbl.style.display = 'block'; }
+      if (del) { del.style.display = 'none'; }
+      if (fileInput) { fileInput.value = ""; }
+
+      disarmEvoDelete(idx);
+      persistMasterState();
+    }
+
+    function updateEvoNote(idx, val) {
+      state.evolution[idx].note = val;
+      persistMasterState();
+    }
+
+    // ============================================================
+    // 4. الحفظ المحلي التلقائي
+    // ============================================================
+    function persistMasterState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch(err) {
+        console.warn('تجاوزت البيانات الحجم التخزيني المقترح.');
+      }
+    }
+
+    function restoreMasterState() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        try {
+          const parsed = JSON.parse(raw);
+          state = { ...state, ...parsed };
+        } catch(err) {}
+      }
+
+      const cachedBlueprint = localStorage.getItem(BLUEPRINT_KEY);
+      if (cachedBlueprint) {
+        displayBlueprintImage(cachedBlueprint);
+      }
+
+      renderCatalogLedger();
+
+      state.evolution.forEach((item, idx) => {
+        if (item.img) displayEvoImage(idx, item.img);
+        const noteEl = document.getElementById(`evo_note_${idx}`);
+        if (noteEl) noteEl.value = item.note || '';
+      });
+    }
+
+    function escapeHtml(str) {
+      return (str || '').replace(/"/g, '&quot;');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      restoreMasterState();
+      initMasterTooltipEngine();
+    });
   </script>
 </body>
 </html>
