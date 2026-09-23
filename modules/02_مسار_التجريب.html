@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text-main: #141619;
+      --text-muted: #5e656e;
+      --text-subtle: #9ea5af;
+      --border: rgba(0, 0, 0, 0.07);
+      --font-body: 'Readex Pro', sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+      --ease-genesis: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-body); }
+    body { background: var(--bg); color: var(--text-main); padding: clamp(20px, 3.5vw, 32px); line-height: 1.6; }
+
+    .module-container { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+    .genesis-node { opacity: 0; animation: genesisBloom 0.7s var(--ease-genesis) forwards; }
+    @keyframes genesisBloom { from { opacity: 0; transform: scale(0.95); filter: blur(5px); } to { opacity: 1; transform: scale(1); filter: blur(0); } }
+
+    .header-tag { font-family: var(--font-code); font-size: 11px; color: var(--text-subtle); letter-spacing: 0.5px; }
+    h2 { font-size: clamp(17px, 3vw, 20px); font-weight: 600; margin: 2px 0 12px; }
+
+    .guide-callout {
+      background: #fafaf8; border-right: 3px solid var(--text-main);
+      padding: 10px 14px; border-radius: 6px; font-size: 12px; color: var(--text-muted); line-height: 1.6;
+    }
+
+    .run-card {
+      border: 1px solid var(--border); border-radius: 16px; padding: 18px;
+      background: #fafaf8; display: flex; flex-direction: column; gap: 12px;
+      animation: genesisBloom 0.5s var(--ease-genesis);
+    }
+    .run-card-top { display: flex; justify-content: space-between; align-items: center; }
+    .run-badge { font-family: var(--font-code); font-size: 10.5px; padding: 2px 8px; background: #f1f2f4; border-radius: 20px; font-weight: 600; }
+
+    .split-analysis { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media(max-width: 580px) { .split-analysis { grid-template-columns: 1fr; } }
+    .col-pass, .col-fail { background: #ffffff; padding: 12px; border-radius: 12px; border: 1px solid var(--border); }
+    .col-pass strong { color: #10b981; font-size: 11.5px; display: block; margin-bottom: 4px; }
+    .col-fail strong { color: #ef4444; font-size: 11.5px; display: block; margin-bottom: 4px; }
+    textarea.area-mini { width: 100%; border: none; background: transparent; outline: none; font-size: 12.5px; resize: none; min-height: 48px; }
+
+    .decision-deck { background: #fffdf5; border: 1px solid #fde68a; padding: 12px; border-radius: 12px; }
+    .decision-deck label { font-size: 11.5px; font-weight: 600; color: #92400e; display: block; margin-bottom: 4px; }
+
+    .btn-quiet-add {
+      background: transparent; border: 1px dashed rgba(0,0,0,0.18); padding: 10px 22px;
+      border-radius: 30px; font-size: 12px; color: var(--text-muted); cursor: pointer; display: block; margin: 10px auto;
+      transition: all 0.25s ease;
+    }
+    .btn-quiet-add:hover { border-color: var(--text-main); color: var(--text-main); transform: translateY(-1px); }
+  </style>
+</head>
+<body>
+
+  <div class="module-container">
+    <div class="genesis-node">
+      <span class="header-tag">أَثَـر · HORIZON 02</span>
+      <h2>مسار التجريب والتعلّم المستمر (Runs Ledger)</h2>
+      <div class="guide-callout">
+        💡 لا يوجد فشل في الهندسة، بل أصول معرفية تقود للقرار الصحيح! وثقوا ما نجح وما لم ينجح، مع إلزامية كتابة القرار الحاسم للمحاولة القادمة.
+      </div>
+    </div>
+
+    <div id="runsStream">
+      <div class="run-card">
+        <div class="run-card-top">
+          <span class="run-badge">RUN #01</span>
+          <span style="font-family:var(--font-code); font-size:11px; color:var(--text-subtle);">المحاولة التأسيسية</span>
+        </div>
+        <input type="text" placeholder="ما الهدف المباشر من هذه المحاولة؟ (مع توزيع الأدوار)..." style="width:100%; border:none; background:transparent; font-size:13.5px; font-weight:600; outline:none;" oninput="save()">
+        
+        <div class="split-analysis">
+          <div class="col-pass">
+            <strong>ما الذي أثبته الاختبار؟ (النجاح المستفاد)</strong>
+            <textarea class="area-mini" placeholder="الجزء الذي تحقق كما هو متوقع وقرار البناء عليه..." oninput="save()"></textarea>
+          </div>
+          <div class="col-fail">
+            <strong>ما الذي لم ينجح؟ (الأصل المعرفي للإخفاق)</strong>
+            <textarea class="area-mini" placeholder="العائق الهندسي المرصود والسبب الجذري..." oninput="save()"></textarea>
+          </div>
+        </div>
+
+        <div class="decision-deck">
+          <label>القرار الحاسم للمحاولة القادمة:</label>
+          <input type="text" placeholder="مثال: تعديل زاوية ارتكاز المستشعر لزيادة دقة المسح..." style="width:100%; border:none; background:transparent; outline:none; font-size:12.5px; color:var(--text-main);" oninput="save()">
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-quiet-add" onclick="addNewRun()">+ فتح جولة تجريبية جديدة</button>
+  </div>
+
+  <script>
+    let runSerial = 1;
+    function addNewRun() {
+      runSerial++;
+      const s = document.getElementById('runsStream');
+      const d = document.createElement('div');
+      d.className = 'run-card';
+      d.innerHTML = `
+        <div class="run-card-top">
+          <span class="run-badge">RUN #0${runSerial}</span>
+          <span style="color:#ef4444; font-size:11px; cursor:pointer;" onclick="this.closest('.run-card').remove(); save();">إلغاء</span>
+        </div>
+        <input type="text" placeholder="ما الهدف المباشر من المحاولة #${runSerial}؟..." style="width:100%; border:none; background:transparent; font-size:13.5px; font-weight:600; outline:none;" oninput="save()">
+        <div class="split-analysis">
+          <div class="col-pass"><strong>ما الذي أثبته الاختبار؟</strong><textarea class="area-mini" placeholder="النتائج الإيجابية..." oninput="save()"></textarea></div>
+          <div class="col-fail"><strong>العائق والسبب الجذري:</strong><textarea class="area-mini" placeholder="الخلل الهندسي..." oninput="save()"></textarea></div>
+        </div>
+        <div class="decision-deck">
+          <label>القرار الحاسم للمحاولة القادمة:</label>
+          <input type="text" placeholder="القرار المترتب على هذه النتيجة..." style="width:100%; border:none; background:transparent; outline:none; font-size:12.5px;" oninput="save()">
+        </div>
+      `;
+      s.appendChild(d);
+      save();
+    }
+
+    function save() {
+      localStorage.setItem('ATHAR_MODULE_02_RUNS', document.getElementById('runsStream').innerHTML);
+    }
+
+    window.onload = () => {
+      const saved = localStorage.getItem('ATHAR_MODULE_02_RUNS');
+      if (saved) document.getElementById('runsStream').innerHTML = saved;
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text-main: #141619;
+      --text-muted: #5e656e;
+      --text-subtle: #9ea5af;
+      --border: rgba(0, 0, 0, 0.07);
+      --font-body: 'Readex Pro', sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+      --ease-genesis: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-body); }
+    body { background: var(--bg); color: var(--text-main); padding: clamp(20px, 3.5vw, 32px); line-height: 1.6; }
+
+    .module-container { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+    .header-tag { font-family: var(--font-code); font-size: 11px; color: var(--text-subtle); letter-spacing: 0.5px; }
+    h2 { font-size: clamp(17px, 3vw, 20px); font-weight: 600; margin: 2px 0 12px; }
+
+    .code-terminal {
+      background: #18191c; border-radius: 14px; padding: 16px; color: #80cbc4;
+      font-family: var(--font-code); font-size: 12.5px;
+    }
+    .code-terminal textarea {
+      width: 100%; background: transparent; border: none; outline: none; color: inherit;
+      font-family: inherit; font-size: inherit; resize: none; min-height: 90px; direction: ltr; line-height: 1.6;
+    }
+
+    .shield-card {
+      background: #fafaf8; border: 1px solid var(--border); border-radius: 16px; padding: 18px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .shield-card strong { font-size: 13px; color: var(--text-main); }
+    .shield-card input {
+      border: none; background: transparent; border-bottom: 1px solid var(--border);
+      padding-bottom: 6px; font-size: 12.5px; outline: none; color: var(--text-main);
+    }
+    .shield-card textarea {
+      width: 100%; border: none; background: transparent; outline: none;
+      font-size: 12.5px; resize: none; min-height: 60px; line-height: 1.6; color: var(--text-main);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="module-container">
+    <div>
+      <span class="header-tag">أَثَـر · HORIZON 04</span>
+      <h2>أمانة الابتكار ودرع التحقق البشري</h2>
+    </div>
+
+    <div class="code-terminal">
+      <div style="font-size:10px; color:#546e7a; margin-bottom:6px;">// Core Algorithm Logic · المنطق البرمجي المجرد</div>
+      <textarea placeholder="void executeAdaptiveControl() {&#10;  float error = targetSensor - currentSensor;&#10;  driveActuator(error * dampingFactor);&#10;}"></textarea>
+    </div>
+
+    <div class="shield-card">
+      <strong>🛡️ درع التحقق والتعديل البشري (AI Verification Shield)</strong>
+      <input type="text" placeholder="الـ Prompt أو التوجيه الدقيق الموجه لأداة الذكاء الاصطناعي...">
+      <textarea placeholder="اشرحوا كيف اختبرتم المخرج، وأين تدخل عقلكم البشري بتعديل المعادلات والمنطق ليتوافق مع واقعكم الهندسي ويثبت ملكيتكم الفكرية الحقيقية..."></textarea>
+    </div>
+  </div>
+
+</body>
+</html>

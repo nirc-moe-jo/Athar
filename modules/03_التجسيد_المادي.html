@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text-main: #141619;
+      --text-muted: #5e656e;
+      --text-subtle: #9ea5af;
+      --border: rgba(0, 0, 0, 0.07);
+      --font-body: 'Readex Pro', sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+      --ease-genesis: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-body); }
+    body { background: var(--bg); color: var(--text-main); padding: clamp(20px, 3.5vw, 32px); line-height: 1.6; }
+
+    .module-container { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+    .header-tag { font-family: var(--font-code); font-size: 11px; color: var(--text-subtle); letter-spacing: 0.5px; }
+    h2 { font-size: clamp(17px, 3vw, 20px); font-weight: 600; margin: 2px 0 12px; }
+
+    .top-budget-deck {
+      display: flex; justify-content: space-between; align-items: baseline;
+      border-bottom: 1px solid var(--border); padding-bottom: 12px;
+    }
+    .budget-tag { font-family: var(--font-code); font-size: 15px; font-weight: 700; color: #10b981; }
+
+    .bom-row {
+      display: grid; grid-template-columns: 2fr 3fr 1fr 20px; gap: 10px; padding: 10px 0;
+      border-bottom: 1px solid var(--border); align-items: center;
+    }
+    @media(max-width: 580px) { .bom-row { grid-template-columns: 1fr; } }
+    .bom-row input { border: none; background: transparent; outline: none; font-size: 13px; color: var(--text-main); }
+
+    /* مسرح الإسقاط المكاني التفاعلي */
+    .spatial-frame {
+      width: 100%; height: 260px; border: 1.5px dashed var(--border); border-radius: 16px;
+      background: #fafaf8; position: relative; display: flex; align-items: center; justify-content: center;
+      cursor: crosshair; overflow: hidden; margin-top: 8px; user-select: none;
+    }
+    .spatial-img { max-width: 100%; max-height: 100%; display: none; }
+    .pin-badge {
+      position: absolute; width: 24px; height: 24px; border-radius: 50%; background: var(--text-main);
+      color: #fff; font-family: var(--font-code); font-size: 11px; font-weight: 600; display: flex;
+      align-items: center; justify-content: center; transform: translate(-50%, -50%);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25); border: 2px solid #fff;
+    }
+
+    .btn-quiet-add {
+      background: transparent; border: 1px dashed rgba(0,0,0,0.18); padding: 9px 20px;
+      border-radius: 30px; font-size: 12px; color: var(--text-muted); cursor: pointer; display: block; margin: 10px auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="module-container">
+    <div>
+      <span class="header-tag">أَثَـر · HORIZON 03</span>
+      <div class="top-budget-deck">
+        <h2>التجسيد المادي وقائمة المكونات (BOM)</h2>
+        <span class="budget-tag" id="totalCostDisplay">0.00 د.أ</span>
+      </div>
+    </div>
+
+    <div id="bomList">
+      <div class="bom-row">
+        <input type="text" placeholder="المكون والموديل (ESP32-S3)...">
+        <input type="text" placeholder="التبرير الهندسي لاختيار هذا الموديل تحديداً...">
+        <input type="number" step="0.5" placeholder="السعر" oninput="calc()" class="price-input" style="font-family:var(--font-code); text-align:center;">
+        <span style="cursor:pointer; color:#ef4444; font-size:11px;" onclick="this.closest('.bom-row').remove(); calc();">✕</span>
+      </div>
+      <div class="bom-row">
+        <input type="text" placeholder="محرك سيرفو NEMA17...">
+        <input type="text" placeholder="لتوفير عزم دقيق عند الترددات الحركية...">
+        <input type="number" step="0.5" placeholder="السعر" oninput="calc()" class="price-input" style="font-family:var(--font-code); text-align:center;">
+        <span style="cursor:pointer; color:#ef4444; font-size:11px;" onclick="this.closest('.bom-row').remove(); calc();">✕</span>
+      </div>
+    </div>
+
+    <button class="btn-quiet-add" onclick="addBomRow()">+ إدراج مكون جديد في الـ BOM</button>
+
+    <div style="margin-top: 14px; border-top: 1px solid var(--border); padding-top: 16px;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:13px; font-weight:600;">المخطط المكاني التفاعلي للمجسم النهائي:</span>
+        <button style="border:none; background:#f1f2f4; padding:5px 12px; border-radius:20px; font-size:11px; cursor:pointer;" onclick="document.getElementById('robotFile').click()">📷 رفع صورة النموذج</button>
+        <input type="file" id="robotFile" accept="image/*" style="display:none;" onchange="handleImage(this)">
+      </div>
+
+      <div class="spatial-frame" id="canvasBoard" onclick="dropPin(event)">
+        <span id="boardPrompt" style="font-size:12px; color:var(--text-subtle);">ارفع صورة النموذج النهائي ثم انقر لإسقاط أرقام المكونات مكانياً</span>
+        <img id="robotViewImg" class="spatial-img" alt="النموذج المكتمل">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function calc() {
+      let sum = 0;
+      document.querySelectorAll('.price-input').forEach(i => sum += parseFloat(i.value) || 0);
+      document.getElementById('totalCostDisplay').innerText = sum.toFixed(2) + " د.أ";
+    }
+
+    function addBomRow() {
+      const b = document.getElementById('bomList');
+      const d = document.createElement('div');
+      d.className = 'bom-row';
+      d.innerHTML = `
+        <input type="text" placeholder="المكون والموديل...">
+        <input type="text" placeholder="التبرير الهندسي...">
+        <input type="number" step="0.5" placeholder="السعر" oninput="calc()" class="price-input" style="font-family:var(--font-code); text-align:center;">
+        <span style="cursor:pointer; color:#ef4444; font-size:11px;" onclick="this.closest('.bom-row').remove(); calc();">✕</span>
+      `;
+      b.appendChild(d);
+    }
+
+    let pinCounter = 0;
+    function handleImage(input) {
+      if (input.files && input.files[0]) {
+        const r = new FileReader();
+        r.onload = e => {
+          const img = document.getElementById('robotViewImg');
+          img.src = e.target.result;
+          img.style.display = 'block';
+          document.getElementById('boardPrompt').style.display = 'none';
+        };
+        r.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function dropPin(e) {
+      const img = document.getElementById('robotViewImg');
+      if (img.style.display === 'none') return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+      pinCounter++;
+      const pin = document.createElement('div');
+      pin.className = 'pin-badge';
+      pin.style.left = x + '%';
+      pin.style.top = y + '%';
+      pin.innerText = pinCounter;
+      e.currentTarget.appendChild(pin);
+    }
+  </script>
+</body>
+</html>
