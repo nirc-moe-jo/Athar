@@ -2,76 +2,1179 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>أَثَـر • هوية الفريق وبصمة الصانع</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #ffffff;
-      --text-main: #141619;
-      --text-muted: #5e656e;
-      --text-subtle: #9ea5af;
-      --border: rgba(0, 0, 0, 0.07);
-      --font-body: 'Readex Pro', sans-serif;
+      --bg-sky: #faf9f6;
+      --surface-pure: #ffffff;
+      --surface-card: #fafaf8;
+      
+      --ink-deep: #141619;
+      --ink-soft: #5e656e;
+      --ink-subtle: #9ea5af;
+
+      --border-whisper: rgba(0, 0, 0, 0.07);
+      --border-focus: rgba(20, 22, 25, 0.3);
+
+      --accent-valid: #10b981;
+      --accent-alert: #f43f5e;
+
+      --font-body: 'Readex Pro', -apple-system, sans-serif;
       --font-code: 'JetBrains Mono', monospace;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-pill: 9999px;
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-body); }
-    body { background: var(--bg); color: var(--text-main); padding: clamp(20px, 3.5vw, 32px); line-height: 1.6; }
-
-    .module-container { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
-
-    .header-tag { font-family: var(--font-code); font-size: 11px; color: var(--text-subtle); letter-spacing: 0.5px; }
-    h2 { font-size: clamp(17px, 3vw, 20px); font-weight: 600; margin: 2px 0 12px; }
-
-    .team-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    @media(max-width: 580px) { .team-cards-grid { grid-template-columns: 1fr; } }
-
-    .member-footprint-card {
-      background: #fafaf8; border: 1px solid var(--border); border-radius: 16px; padding: 18px;
-      display: flex; flex-direction: column; gap: 8px;
-    }
-    .member-footprint-card input {
-      width: 100%; border: none; background: transparent; font-size: 13.5px; font-weight: 600;
-      border-bottom: 1px solid var(--border); padding-bottom: 4px; outline: none;
-    }
-    .member-footprint-card textarea {
-      width: 100%; border: none; background: transparent; outline: none; font-size: 12px;
-      resize: none; min-height: 55px; line-height: 1.6; color: var(--text-main);
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
     }
 
-    .closing-wisdom {
-      text-align: center; margin-top: 14px; font-size: 12px; color: var(--text-subtle);
-      border-top: 1px dashed var(--border); padding-top: 14px;
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      background-color: var(--surface-pure);
+      color: var(--ink-deep);
+    }
+
+    body {
+      padding: clamp(16px, 3.5vw, 36px) clamp(12px, 3vw, 28px);
+      line-height: 1.6;
+    }
+
+    .master-flow {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+    }
+
+    /* الترويسة الرئيسية */
+    .folio-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-whisper);
+    }
+    .folio-meta {
+      font-family: var(--font-code);
+      font-size: 10.5px;
+      color: var(--ink-subtle);
+      letter-spacing: 0.5px;
+    }
+    .folio-heading {
+      font-size: clamp(18px, 2.8vw, 22px);
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      color: var(--ink-deep);
+    }
+    .folio-brief {
+      font-size: 12.5px;
+      color: var(--ink-soft);
+      line-height: 1.65;
+    }
+
+    /* كتل الأقسام */
+    .stage-section {
+      background: var(--surface-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-whisper);
+      padding: clamp(14px, 3vw, 22px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      transition: all 0.3s var(--ease);
+    }
+    .stage-section:focus-within {
+      background: var(--surface-pure);
+      border-color: rgba(20, 22, 25, 0.2);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04);
+    }
+
+    .stage-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .stage-identity {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stage-num {
+      font-family: var(--font-code);
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      background: var(--surface-pure);
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-whisper);
+      flex-shrink: 0;
+    }
+    .stage-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink-deep);
+      line-height: 1.4;
+    }
+
+    /* منتقي تعداد أعضاء الفريق */
+    .team-size-selector-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface-pure);
+      border: 1px solid var(--border-whisper);
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+    }
+    .team-size-select {
+      border: none;
+      background: transparent;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink-deep);
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* شبكة بطاقات التعريف الرسمية */
+    .profile-grid-deck {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .member-profile-card {
+      background: var(--surface-pure);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+      transition: all 0.25s var(--ease);
+      position: relative;
+    }
+    .member-profile-card:hover {
+      border-color: rgba(20, 22, 25, 0.2);
+    }
+
+    /* دائرة الصورة الشخصية */
+    .avatar-vault-circle {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      border: 1px dashed rgba(20, 22, 25, 0.2);
+      background: var(--surface-card);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 4px;
+      transition: border-color 0.2s;
+    }
+    .avatar-vault-circle:hover {
+      border-color: var(--ink-deep);
+    }
+    .avatar-img-render {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .card-tier-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-soft);
+      letter-spacing: 0.2px;
+    }
+
+    /* الحقول النصية والقوائم المعيارية */
+    textarea, input[type="text"], select.field-select {
+      width: 100%;
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--ink-deep);
+      background: var(--surface-card);
+      outline: none;
+      transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), background-color 0.2s;
+    }
+    textarea:focus, input[type="text"]:focus, select.field-select:focus {
+      border-color: var(--border-focus);
+      background: var(--surface-pure);
+      box-shadow: 0 0 0 3px rgba(20, 22, 25, 0.035);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    /* شريط تبديل بصمات الأثر */
+    .footprint-tabs-bar {
+      display: flex;
+      gap: 6px;
+      border-bottom: 1px solid var(--border-whisper);
+      padding-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .footprint-tab-btn {
+      background: var(--surface-pure);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-pill);
+      padding: 5px 14px;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .footprint-tab-btn:hover {
+      color: var(--ink-deep);
+      border-color: var(--ink-deep);
+    }
+    .footprint-tab-btn.active {
+      background: var(--ink-deep);
+      color: #ffffff;
+      border-color: var(--ink-deep);
+    }
+
+    /* جناح بصمة العضو */
+    .footprint-pane {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      animation: paneFade 0.25s var(--ease);
+    }
+    .footprint-pane.active {
+      display: flex;
+    }
+    @keyframes paneFade {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ترويسة البصمة المنبثقة مع صورة العضو */
+    .footprint-header-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface-pure);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+    }
+    .footprint-avatar-lens {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--surface-card);
+      border: 1px solid var(--border-whisper);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .footprint-avatar-lens img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+    .footprint-member-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
+    .footprint-member-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink-deep);
+    }
+    .footprint-member-tier {
+      font-size: 10.5px;
+      color: var(--ink-soft);
+      font-family: var(--font-code);
+    }
+
+    /* مربع تاريخ الانضمام */
+    .trial-date-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface-pure);
+      border: 1px solid var(--border-whisper);
+      padding: 3px 10px;
+      border-radius: var(--radius-sm);
+      width: fit-content;
+    }
+    .date-title-tag {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      white-space: nowrap;
+    }
+    .trial-date-field {
+      font-family: var(--font-code);
+      font-size: 11px;
+      color: var(--ink-deep);
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 1px 0;
+      cursor: pointer;
+    }
+
+    /* حيز الرسالة والأثر */
+    .quote-statement-card {
+      background: var(--surface-pure);
+      border: 1px dashed var(--border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* نظام الحذف والتأكيد السلس من خطوتين */
+    .inline-action-slot {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-discrete-action {
+      border: none;
+      background: transparent;
+      color: var(--ink-subtle);
+      cursor: pointer;
+      font-size: 10.5px;
+      padding: 2px 4px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s var(--ease);
+    }
+    .btn-discrete-action:hover { color: var(--accent-alert); }
+
+    .confirm-pop-deck {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface-pure);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(185, 28, 28, 0.25);
+    }
+    .confirm-pop-deck.active {
+      display: inline-flex;
+    }
+    .btn-affirm-del {
+      border: none;
+      background: var(--accent-alert);
+      color: #ffffff;
+      font-size: 9.5px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+    }
+    .btn-cancel-del {
+      border: none;
+      background: transparent;
+      color: var(--ink-soft);
+      font-size: 9.5px;
+      cursor: pointer;
+      padding: 2px 4px;
+    }
+
+    /* زر التلميح */
+    .beacon-btn {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-subtle);
+      cursor: pointer;
+      flex-shrink: 0;
+      padding: 0;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .beacon-btn:hover, .beacon-btn.active {
+      color: var(--ink-deep);
+      transform: scale(1.15);
+    }
+    .beacon-btn svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    /* النافذة العائمة المركزية المانعة للفيضان */
+    #masterTooltip {
+      position: fixed;
+      z-index: 100000;
+      background: #141619;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 1.55;
+      padding: 9px 13px;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(4px);
+      transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+      max-width: 250px;
+      box-sizing: border-box;
+      white-space: normal;
+    }
+    #masterTooltip.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* التذييل الرسمي */
+    .folio-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-whisper);
+      font-size: 10.5px;
+      font-family: var(--font-code);
+      color: var(--ink-subtle);
     }
   </style>
 </head>
 <body>
 
-  <div class="module-container">
-    <div>
-      <span class="header-tag">أَثَـر · HORIZON 05</span>
-      <h2>بصمة الصانع والأثر القيادي الفردي</h2>
-    </div>
+  <!-- حاوية التلميح المركزية الحرة المحسوبة برمجياً -->
+  <div id="masterTooltip"></div>
 
-    <div class="team-cards-grid">
-      <div class="member-footprint-card">
-        <input type="text" placeholder="اسم العضو ودوره المباشر في المشروع...">
-        <textarea placeholder="المساهمة المحددة التي أحدثت فارقاً حقيقياً وأفتخر بها في مسار هذا الابتكار..."></textarea>
+  <div class="master-flow">
+
+    <!-- الترويسة الرئيسية -->
+    <header class="folio-header">
+      <span class="folio-meta">ATHAR • HORIZON 05</span>
+      <h1 class="folio-heading">القسم الخامس: من نحن؟ (هوية الفريق وبصمة الصانع)</h1>
+      <p class="folio-brief">
+        البعد الإنساني وروح الفريق: توثيق البطاقات التعريفية لأعضاء المنظومة والمشرف، ورصد بصمة الأثر الفردي والرسالة المستدامة في مسيرة البناء.
+      </p>
+    </header>
+
+    <!-- 01: بطاقات التعريف الرسمية -->
+    <section class="stage-section">
+      <div class="stage-bar">
+        <div class="stage-identity">
+          <span class="stage-num">01</span>
+          <h2 class="stage-title">بطاقات التعريف الرسمية بالفريق</h2>
+          
+          <button type="button" class="beacon-btn" data-tip="توثيق البيانات الرسمية للمشرف وأعضاء الفريق بصورة شخصية واضحة (PNG أو JPEG)، واستبعاد العضو الثالث إذا كان الفريق اثنين." aria-label="إرشاد">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- منتقي تعداد الفريق -->
+        <div class="team-size-selector-wrap">
+          <span style="font-size:10.5px; color:var(--ink-soft);">هيكل الفريق:</span>
+          <select id="teamSizeSelector" class="team-size-select" onchange="adjustTeamSize(this.value)">
+            <option value="3">3 طلاب والمشرف</option>
+            <option value="2">طالبان والمشرف</option>
+          </select>
+        </div>
       </div>
 
-      <div class="member-footprint-card">
-        <span style="font-size:11px; color:var(--text-subtle);">الدرس المهاري المستفاد:</span>
-        <textarea placeholder="ما هي المهارة أو الحكمة الهندسية التي ستأخذها معك بعد هذا المشروع؟"></textarea>
-      </div>
-    </div>
+      <div class="profile-grid-deck">
+        <!-- بطاقة المشرف الأكاديمي -->
+        <div class="member-profile-card">
+          <div class="avatar-vault-circle" onclick="handleAvatarClick('sup_file', event)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-subtle);" id="sup_icon">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+            <input type="file" id="sup_file" accept="image/png, image/jpeg" style="display:none;" onchange="handleAvatarUpload('sup', this)">
+            <img id="sup_avatar_prev" class="avatar-img-render" alt="المشرف">
+          </div>
 
-    <div class="closing-wisdom">
-      "العلم أثرٌ يُبنى باليقين، وصناعة اليوم بذرة الغد."
-    </div>
+          <!-- إزالة صورة المشرف بخطوتين -->
+          <div id="sup_del_container" style="display:none; margin-bottom:4px;">
+            <button type="button" class="btn-discrete-action" id="sup_del_init" onclick="armAvatarDel('sup')">إزالة الصورة</button>
+            <div class="confirm-pop-deck" id="sup_del_confirm">
+              <button type="button" class="btn-affirm-del" onclick="confirmAvatarDel('sup')">تأكيد</button>
+              <button type="button" class="btn-cancel-del" onclick="disarmAvatarDel('sup')">تراجع</button>
+            </div>
+          </div>
+
+          <span class="card-tier-title">المشرف الأكاديمي</span>
+          <input type="text" id="card_sup_name" placeholder="الاسم الكامل للمشرف..." oninput="syncMemberName('sup', this.value)">
+          <input type="text" id="card_sup_major" placeholder="التخصص / المجال الأكاديمي..." oninput="persistState()">
+        </div>
+
+        <!-- بطاقة الطالب 01 (قائد الفريق) -->
+        <div class="member-profile-card">
+          <div class="avatar-vault-circle" onclick="handleAvatarClick('st1_file', event)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-subtle);" id="st1_icon">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+            <input type="file" id="st1_file" accept="image/png, image/jpeg" style="display:none;" onchange="handleAvatarUpload('st1', this)">
+            <img id="st1_avatar_prev" class="avatar-img-render" alt="الطالب 01">
+          </div>
+
+          <div id="st1_del_container" style="display:none; margin-bottom:4px;">
+            <button type="button" class="btn-discrete-action" id="st1_del_init" onclick="armAvatarDel('st1')">إزالة الصورة</button>
+            <div class="confirm-pop-deck" id="st1_del_confirm">
+              <button type="button" class="btn-affirm-del" onclick="confirmAvatarDel('st1')">تأكيد</button>
+              <button type="button" class="btn-cancel-del" onclick="disarmAvatarDel('st1')">تراجع</button>
+            </div>
+          </div>
+
+          <span class="card-tier-title">الطالب 01 (قائد الفريق)</span>
+          <input type="text" id="card_st1_name" placeholder="الاسم الكامل للطالب..." oninput="syncMemberName('st1', this.value)">
+          
+          <!-- قائمة الصف الدراسي التلقائية -->
+          <select id="card_st1_grade" class="field-select" onchange="handleGradeChange('st1', this.value)">
+            <option value="">تحديد الصف الدراسي...</option>
+            <option value="الصف الرابع">الصف الرابع</option>
+            <option value="الصف الخامس">الصف الخامس</option>
+            <option value="الصف السادس">الصف السادس</option>
+            <option value="الصف السابع">الصف السابع</option>
+            <option value="الصف الثامن">الصف الثامن</option>
+            <option value="الصف التاسع">الصف التاسع</option>
+            <option value="الصف العاشر">الصف العاشر</option>
+            <option value="الصف الحادي عشر">الصف الحادي عشر</option>
+            <option value="الصف الثاني عشر">الصف الثاني عشر</option>
+          </select>
+
+          <!-- خانة التخصص للثانوي فقط -->
+          <div id="st1_branch_wrap" style="display:none; width:100%;">
+            <input type="text" id="card_st1_branch" placeholder="تحديد الفرع الأكاديمي أو المهني..." oninput="persistState()">
+          </div>
+        </div>
+
+        <!-- بطاقة الطالب 02 -->
+        <div class="member-profile-card">
+          <div class="avatar-vault-circle" onclick="handleAvatarClick('st2_file', event)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-subtle);" id="st2_icon">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+            <input type="file" id="st2_file" accept="image/png, image/jpeg" style="display:none;" onchange="handleAvatarUpload('st2', this)">
+            <img id="st2_avatar_prev" class="avatar-img-render" alt="الطالب 02">
+          </div>
+
+          <div id="st2_del_container" style="display:none; margin-bottom:4px;">
+            <button type="button" class="btn-discrete-action" id="st2_del_init" onclick="armAvatarDel('st2')">إزالة الصورة</button>
+            <div class="confirm-pop-deck" id="st2_del_confirm">
+              <button type="button" class="btn-affirm-del" onclick="confirmAvatarDel('st2')">تأكيد</button>
+              <button type="button" class="btn-cancel-del" onclick="disarmAvatarDel('st2')">تراجع</button>
+            </div>
+          </div>
+
+          <span class="card-tier-title">الطالب 02</span>
+          <input type="text" id="card_st2_name" placeholder="الاسم الكامل للطالب..." oninput="syncMemberName('st2', this.value)">
+          
+          <select id="card_st2_grade" class="field-select" onchange="handleGradeChange('st2', this.value)">
+            <option value="">تحديد الصف الدراسي...</option>
+            <option value="الصف الرابع">الصف الرابع</option>
+            <option value="الصف الخامس">الصف الخامس</option>
+            <option value="الصف السادس">الصف السادس</option>
+            <option value="الصف السابع">الصف السابع</option>
+            <option value="الصف الثامن">الصف الثامن</option>
+            <option value="الصف التاسع">الصف التاسع</option>
+            <option value="الصف العاشر">الصف العاشر</option>
+            <option value="الصف الحادي عشر">الصف الحادي عشر</option>
+            <option value="الصف الثاني عشر">الصف الثاني عشر</option>
+          </select>
+
+          <div id="st2_branch_wrap" style="display:none; width:100%;">
+            <input type="text" id="card_st2_branch" placeholder="تحديد الفرع الأكاديمي أو المهني..." oninput="persistState()">
+          </div>
+        </div>
+
+        <!-- بطاقة الطالب 03 (تختفي إذا كان العدد 2) -->
+        <div class="member-profile-card" id="card_st3_block">
+          <div class="avatar-vault-circle" onclick="handleAvatarClick('st3_file', event)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-subtle);" id="st3_icon">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+            <input type="file" id="st3_file" accept="image/png, image/jpeg" style="display:none;" onchange="handleAvatarUpload('st3', this)">
+            <img id="st3_avatar_prev" class="avatar-img-render" alt="الطالب 03">
+          </div>
+
+          <div id="st3_del_container" style="display:none; margin-bottom:4px;">
+            <button type="button" class="btn-discrete-action" id="st3_del_init" onclick="armAvatarDel('st3')">إزالة الصورة</button>
+            <div class="confirm-pop-deck" id="st3_del_confirm">
+              <button type="button" class="btn-affirm-del" onclick="confirmAvatarDel('st3')">تأكيد</button>
+              <button type="button" class="btn-cancel-del" onclick="disarmAvatarDel('st3')">تراجع</button>
+            </div>
+          </div>
+
+          <span class="card-tier-title">الطالب 03</span>
+          <input type="text" id="card_st3_name" placeholder="الاسم الكامل للطالب..." oninput="syncMemberName('st3', this.value)">
+          
+          <select id="card_st3_grade" class="field-select" onchange="handleGradeChange('st3', this.value)">
+            <option value="">تحديد الصف الدراسي...</option>
+            <option value="الصف الرابع">الصف الرابع</option>
+            <option value="الصف الخامس">الصف الخامس</option>
+            <option value="الصف السادس">الصف السادس</option>
+            <option value="الصف السابع">الصف السابع</option>
+            <option value="الصف الثامن">الصف الثامن</option>
+            <option value="الصف التاسع">الصف التاسع</option>
+            <option value="الصف العاشر">الصف العاشر</option>
+            <option value="الصف الحادي عشر">الصف الحادي عشر</option>
+            <option value="الصف الثاني عشر">الصف الثاني عشر</option>
+          </select>
+
+          <div id="st3_branch_wrap" style="display:none; width:100%;">
+            <input type="text" id="card_st3_branch" placeholder="تحديد الفرع الأكاديمي أو المهني..." oninput="persistState()">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02: بصمات الأثر والرسالة المستدامة -->
+    <section class="stage-section">
+      <div class="stage-bar">
+        <div class="stage-identity">
+          <span class="stage-num">02</span>
+          <h2 class="stage-title">بصمة الصانع والأثر الفردي في المشروع</h2>
+
+          <button type="button" class="beacon-btn" data-tip="بيان المهمة المركزية، والأثر الملموس المتروك في مسيرة المشروع، والدرس المستفاد، والرسالة والأثر المراد تركه." aria-label="إرشاد">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- شريط تبديل أجنحة البصمات -->
+      <div class="footprint-tabs-bar">
+        <button type="button" class="footprint-tab-btn active" onclick="switchFootprintTab('pane_sup_fp', this)">بصمة المشرف</button>
+        <button type="button" class="footprint-tab-btn" onclick="switchFootprintTab('pane_st1_fp', this)">بصمة الطالب 01</button>
+        <button type="button" class="footprint-tab-btn" onclick="switchFootprintTab('pane_st2_fp', this)">بصمة الطالب 02</button>
+        <button type="button" class="footprint-tab-btn" id="tab_btn_st3" onclick="switchFootprintTab('pane_st3_fp', this)">بصمة الطالب 03</button>
+      </div>
+
+      <!-- جناح بصمة المشرف -->
+      <div class="footprint-pane active" id="pane_sup_fp">
+        <!-- ترويسة البصمة المنبثقة مع الصورة الشخصية -->
+        <div class="footprint-header-card">
+          <div class="footprint-avatar-lens" id="fp_sup_lens">
+            <img id="fp_sup_avatar_view" alt="المشرف">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-subtle);" id="fp_sup_placeholder_icon">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <div class="footprint-member-meta">
+            <span class="footprint-member-name" id="fp_sup_name_display">المشرف الأكاديمي</span>
+            <span class="footprint-member-tier">التوجيه والإشراف المعرفي</span>
+          </div>
+          <div class="trial-date-container">
+            <span class="date-title-tag">تاريخ الانضمام:</span>
+            <input type="date" class="trial-date-field" id="fp_sup_date" onchange="persistState()">
+          </div>
+        </div>
+
+        <div>
+          <span style="font-size:11px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">مهمتي في التوجيه والإشراف:</span>
+          <input type="text" id="fp_sup_role" placeholder="توصيف الدور الإشرافي والمتابعة والتيسير..." oninput="persistState()">
+        </div>
+
+        <div>
+          <span style="font-size:11px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">أهم أثر تم تركه في نفوس الطلبة ومسار المشروع:</span>
+          <textarea rows="2" id="fp_sup_impact" placeholder="المساهمة النوعية التي تركت فرقاً واضحاً في تمكين الفريق..." oninput="persistState()"></textarea>
+        </div>
+
+        <div>
+          <span style="font-size:11px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">أهم ما تعلمته من هذه التجربة الإشرافية:</span>
+          <textarea rows="2" id="fp_sup_lesson" placeholder="الدرس التربوي والمهاري المكتسب من مرافقة الفريق..." oninput="persistState()"></textarea>
+        </div>
+
+        <div class="quote-statement-card">
+          <span style="font-size:11px; font-weight:600; color:var(--ink-deep);">الرسالة والأثر التوجيهي المراد تركه:</span>
+          <textarea rows="2" id="fp_sup_quote" placeholder="الصياغة المنهجية للرسالة والأثر الممتد المراد غرسه في مسيرة الفريق..." oninput="persistState()" style="background:#ffffff;"></textarea>
+        </div>
+      </div>
+
+      <!-- جناح بصمة الطالب 01 -->
+      <div class="footprint-pane" id="pane_st1_fp">
+        <div class="footprint-header-card">
+          <div class="footprint-avatar-lens" id="fp_st1_lens">
+            <img id="fp_st1_avatar_view" alt="الطالب 01">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-subtle);" id="fp_st1_placeholder_icon">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <div class="footprint-member-meta">
+            <span class="footprint-member-name" id="fp_st1_name_display">الطالب 01 (قائد الفريق)</span>
+            <span class="footprint-member-tier" id="fp_st1_tier_display">عضو الفريق</span>
+          </div>
+          <div class="trial-date-container">
+            <span class="date-title-tag">تاريخ الانضمام:</span>
+            <input type="date" class="trial-date-field" id="fp_st1_date" onchange="persistState()">
+          </div>
+        </div>
+
+        <div>
+          <span style="font-size:11px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">مهمتي الرئيسية في الفريق:</span>
+          <input type="text" id="fp_st1_role" placeholder="توصيف المهام التأسيسية والمسؤوليات المباشرة..." oninput="persistState()">
+        </div>
+
+        <div>
+          <span style="font-size:11px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">أهم مساهمة أفتخر بها وأحدثت فارقاً حقيقياً:</span>
+          <textarea rows="2" id="fp_st1_impact" placeholder="المساهمة المحددة التي صنعت الفرق في موثوقية وأداء المنظومة..." oninput="persistState()"></textarea>
+        </div>
+
+        <div>
+          <span style="font-size:11px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">أهم مهارة أو درس شخصي استقر في نفسي:</span>
+          <textarea rows="2" id="fp_st1_lesson" placeholder="التحول المهاري والفكري الذي خرجت به من هذا التحدي..." oninput="persistState()"></textarea>
+        </div>
+
+        <div class="quote-statement-card">
+          <span style="font-size:11px; font-weight:600; color:var(--ink-deep);">الرسالة والأثر الذي أطمح لتركه:</span>
+          <textarea rows="2" id="fp_st1_quote" placeholder="الصياغة الشخصية للرسالة والأثر المعرفي والمهاري الذي أطمح لتركه في المنظومة..." oninput="persistState()" style="background:#ffffff;"></textarea>
+        </div>
+      </div>
+
+      <!-- جناح بصمة الطالب 02 -->
+      <div class="footprint-pane" id="pane_st2_fp">
+        <div class="footprint-header-card">
+          <div class="footprint-avatar-lens" id="fp_st2_lens">
+            <img id="fp_st2_avatar_view" alt="الطالب 02">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-subtle);" id="fp_st2_placeholder_icon">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <div class="footprint-member-meta">
+            <span class="footprint-member-name" id="fp_st2_name_display">الطالب 02</span>
+            <span class="footprint-member-tier" id="fp_st2_tier_display">عضو الفريق</span>
+          </div>
+          <div class="trial-date-container">
+            <span class="date-title-tag">تاريخ الانضمام:</span>
+            <input type="date" class="trial-date-field" id="fp_st2_date" onchange="persistState()">
+          </div>
+        </div>
+
+        <div>
+          <span style="font-size:11px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">مهمتي الرئيسية في الفريق:</span>
+          <input type="text" id="fp_st2_role" placeholder="توصيف المهام والمسؤوليات المباشرة..." oninput="persistState()">
+        </div>
+
+        <div>
+          <span style="font-size:11px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">أهم مساهمة أفتخر بها وأحدثت فارقاً حقيقياً:</span>
+          <textarea rows="2" id="fp_st2_impact" placeholder="المساهمة المحددة التي صنعت الفرق في موثوقية وأداء المنظومة..." oninput="persistState()"></textarea>
+        </div>
+
+        <div>
+          <span style="font-size:11px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">أهم مهارة أو درس شخصي استقر في نفسي:</span>
+          <textarea rows="2" id="fp_st2_lesson" placeholder="التحول المهاري والفكري الذي خرجت به من هذا التحدي..." oninput="persistState()"></textarea>
+        </div>
+
+        <div class="quote-statement-card">
+          <span style="font-size:11px; font-weight:600; color:var(--ink-deep);">الرسالة والأثر الذي أطمح لتركه:</span>
+          <textarea rows="2" id="fp_st2_quote" placeholder="الصياغة الشخصية للرسالة والأثر المعرفي والمهاري الذي أطمح لتركه في المنظومة..." oninput="persistState()" style="background:#ffffff;"></textarea>
+        </div>
+      </div>
+
+      <!-- جناح بصمة الطالب 03 -->
+      <div class="footprint-pane" id="pane_st3_fp">
+        <div class="footprint-header-card">
+          <div class="footprint-avatar-lens" id="fp_st3_lens">
+            <img id="fp_st3_avatar_view" alt="الطالب 03">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-subtle);" id="fp_st3_placeholder_icon">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <div class="footprint-member-meta">
+            <span class="footprint-member-name" id="fp_st3_name_display">الطالب 03</span>
+            <span class="footprint-member-tier" id="fp_st3_tier_display">عضو الفريق</span>
+          </div>
+          <div class="trial-date-container">
+            <span class="date-title-tag">تاريخ الانضمام:</span>
+            <input type="date" class="trial-date-field" id="fp_st3_date" onchange="persistState()">
+          </div>
+        </div>
+
+        <div>
+          <span style="font-size:11px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">مهمتي الرئيسية في الفريق:</span>
+          <input type="text" id="fp_st3_role" placeholder="توصيف المهام والمسؤوليات المباشرة..." oninput="persistState()">
+        </div>
+
+        <div>
+          <span style="font-size:11px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">أهم مساهمة أفتخر بها وأحدثت فارقاً حقيقياً:</span>
+          <textarea rows="2" id="fp_st3_impact" placeholder="المساهمة المحددة التي صنعت الفرق في موثوقية وأداء المنظومة..." oninput="persistState()"></textarea>
+        </div>
+
+        <div>
+          <span style="font-size:11px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">أهم مهارة أو درس شخصي استقر في نفسي:</span>
+          <textarea rows="2" id="fp_st3_lesson" placeholder="التحول المهاري والفكري الذي خرجت به من هذا التحدي..." oninput="persistState()"></textarea>
+        </div>
+
+        <div class="quote-statement-card">
+          <span style="font-size:11px; font-weight:600; color:var(--ink-deep);">الرسالة والأثر الذي أطمح لتركه:</span>
+          <textarea rows="2" id="fp_st3_quote" placeholder="الصياغة الشخصية للرسالة والأثر المعرفي والمهاري الذي أطمح لتركه في المنظومة..." oninput="persistState()" style="background:#ffffff;"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- التذييل الرسمي -->
+    <footer class="folio-footer">
+      <span>البطولة الوطنية للابتكار والروبوت</span>
+      <span>AED-1101 • 05-IDENTITY</span>
+    </footer>
+
   </div>
 
+  <script>
+    const STORAGE_KEY = 'ATHAR_IDENTITY_SCHEMA_V2';
+
+    let state = {
+      teamSize: "3",
+      avatars: { sup: "", st1: "", st2: "", st3: "" },
+      cards: {
+        sup: { name: "", major: "" },
+        st1: { name: "", grade: "", branch: "" },
+        st2: { name: "", grade: "", branch: "" },
+        st3: { name: "", grade: "", branch: "" }
+      },
+      footprints: {
+        sup: { date: "", role: "", impact: "", lesson: "", quote: "" },
+        st1: { date: "", role: "", impact: "", lesson: "", quote: "" },
+        st2: { date: "", role: "", impact: "", lesson: "", quote: "" },
+        st3: { date: "", role: "", impact: "", lesson: "", quote: "" }
+      }
+    };
+
+    // ============================================================
+    // محرك التلميحات الذكي
+    // ============================================================
+    const tooltipEl = document.getElementById('masterTooltip');
+    let activeBeaconBtn = null;
+
+    function initMasterTooltipEngine() {
+      document.body.addEventListener('click', (e) => {
+        const btn = e.target.closest('.beacon-btn');
+        if (btn) {
+          if (activeBeaconBtn === btn && tooltipEl.classList.contains('visible')) {
+            hideTooltip();
+          } else {
+            showTooltip(btn);
+          }
+          return;
+        }
+
+        if (tooltipEl.classList.contains('visible')) {
+          hideTooltip();
+        }
+      });
+
+      window.addEventListener('scroll', () => {
+        if (tooltipEl.classList.contains('visible')) hideTooltip();
+      }, { passive: true });
+    }
+
+    function showTooltip(btn) {
+      if (activeBeaconBtn) activeBeaconBtn.classList.remove('active');
+      activeBeaconBtn = btn;
+      btn.classList.add('active');
+
+      const text = btn.getAttribute('data-tip');
+      tooltipEl.textContent = text;
+      tooltipEl.classList.add('visible');
+
+      const btnRect = btn.getBoundingClientRect();
+      const tipRect = tooltipEl.getBoundingClientRect();
+      const tipWidth = tipRect.width;
+
+      let left = btnRect.left + (btnRect.width / 2) - (tipWidth / 2);
+      
+      const margin = 14;
+      const minLeft = margin;
+      const maxLeft = window.innerWidth - tipWidth - margin;
+      
+      left = Math.max(minLeft, Math.min(maxLeft, left));
+
+      let top = btnRect.bottom + 8;
+      if (top + tipRect.height > window.innerHeight - 10) {
+        top = btnRect.top - tipRect.height - 8;
+      }
+
+      tooltipEl.style.left = `${left}px`;
+      tooltipEl.style.top = `${top}px`;
+    }
+
+    function hideTooltip() {
+      tooltipEl.classList.remove('visible');
+      if (activeBeaconBtn) {
+        activeBeaconBtn.classList.remove('active');
+        activeBeaconBtn = null;
+      }
+    }
+
+    // ============================================================
+    // 1. التحكم بتعداد الفريق والصفوف وتخصصات الثانوي
+    // ============================================================
+    function adjustTeamSize(size) {
+      state.teamSize = size;
+      const card3 = document.getElementById('card_st3_block');
+      const tab3 = document.getElementById('tab_btn_st3');
+      const pane3 = document.getElementById('pane_st3_fp');
+
+      if (size === "2") {
+        card3.style.display = 'none';
+        tab3.style.display = 'none';
+        if (pane3.classList.contains('active')) {
+          switchFootprintTab('pane_sup_fp', document.querySelector('.footprint-tab-btn'));
+        }
+      } else {
+        card3.style.display = 'flex';
+        tab3.style.display = 'inline-block';
+      }
+      persistState();
+    }
+
+    // إظهار حقل الفرع/التخصص للصف العاشر والحادي عشر والثاني عشر فقط
+    function handleGradeChange(studentKey, gradeVal) {
+      state.cards[studentKey].grade = gradeVal;
+      const wrap = document.getElementById(`${studentKey}_branch_wrap`);
+      const isHighSchool = ['الصف العاشر', 'الصف الحادي عشر', 'الصف الثاني عشر'].includes(gradeVal);
+
+      if (isHighSchool) {
+        wrap.style.display = 'block';
+      } else {
+        wrap.style.display = 'none';
+        document.getElementById(`card_${studentKey}_branch`).value = '';
+        state.cards[studentKey].branch = '';
+      }
+
+      // تحديث شارة الصف في ترويسة البصمة
+      const tierDisplay = document.getElementById(`fp_${studentKey}_tier_display`);
+      if (tierDisplay) {
+        tierDisplay.innerText = gradeVal || 'عضو الفريق';
+      }
+
+      persistState();
+    }
+
+    // مزامنة اسم العضو فورياً مع ترويسة بطاقة بصمته
+    function syncMemberName(key, nameVal) {
+      state.cards[key].name = nameVal;
+      const nameBadge = document.getElementById(`fp_${key}_name_display`);
+      if (nameBadge) {
+        if (nameVal && nameVal.trim()) {
+          nameBadge.innerText = nameVal.trim();
+        } else {
+          nameBadge.innerText = (key === 'sup') ? 'المشرف الأكاديمي' : (key === 'st1' ? 'الطالب 01 (قائد الفريق)' : (key === 'st2' ? 'الطالب 02' : 'الطالب 03'));
+        }
+      }
+      persistState();
+    }
+
+    function switchFootprintTab(targetPaneId, btn) {
+      document.querySelectorAll('.footprint-pane').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.footprint-tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(targetPaneId).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    // ============================================================
+    // 2. إدارة الصور الشخصية وانعكاسها في البصمة وتأكيد الحذف
+    // ============================================================
+    function handleAvatarClick(fileInputId, e) {
+      document.getElementById(fileInputId).click();
+    }
+
+    function handleAvatarUpload(slotKey, input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          state.avatars[slotKey] = e.target.result;
+          displayAvatarView(slotKey, e.target.result);
+          persistState();
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function displayAvatarView(slotKey, src) {
+      // 1. تحديث دائرة البطاقة في الأعلى
+      const img = document.getElementById(`${slotKey}_avatar_prev`);
+      const icon = document.getElementById(`${slotKey}_icon`);
+      const del = document.getElementById(`${slotKey}_del_container`);
+
+      if (img && src) {
+        img.src = src;
+        img.style.display = 'block';
+        if (icon) icon.style.display = 'none';
+        if (del) del.style.display = 'block';
+      }
+
+      // 2. تحديث دائرة ترويسة البصمة فورياً
+      const fpImg = document.getElementById(`fp_${slotKey}_avatar_view`);
+      const fpPlaceholder = document.getElementById(`fp_${slotKey}_placeholder_icon`);
+      if (fpImg && src) {
+        fpImg.src = src;
+        fpImg.style.display = 'block';
+        if (fpPlaceholder) fpPlaceholder.style.display = 'none';
+      }
+    }
+
+    function armAvatarDel(slotKey) {
+      document.getElementById(`${slotKey}_del_init`).style.display = 'none';
+      document.getElementById(`${slotKey}_del_confirm`).classList.add('active');
+    }
+
+    function disarmAvatarDel(slotKey) {
+      document.getElementById(`${slotKey}_del_init`).style.display = 'inline-block';
+      document.getElementById(`${slotKey}_del_confirm`).classList.remove('active');
+    }
+
+    function confirmAvatarDel(slotKey) {
+      state.avatars[slotKey] = "";
+      
+      // إزالة من البطاقة
+      const img = document.getElementById(`${slotKey}_avatar_prev`);
+      const icon = document.getElementById(`${slotKey}_icon`);
+      const del = document.getElementById(`${slotKey}_del_container`);
+      const input = document.getElementById(`${slotKey}_file`);
+
+      if (img) { img.src = ""; img.style.display = 'none'; }
+      if (icon) icon.style.display = 'block';
+      if (del) del.style.display = 'none';
+      if (input) input.value = '';
+
+      // إزالة من ترويسة البصمة
+      const fpImg = document.getElementById(`fp_${slotKey}_avatar_view`);
+      const fpPlaceholder = document.getElementById(`fp_${slotKey}_placeholder_icon`);
+      if (fpImg) { fpImg.src = ""; fpImg.style.display = 'none'; }
+      if (fpPlaceholder) fpPlaceholder.style.display = 'block';
+
+      disarmAvatarDel(slotKey);
+      persistState();
+    }
+
+    // ============================================================
+    // 3. الحفظ المحلي التلقائي واسترجاع البيانات
+    // ============================================================
+    function collectCurrentValues() {
+      state.cards.sup.name = document.getElementById('card_sup_name').value;
+      state.cards.sup.major = document.getElementById('card_sup_major').value;
+
+      ['st1', 'st2', 'st3'].forEach(k => {
+        state.cards[k].name = document.getElementById(`card_${k}_name`).value;
+        state.cards[k].grade = document.getElementById(`card_${k}_grade`).value;
+        state.cards[k].branch = document.getElementById(`card_${k}_branch`).value;
+      });
+
+      ['sup', 'st1', 'st2', 'st3'].forEach(k => {
+        state.footprints[k].date = document.getElementById(`fp_${k}_date`).value;
+        state.footprints[k].role = document.getElementById(`fp_${k}_role`).value;
+        state.footprints[k].impact = document.getElementById(`fp_${k}_impact`).value;
+        state.footprints[k].lesson = document.getElementById(`fp_${k}_lesson`).value;
+        state.footprints[k].quote = document.getElementById(`fp_${k}_quote`).value;
+      });
+    }
+
+    function persistState() {
+      collectCurrentValues();
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch(err) {
+        console.warn('تجاوزت البيانات الحجم التخزيني المقترح.');
+      }
+    }
+
+    function restoreState() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        try {
+          const parsed = JSON.parse(raw);
+          state = { ...state, ...parsed };
+
+          if (state.teamSize) {
+            document.getElementById('teamSizeSelector').value = state.teamSize;
+            adjustTeamSize(state.teamSize);
+          }
+
+          document.getElementById('card_sup_name').value = state.cards.sup.name || '';
+          document.getElementById('card_sup_major').value = state.cards.sup.major || '';
+          syncMemberName('sup', state.cards.sup.name);
+
+          ['st1', 'st2', 'st3'].forEach(k => {
+            document.getElementById(`card_${k}_name`).value = state.cards[k].name || '';
+            syncMemberName(k, state.cards[k].name);
+            
+            const gradeVal = state.cards[k].grade || '';
+            document.getElementById(`card_${k}_grade`).value = gradeVal;
+            handleGradeChange(k, gradeVal);
+
+            document.getElementById(`card_${k}_branch`).value = state.cards[k].branch || '';
+          });
+
+          ['sup', 'st1', 'st2', 'st3'].forEach(k => {
+            if (state.footprints[k]) {
+              document.getElementById(`fp_${k}_date`).value = state.footprints[k].date || '';
+              document.getElementById(`fp_${k}_role`).value = state.footprints[k].role || '';
+              document.getElementById(`fp_${k}_impact`).value = state.footprints[k].impact || '';
+              document.getElementById(`fp_${k}_lesson`).value = state.footprints[k].lesson || '';
+              document.getElementById(`fp_${k}_quote`).value = state.footprints[k].quote || '';
+            }
+          });
+
+          // استعادة الصور في البطاقات والبصمات
+          ['sup', 'st1', 'st2', 'st3'].forEach(k => {
+            if (state.avatars[k]) {
+              displayAvatarView(k, state.avatars[k]);
+            }
+          });
+        } catch(err) {}
+      }
+    }
+
+    function escapeHtml(str) {
+      return (str || '').replace(/"/g, '&quot;');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      restoreState();
+      initMasterTooltipEngine();
+    });
+  </script>
 </body>
-</html>
+  </html>
