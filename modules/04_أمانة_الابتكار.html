@@ -196,12 +196,12 @@
       min-height: 60px;
     }
 
-    /* مسرح إرفاق المخطط الانسيابي: رحب ومتناسب ومريح للعين */
+    /* مسرح إرفاق المخطط الانسيابي المتناسب */
     .flowchart-shelf-large {
       border: 1px dashed rgba(20, 22, 25, 0.2);
       border-radius: var(--radius-md);
       background: var(--surface-pure);
-      padding: 30px 20px;
+      padding: 28px 18px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -210,7 +210,7 @@
       gap: 8px;
       cursor: pointer;
       position: relative;
-      min-height: 220px;
+      min-height: 200px;
       transition: border-color 0.25s var(--ease), background-color 0.25s var(--ease);
     }
     .flowchart-shelf-large:hover {
@@ -270,7 +270,7 @@
       padding: 4px 0;
     }
 
-    /* تمييز مربع التوجيه (المدخل) بأناقة تحريرية صريحة */
+    /* تمييز مربع التوجيه (المدخل) */
     .prompt-editorial-box {
       background: #ffffff !important;
       border: 1.5px solid rgba(20, 22, 25, 0.16) !important;
@@ -518,30 +518,60 @@
       transform: translateY(0);
     }
 
-    /* نافذة دليل ومنصة draw.io والمراجع الرسمية */
+    /* نافذة دليل ومنصة draw.io والمراجع الرسمية المحكمة على الهواتف */
     .sheet-scrim {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(20, 22, 25, 0.4);
-      backdrop-filter: blur(4px);
+      inset: 0;
+      background: rgba(20, 22, 25, 0.45);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 20000;
+      z-index: 999999;
       padding: 16px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
     .sheet-card {
       background: var(--surface-pure);
       border-radius: var(--radius-md);
       border: 1px solid var(--border-whisper);
       width: 100%;
-      max-width: 580px;
-      padding: 22px;
+      max-width: 540px;
+      max-height: min(620px, calc(100dvh - 32px));
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      margin: auto;
+      overflow: hidden;
+      animation: sheetCardPop 0.25s var(--ease);
     }
+    @keyframes sheetCardPop {
+      from { opacity: 0; transform: scale(0.96) translateY(6px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .sheet-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-whisper);
+      padding: 14px 18px;
+      flex-shrink: 0;
+      background: var(--surface-pure);
+    }
+
+    .sheet-card-body {
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+
     .drawio-resource-tile {
       background: var(--surface-card);
       border: 1px solid var(--border-whisper);
@@ -553,9 +583,28 @@
       gap: 12px;
       text-decoration: none;
       color: inherit;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, background-color 0.2s;
     }
     .drawio-resource-tile:hover {
+      border-color: var(--ink-deep);
+      background: #ffffff;
+    }
+
+    .btn-close-sheet-bottom {
+      width: 100%;
+      background: var(--surface-card);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-pill);
+      padding: 8px;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      cursor: pointer;
+      margin-top: 4px;
+      transition: all 0.2s;
+    }
+    .btn-close-sheet-bottom:hover {
+      color: var(--ink-deep);
       border-color: var(--ink-deep);
     }
 
@@ -619,12 +668,18 @@
       </div>
 
       <div class="flowchart-shelf-large" onclick="handleShelfClick('flowchart_file', event)">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-subtle);" id="flowchart_icon_svg">
-          <rect x="3" y="3" width="6" height="6" rx="1"/>
-          <rect x="15" y="15" width="6" height="6" rx="1"/>
-          <path d="M6 9v3a3 3 0 0 0 3 3h6"/>
-          <polyline points="15 12 18 15 15 18"/>
+        <!-- أيقونة المخطط الانسيابي المصححة هندسياً بدون أي تداخل أو تصادم -->
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-subtle);" id="flowchart_icon_svg">
+          <!-- الصندوق العلوي -->
+          <rect x="3" y="3" width="7" height="6" rx="1.5"/>
+          <!-- خط التدفق المنحني -->
+          <path d="M6.5 9v4a3 3 0 0 0 3 3h4.5"/>
+          <!-- رأس السهم المتصل بحافة الصندوق السفلي بدقة صفرية التداخل -->
+          <polyline points="11.5 13.5 14 16 11.5 18.5"/>
+          <!-- الصندوق السفلي المستلم -->
+          <rect x="14" y="12" width="7" height="8" rx="1.5"/>
         </svg>
+
         <span class="flowchart-shelf-text" id="flowchart_lbl">إرفاق صورة المخطط الانسيابي للنظام</span>
         <span class="flowchart-shelf-hint" id="flowchart_subhint">انقر لاختيار ملف المخطط بصيغة PNG أو JPEG عالية الدقة</span>
         
@@ -741,58 +796,64 @@
 
   </div>
 
-  <!-- نافذة دليل منصة draw.io والمراجع الرسمية المرتبطة بالباركودات -->
+  <!-- نافذة دليل منصة draw.io والمراجع الرسمية المحكمة على الهواتف والشاشات الصغيرة -->
   <div class="sheet-scrim" id="drawioGuideModal" onclick="if(event.target===this) closeDrawioGuideModal()">
-    <div class="sheet-card">
-      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:10px;">
-        <span style="font-size:13.5px; font-weight:600;">دليل ومنصة إعداد المخطط الانسيابي (Flowchart)</span>
-        <button type="button" onclick="closeDrawioGuideModal()" style="border:none; background:transparent; font-size:11.5px; cursor:pointer; color:var(--ink-subtle);">إغلاق</button>
+    <div class="sheet-card" onclick="event.stopPropagation()">
+      <!-- ترويسة ثابتة لا تنحسر عند التمرير -->
+      <div class="sheet-card-header">
+        <span style="font-size:13px; font-weight:700; color:var(--ink-deep);">دليل ومنصة إعداد المخطط الانسيابي</span>
+        <button type="button" onclick="closeDrawioGuideModal()" style="border:none; background:transparent; font-size:12px; cursor:pointer; color:var(--ink-subtle); padding:4px 8px;">✕ إغلاق</button>
       </div>
 
-      <div style="font-size:12px; color:var(--ink-soft); line-height:1.7;">
-        المخطط الانسيابي هو لغة بصرية تترجم منطق برنامجكم إلى أشكال قياسية موحدة تفهمها لجان التحكيم:
-        <ul style="margin: 8px 18px 0 0; display:flex; flex-direction:column; gap:4px;">
-          <li><strong>الشكل البيضاوي:</strong> نقطة بداية البرنامج أو نهايته الحتمية.</li>
-          <li><strong>المستطيل:</strong> العمليات الحسابية وقراءات المتغيرات وتحديث القيم.</li>
-          <li><strong>المعين:</strong> الشروط المنطقية ونقاط اتخاذ القرار (نعم / لا).</li>
-          <li><strong>الأسهم:</strong> مسار اتجاه تدفق البيانات والأوامر.</li>
-        </ul>
-      </div>
+      <!-- جسم النافذة القابل للتمرير اللمسي الانسيابي -->
+      <div class="sheet-card-body">
+        <div style="font-size:12px; color:var(--ink-soft); line-height:1.75;">
+          المخطط الانسيابي هو لغة بصرية تترجم منطق برنامجكم إلى أشكال قياسية موحدة تفهمها لجان التحكيم:
+          <ul style="margin: 8px 18px 0 0; display:flex; flex-direction:column; gap:5px;">
+            <li><strong>الشكل البيضاوي:</strong> نقطة بداية البرنامج أو نهايته الحتمية.</li>
+            <li><strong>المستطيل:</strong> العمليات الحسابية وقراءات المتغيرات وتحديث القيم.</li>
+            <li><strong>المعين:</strong> الشروط المنطقية ونقاط اتخاذ القرار (نعم / لا).</li>
+            <li><strong>الأسهم:</strong> مسار اتجاه تدفق البيانات والأوامر.</li>
+          </ul>
+        </div>
 
-      <!-- بطاقات الروابط الثلاث المعتمدة في باركودات الدليل الوطني -->
-      <div style="display:flex; flex-direction:column; gap:8px;">
-        <!-- 1. رابط المنصة المباشر -->
-        <a href="https://app.diagrams.net/" target="_blank" class="drawio-resource-tile">
-          <div>
-            <strong style="font-size:12px; color:var(--ink-deep); display:block;">منصة إنشاء المخطط الانسيابي (draw.io)</strong>
-            <span style="font-size:10.5px; color:var(--ink-soft);">بيئة الرسم الهندسية السحابية (diagrams.net)</span>
-          </div>
-          <span style="font-family:var(--font-code); font-size:11px; color:var(--ink-deep);">فتح المنصة ↗</span>
-        </a>
+        <!-- بطاقات الروابط الثلاث المعتمدة في باركودات الدليل الوطني -->
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <!-- 1. رابط المنصة المباشر -->
+          <a href="https://app.diagrams.net/" target="_blank" class="drawio-resource-tile">
+            <div>
+              <strong style="font-size:12px; color:var(--ink-deep); display:block;">منصة إنشاء المخطط الانسيابي (draw.io)</strong>
+              <span style="font-size:10.5px; color:var(--ink-soft);">بيئة الرسم الهندسية السحابية (diagrams.net)</span>
+            </div>
+            <span style="font-family:var(--font-code); font-size:11px; color:var(--ink-deep);">فتح المنصة ↗</span>
+          </a>
 
-        <!-- 2. رابط كيفية تصدير الملف المعتمد -->
-        <a href="https://drawio-app.com/blog/draw-io-training-exercise-10-export-and-import/" target="_blank" class="drawio-resource-tile">
-          <div>
-            <strong style="font-size:12px; color:var(--ink-deep); display:block;">دليل تصدير المخطط بصيغة ملائمة</strong>
-            <span style="font-size:10.5px; color:var(--ink-soft);">التدريب الرسمي لتصدير المخطط بدقة عالية (PNG / JPEG) لرفعه في المحفظة</span>
-          </div>
-          <span style="font-family:var(--font-code); font-size:11px; color:var(--ink-deep);">عرض الدليل ↗</span>
-        </a>
+          <!-- 2. رابط كيفية تصدير الملف المعتمد -->
+          <a href="https://drawio-app.com/blog/draw-io-training-exercise-10-export-and-import/" target="_blank" class="drawio-resource-tile">
+            <div>
+              <strong style="font-size:12px; color:var(--ink-deep); display:block;">دليل تصدير المخطط بصيغة ملائمة</strong>
+              <span style="font-size:10.5px; color:var(--ink-soft);">التدريب الرسمي لتصدير المخطط بدقة عالية (PNG / JPEG) لرفعه في المحفظة</span>
+            </div>
+            <span style="font-family:var(--font-code); font-size:11px; color:var(--ink-deep);">عرض الدليل ↗</span>
+          </a>
 
-        <!-- 3. رابط مرجع فهم وتصميم الخوارزميات (كتاب المهارات الرقمية المعتمد ص 95) -->
-        <a href="https://drive.google.com/file/d/1oISZKI-GKpwcGaVVRuyU-dLCb5_JzqyS/view?usp=drivesdk#page=95" target="_blank" class="drawio-resource-tile" title="الانتقال المباشر لكتاب المهارات الرقمية المعتمد">
-          <div>
-            <strong style="font-size:12px; color:var(--ink-deep); display:block;">كتاب المهارات الرقمية (الصف السابع) • صفحة 95</strong>
-            <span style="font-size:10.5px; color:var(--ink-soft);">درس «تصميم الخوارزميات» وبناء المخططات الانسيابية المنطقية المعتمدة وزارياً</span>
-          </div>
-          <span style="font-family:var(--font-code); font-size:11px; color:var(--ink-deep);">فتح الرابط المعتمد ↗</span>
-        </a>
+          <!-- 3. رابط مرجع فهم وتصميم الخوارزميات (كتاب المهارات الرقمية المعتمد ص 95) -->
+          <a href="https://drive.google.com/file/d/1oISZKI-GKpwcGaVVRuyU-dLCb5_JzqyS/view?usp=drivesdk#page=95" target="_blank" class="drawio-resource-tile" title="الانتقال المباشر لكتاب المهارات الرقمية المعتمد">
+            <div>
+              <strong style="font-size:12px; color:var(--ink-deep); display:block;">كتاب المهارات الرقمية (الصف السابع) • صفحة 95</strong>
+              <span style="font-size:10.5px; color:var(--ink-soft);">درس «تصميم الخوارزميات» وبناء المخططات الانسيابية المنطقية المعتمدة وزارياً</span>
+            </div>
+            <span style="font-family:var(--font-code); font-size:11px; color:var(--ink-deep);">فتح الرابط المعتمد ↗</span>
+          </a>
+        </div>
+
+        <button type="button" class="btn-close-sheet-bottom" onclick="closeDrawioGuideModal()">إغلاق الدليل والعودة للملف</button>
       </div>
     </div>
   </div>
 
   <script>
-    const STORAGE_KEY = 'ATHAR_INNOVATION_SCHEMA_V4';
+    const STORAGE_KEY = 'ATHAR_INNOVATION_SCHEMA_V5';
 
     let state = {
       flowchartImg: "",
@@ -876,13 +937,15 @@
       document.getElementById(targetInputId).click();
     }
 
-    // إدارة نافذة draw.io الإرشادية
+    // إدارة نافذة draw.io الإرشادية المحكمة للموبايل
     function openDrawioGuideModal() {
       document.getElementById('drawioGuideModal').style.display = 'flex';
+      document.body.style.overflow = 'hidden'; // قفل التمرير الخلفي لمنع التشويش اللمسي
     }
 
     function closeDrawioGuideModal() {
       document.getElementById('drawioGuideModal').style.display = 'none';
+      document.body.style.overflow = '';
     }
 
     // ============================================================
@@ -1157,13 +1220,13 @@
             <input type="text" list="toolsCommonDatalist" placeholder="أداة الذكاء الاصطناعي أو المنصة المتقدمة المستعان بها..." value="${escapeHtml(item.toolName)}" oninput="updateAiField(${idx}, 'toolName', this.value); registerDynamicToolName(this.value)">
           </div>
 
-          <!-- خانة التوجيه الدقيق (المدخل) بإطار تحريري صريح وأنيق -->
+          <!-- خانة التوجيه الدقيق (المدخل) -->
           <div>
             <span style="font-size:10.5px; font-weight:600; color:var(--ink-deep); display:block; margin-bottom:2px;">التوجيه الدقيق الموجه للأداة (Prompt):</span>
             <textarea rows="3" class="prompt-editorial-box" placeholder="الصيغة الحرفية الدقيقة للتوجيه والمسألة المطروحة على الأداة..." oninput="updateAiField(${idx}, 'promptText', this.value)">${escapeHtml(item.promptText)}</textarea>
           </div>
 
-          <!-- خانة المخرج من الأداة بأرضية هادئة محايدة وإطار متقطع -->
+          <!-- خانة المخرج المقترح من الأداة -->
           <div>
             <span style="font-size:10.5px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">المخرج المقترح من الأداة:</span>
             <textarea rows="2" class="output-editorial-box" placeholder="الحل أو الشفرة الأولية المقترحة من قِبل الأداة..." oninput="updateAiField(${idx}, 'initialOutput', this.value)">${escapeHtml(item.initialOutput)}</textarea>
