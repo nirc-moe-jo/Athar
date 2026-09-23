@@ -2,74 +2,1314 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>أَثَـر • الابتكار التقني والتصنيع الرقمي</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #ffffff;
-      --text-main: #141619;
-      --text-muted: #5e656e;
-      --text-subtle: #9ea5af;
-      --border: rgba(0, 0, 0, 0.07);
-      --font-body: 'Readex Pro', sans-serif;
+      --bg-sky: #faf9f6;
+      --surface-pure: #ffffff;
+      --surface-card: #fafaf8;
+      
+      --ink-deep: #141619;
+      --ink-soft: #5e656e;
+      --ink-subtle: #9ea5af;
+
+      --border-whisper: rgba(0, 0, 0, 0.07);
+      --border-focus: rgba(20, 22, 25, 0.3);
+
+      --accent-valid: #10b981;
+      --accent-alert: #f43f5e;
+
+      --font-body: 'Readex Pro', -apple-system, sans-serif;
       --font-code: 'JetBrains Mono', monospace;
-      --ease-genesis: cubic-bezier(0.16, 1, 0.3, 1);
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-pill: 9999px;
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-body); }
-    body { background: var(--bg); color: var(--text-main); padding: clamp(20px, 3.5vw, 32px); line-height: 1.6; }
-
-    .module-container { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
-
-    .header-tag { font-family: var(--font-code); font-size: 11px; color: var(--text-subtle); letter-spacing: 0.5px; }
-    h2 { font-size: clamp(17px, 3vw, 20px); font-weight: 600; margin: 2px 0 12px; }
-
-    .code-terminal {
-      background: #18191c; border-radius: 14px; padding: 16px; color: #80cbc4;
-      font-family: var(--font-code); font-size: 12.5px;
-    }
-    .code-terminal textarea {
-      width: 100%; background: transparent; border: none; outline: none; color: inherit;
-      font-family: inherit; font-size: inherit; resize: none; min-height: 90px; direction: ltr; line-height: 1.6;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
     }
 
-    .shield-card {
-      background: #fafaf8; border: 1px solid var(--border); border-radius: 16px; padding: 18px;
-      display: flex; flex-direction: column; gap: 10px;
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      background-color: var(--surface-pure);
+      color: var(--ink-deep);
     }
-    .shield-card strong { font-size: 13px; color: var(--text-main); }
-    .shield-card input {
-      border: none; background: transparent; border-bottom: 1px solid var(--border);
-      padding-bottom: 6px; font-size: 12.5px; outline: none; color: var(--text-main);
+
+    body {
+      padding: clamp(16px, 3.5vw, 36px) clamp(12px, 3vw, 28px);
+      line-height: 1.6;
     }
-    .shield-card textarea {
-      width: 100%; border: none; background: transparent; outline: none;
-      font-size: 12.5px; resize: none; min-height: 60px; line-height: 1.6; color: var(--text-main);
+
+    .master-flow {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+    }
+
+    /* الترويسة الرئيسية */
+    .folio-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-whisper);
+    }
+    .folio-meta {
+      font-family: var(--font-code);
+      font-size: 10.5px;
+      color: var(--ink-subtle);
+      letter-spacing: 0.5px;
+    }
+    .folio-heading {
+      font-size: clamp(18px, 2.8vw, 22px);
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      color: var(--ink-deep);
+    }
+    .folio-brief {
+      font-size: 12.5px;
+      color: var(--ink-soft);
+      line-height: 1.65;
+    }
+
+    /* كتل الأقسام */
+    .stage-section {
+      background: var(--surface-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-whisper);
+      padding: clamp(14px, 3vw, 22px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      transition: all 0.3s var(--ease);
+    }
+    .stage-section:focus-within {
+      background: var(--surface-pure);
+      border-color: rgba(20, 22, 25, 0.2);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04);
+    }
+
+    .stage-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .stage-identity {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stage-num {
+      font-family: var(--font-code);
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      background: var(--surface-pure);
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-whisper);
+      flex-shrink: 0;
+    }
+    .stage-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink-deep);
+      line-height: 1.4;
+    }
+
+    /* زر استعراض دليل draw.io */
+    .btn-drawio-guide {
+      background: var(--surface-pure);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-pill);
+      padding: 4px 12px;
+      font-family: var(--font-code);
+      font-size: 11px;
+      color: var(--ink-soft);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-drawio-guide:hover {
+      border-color: var(--ink-deep);
+      color: var(--ink-deep);
+    }
+
+    /* شارات الترقيم التلقائي */
+    .auto-num-badge {
+      font-family: var(--font-code);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-deep);
+      background: var(--surface-pure);
+      padding: 3px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(20, 22, 25, 0.14);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* الحقول النصية المعيارية */
+    textarea, input[type="text"] {
+      width: 100%;
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 9px 12px;
+      font-size: 12.5px;
+      line-height: 1.65;
+      color: var(--ink-deep);
+      background: var(--surface-pure);
+      outline: none;
+      transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    }
+    textarea:focus, input[type="text"]:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(20, 22, 25, 0.035);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    /* مسرح إرفاق المخطط الانسيابي: رحب ومتناسب ومريح للعين */
+    .flowchart-shelf-large {
+      border: 1px dashed rgba(20, 22, 25, 0.2);
+      border-radius: var(--radius-md);
+      background: var(--surface-pure);
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 8px;
+      cursor: pointer;
+      position: relative;
+      min-height: 220px;
+      transition: border-color 0.25s var(--ease), background-color 0.25s var(--ease);
+    }
+    .flowchart-shelf-large:hover {
+      border-color: var(--ink-deep);
+      background: #fafaf8;
+    }
+    .flowchart-shelf-text {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--ink-soft);
+    }
+    .flowchart-shelf-hint {
+      font-size: 11px;
+      color: var(--ink-subtle);
+    }
+    .flowchart-display {
+      max-width: 100%;
+      max-height: 520px;
+      border-radius: var(--radius-sm);
+      display: none;
+      object-fit: contain;
+    }
+
+    /* محرر طرفية الكود المنضبط */
+    .code-terminal-box {
+      background: #141619;
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .terminal-meta-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-code);
+      font-size: 10px;
+      color: #717682;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 6px;
+    }
+    .terminal-textarea {
+      width: 100%;
+      background: transparent !important;
+      border: none !important;
+      outline: none !important;
+      color: #38bdf8;
+      font-family: var(--font-code);
+      font-size: 12px;
+      line-height: 1.6;
+      resize: vertical;
+      min-height: 110px;
+      direction: ltr;
+      text-align: left;
+      box-shadow: none !important;
+      padding: 4px 0;
+    }
+
+    /* تمييز مربع التوجيه (المدخل) بأناقة تحريرية صريحة */
+    .prompt-editorial-box {
+      background: #ffffff !important;
+      border: 1.5px solid rgba(20, 22, 25, 0.16) !important;
+      border-radius: var(--radius-sm) !important;
+      color: var(--ink-deep) !important;
+      font-family: var(--font-body) !important;
+      font-size: 12.5px !important;
+      line-height: 1.75 !important;
+      direction: auto !important;
+      unicode-bidi: plaintext !important;
+      text-align: start !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02) !important;
+      padding: 10px 12px !important;
+    }
+    .prompt-editorial-box:focus {
+      border-color: var(--ink-deep) !important;
+      box-shadow: 0 0 0 3px rgba(20, 22, 25, 0.04) !important;
+    }
+
+    /* تمييز مربع المخرج من الأداة بأرضية هادئة وإطار متقطع */
+    .output-editorial-box {
+      background: #f7f6f2 !important;
+      border: 1px dashed rgba(20, 22, 25, 0.18) !important;
+      border-radius: var(--radius-sm) !important;
+      color: var(--ink-deep) !important;
+      font-family: var(--font-body) !important;
+      font-size: 12.5px !important;
+      line-height: 1.7 !important;
+      direction: auto !important;
+      unicode-bidi: plaintext !important;
+      text-align: start !important;
+      padding: 10px 12px !important;
+    }
+    .output-editorial-box:focus {
+      background: #ffffff !important;
+      border-style: solid !important;
+      border-color: var(--border-focus) !important;
+      box-shadow: 0 0 0 3px rgba(20, 22, 25, 0.035) !important;
+    }
+
+    /* بطاقات التصنيع والدراسات */
+    .sub-ledger-deck {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sub-record-card {
+      background: var(--surface-pure);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      scroll-margin-top: 18px;
+    }
+    .sub-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-whisper);
+      padding-bottom: 8px;
+    }
+
+    /* شبكة الصورتين */
+    .dual-media-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media(max-width: 580px) {
+      .dual-media-grid { grid-template-columns: 1fr; }
+    }
+
+    /* مسرح إرفاق الصور الميدانية */
+    .media-shelf {
+      border: 1px dashed rgba(20, 22, 25, 0.16);
+      border-radius: var(--radius-sm);
+      background: var(--surface-card);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 4px;
+      cursor: pointer;
+      position: relative;
+      transition: border-color 0.2s;
+      min-height: 110px;
+    }
+    .media-shelf:hover {
+      border-color: var(--ink-deep);
+    }
+    .media-shelf-text {
+      font-size: 11px;
+      color: var(--ink-soft);
+    }
+    .media-display {
+      max-width: 100%;
+      max-height: 180px;
+      border-radius: var(--radius-sm);
+      display: none;
+      object-fit: contain;
+    }
+
+    /* نظام الحذف والتأكيد السلس من خطوتين */
+    .inline-action-slot {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-discrete-action {
+      border: none;
+      background: transparent;
+      color: var(--ink-subtle);
+      cursor: pointer;
+      font-size: 11px;
+      padding: 2px 4px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s var(--ease);
+    }
+    .btn-discrete-action:hover { color: var(--accent-alert); }
+
+    .confirm-pop-deck {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface-pure);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(185, 28, 28, 0.25);
+    }
+    .confirm-pop-deck.active {
+      display: inline-flex;
+    }
+    .btn-affirm-del {
+      border: none;
+      background: var(--accent-alert);
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+    }
+    .btn-cancel-del {
+      border: none;
+      background: transparent;
+      color: var(--ink-soft);
+      font-size: 10px;
+      cursor: pointer;
+      padding: 2px 4px;
+    }
+
+    /* التحقق والتقويم */
+    .human-oversight-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .oversight-head-label {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--ink-deep);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* زر الإضافة الذرية */
+    .btn-append-atom {
+      background: transparent;
+      border: 1px dashed var(--border-whisper);
+      border-radius: var(--radius-pill);
+      padding: 6px 14px;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      align-self: flex-start;
+      transition: all 0.2s;
+    }
+    .btn-append-atom:hover {
+      border-color: var(--ink-deep);
+      color: var(--ink-deep);
+    }
+
+    /* زر التلميح */
+    .beacon-btn {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-subtle);
+      cursor: pointer;
+      flex-shrink: 0;
+      padding: 0;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .beacon-btn:hover, .beacon-btn.active {
+      color: var(--ink-deep);
+      transform: scale(1.15);
+    }
+    .beacon-btn svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    /* النافذة العائمة المركزية المانعة للفيضان */
+    #masterTooltip {
+      position: fixed;
+      z-index: 100000;
+      background: #141619;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 1.55;
+      padding: 9px 13px;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(4px);
+      transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+      max-width: 250px;
+      box-sizing: border-box;
+      white-space: normal;
+    }
+    #masterTooltip.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* نافذة دليل ومنصة draw.io والمراجع الرسمية */
+    .sheet-scrim {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(20, 22, 25, 0.4);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 20000;
+      padding: 16px;
+    }
+    .sheet-card {
+      background: var(--surface-pure);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-whisper);
+      width: 100%;
+      max-width: 580px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+    }
+    .drawio-resource-tile {
+      background: var(--surface-card);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s;
+    }
+    .drawio-resource-tile:hover {
+      border-color: var(--ink-deep);
+    }
+
+    /* التذييل الرسمي */
+    .folio-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-whisper);
+      font-size: 10.5px;
+      font-family: var(--font-code);
+      color: var(--ink-subtle);
     }
   </style>
 </head>
 <body>
 
-  <div class="module-container">
-    <div>
-      <span class="header-tag">أَثَـر · HORIZON 04</span>
-      <h2>أمانة الابتكار ودرع التحقق البشري</h2>
-    </div>
+  <!-- حاوية التلميح المركزية الحرة المحسوبة برمجياً -->
+  <div id="masterTooltip"></div>
 
-    <div class="code-terminal">
-      <div style="font-size:10px; color:#546e7a; margin-bottom:6px;">// Core Algorithm Logic · المنطق البرمجي المجرد</div>
-      <textarea placeholder="void executeAdaptiveControl() {&#10;  float error = targetSensor - currentSensor;&#10;  driveActuator(error * dampingFactor);&#10;}"></textarea>
-    </div>
+  <!-- قائمة الاقتراح التلقائي لأسماء الأدوات المتقدمة -->
+  <datalist id="toolsCommonDatalist">
+    <option value="ChatGPT (GPT-4o)"></option>
+    <option value="Claude 3.5 Sonnet"></option>
+    <option value="GitHub Copilot"></option>
+    <option value="Google Gemini Advanced"></option>
+    <option value="DeepSeek R1"></option>
+    <option value="Wolfram Alpha"></option>
+  </datalist>
 
-    <div class="shield-card">
-      <strong>🛡️ درع التحقق والتعديل البشري (AI Verification Shield)</strong>
-      <input type="text" placeholder="الـ Prompt أو التوجيه الدقيق الموجه لأداة الذكاء الاصطناعي...">
-      <textarea placeholder="اشرحوا كيف اختبرتم المخرج، وأين تدخل عقلكم البشري بتعديل المعادلات والمنطق ليتوافق مع واقعكم الهندسي ويثبت ملكيتكم الفكرية الحقيقية..."></textarea>
+  <div class="master-flow">
+
+    <!-- الترويسة الرئيسية -->
+    <header class="folio-header">
+      <span class="folio-meta">ATHAR • HORIZON 04</span>
+      <h1 class="folio-heading">القسم الرابع: الابتكار التقني والتصنيع الرقمي</h1>
+      <p class="folio-brief">
+        البنية البرمجية والخوارزمية، ابتكارات التصنيع الرقمي الملموسة، وتوظيف الأدوات المتقدمة مع إثبات التقويم البشري لضمان الملكية الفكرية.
+      </p>
+    </header>
+
+    <!-- 01: المخطط الانسيابي العام للنظام (متناسب ومريح بصرياً) -->
+    <section class="stage-section">
+      <div class="stage-bar">
+        <div class="stage-identity">
+          <span class="stage-num">01</span>
+          <h2 class="stage-title">المنطق العام للنظام (المخطط الانسيابي)</h2>
+          
+          <button type="button" class="beacon-btn" data-tip="بيان تسلسل تدفق البيانات والعمليات واتخاذ القرارات من البداية حتى النهاية، بصيغة PNG أو JPEG واضحة." aria-label="إرشاد">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- زر استعراض دليل المخطط وروابط draw.io المعتمدة -->
+        <button type="button" class="btn-drawio-guide" onclick="openDrawioGuideModal()">
+          دليل ومنصة draw.io ↗
+        </button>
+      </div>
+
+      <div class="flowchart-shelf-large" onclick="handleShelfClick('flowchart_file', event)">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-subtle);" id="flowchart_icon_svg">
+          <rect x="3" y="3" width="6" height="6" rx="1"/>
+          <rect x="15" y="15" width="6" height="6" rx="1"/>
+          <path d="M6 9v3a3 3 0 0 0 3 3h6"/>
+          <polyline points="15 12 18 15 15 18"/>
+        </svg>
+        <span class="flowchart-shelf-text" id="flowchart_lbl">إرفاق صورة المخطط الانسيابي للنظام</span>
+        <span class="flowchart-shelf-hint" id="flowchart_subhint">انقر لاختيار ملف المخطط بصيغة PNG أو JPEG عالية الدقة</span>
+        
+        <input type="file" id="flowchart_file" accept="image/png, image/jpeg" style="display:none;" onchange="handleSingleImage('flowchartImg', 'flowchart_prev', 'flowchart_lbl', 'flowchart_del_container', this)">
+        <img id="flowchart_prev" class="flowchart-display" alt="المخطط الانسيابي">
+        
+        <!-- إزالة الصورة بخطوتين -->
+        <div id="flowchart_del_container" style="display:none; position:absolute; top:12px; left:12px; z-index:10;" onclick="event.stopPropagation()">
+          <button type="button" class="btn-discrete-action" style="background:var(--ink-deep); color:#fff; font-size:9.5px; border-radius:var(--radius-pill); padding:3px 10px;" id="flowchart_del_init" onclick="armSingleMediaDel('flowchart_del_init', 'flowchart_del_confirm')">إزالة الصورة</button>
+          <div class="confirm-pop-deck" id="flowchart_del_confirm">
+            <button type="button" class="btn-affirm-del" onclick="confirmFlowchartDelete()">تأكيد</button>
+            <button type="button" class="btn-cancel-del" onclick="disarmSingleMediaDel('flowchart_del_init', 'flowchart_del_confirm')">تراجع</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02: الخوارزمية المحورية تحت المجهر -->
+    <section class="stage-section">
+      <div class="stage-bar">
+        <div class="stage-identity">
+          <span class="stage-num">02</span>
+          <h2 class="stage-title">الخوارزمية المحورية تحت المجهر</h2>
+
+          <button type="button" class="beacon-btn" data-tip="تسليط الضوء على الابتكار البرمجي الذي يشكل عصب الحل، مع تفكيك المنطق وعرض الشفرة البرمجية المكتوبة." aria-label="إرشاد">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <span style="font-size:11px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">اسم الخوارزمية:</span>
+        <input type="text" id="algo_name" placeholder="المسمى التقني والوظيفي للخوارزمية المحورية في النظام..." oninput="persistState()">
+      </div>
+
+      <div>
+        <span style="font-size:11px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">المعضلة الفنية التي تعالجها الخوارزمية:</span>
+        <input type="text" id="algo_problem" placeholder="توصيف العائق التشغيلي أو البرمجي الذي صُممت الخوارزمية لمعالجته..." oninput="persistState()">
+      </div>
+
+      <!-- طرفية عرض الكود الفعلي -->
+      <div>
+        <span style="font-size:11px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:4px;">الشفرة البرمجية للخوارزمية:</span>
+        <div class="code-terminal-box">
+          <div class="terminal-meta-bar">
+            <span>CORE ALGORITHM SOURCE</span>
+            <span>UTF-8 • MONO</span>
+          </div>
+          <textarea id="algo_code" class="terminal-textarea" placeholder="// كتابة الشفرة المصدرية المكتوبة بلغة البرمجة المعتمدة..." oninput="persistState()"></textarea>
+        </div>
+      </div>
+
+      <div>
+        <span style="font-size:11px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">تفكيك منطق العمل (المدخلات، العمليات، الشروط، المخرجات):</span>
+        <textarea rows="3" id="algo_logic" placeholder="تفكيك المنطق الهندسي: المدخلات، العمليات والمعادلات، شروط اتخاذ القرار، والمخرجات..." oninput="persistState()"></textarea>
+      </div>
+    </section>
+
+    <!-- 03: ابتكارات التصنيع الرقمي (CAD & Fabrication) -->
+    <section class="stage-section">
+      <div class="stage-bar">
+        <div class="stage-identity">
+          <span class="stage-num">03</span>
+          <h2 class="stage-title">ابتكارات التصنيع الرقمي والمجسمات</h2>
+
+          <button type="button" class="beacon-btn" data-tip="توثيق تحويل النماذج الرقمية إلى قطع حقيقية ملموسة، مع مسوغات الشكل والأبعاد واختيار الخامة." aria-label="إرشاد">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </button>
+        </div>
+
+        <span style="font-family:var(--font-code); font-size:10.5px; color:var(--ink-subtle);" id="fabCountLabel">01 ابتكارات</span>
+      </div>
+
+      <div class="sub-ledger-deck" id="fabLedger"></div>
+
+      <button type="button" class="btn-append-atom" onclick="appendNewFabItem()">
+        + إضافة ابتكار تصنيع جديد
+      </button>
+    </section>
+
+    <!-- 04: توظيف الأدوات المتقدمة والتحقق والتقويم -->
+    <section class="stage-section">
+      <div class="stage-bar">
+        <div class="stage-identity">
+          <span class="stage-num">04</span>
+          <h2 class="stage-title">توظيف الأدوات المتقدمة والتحقق</h2>
+
+          <button type="button" class="beacon-btn" data-tip="توثيق التوجيهات الموجهة لأدوات الذكاء الاصطناعي، وبيان التدخل البشري في فحص وتكييف المخرجات." aria-label="إرشاد">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </button>
+        </div>
+
+        <span style="font-family:var(--font-code); font-size:10.5px; color:var(--ink-subtle);" id="aiCountLabel">01 دراسات</span>
+      </div>
+
+      <div class="sub-ledger-deck" id="aiLedger"></div>
+
+      <button type="button" class="btn-append-atom" onclick="appendNewAiItem()">
+        + إضافة دراسة حالة أداة متقدمة
+      </button>
+    </section>
+
+    <!-- التذييل الرسمي -->
+    <footer class="folio-footer">
+      <span>البطولة الوطنية للابتكار والروبوت</span>
+      <span>AED-1101 • 04-INNOVATION</span>
+    </footer>
+
+  </div>
+
+  <!-- نافذة دليل منصة draw.io والمراجع الرسمية المرتبطة بالباركودات -->
+  <div class="sheet-scrim" id="drawioGuideModal" onclick="if(event.target===this) closeDrawioGuideModal()">
+    <div class="sheet-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:10px;">
+        <span style="font-size:13.5px; font-weight:600;">دليل ومنصة إعداد المخطط الانسيابي (Flowchart)</span>
+        <button type="button" onclick="closeDrawioGuideModal()" style="border:none; background:transparent; font-size:11.5px; cursor:pointer; color:var(--ink-subtle);">إغلاق</button>
+      </div>
+
+      <div style="font-size:12px; color:var(--ink-soft); line-height:1.7;">
+        المخطط الانسيابي هو لغة بصرية تترجم منطق برنامجكم إلى أشكال قياسية موحدة تفهمها لجان التحكيم:
+        <ul style="margin: 8px 18px 0 0; display:flex; flex-direction:column; gap:4px;">
+          <li><strong>الشكل البيضاوي:</strong> نقطة بداية البرنامج أو نهايته الحتمية.</li>
+          <li><strong>المستطيل:</strong> العمليات الحسابية وقراءات المتغيرات وتحديث القيم.</li>
+          <li><strong>المعين:</strong> الشروط المنطقية ونقاط اتخاذ القرار (نعم / لا).</li>
+          <li><strong>الأسهم:</strong> مسار اتجاه تدفق البيانات والأوامر.</li>
+        </ul>
+      </div>
+
+      <!-- بطاقات الروابط الثلاث المعتمدة في باركودات الدليل الوطني -->
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <!-- 1. رابط المنصة المباشر -->
+        <a href="https://app.diagrams.net/" target="_blank" class="drawio-resource-tile">
+          <div>
+            <strong style="font-size:12px; color:var(--ink-deep); display:block;">منصة إنشاء المخطط الانسيابي (draw.io)</strong>
+            <span style="font-size:10.5px; color:var(--ink-soft);">بيئة الرسم الهندسية السحابية (diagrams.net)</span>
+          </div>
+          <span style="font-family:var(--font-code); font-size:11px; color:var(--ink-deep);">فتح المنصة ↗</span>
+        </a>
+
+        <!-- 2. رابط كيفية تصدير الملف المعتمد -->
+        <a href="https://drawio-app.com/blog/draw-io-training-exercise-10-export-and-import/" target="_blank" class="drawio-resource-tile">
+          <div>
+            <strong style="font-size:12px; color:var(--ink-deep); display:block;">دليل تصدير المخطط بصيغة ملائمة</strong>
+            <span style="font-size:10.5px; color:var(--ink-soft);">التدريب الرسمي لتصدير المخطط بدقة عالية (PNG / JPEG) لرفعه في المحفظة</span>
+          </div>
+          <span style="font-family:var(--font-code); font-size:11px; color:var(--ink-deep);">عرض الدليل ↗</span>
+        </a>
+
+        <!-- 3. رابط مرجع فهم وتصميم الخوارزميات (كتاب المهارات الرقمية المعتمد ص 95) -->
+        <a href="https://drive.google.com/file/d/1oISZKI-GKpwcGaVVRuyU-dLCb5_JzqyS/view?usp=drivesdk#page=95" target="_blank" class="drawio-resource-tile" title="الانتقال المباشر لكتاب المهارات الرقمية المعتمد">
+          <div>
+            <strong style="font-size:12px; color:var(--ink-deep); display:block;">كتاب المهارات الرقمية (الصف السابع) • صفحة 95</strong>
+            <span style="font-size:10.5px; color:var(--ink-soft);">درس «تصميم الخوارزميات» وبناء المخططات الانسيابية المنطقية المعتمدة وزارياً</span>
+          </div>
+          <span style="font-family:var(--font-code); font-size:11px; color:var(--ink-deep);">فتح الرابط المعتمد ↗</span>
+        </a>
+      </div>
     </div>
   </div>
 
+  <script>
+    const STORAGE_KEY = 'ATHAR_INNOVATION_SCHEMA_V4';
+
+    let state = {
+      flowchartImg: "",
+      algo: { name: "", problem: "", code: "", logic: "" },
+      fabItems: [
+        { title: "", problem: "", cadImg: "", realImg: "", geometryReason: "", materialReason: "" }
+      ],
+      aiStudies: [
+        { challenge: "", toolName: "", promptText: "", initialOutput: "", humanVerification: "" }
+      ]
+    };
+
+    // ============================================================
+    // محرك التلميحات الذكي المانع للفيضان
+    // ============================================================
+    const tooltipEl = document.getElementById('masterTooltip');
+    let activeBeaconBtn = null;
+
+    function initMasterTooltipEngine() {
+      document.body.addEventListener('click', (e) => {
+        const btn = e.target.closest('.beacon-btn');
+        if (btn) {
+          if (activeBeaconBtn === btn && tooltipEl.classList.contains('visible')) {
+            hideTooltip();
+          } else {
+            showTooltip(btn);
+          }
+          return;
+        }
+
+        if (tooltipEl.classList.contains('visible')) {
+          hideTooltip();
+        }
+      });
+
+      window.addEventListener('scroll', () => {
+        if (tooltipEl.classList.contains('visible')) hideTooltip();
+      }, { passive: true });
+    }
+
+    function showTooltip(btn) {
+      if (activeBeaconBtn) activeBeaconBtn.classList.remove('active');
+      activeBeaconBtn = btn;
+      btn.classList.add('active');
+
+      const text = btn.getAttribute('data-tip');
+      tooltipEl.textContent = text;
+      tooltipEl.classList.add('visible');
+
+      const btnRect = btn.getBoundingClientRect();
+      const tipRect = tooltipEl.getBoundingClientRect();
+      const tipWidth = tipRect.width;
+
+      let left = btnRect.left + (btnRect.width / 2) - (tipWidth / 2);
+      
+      const margin = 14;
+      const minLeft = margin;
+      const maxLeft = window.innerWidth - tipWidth - margin;
+      
+      left = Math.max(minLeft, Math.min(maxLeft, left));
+
+      let top = btnRect.bottom + 8;
+      if (top + tipRect.height > window.innerHeight - 10) {
+        top = btnRect.top - tipRect.height - 8;
+      }
+
+      tooltipEl.style.left = `${left}px`;
+      tooltipEl.style.top = `${top}px`;
+    }
+
+    function hideTooltip() {
+      tooltipEl.classList.remove('visible');
+      if (activeBeaconBtn) {
+        activeBeaconBtn.classList.remove('active');
+        activeBeaconBtn = null;
+      }
+    }
+
+    function handleShelfClick(targetInputId, e) {
+      if (e.target.closest('.beacon-btn') || e.target.closest('.confirm-pop-deck') || e.target.closest('.btn-discrete-action')) return;
+      document.getElementById(targetInputId).click();
+    }
+
+    // إدارة نافذة draw.io الإرشادية
+    function openDrawioGuideModal() {
+      document.getElementById('drawioGuideModal').style.display = 'flex';
+    }
+
+    function closeDrawioGuideModal() {
+      document.getElementById('drawioGuideModal').style.display = 'none';
+    }
+
+    // ============================================================
+    // 1. إدارة المخطط الانسيابي
+    // ============================================================
+    function handleSingleImage(stateKey, prevId, lblId, delContainerId, input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          state[stateKey] = e.target.result;
+          displayFlowchartImage(e.target.result);
+          persistState();
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function displayFlowchartImage(src) {
+      const img = document.getElementById('flowchart_prev');
+      const lbl = document.getElementById('flowchart_lbl');
+      const subhint = document.getElementById('flowchart_subhint');
+      const icon = document.getElementById('flowchart_icon_svg');
+      const del = document.getElementById('flowchart_del_container');
+
+      if (img && src) {
+        img.src = src;
+        img.style.display = 'block';
+        if (lbl) lbl.style.display = 'none';
+        if (subhint) subhint.style.display = 'none';
+        if (icon) icon.style.display = 'none';
+        if (del) del.style.display = 'block';
+      }
+    }
+
+    function armSingleMediaDel(initBtnId, confirmDeckId) {
+      document.getElementById(initBtnId).style.display = 'none';
+      document.getElementById(confirmDeckId).classList.add('active');
+    }
+
+    function disarmSingleMediaDel(initBtnId, confirmDeckId) {
+      document.getElementById(initBtnId).style.display = 'inline-block';
+      document.getElementById(confirmDeckId).classList.remove('active');
+    }
+
+    function confirmFlowchartDelete() {
+      state.flowchartImg = "";
+      const img = document.getElementById('flowchart_prev');
+      const lbl = document.getElementById('flowchart_lbl');
+      const subhint = document.getElementById('flowchart_subhint');
+      const icon = document.getElementById('flowchart_icon_svg');
+      const del = document.getElementById('flowchart_del_container');
+      const input = document.getElementById('flowchart_file');
+      
+      if (img) { img.src = ""; img.style.display = 'none'; }
+      if (lbl) lbl.style.display = 'block';
+      if (subhint) subhint.style.display = 'block';
+      if (icon) icon.style.display = 'block';
+      if (del) del.style.display = 'none';
+      if (input) input.value = '';
+
+      disarmSingleMediaDel('flowchart_del_init', 'flowchart_del_confirm');
+      persistState();
+    }
+
+    // ============================================================
+    // 2. إدارة ابتكارات التصنيع الرقمي (المسوغات الرأسية)
+    // ============================================================
+    function renderFabLedger() {
+      const ledger = document.getElementById('fabLedger');
+      ledger.innerHTML = '';
+
+      state.fabItems.forEach((item, idx) => {
+        const num = idx + 1;
+        const formattedNum = num < 10 ? `0${num}` : `${num}`;
+
+        const card = document.createElement('div');
+        card.className = 'sub-record-card';
+        card.id = `fab_card_${idx}`;
+        card.innerHTML = `
+          <div class="sub-card-top">
+            <span class="auto-num-badge">ابتكار التصنيع ${formattedNum}</span>
+
+            ${state.fabItems.length > 1 ? `
+              <div class="inline-action-slot" id="fab_del_slot_${idx}">
+                <button type="button" class="btn-discrete-action" onclick="armFabDelete(${idx})">استبعاد</button>
+                <div class="confirm-pop-deck" id="fab_del_confirm_${idx}">
+                  <button type="button" class="btn-affirm-del" onclick="confirmFabDelete(${idx})">تأكيد الاستبعاد</button>
+                  <button type="button" class="btn-cancel-del" onclick="disarmFabDelete(${idx})">تراجع</button>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+
+          <div>
+            <span style="font-size:10.5px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">اسم الابتكار المصنّع:</span>
+            <input type="text" placeholder="المسمى الوظيفي للقطعة المبتكرة المصنّعة..." value="${escapeHtml(item.title)}" oninput="updateFabField(${idx}, 'title', this.value)" style="font-weight:600;">
+          </div>
+
+          <div>
+            <span style="font-size:10.5px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">المشكلة التي تم حلها بهذا التصميم:</span>
+            <input type="text" placeholder="بيان العائق الميكانيكي أو الوظيفي الذي يعالجه هذا التصميم..." value="${escapeHtml(item.problem)}" oninput="updateFabField(${idx}, 'problem', this.value)">
+          </div>
+
+          <!-- شبكة الصورتين (المخطط الشامل مقابل الواقع) -->
+          <div class="dual-media-grid">
+            <!-- صورة المخطط الشامل -->
+            <div class="media-shelf" onclick="handleShelfClick('cad_file_${idx}', event)">
+              <span class="media-shelf-text" id="cad_lbl_${idx}">المخطط الهندسي الرقمي قبل التنفيذ (2D / 3D)</span>
+              <input type="file" id="cad_file_${idx}" accept="image/png, image/jpeg" style="display:none;" onchange="handleFabImage(${idx}, 'cadImg', this)">
+              <img id="cad_prev_${idx}" class="media-display" alt="المخطط الرقمي">
+              
+              <div id="cad_del_container_${idx}" style="display:none; position:absolute; top:6px; left:6px; z-index:10;" onclick="event.stopPropagation()">
+                <button type="button" class="btn-discrete-action" style="background:var(--ink-deep); color:#fff; font-size:9.5px; border-radius:var(--radius-pill); padding:2px 8px;" id="cad_del_init_${idx}" onclick="armSubMediaDel('cad_del_init_${idx}', 'cad_del_confirm_${idx}')">إزالة</button>
+                <div class="confirm-pop-deck" id="cad_del_confirm_${idx}">
+                  <button type="button" class="btn-affirm-del" onclick="confirmFabSubImage(${idx}, 'cadImg', 'cad_prev_', 'cad_lbl_', 'cad_del_container_', 'cad_file_')">تأكيد</button>
+                  <button type="button" class="btn-cancel-del" onclick="disarmSubMediaDel('cad_del_init_${idx}', 'cad_del_confirm_${idx}')">تراجع</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- صورة القطعة المصنعة -->
+            <div class="media-shelf" onclick="handleShelfClick('real_file_${idx}', event)">
+              <span class="media-shelf-text" id="real_lbl_${idx}">القطعة بعد التصنيع الفعلي</span>
+              <input type="file" id="real_file_${idx}" accept="image/png, image/jpeg" style="display:none;" onchange="handleFabImage(${idx}, 'realImg', this)">
+              <img id="real_prev_${idx}" class="media-display" alt="المجسم المصنع">
+              
+              <div id="real_del_container_${idx}" style="display:none; position:absolute; top:6px; left:6px; z-index:10;" onclick="event.stopPropagation()">
+                <button type="button" class="btn-discrete-action" style="background:var(--ink-deep); color:#fff; font-size:9.5px; border-radius:var(--radius-pill); padding:2px 8px;" id="real_del_init_${idx}" onclick="armSubMediaDel('real_del_init_${idx}', 'real_del_confirm_${idx}')">إزالة</button>
+                <div class="confirm-pop-deck" id="real_del_confirm_${idx}">
+                  <button type="button" class="btn-affirm-del" onclick="confirmFabSubImage(${idx}, 'realImg', 'real_prev_', 'real_lbl_', 'real_del_container_', 'real_file_')">تأكيد</button>
+                  <button type="button" class="btn-cancel-del" onclick="disarmSubMediaDel('real_del_init_${idx}', 'real_del_confirm_${idx}')">تراجع</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- المسوغات رأسية واحدة تلو الأخرى -->
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div>
+              <span style="font-size:10.5px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">مسوغات الشكل والأبعاد:</span>
+              <textarea rows="2" placeholder="مسوغات الأبعاد والزوايا الهندسية وتوزيع الكتل ومراكز الارتكاز..." oninput="updateFabField(${idx}, 'geometryReason', this.value)">${escapeHtml(item.geometryReason)}</textarea>
+            </div>
+            <div>
+              <span style="font-size:10.5px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">مسوغات الخامة وطريقة التصنيع:</span>
+              <textarea rows="2" placeholder="مسوغات اختيار الخامة وظروف التشغيل ومقاومة الإجهاد الميكانيكي والحراري..." oninput="updateFabField(${idx}, 'materialReason', this.value)">${escapeHtml(item.materialReason)}</textarea>
+            </div>
+          </div>
+        `;
+        ledger.appendChild(card);
+
+        restoreSubImageSlotView(idx, 'cadImg', 'cad_prev_', 'cad_lbl_', 'cad_del_container_', state.fabItems);
+        restoreSubImageSlotView(idx, 'realImg', 'real_prev_', 'real_lbl_', 'real_del_container_', state.fabItems);
+      });
+
+      const total = state.fabItems.length;
+      document.getElementById('fabCountLabel').innerText = `${total < 10 ? '0' + total : total} ابتكارات`;
+    }
+
+    function appendNewFabItem() {
+      const newIndex = state.fabItems.length;
+      state.fabItems.push({ title: "", problem: "", cadImg: "", realImg: "", geometryReason: "", materialReason: "" });
+      renderFabLedger();
+      persistState();
+
+      requestAnimationFrame(() => {
+        const newCard = document.getElementById(`fab_card_${newIndex}`);
+        if (newCard) {
+          newCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const firstInput = newCard.querySelector('input[type="text"]');
+          if (firstInput) setTimeout(() => firstInput.focus(), 350);
+        }
+      });
+    }
+
+    function armFabDelete(idx) {
+      document.querySelector(`#fab_del_slot_${idx} .btn-discrete-action`).style.display = 'none';
+      document.getElementById(`fab_del_confirm_${idx}`).classList.add('active');
+    }
+
+    function disarmFabDelete(idx) {
+      document.querySelector(`#fab_del_slot_${idx} .btn-discrete-action`).style.display = 'inline-block';
+      document.getElementById(`fab_del_confirm_${idx}`).classList.remove('active');
+    }
+
+    function confirmFabDelete(idx) {
+      state.fabItems.splice(idx, 1);
+      renderFabLedger();
+      persistState();
+    }
+
+    function updateFabField(idx, field, val) {
+      state.fabItems[idx][field] = val;
+      persistState();
+    }
+
+    function handleFabImage(idx, key, input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          state.fabItems[idx][key] = e.target.result;
+          renderFabLedger();
+          persistState();
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function armSubMediaDel(btnId, confirmId) {
+      document.getElementById(btnId).style.display = 'none';
+      document.getElementById(confirmId).classList.add('active');
+    }
+
+    function disarmSubMediaDel(btnId, confirmId) {
+      document.getElementById(btnId).style.display = 'inline-block';
+      document.getElementById(confirmId).classList.remove('active');
+    }
+
+    function confirmFabSubImage(idx, key, imgPrefix, lblPrefix, delPrefix, inputPrefix) {
+      state.fabItems[idx][key] = "";
+      const img = document.getElementById(`${imgPrefix}${idx}`);
+      const lbl = document.getElementById(`${lblPrefix}${idx}`);
+      const del = document.getElementById(`${delPrefix}${idx}`);
+      const input = document.getElementById(`${inputPrefix}${idx}`);
+
+      if (img) { img.src = ""; img.style.display = 'none'; }
+      if (lbl) lbl.style.display = 'block';
+      if (del) del.style.display = 'none';
+      if (input) input.value = '';
+
+      renderFabLedger();
+      persistState();
+    }
+
+    // ============================================================
+    // 3. إدارة دراسات الحالة مع تمييز المدخل والمخرج والتحقق
+    // ============================================================
+    function renderAiLedger() {
+      const ledger = document.getElementById('aiLedger');
+      ledger.innerHTML = '';
+
+      state.aiStudies.forEach((item, idx) => {
+        const num = idx + 1;
+        const formattedNum = num < 10 ? `0${num}` : `${num}`;
+
+        const card = document.createElement('div');
+        card.className = 'sub-record-card';
+        card.id = `ai_card_${idx}`;
+        card.innerHTML = `
+          <div class="sub-card-top">
+            <span class="auto-num-badge">دراسة الحالة ${formattedNum}</span>
+
+            ${state.aiStudies.length > 1 ? `
+              <div class="inline-action-slot" id="ai_del_slot_${idx}">
+                <button type="button" class="btn-discrete-action" onclick="armAiDelete(${idx})">استبعاد</button>
+                <div class="confirm-pop-deck" id="ai_del_confirm_${idx}">
+                  <button type="button" class="btn-affirm-del" onclick="confirmAiDelete(${idx})">تأكيد الاستبعاد</button>
+                  <button type="button" class="btn-cancel-del" onclick="disarmAiDelete(${idx})">تراجع</button>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+
+          <!-- التحدي الفني -->
+          <div>
+            <span style="font-size:10.5px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">التحدي الفني المعالج:</span>
+            <input type="text" placeholder="توصيف المعضلة المستعصية محل الاستشارة..." value="${escapeHtml(item.challenge)}" oninput="updateAiField(${idx}, 'challenge', this.value)">
+          </div>
+
+          <!-- اسم الأداة في سطر مستقل -->
+          <div>
+            <span style="font-size:10.5px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">اسم الأداة المستخدمة:</span>
+            <input type="text" list="toolsCommonDatalist" placeholder="أداة الذكاء الاصطناعي أو المنصة المتقدمة المستعان بها..." value="${escapeHtml(item.toolName)}" oninput="updateAiField(${idx}, 'toolName', this.value); registerDynamicToolName(this.value)">
+          </div>
+
+          <!-- خانة التوجيه الدقيق (المدخل) بإطار تحريري صريح وأنيق -->
+          <div>
+            <span style="font-size:10.5px; font-weight:600; color:var(--ink-deep); display:block; margin-bottom:2px;">التوجيه الدقيق الموجه للأداة (Prompt):</span>
+            <textarea rows="3" class="prompt-editorial-box" placeholder="الصيغة الحرفية الدقيقة للتوجيه والمسألة المطروحة على الأداة..." oninput="updateAiField(${idx}, 'promptText', this.value)">${escapeHtml(item.promptText)}</textarea>
+          </div>
+
+          <!-- خانة المخرج من الأداة بأرضية هادئة محايدة وإطار متقطع -->
+          <div>
+            <span style="font-size:10.5px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">المخرج المقترح من الأداة:</span>
+            <textarea rows="2" class="output-editorial-box" placeholder="الحل أو الشفرة الأولية المقترحة من قِبل الأداة..." oninput="updateAiField(${idx}, 'initialOutput', this.value)">${escapeHtml(item.initialOutput)}</textarea>
+          </div>
+
+          <!-- التحقق والتقويم -->
+          <div class="human-oversight-card">
+            <span class="oversight-head-label">التحقق والتقويم:</span>
+            <textarea rows="2" placeholder="بيان مواضع الفحص والتقويم البشري والتعديل الهندسي للشفرات بما يثبت الملكية الفكرية للفريق..." oninput="updateAiField(${idx}, 'humanVerification', this.value)">${escapeHtml(item.humanVerification)}</textarea>
+          </div>
+        `;
+        ledger.appendChild(card);
+      });
+
+      const total = state.aiStudies.length;
+      document.getElementById('aiCountLabel').innerText = `${total < 10 ? '0' + total : total} دراسات`;
+      refreshDynamicDatalist();
+    }
+
+    function appendNewAiItem() {
+      const newIndex = state.aiStudies.length;
+      state.aiStudies.push({ challenge: "", toolName: "", promptText: "", initialOutput: "", humanVerification: "" });
+      renderAiLedger();
+      persistState();
+
+      requestAnimationFrame(() => {
+        const newCard = document.getElementById(`ai_card_${newIndex}`);
+        if (newCard) {
+          newCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const firstInput = newCard.querySelector('input[type="text"]');
+          if (firstInput) setTimeout(() => firstInput.focus(), 350);
+        }
+      });
+    }
+
+    function armAiDelete(idx) {
+      document.querySelector(`#ai_del_slot_${idx} .btn-discrete-action`).style.display = 'none';
+      document.getElementById(`ai_del_confirm_${idx}`).classList.add('active');
+    }
+
+    function disarmAiDelete(idx) {
+      document.querySelector(`#ai_del_slot_${idx} .btn-discrete-action`).style.display = 'inline-block';
+      document.getElementById(`ai_del_confirm_${idx}`).classList.remove('active');
+    }
+
+    function confirmAiDelete(idx) {
+      state.aiStudies.splice(idx, 1);
+      renderAiLedger();
+      persistState();
+    }
+
+    function updateAiField(idx, field, val) {
+      state.aiStudies[idx][field] = val;
+      persistState();
+    }
+
+    function registerDynamicToolName(val) {
+      if (!val || val.trim().length < 2) return;
+      let tools = JSON.parse(localStorage.getItem('ATHAR_TOOLS_HISTORY') || '[]');
+      if (!tools.includes(val.trim())) {
+        tools.push(val.trim());
+        localStorage.setItem('ATHAR_TOOLS_HISTORY', JSON.stringify(tools));
+        refreshDynamicDatalist();
+      }
+    }
+
+    function refreshDynamicDatalist() {
+      const datalist = document.getElementById('toolsCommonDatalist');
+      let tools = JSON.parse(localStorage.getItem('ATHAR_TOOLS_HISTORY') || '[]');
+      
+      state.aiStudies.forEach(s => {
+        if (s.toolName && s.toolName.trim() && !tools.includes(s.toolName.trim())) {
+          tools.push(s.toolName.trim());
+        }
+      });
+
+      tools.forEach(t => {
+        let exists = Array.from(datalist.options).some(opt => opt.value === t);
+        if (!exists) {
+          const opt = document.createElement('option');
+          opt.value = t;
+          datalist.appendChild(opt);
+        }
+      });
+    }
+
+    // ============================================================
+    // 4. الحفظ المحلي واسترجاع البيانات
+    // ============================================================
+    function persistState() {
+      state.algo.name = document.getElementById('algo_name').value;
+      state.algo.problem = document.getElementById('algo_problem').value;
+      state.algo.code = document.getElementById('algo_code').value;
+      state.algo.logic = document.getElementById('algo_logic').value;
+
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch(err) {
+        console.warn('تجاوزت البيانات الحجم التخزيني المقترح.');
+      }
+    }
+
+    function restoreState() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        try {
+          const parsed = JSON.parse(raw);
+          state = { ...state, ...parsed };
+
+          if (state.algo) {
+            document.getElementById('algo_name').value = state.algo.name || '';
+            document.getElementById('algo_problem').value = state.algo.problem || '';
+            document.getElementById('algo_code').value = state.algo.code || '';
+            document.getElementById('algo_logic').value = state.algo.logic || '';
+          }
+        } catch(err) {}
+      }
+
+      if (state.flowchartImg) {
+        displayFlowchartImage(state.flowchartImg);
+      }
+
+      renderFabLedger();
+      renderAiLedger();
+    }
+
+    function restoreSubImageSlotView(idx, slotKey, imgPrefix, lblPrefix, delContainerPrefix, arr) {
+      const data = arr[idx][slotKey];
+      if (data) {
+        const img = document.getElementById(`${imgPrefix}${idx}`);
+        const lbl = document.getElementById(`${lblPrefix}${idx}`);
+        const del = document.getElementById(`${delContainerPrefix}${idx}`);
+        if (img) { img.src = data; img.style.display = 'block'; }
+        if (lbl) lbl.style.display = 'none';
+        if (del) del.style.display = 'block';
+      }
+    }
+
+    function escapeHtml(str) {
+      return (str || '').replace(/"/g, '&quot;');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      restoreState();
+      initMasterTooltipEngine();
+    });
+  </script>
 </body>
 </html>
