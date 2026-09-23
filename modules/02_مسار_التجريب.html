@@ -2,139 +2,1023 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>أَثَـر • مسار التجريب والتعلّم المستمر</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #ffffff;
-      --text-main: #141619;
-      --text-muted: #5e656e;
-      --text-subtle: #9ea5af;
-      --border: rgba(0, 0, 0, 0.07);
-      --font-body: 'Readex Pro', sans-serif;
+      --bg-sky: #faf9f6;
+      --surface-pure: #ffffff;
+      --surface-card: #fafaf8;
+      
+      --ink-deep: #141619;
+      --ink-soft: #5e656e;
+      --ink-subtle: #9ea5af;
+
+      --border-whisper: rgba(0, 0, 0, 0.07);
+      --border-focus: rgba(20, 22, 25, 0.3);
+
+      --green-serene: #15803d;
+      --red-serene: #b91c1c;
+
+      --font-body: 'Readex Pro', -apple-system, sans-serif;
       --font-code: 'JetBrains Mono', monospace;
-      --ease-genesis: cubic-bezier(0.16, 1, 0.3, 1);
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-pill: 9999px;
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-body); }
-    body { background: var(--bg); color: var(--text-main); padding: clamp(20px, 3.5vw, 32px); line-height: 1.6; }
-
-    .module-container { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
-
-    .genesis-node { opacity: 0; animation: genesisBloom 0.7s var(--ease-genesis) forwards; }
-    @keyframes genesisBloom { from { opacity: 0; transform: scale(0.95); filter: blur(5px); } to { opacity: 1; transform: scale(1); filter: blur(0); } }
-
-    .header-tag { font-family: var(--font-code); font-size: 11px; color: var(--text-subtle); letter-spacing: 0.5px; }
-    h2 { font-size: clamp(17px, 3vw, 20px); font-weight: 600; margin: 2px 0 12px; }
-
-    .guide-callout {
-      background: #fafaf8; border-right: 3px solid var(--text-main);
-      padding: 10px 14px; border-radius: 6px; font-size: 12px; color: var(--text-muted); line-height: 1.6;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
     }
 
-    .run-card {
-      border: 1px solid var(--border); border-radius: 16px; padding: 18px;
-      background: #fafaf8; display: flex; flex-direction: column; gap: 12px;
-      animation: genesisBloom 0.5s var(--ease-genesis);
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      background-color: var(--surface-pure);
+      color: var(--ink-deep);
     }
-    .run-card-top { display: flex; justify-content: space-between; align-items: center; }
-    .run-badge { font-family: var(--font-code); font-size: 10.5px; padding: 2px 8px; background: #f1f2f4; border-radius: 20px; font-weight: 600; }
 
-    .split-analysis { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    @media(max-width: 580px) { .split-analysis { grid-template-columns: 1fr; } }
-    .col-pass, .col-fail { background: #ffffff; padding: 12px; border-radius: 12px; border: 1px solid var(--border); }
-    .col-pass strong { color: #10b981; font-size: 11.5px; display: block; margin-bottom: 4px; }
-    .col-fail strong { color: #ef4444; font-size: 11.5px; display: block; margin-bottom: 4px; }
-    textarea.area-mini { width: 100%; border: none; background: transparent; outline: none; font-size: 12.5px; resize: none; min-height: 48px; }
-
-    .decision-deck { background: #fffdf5; border: 1px solid #fde68a; padding: 12px; border-radius: 12px; }
-    .decision-deck label { font-size: 11.5px; font-weight: 600; color: #92400e; display: block; margin-bottom: 4px; }
-
-    .btn-quiet-add {
-      background: transparent; border: 1px dashed rgba(0,0,0,0.18); padding: 10px 22px;
-      border-radius: 30px; font-size: 12px; color: var(--text-muted); cursor: pointer; display: block; margin: 10px auto;
-      transition: all 0.25s ease;
+    body {
+      padding: clamp(16px, 3.5vw, 36px) clamp(12px, 3vw, 28px);
+      line-height: 1.6;
     }
-    .btn-quiet-add:hover { border-color: var(--text-main); color: var(--text-main); transform: translateY(-1px); }
+
+    .master-flow {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+    }
+
+    /* الترويسة الرئيسية */
+    .folio-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-whisper);
+    }
+    .folio-meta {
+      font-family: var(--font-code);
+      font-size: 10.5px;
+      color: var(--ink-subtle);
+      letter-spacing: 0.5px;
+    }
+    .folio-heading {
+      font-size: clamp(18px, 2.8vw, 22px);
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      color: var(--ink-deep);
+    }
+    .folio-brief {
+      font-size: 12.5px;
+      color: var(--ink-soft);
+      line-height: 1.65;
+    }
+
+    /* شريط التحكم بسجل التجارب */
+    .ledger-control-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .ledger-count-indicator {
+      font-family: var(--font-code);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      background: var(--surface-card);
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-whisper);
+    }
+
+    /* بطاقة التجربة التكرارية */
+    .trial-card {
+      background: var(--surface-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-whisper);
+      padding: clamp(16px, 3vw, 24px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      transition: all 0.3s var(--ease);
+      scroll-margin-top: 18px;
+    }
+    .trial-card:focus-within {
+      background: var(--surface-pure);
+      border-color: rgba(20, 22, 25, 0.2);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04);
+    }
+
+    .trial-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-whisper);
+      padding-bottom: 12px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .trial-tag-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    /* شارة رقم التجربة */
+    .trial-num-badge {
+      font-family: var(--font-code);
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--ink-deep);
+      background: var(--surface-pure);
+      padding: 4px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(20, 22, 25, 0.15);
+      letter-spacing: -0.2px;
+    }
+
+    /* مربع تاريخ التجربة الموحد */
+    .trial-date-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface-pure);
+      border: 1px solid var(--border-whisper);
+      padding: 3px 10px;
+      border-radius: var(--radius-sm);
+      transition: border-color 0.2s var(--ease);
+    }
+    .trial-date-container:focus-within {
+      border-color: var(--border-focus);
+    }
+    .date-title-tag {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      white-space: nowrap;
+    }
+    .trial-date-field {
+      font-family: var(--font-code);
+      font-size: 11px;
+      color: var(--ink-deep);
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 1px 0;
+      cursor: pointer;
+    }
+
+    /* نظام الحذف والتأكيد السلس من خطوتين */
+    .inline-action-slot {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-discrete-action {
+      border: none;
+      background: transparent;
+      color: var(--ink-subtle);
+      cursor: pointer;
+      font-size: 11px;
+      padding: 3px 6px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s var(--ease);
+    }
+    .btn-discrete-action:hover { color: var(--red-serene); }
+
+    .confirm-pop-deck {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface-pure);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(185, 28, 28, 0.25);
+    }
+    .confirm-pop-deck.active {
+      display: inline-flex;
+    }
+    .btn-affirm-del {
+      border: none;
+      background: var(--red-serene);
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+    }
+    .btn-cancel-del {
+      border: none;
+      background: transparent;
+      color: var(--ink-soft);
+      font-size: 10px;
+      cursor: pointer;
+      padding: 2px 4px;
+    }
+
+    /* الحقول النصية المعيارية */
+    textarea, input[type="text"] {
+      width: 100%;
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--ink-deep);
+      background: var(--surface-pure);
+      outline: none;
+      transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    }
+    textarea:focus, input[type="text"]:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(20, 22, 25, 0.035);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    /* عداد الكلمات المندمج طباعياً */
+    .word-meter-inline {
+      font-family: var(--font-code);
+      font-size: 11px;
+      color: var(--ink-subtle);
+      display: inline-flex;
+      align-items: baseline;
+      gap: 3px;
+      white-space: nowrap !important;
+      flex-shrink: 0;
+    }
+    .meter-current {
+      font-weight: 600;
+      color: var(--ink-soft);
+      transition: color 0.2s;
+    }
+    .word-meter-inline.in-range .meter-current { color: var(--green-serene); }
+    .word-meter-inline.out-range .meter-current { color: var(--red-serene); }
+
+    /* شبكة النتيجة والخلاصة */
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 12px;
+    }
+    @media (max-width: 640px) {
+      .outcome-grid { grid-template-columns: 1fr; }
+    }
+
+    /* مسرح إرفاق الصور الميدانية */
+    .media-shelf {
+      border: 1px dashed rgba(20, 22, 25, 0.16);
+      border-radius: var(--radius-sm);
+      background: var(--surface-pure);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 4px;
+      cursor: pointer;
+      position: relative;
+      transition: border-color 0.2s;
+      min-height: 120px;
+    }
+    .media-shelf:hover {
+      border-color: var(--ink-deep);
+    }
+    .media-shelf-text {
+      font-size: 11.5px;
+      color: var(--ink-soft);
+    }
+    .media-display {
+      max-width: 100%;
+      max-height: 180px;
+      border-radius: var(--radius-sm);
+      display: none;
+      object-fit: contain;
+    }
+
+    /* مصفوفة التحليل الثنائي (ما نجح وما لم ينجح) */
+    .bipolar-analysis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 640px) {
+      .bipolar-analysis-grid { grid-template-columns: 1fr; }
+    }
+    .bipolar-column {
+      background: var(--surface-pure);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .column-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border-whisper);
+    }
+    
+    .column-title-pass {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green-serene);
+    }
+    .column-title-fail {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--red-serene);
+    }
+
+    .subfield-label {
+      font-size: 10.5px;
+      color: var(--ink-soft);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* صور العمل الميداني الثنائية */
+    .action-photos-dual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 540px) {
+      .action-photos-dual { grid-template-columns: 1fr; }
+    }
+
+    /* القرار للمحاولة القادمة */
+    .next-verdict-box {
+      background: var(--surface-pure);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .next-verdict-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .next-verdict-title {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--ink-deep);
+    }
+
+    /* زر الإضافة */
+    .btn-append-atom {
+      background: transparent;
+      border: 1px dashed var(--border-whisper);
+      border-radius: var(--radius-pill);
+      padding: 6px 14px;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      align-self: flex-start;
+      transition: all 0.2s;
+    }
+    .btn-append-atom:hover {
+      border-color: var(--ink-deep);
+      color: var(--ink-deep);
+    }
+
+    /* زر التلميح الهندسي */
+    .beacon-btn {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-subtle);
+      cursor: pointer;
+      flex-shrink: 0;
+      padding: 0;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .beacon-btn:hover, .beacon-btn.active {
+      color: var(--ink-deep);
+      transform: scale(1.15);
+    }
+    .beacon-btn svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    /* النافذة العائمة المركزية المانعة للفيضان */
+    #masterTooltip {
+      position: fixed;
+      z-index: 100000;
+      background: #141619;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 1.55;
+      padding: 9px 13px;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(4px);
+      transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+      max-width: 250px;
+      box-sizing: border-box;
+      white-space: normal;
+    }
+    #masterTooltip.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* التذييل الرسمي */
+    .folio-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-whisper);
+      font-size: 10.5px;
+      font-family: var(--font-code);
+      color: var(--ink-subtle);
+    }
   </style>
 </head>
 <body>
 
-  <div class="module-container">
-    <div class="genesis-node">
-      <span class="header-tag">أَثَـر · HORIZON 02</span>
-      <h2>مسار التجريب والتعلّم المستمر (Runs Ledger)</h2>
-      <div class="guide-callout">
-        💡 لا يوجد فشل في الهندسة، بل أصول معرفية تقود للقرار الصحيح! وثقوا ما نجح وما لم ينجح، مع إلزامية كتابة القرار الحاسم للمحاولة القادمة.
-      </div>
+  <!-- حاوية التلميح المركزية الحرة المحسوبة برمجياً لمنع فيضان الشاشة -->
+  <div id="masterTooltip"></div>
+
+  <div class="master-flow">
+
+    <!-- الترويسة الرئيسية -->
+    <header class="folio-header">
+      <span class="folio-meta">ATHAR • HORIZON 02</span>
+      <h1 class="folio-heading">القسم الثاني: رحلة التطوير وتوثيق التجارب</h1>
+      <p class="folio-brief">
+        سجل التوثيق التكراري: تدوين مسار التجريب والتحليل؛ كل محاولة ترصد المنجز، تفكك أسباب العائق، وتقرر الإجراء للجولة التالية.
+      </p>
+    </header>
+
+    <!-- شريط التحكم بتعداد المحاولات -->
+    <div class="ledger-control-bar">
+      <span class="ledger-count-indicator" id="trialsLedgerCountLabel">01 تجارب مسجلة</span>
+      <button type="button" class="btn-append-atom" onclick="appendNewTrial()">
+        + إدراج تجربة جديدة
+      </button>
     </div>
 
-    <div id="runsStream">
-      <div class="run-card">
-        <div class="run-card-top">
-          <span class="run-badge">RUN #01</span>
-          <span style="font-family:var(--font-code); font-size:11px; color:var(--text-subtle);">المحاولة التأسيسية</span>
-        </div>
-        <input type="text" placeholder="ما الهدف المباشر من هذه المحاولة؟ (مع توزيع الأدوار)..." style="width:100%; border:none; background:transparent; font-size:13.5px; font-weight:600; outline:none;" oninput="save()">
-        
-        <div class="split-analysis">
-          <div class="col-pass">
-            <strong>ما الذي أثبته الاختبار؟ (النجاح المستفاد)</strong>
-            <textarea class="area-mini" placeholder="الجزء الذي تحقق كما هو متوقع وقرار البناء عليه..." oninput="save()"></textarea>
-          </div>
-          <div class="col-fail">
-            <strong>ما الذي لم ينجح؟ (الأصل المعرفي للإخفاق)</strong>
-            <textarea class="area-mini" placeholder="العائق الهندسي المرصود والسبب الجذري..." oninput="save()"></textarea>
-          </div>
-        </div>
+    <!-- حاوية سجل التجارب المتكررة -->
+    <div id="trialsStreamContainer" style="display: flex; flex-direction: column; gap: 20px;"></div>
 
-        <div class="decision-deck">
-          <label>القرار الحاسم للمحاولة القادمة:</label>
-          <input type="text" placeholder="مثال: تعديل زاوية ارتكاز المستشعر لزيادة دقة المسح..." style="width:100%; border:none; background:transparent; outline:none; font-size:12.5px; color:var(--text-main);" oninput="save()">
-        </div>
-      </div>
-    </div>
+    <button type="button" class="btn-append-atom" onclick="appendNewTrial()" style="margin: 0 auto;">
+      + إدراج تجربة جديدة
+    </button>
 
-    <button class="btn-quiet-add" onclick="addNewRun()">+ فتح جولة تجريبية جديدة</button>
+    <!-- التذييل الرسمي الموحد -->
+    <footer class="folio-footer">
+      <span>البطولة الوطنية للابتكار والروبوت</span>
+      <span>AED-1101 • 02-ITERATION</span>
+    </footer>
+
   </div>
 
   <script>
-    let runSerial = 1;
-    function addNewRun() {
-      runSerial++;
-      const s = document.getElementById('runsStream');
-      const d = document.createElement('div');
-      d.className = 'run-card';
-      d.innerHTML = `
-        <div class="run-card-top">
-          <span class="run-badge">RUN #0${runSerial}</span>
-          <span style="color:#ef4444; font-size:11px; cursor:pointer;" onclick="this.closest('.run-card').remove(); save();">إلغاء</span>
-        </div>
-        <input type="text" placeholder="ما الهدف المباشر من المحاولة #${runSerial}؟..." style="width:100%; border:none; background:transparent; font-size:13.5px; font-weight:600; outline:none;" oninput="save()">
-        <div class="split-analysis">
-          <div class="col-pass"><strong>ما الذي أثبته الاختبار؟</strong><textarea class="area-mini" placeholder="النتائج الإيجابية..." oninput="save()"></textarea></div>
-          <div class="col-fail"><strong>العائق والسبب الجذري:</strong><textarea class="area-mini" placeholder="الخلل الهندسي..." oninput="save()"></textarea></div>
-        </div>
-        <div class="decision-deck">
-          <label>القرار الحاسم للمحاولة القادمة:</label>
-          <input type="text" placeholder="القرار المترتب على هذه النتيجة..." style="width:100%; border:none; background:transparent; outline:none; font-size:12.5px;" oninput="save()">
-        </div>
+    const STORAGE_KEY = 'ATHAR_TRIALS_SCHEMA_V5';
+
+    let trials = [
+      {
+        id: 1,
+        date: "",
+        title: "",
+        goal: "",
+        summary: "",
+        resultImage: "",
+        actionImage1: "",
+        actionImage2: "",
+        passTopic: "",
+        passDecision: "",
+        failTopic: "",
+        failDecision: "",
+        nextVerdict: ""
+      }
+    ];
+
+    // ============================================================
+    // محرك التلميحات الذكي: يمنع الفيضان خارج الشاشة بحسابات موضعية
+    // ============================================================
+    const tooltipEl = document.getElementById('masterTooltip');
+    let activeBeaconBtn = null;
+
+    function initMasterTooltipEngine() {
+      document.body.addEventListener('click', (e) => {
+        const btn = e.target.closest('.beacon-btn');
+        if (btn) {
+          if (activeBeaconBtn === btn && tooltipEl.classList.contains('visible')) {
+            hideTooltip();
+          } else {
+            showTooltip(btn);
+          }
+          return;
+        }
+
+        if (tooltipEl.classList.contains('visible')) {
+          hideTooltip();
+        }
+      });
+
+      window.addEventListener('scroll', () => {
+        if (tooltipEl.classList.contains('visible')) hideTooltip();
+      }, { passive: true });
+    }
+
+    function showTooltip(btn) {
+      if (activeBeaconBtn) activeBeaconBtn.classList.remove('active');
+      activeBeaconBtn = btn;
+      btn.classList.add('active');
+
+      const text = btn.getAttribute('data-tip');
+      tooltipEl.textContent = text;
+      tooltipEl.classList.add('visible');
+
+      const btnRect = btn.getBoundingClientRect();
+      const tipRect = tooltipEl.getBoundingClientRect();
+      const tipWidth = tipRect.width;
+
+      let left = btnRect.left + (btnRect.width / 2) - (tipWidth / 2);
+      
+      const margin = 14;
+      const minLeft = margin;
+      const maxLeft = window.innerWidth - tipWidth - margin;
+      
+      left = Math.max(minLeft, Math.min(maxLeft, left));
+
+      let top = btnRect.bottom + 8;
+      if (top + tipRect.height > window.innerHeight - 10) {
+        top = btnRect.top - tipRect.height - 8;
+      }
+
+      tooltipEl.style.left = `${left}px`;
+      tooltipEl.style.top = `${top}px`;
+    }
+
+    function hideTooltip() {
+      tooltipEl.classList.remove('visible');
+      if (activeBeaconBtn) {
+        activeBeaconBtn.classList.remove('active');
+        activeBeaconBtn = null;
+      }
+    }
+
+    // إدارة نقر الرف
+    function handleShelfClick(targetInputId, e) {
+      if (e.target.closest('.beacon-btn') || e.target.closest('.confirm-pop-deck') || e.target.closest('.btn-discrete-action')) {
+        return;
+      }
+      document.getElementById(targetInputId).click();
+    }
+
+    // ============================================================
+    // تصيير وبناء بطاقات التجارب ديناميكياً
+    // ============================================================
+    function renderTrialsLedger() {
+      const container = document.getElementById('trialsStreamContainer');
+      container.innerHTML = '';
+
+      trials.forEach((t, idx) => {
+        const num = idx + 1;
+        const formattedNum = num < 10 ? `0${num}` : `${num}`;
+
+        const goalWordCount = t.goal.trim() ? t.goal.trim().split(/\s+/).length : 0;
+        const summaryWordCount = t.summary.trim() ? t.summary.trim().split(/\s+/).length : 0;
+
+        const card = document.createElement('article');
+        card.className = 'trial-card';
+        card.id = `trial_card_${idx}`;
+        card.innerHTML = `
+          <!-- شريط رأس التجربة -->
+          <div class="trial-top-row">
+            <div class="trial-tag-group">
+              <span class="trial-num-badge">التجربة ${formattedNum}</span>
+              
+              <!-- مربع تاريخ التجربة الموحد والمعرّف -->
+              <div class="trial-date-container">
+                <span class="date-title-tag">تاريخ التجربة:</span>
+                <input type="date" class="trial-date-field" value="${t.date || ''}" onchange="updateTrialField(${idx}, 'date', this.value)">
+                
+                <button type="button" class="beacon-btn" data-tip="تاريخ تنفيذ التجربة." aria-label="إرشاد">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- زر الاستبعاد بنظام تأكيد سلس من خطوتين -->
+            ${trials.length > 1 ? `
+              <div class="inline-action-slot" id="trial_del_slot_${idx}">
+                <button type="button" class="btn-discrete-action" onclick="armTrialDelete(${idx})">استبعاد هذه التجربة</button>
+                <div class="confirm-pop-deck" id="trial_del_confirm_${idx}">
+                  <button type="button" class="btn-affirm-del" onclick="disarmAndExecuteTrialDelete(${idx})">تأكيد الاستبعاد</button>
+                  <button type="button" class="btn-cancel-del" onclick="disarmTrialDelete(${idx})">تراجع</button>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+
+          <!-- عنوان التجربة -->
+          <div>
+            <div style="display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+              <span style="font-size:11px; font-weight:600; color:var(--ink-soft);">عنوان التجربة:</span>
+              <button type="button" class="beacon-btn" data-tip="تسمية واضحة ومحددة تعبر عن المكون أو الخاصية قيد الاختبار." aria-label="إرشاد">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+              </button>
+            </div>
+            <input type="text" placeholder="عنوان محدد للمحاولة..." value="${escapeHtml(t.title)}" oninput="updateTrialField(${idx}, 'title', this.value)" style="font-weight:600;">
+          </div>
+
+          <!-- هدف المحاولة وتوزيع الأدوار -->
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <div style="display:flex; align-items:center; gap:6px;">
+                <span style="font-size:11px; font-weight:600; color:var(--ink-soft);">هدف المحاولة وتوزيع أدوار الفريق:</span>
+                <button type="button" class="beacon-btn" data-tip="بيان هدف المحاولة وخطواتها الإجرائية وتحديد دور كل عضو في الفريق بدقة." aria-label="إرشاد">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="word-meter-inline ${goalWordCount <= 100 ? 'in-range' : 'out-range'}">
+                <span class="meter-current">${goalWordCount}</span>
+                <span>/ 100 كلمة</span>
+              </div>
+            </div>
+            <textarea rows="3" placeholder="توصيف الهدف وتوزيع المهام..." oninput="updateTrialGoalWordCount(${idx}, this)">${escapeHtml(t.goal)}</textarea>
+          </div>
+
+          <!-- شبكة صورة النتيجة والخلاصة -->
+          <div class="outcome-grid">
+            <!-- صورة النتيجة -->
+            <div class="media-shelf" onclick="handleShelfClick('res_file_${idx}', event)">
+              <div style="display:flex; align-items:center; gap:6px;">
+                <span class="media-shelf-text" id="res_lbl_${idx}">صورة نتيجة التجربة</span>
+                <button type="button" class="beacon-btn" data-tip="صورة واضحة للنتيجة الفعلية للاختبار (مخطط، مجسم، أو قراءة فنية) بصيغة PNG أو JPEG، مع حظر استخدام الصور التعبيرية الجاهزة." aria-label="شروط الصورة">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                  </svg>
+                </button>
+              </div>
+              <input type="file" id="res_file_${idx}" accept="image/png, image/jpeg" style="display:none;" onchange="handleTrialImageSlot(${idx}, 'resultImage', this)">
+              <img id="res_prev_${idx}" class="media-display" alt="نتيجة التجربة">
+              
+              <!-- إزالة الصورة بتأكيد سلس -->
+              <div id="res_del_container_${idx}" style="display:none; position:absolute; top:6px; left:6px; z-index:10;">
+                <button type="button" class="btn-discrete-action" style="background:var(--ink-deep); color:#fff; font-size:9.5px; border-radius:var(--radius-pill); padding:2px 8px;" id="res_del_init_${idx}" onclick="armMediaDelete(${idx}, 'resultImage')">إزالة الصورة</button>
+                <div class="confirm-pop-deck" id="res_del_confirm_${idx}">
+                  <button type="button" class="btn-affirm-del" onclick="disarmAndExecuteMediaDelete(${idx}, 'resultImage')">تأكيد</button>
+                  <button type="button" class="btn-cancel-del" onclick="disarmMediaDelete(${idx}, 'resultImage')">تراجع</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- الخلاصة الاستنتاجية -->
+            <div style="display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <span style="font-size:11px; font-weight:600; color:var(--ink-soft);">الخلاصة الاستنتاجية:</span>
+                    <button type="button" class="beacon-btn" data-tip="استخلاص النتيجة المحورية للتجربة في جملة موجزة لا تتجاوز 25 كلمة." aria-label="إرشاد">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                      </svg>
+                    </button>
+                  </div>
+
+                  <div class="word-meter-inline ${summaryWordCount <= 25 ? 'in-range' : 'out-range'}">
+                    <span class="meter-current">${summaryWordCount}</span>
+                    <span>/ 25 كلمة</span>
+                  </div>
+                </div>
+                <textarea rows="3" placeholder="أهم استنتاج..." oninput="updateTrialSummaryWordCount(${idx}, this)">${escapeHtml(t.summary)}</textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- التحليل الثنائي (ما نجح وما لم ينجح) -->
+          <div class="bipolar-analysis-grid">
+            <!-- ما الذي نجح -->
+            <div class="bipolar-column">
+              <div class="column-header-row">
+                <span class="column-title-pass">ما الذي نجح؟</span>
+                <button type="button" class="beacon-btn" data-tip="رصد المكونات أو البرمجيات التي أدت وظيفتها بدقة، مع بيان قرار استثمار هذا النجاح." aria-label="إرشاد">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                  </svg>
+                </button>
+              </div>
+
+              <div>
+                <span class="subfield-label">الجزء أو السلوك الناجح:</span>
+                <input type="text" value="${escapeHtml(t.passTopic)}" oninput="updateTrialField(${idx}, 'passTopic', this.value)">
+              </div>
+              <div>
+                <span class="subfield-label">قرار الفريق للبناء عليه:</span>
+                <textarea rows="2" oninput="updateTrialField(${idx}, 'passDecision', this.value)">${escapeHtml(t.passDecision)}</textarea>
+              </div>
+            </div>
+
+            <!-- ما الذي لم ينجح -->
+            <div class="bipolar-column">
+              <div class="column-header-row">
+                <span class="column-title-fail">ما الذي لم ينجح؟</span>
+                <button type="button" class="beacon-btn" data-tip="رصد العائق بدقة وتحديد موضع الخلل وسببه، وبيان قرار معالجته في الجولات اللاحقة." aria-label="إرشاد">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                  </svg>
+                </button>
+              </div>
+
+              <div>
+                <span class="subfield-label">موضع العائق وأسبابه:</span>
+                <input type="text" value="${escapeHtml(t.failTopic)}" oninput="updateTrialField(${idx}, 'failTopic', this.value)">
+              </div>
+              <div>
+                <span class="subfield-label">قرار الفريق لتجاوزه:</span>
+                <textarea rows="2" oninput="updateTrialField(${idx}, 'failDecision', this.value)">${escapeHtml(t.failDecision)}</textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- صورتان أثناء تنفيذ التجربة -->
+          <div>
+            <div style="display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+              <span style="font-size:11px; font-weight:600; color:var(--ink-soft);">توثيق الفريق أثناء إجراء التجربة (صورتان):</span>
+              <button type="button" class="beacon-btn" data-tip="صورتان توثقان أعضاء الفريق أثناء العمل المخبري أو الميداني الفعلي على هذا الاختبار." aria-label="إرشاد">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="action-photos-dual">
+              <!-- صورة عمل 01 -->
+              <div class="media-shelf" onclick="handleShelfClick('act1_file_${idx}', event)">
+                <span class="media-shelf-text" id="act1_lbl_${idx}">صورة أثناء العمل 01</span>
+                <input type="file" id="act1_file_${idx}" accept="image/png, image/jpeg" style="display:none;" onchange="handleTrialImageSlot(${idx}, 'actionImage1', this)">
+                <img id="act1_prev_${idx}" class="media-display" alt="العمل 01">
+                
+                <div id="act1_del_container_${idx}" style="display:none; position:absolute; top:6px; left:6px; z-index:10;">
+                  <button type="button" class="btn-discrete-action" style="background:var(--ink-deep); color:#fff; font-size:9.5px; border-radius:var(--radius-pill); padding:2px 8px;" id="act1_del_init_${idx}" onclick="armMediaDelete(${idx}, 'actionImage1')">إزالة</button>
+                  <div class="confirm-pop-deck" id="act1_del_confirm_${idx}">
+                    <button type="button" class="btn-affirm-del" onclick="disarmAndExecuteMediaDelete(${idx}, 'actionImage1')">تأكيد</button>
+                    <button type="button" class="btn-cancel-del" onclick="disarmMediaDelete(${idx}, 'actionImage1')">تراجع</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- صورة عمل 02 -->
+              <div class="media-shelf" onclick="handleShelfClick('act2_file_${idx}', event)">
+                <span class="media-shelf-text" id="act2_lbl_${idx}">صورة أثناء العمل 02</span>
+                <input type="file" id="act2_file_${idx}" accept="image/png, image/jpeg" style="display:none;" onchange="handleTrialImageSlot(${idx}, 'actionImage2', this)">
+                <img id="act2_prev_${idx}" class="media-display" alt="العمل 02">
+                
+                <div id="act2_del_container_${idx}" style="display:none; position:absolute; top:6px; left:6px; z-index:10;">
+                  <button type="button" class="btn-discrete-action" style="background:var(--ink-deep); color:#fff; font-size:9.5px; border-radius:var(--radius-pill); padding:2px 8px;" id="act2_del_init_${idx}" onclick="armMediaDelete(${idx}, 'actionImage2')">إزالة</button>
+                  <div class="confirm-pop-deck" id="act2_del_confirm_${idx}">
+                    <button type="button" class="btn-affirm-del" onclick="disarmAndExecuteMediaDelete(${idx}, 'actionImage2')">تأكيد</button>
+                    <button type="button" class="btn-cancel-del" onclick="disarmMediaDelete(${idx}, 'actionImage2')">تراجع</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- القرار للمحاولة القادمة -->
+          <div class="next-verdict-box">
+            <div class="next-verdict-header">
+              <span class="next-verdict-title">القرار للمحاولة القادمة:</span>
+              <button type="button" class="beacon-btn" data-tip="الخطوة الإجرائية المترتبة مباشرة على نتائج هذه المحاولة لتنفيذها في الجولة التالية." aria-label="إرشاد">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+              </button>
+            </div>
+            <input type="text" placeholder="الخطة الإجرائية للتجربة التالية..." value="${escapeHtml(t.nextVerdict)}" oninput="updateTrialField(${idx}, 'nextVerdict', this.value)">
+          </div>
+
+        </article>
       `;
-      s.appendChild(d);
-      save();
+      container.appendChild(card);
+
+      restoreImageSlotView(idx, 'resultImage', 'res_prev_', 'res_lbl_', 'res_del_container_');
+      restoreImageSlotView(idx, 'actionImage1', 'act1_prev_', 'act1_lbl_', 'act1_del_container_');
+      restoreImageSlotView(idx, 'actionImage2', 'act2_prev_', 'act2_lbl_', 'act2_del_container_');
+      });
+
+      const total = trials.length;
+      document.getElementById('trialsLedgerCountLabel').innerText = `${total < 10 ? '0' + total : total} تجارب مسجلة`;
     }
 
-    function save() {
-      localStorage.setItem('ATHAR_MODULE_02_RUNS', document.getElementById('runsStream').innerHTML);
+    // إدارة الحذف والتأكيد السلس
+    function armTrialDelete(idx) {
+      document.querySelector(`#trial_del_slot_${idx} .btn-discrete-action`).style.display = 'none';
+      document.getElementById(`trial_del_confirm_${idx}`).classList.add('active');
     }
 
-    window.onload = () => {
-      const saved = localStorage.getItem('ATHAR_MODULE_02_RUNS');
-      if (saved) document.getElementById('runsStream').innerHTML = saved;
-    };
+    function disarmTrialDelete(idx) {
+      document.querySelector(`#trial_del_slot_${idx} .btn-discrete-action`).style.display = 'inline-block';
+      document.getElementById(`trial_del_confirm_${idx}`).classList.remove('active');
+    }
+
+    function disarmAndExecuteTrialDelete(idx) {
+      trials.splice(idx, 1);
+      renderTrialsLedger();
+      persistState();
+    }
+
+    function armMediaDelete(idx, slotKey) {
+      const prefix = slotKey === 'resultImage' ? 'res' : (slotKey === 'actionImage1' ? 'act1' : 'act2');
+      document.getElementById(`${prefix}_del_init_${idx}`).style.display = 'none';
+      document.getElementById(`${prefix}_del_confirm_${idx}`).classList.add('active');
+    }
+
+    function disarmMediaDelete(idx, slotKey) {
+      const prefix = slotKey === 'resultImage' ? 'res' : (slotKey === 'actionImage1' ? 'act1' : 'act2');
+      document.getElementById(`${prefix}_del_init_${idx}`).style.display = 'inline-block';
+      document.getElementById(`${prefix}_del_confirm_${idx}`).classList.remove('active');
+    }
+
+    function disarmAndExecuteMediaDelete(idx, slotKey) {
+      trials[idx][slotKey] = "";
+      renderTrialsLedger();
+      persistState();
+    }
+
+    // تحديث البيانات الحقلية
+    function updateTrialField(idx, field, val) {
+      trials[idx][field] = val;
+      persistState();
+    }
+
+    function updateTrialGoalWordCount(idx, textarea) {
+      trials[idx].goal = textarea.value;
+      const count = textarea.value.trim() ? textarea.value.trim().split(/\s+/).length : 0;
+      const meter = textarea.previousElementSibling.querySelector('.word-meter-inline');
+      const digit = meter.querySelector('.meter-current');
+      digit.innerText = count;
+
+      if (count <= 100) {
+        meter.className = "word-meter-inline in-range";
+      } else {
+        meter.className = "word-meter-inline out-range";
+      }
+      persistState();
+    }
+
+    function updateTrialSummaryWordCount(idx, textarea) {
+      trials[idx].summary = textarea.value;
+      const count = textarea.value.trim() ? textarea.value.trim().split(/\s+/).length : 0;
+      const meter = textarea.previousElementSibling.querySelector('.word-meter-inline');
+      const digit = meter.querySelector('.meter-current');
+      digit.innerText = count;
+
+      if (count <= 25) {
+        meter.className = "word-meter-inline in-range";
+      } else {
+        meter.className = "word-meter-inline out-range";
+      }
+      persistState();
+    }
+
+    // إضافة تجربة جديدة مع انزلاق سلس فوري لبدايتها
+    function appendNewTrial() {
+      const newIndex = trials.length;
+      trials.push({
+        id: newIndex + 1,
+        date: "",
+        title: "",
+        goal: "",
+        summary: "",
+        resultImage: "",
+        actionImage1: "",
+        actionImage2: "",
+        passTopic: "",
+        passDecision: "",
+        failTopic: "",
+        failDecision: "",
+        nextVerdict: ""
+      });
+      renderTrialsLedger();
+      persistState();
+
+      requestAnimationFrame(() => {
+        const newCard = document.getElementById(`trial_card_${newIndex}`);
+        if (newCard) {
+          newCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const firstInput = newCard.querySelector('input[type="text"]');
+          if (firstInput) {
+            setTimeout(() => firstInput.focus(), 350);
+          }
+        }
+      });
+    }
+
+    // معالجة الصور
+    function handleTrialImageSlot(idx, slotKey, input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          trials[idx][slotKey] = e.target.result;
+          renderTrialsLedger();
+          persistState();
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function restoreImageSlotView(idx, slotKey, imgPrefix, lblPrefix, delContainerPrefix) {
+      const data = trials[idx][slotKey];
+      if (data) {
+        const img = document.getElementById(`${imgPrefix}${idx}`);
+        const lbl = document.getElementById(`${lblPrefix}${idx}`);
+        const delContainer = document.getElementById(`${delContainerPrefix}${idx}`);
+        if (img) { img.src = data; img.style.display = 'block'; }
+        if (lbl) { lbl.style.display = 'none'; }
+        if (delContainer) { delContainer.style.display = 'block'; }
+      }
+    }
+
+    // الحفظ والاسترجاع المحلي
+    function persistState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(trials));
+      } catch(err) {
+        console.warn('تجاوز الحجم التخزيني المقترح عند حفظ وسائط التجارب.');
+      }
+    }
+
+    function restoreState() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        try {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            trials = parsed;
+          }
+        } catch(err) {}
+      }
+      renderTrialsLedger();
+    }
+
+    function escapeHtml(str) {
+      return (str || '').replace(/"/g, '&quot;');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      restoreState();
+      initMasterTooltipEngine();
+    });
   </script>
 </body>
 </html>
