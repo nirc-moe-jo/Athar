@@ -22,8 +22,8 @@
       --border-whisper: rgba(0, 0, 0, 0.07);
       --border-focus: rgba(20, 22, 25, 0.3);
 
-      --green-serene: #15803d;
-      --red-serene: #b91c1c;
+      --accent-valid: #10b981;
+      --accent-alert: #f43f5e;
 
       --font-body: 'Readex Pro', -apple-system, sans-serif;
       --font-code: 'JetBrains Mono', monospace;
@@ -43,10 +43,9 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    /* حماية التمرير: إزالة أي overflow يعطل الـ sticky */
     html, body {
       width: 100%;
-      max-width: 100vw;
-      overflow-x: hidden;
       background-color: var(--surface-pure);
       color: var(--ink-deep);
     }
@@ -61,7 +60,7 @@
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 20px;
       width: 100%;
     }
 
@@ -110,83 +109,125 @@
       border: 1px solid var(--border-whisper);
     }
 
+    /* شريط الفهرس والقفز السريع الخالي تماماً من أخطاء القفز */
+    .ledger-quick-navigator {
+      display: none;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding: 2px 0 6px 0;
+      border-bottom: 1px solid var(--border-whisper);
+    }
+    .ledger-quick-navigator::-webkit-scrollbar {
+      display: none;
+    }
+    .quick-nav-chip {
+      background: var(--surface-card);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-pill);
+      padding: 4px 12px;
+      font-size: 11px;
+      font-family: var(--font-code);
+      color: var(--ink-soft);
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s var(--ease);
+      flex-shrink: 0;
+    }
+    .quick-nav-chip:hover {
+      border-color: var(--ink-deep);
+      color: var(--ink-deep);
+      background: var(--surface-pure);
+    }
+    .quick-nav-chip.active {
+      background: var(--ink-deep);
+      color: #ffffff;
+      border-color: var(--ink-deep);
+    }
+
     /* بطاقة التجربة التكرارية */
     .trial-card {
       background: var(--surface-card);
       border-radius: var(--radius-md);
       border: 1px solid var(--border-whisper);
-      padding: clamp(16px, 3vw, 24px);
+      padding: clamp(14px, 3vw, 22px);
       display: flex;
       flex-direction: column;
       gap: 16px;
       position: relative;
-      transition: all 0.3s var(--ease);
-      scroll-margin-top: 18px;
+      transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+      scroll-margin-top: 14px;
     }
     .trial-card:focus-within {
-      background: var(--surface-pure);
       border-color: rgba(20, 22, 25, 0.2);
       box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04);
     }
 
+    /* شريط رأس التجربة المثبت مغناطيسياً (Sticky Anchor Header) */
     .trial-top-row {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: var(--surface-card);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 10px 14px;
+      margin: -14px -14px 0 -14px;
+      border-top-left-radius: var(--radius-md);
+      border-top-right-radius: var(--radius-md);
       border-bottom: 1px solid var(--border-whisper);
-      padding-bottom: 12px;
+      box-shadow: 0 4px 12px -4px rgba(20, 22, 25, 0.05);
       gap: 10px;
-      flex-wrap: wrap;
     }
-    .trial-tag-group {
+    .trial-card:focus-within .trial-top-row {
+      background: var(--surface-pure);
+    }
+
+    .trial-identity-anchor {
       display: flex;
       align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+      gap: 8px;
+      min-width: 0;
+      flex: 1;
     }
-    
+
     /* شارة رقم التجربة */
-    .trial-num-badge {
+    .auto-num-badge {
       font-family: var(--font-code);
-      font-size: 13.5px;
+      font-size: 12.5px;
       font-weight: 700;
       color: var(--ink-deep);
       background: var(--surface-pure);
-      padding: 4px 12px;
+      padding: 3px 10px;
       border-radius: var(--radius-sm);
-      border: 1px solid rgba(20, 22, 25, 0.15);
+      border: 1px solid rgba(20, 22, 25, 0.14);
       letter-spacing: -0.2px;
-    }
-
-    /* مربع تاريخ التجربة الموحد */
-    .trial-date-container {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: var(--surface-pure);
-      border: 1px solid var(--border-whisper);
-      padding: 3px 10px;
-      border-radius: var(--radius-sm);
-      transition: border-color 0.2s var(--ease);
+      flex-shrink: 0;
     }
-    .trial-date-container:focus-within {
-      border-color: var(--border-focus);
-    }
-    .date-title-tag {
-      font-size: 11px;
+
+    /* عنوان التجربة المنعكس تلقائياً في الشريط المثبت */
+    .sticky-title-preview {
+      font-size: 11.5px;
       font-weight: 500;
       color: var(--ink-soft);
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 340px;
     }
-    .trial-date-field {
-      font-family: var(--font-code);
-      font-size: 11px;
-      color: var(--ink-deep);
-      background: transparent;
-      border: none;
-      outline: none;
-      padding: 1px 0;
-      cursor: pointer;
+    @media (max-width: 580px) {
+      .sticky-title-preview {
+        max-width: 140px;
+      }
     }
 
     /* نظام الحذف والتأكيد السلس من خطوتين */
@@ -194,6 +235,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      flex-shrink: 0;
     }
     .btn-discrete-action {
       border: none;
@@ -205,7 +247,7 @@
       border-radius: var(--radius-sm);
       transition: all 0.2s var(--ease);
     }
-    .btn-discrete-action:hover { color: var(--red-serene); }
+    .btn-discrete-action:hover { color: var(--accent-alert); }
 
     .confirm-pop-deck {
       display: none;
@@ -214,14 +256,14 @@
       background: var(--surface-pure);
       padding: 2px 6px;
       border-radius: var(--radius-sm);
-      border: 1px solid rgba(185, 28, 28, 0.25);
+      border: 1px solid rgba(244, 63, 94, 0.3);
     }
     .confirm-pop-deck.active {
       display: inline-flex;
     }
     .btn-affirm-del {
       border: none;
-      background: var(--red-serene);
+      background: var(--accent-alert);
       color: #ffffff;
       font-size: 10px;
       font-weight: 600;
@@ -238,14 +280,54 @@
       padding: 2px 4px;
     }
 
+    /* شبكة تجميع العنوان وتاريخ التجربة */
+    .trial-title-date-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+    @media (max-width: 600px) {
+      .trial-title-date-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+    }
+
+    /* مربع تاريخ التجربة المنضبط */
+    .trial-date-container {
+      display: flex;
+      align-items: center;
+      background: var(--surface-pure);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 7px 10px;
+      width: 100%;
+      height: 38px;
+      transition: border-color 0.2s var(--ease);
+    }
+    .trial-date-container:focus-within {
+      border-color: var(--border-focus);
+    }
+    .trial-date-field {
+      font-family: var(--font-code);
+      font-size: 11.5px;
+      color: var(--ink-deep);
+      background: transparent;
+      border: none;
+      outline: none;
+      width: 100%;
+      cursor: pointer;
+    }
+
     /* الحقول النصية المعيارية */
     textarea, input[type="text"] {
       width: 100%;
       border: 1px solid var(--border-whisper);
       border-radius: var(--radius-sm);
-      padding: 10px 12px;
-      font-size: 13px;
-      line-height: 1.7;
+      padding: 9px 12px;
+      font-size: 12.5px;
+      line-height: 1.65;
       color: var(--ink-deep);
       background: var(--surface-pure);
       outline: none;
@@ -276,8 +358,8 @@
       color: var(--ink-soft);
       transition: color 0.2s;
     }
-    .word-meter-inline.in-range .meter-current { color: var(--green-serene); }
-    .word-meter-inline.out-range .meter-current { color: var(--red-serene); }
+    .word-meter-inline.in-range .meter-current { color: var(--accent-valid); }
+    .word-meter-inline.out-range .meter-current { color: var(--accent-alert); }
 
     /* شبكة النتيجة والخلاصة */
     .outcome-grid {
@@ -293,7 +375,7 @@
     .media-shelf {
       border: 1px dashed rgba(20, 22, 25, 0.16);
       border-radius: var(--radius-sm);
-      background: var(--surface-pure);
+      background: var(--surface-card);
       padding: 14px;
       display: flex;
       flex-direction: column;
@@ -304,13 +386,13 @@
       cursor: pointer;
       position: relative;
       transition: border-color 0.2s;
-      min-height: 120px;
+      min-height: 110px;
     }
     .media-shelf:hover {
       border-color: var(--ink-deep);
     }
     .media-shelf-text {
-      font-size: 11.5px;
+      font-size: 11px;
       color: var(--ink-soft);
     }
     .media-display {
@@ -321,7 +403,7 @@
       object-fit: contain;
     }
 
-    /* مصفوفة التحليل الثنائي (ما نجح وما لم ينجح) */
+    /* مصفوفة التحليل الثنائي */
     .bipolar-analysis-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -348,21 +430,22 @@
     }
     
     .column-title-pass {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
-      color: var(--green-serene);
+      color: var(--accent-valid);
     }
     .column-title-fail {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
-      color: var(--red-serene);
+      color: var(--accent-alert);
     }
 
     .subfield-label {
       font-size: 10.5px;
+      font-weight: 500;
       color: var(--ink-soft);
-      display: block;
       margin-bottom: 2px;
+      display: block;
     }
 
     /* صور العمل الميداني الثنائية */
@@ -375,7 +458,7 @@
       .action-photos-dual { grid-template-columns: 1fr; }
     }
 
-    /* القرار للمحاولة القادمة */
+    /* حيز القرار للمحاولة القادمة */
     .next-verdict-box {
       background: var(--surface-pure);
       border: 1px solid var(--border-whisper);
@@ -484,7 +567,7 @@
 </head>
 <body>
 
-  <!-- حاوية التلميح المركزية الحرة المحسوبة برمجياً لمنع فيضان الشاشة -->
+  <!-- حاوية التلميح المركزية الحرة المحسوبة برمجياً -->
   <div id="masterTooltip"></div>
 
   <div class="master-flow">
@@ -506,8 +589,11 @@
       </button>
     </div>
 
+    <!-- شريط الفهرس والقفز السريع بين التجارب -->
+    <nav class="ledger-quick-navigator" id="ledgerQuickNav" aria-label="فهرس التجارب السريع"></nav>
+
     <!-- حاوية سجل التجارب المتكررة -->
-    <div id="trialsStreamContainer" style="display: flex; flex-direction: column; gap: 20px;"></div>
+    <div id="trialsStreamContainer" style="display: flex; flex-direction: column; gap: 24px;"></div>
 
     <button type="button" class="btn-append-atom" onclick="appendNewTrial()" style="margin: 0 auto;">
       + إدراج تجربة جديدة
@@ -522,7 +608,7 @@
   </div>
 
   <script>
-    const STORAGE_KEY = 'ATHAR_TRIALS_SCHEMA_V5';
+    const STORAGE_KEY = 'ATHAR_TRIALS_SCHEMA_V8';
 
     let trials = [
       {
@@ -542,8 +628,10 @@
       }
     ];
 
+    let currentActiveObservedTrial = 0;
+
     // ============================================================
-    // محرك التلميحات الذكي: يمنع الفيضان خارج الشاشة بحسابات موضعية
+    // محرك التلميحات الذكي
     // ============================================================
     const tooltipEl = document.getElementById('masterTooltip');
     let activeBeaconBtn = null;
@@ -608,7 +696,6 @@
       }
     }
 
-    // إدارة نقر الرف
     function handleShelfClick(targetInputId, e) {
       if (e.target.closest('.beacon-btn') || e.target.closest('.confirm-pop-deck') || e.target.closest('.btn-discrete-action')) {
         return;
@@ -617,7 +704,7 @@
     }
 
     // ============================================================
-    // تصيير وبناء بطاقات التجارب ديناميكياً
+    // تصيير وبناء بطاقات التجارب مع الترويسة المثبتة الفعالة 100%
     // ============================================================
     function renderTrialsLedger() {
       const container = document.getElementById('trialsStreamContainer');
@@ -630,29 +717,23 @@
         const goalWordCount = t.goal.trim() ? t.goal.trim().split(/\s+/).length : 0;
         const summaryWordCount = t.summary.trim() ? t.summary.trim().split(/\s+/).length : 0;
 
+        const isGoalValid = goalWordCount > 0 && goalWordCount <= 100;
+        const isSummaryValid = summaryWordCount > 0 && summaryWordCount <= 25;
+
         const card = document.createElement('article');
         card.className = 'trial-card';
         card.id = `trial_card_${idx}`;
         card.innerHTML = `
-          <!-- شريط رأس التجربة -->
+          <!-- شريط رأس التجربة المثبت مغناطيسياً (Sticky Anchor Header) -->
           <div class="trial-top-row">
-            <div class="trial-tag-group">
-              <span class="trial-num-badge">التجربة ${formattedNum}</span>
-              
-              <!-- مربع تاريخ التجربة الموحد والمعرّف -->
-              <div class="trial-date-container">
-                <span class="date-title-tag">تاريخ التجربة:</span>
-                <input type="date" class="trial-date-field" value="${t.date || ''}" onchange="updateTrialField(${idx}, 'date', this.value)">
-                
-                <button type="button" class="beacon-btn" data-tip="تاريخ تنفيذ التجربة." aria-label="إرشاد">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-                  </svg>
-                </button>
-              </div>
+            <div class="trial-identity-anchor">
+              <span class="auto-num-badge">التجربة ${formattedNum}</span>
+              <span class="sticky-title-preview" id="sticky_title_prev_${idx}">
+                ${t.title ? `• ${escapeHtml(t.title)}` : ''}
+              </span>
             </div>
 
-            <!-- زر الاستبعاد بنظام تأكيد سلس من خطوتين -->
+            <!-- زر الاستبعاد في أقصى اليسار بارتياح تام من خطوتين -->
             ${trials.length > 1 ? `
               <div class="inline-action-slot" id="trial_del_slot_${idx}">
                 <button type="button" class="btn-discrete-action" onclick="armTrialDelete(${idx})">استبعاد هذه التجربة</button>
@@ -664,24 +745,40 @@
             ` : ''}
           </div>
 
-          <!-- عنوان التجربة -->
-          <div>
-            <div style="display:flex; align-items:center; gap:6px; margin-bottom:4px;">
-              <span style="font-size:11px; font-weight:600; color:var(--ink-soft);">عنوان التجربة:</span>
-              <button type="button" class="beacon-btn" data-tip="تسمية واضحة ومحددة تعبر عن المكون أو الخاصية قيد الاختبار." aria-label="إرشاد">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-                </svg>
-              </button>
+          <!-- شبكة العنوان وتاريخ التجربة -->
+          <div class="trial-title-date-grid">
+            <div>
+              <div style="display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+                <span class="subfield-label">عنوان التجربة:</span>
+                <button type="button" class="beacon-btn" data-tip="تسمية واضحة ومحددة تعبر عن المكون أو الخاصية قيد الاختبار." aria-label="إرشاد">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                  </svg>
+                </button>
+              </div>
+              <input type="text" placeholder="عنوان محدد للمحاولة..." value="${escapeHtml(t.title)}" oninput="handleTrialTitleLiveUpdate(${idx}, this.value)" style="font-weight:600; height:38px;">
             </div>
-            <input type="text" placeholder="عنوان محدد للمحاولة..." value="${escapeHtml(t.title)}" oninput="updateTrialField(${idx}, 'title', this.value)" style="font-weight:600;">
+
+            <div>
+              <div style="display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+                <span class="subfield-label">تاريخ التجربة:</span>
+                <button type="button" class="beacon-btn" data-tip="تاريخ تنفيذ التجربة." aria-label="إرشاد">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="trial-date-container">
+                <input type="date" class="trial-date-field" value="${t.date || ''}" onchange="updateTrialField(${idx}, 'date', this.value)">
+              </div>
+            </div>
           </div>
 
           <!-- هدف المحاولة وتوزيع الأدوار -->
           <div>
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
               <div style="display:flex; align-items:center; gap:6px;">
-                <span style="font-size:11px; font-weight:600; color:var(--ink-soft);">هدف المحاولة وتوزيع أدوار الفريق:</span>
+                <span class="subfield-label">هدف المحاولة وتوزيع أدوار الفريق:</span>
                 <button type="button" class="beacon-btn" data-tip="بيان هدف المحاولة وخطواتها الإجرائية وتحديد دور كل عضو في الفريق بدقة." aria-label="إرشاد">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
@@ -689,7 +786,8 @@
                 </button>
               </div>
 
-              <div class="word-meter-inline ${goalWordCount <= 100 ? 'in-range' : 'out-range'}">
+              <!-- عداد الكلمات: أحمر عند 0 -->
+              <div class="word-meter-inline ${isGoalValid ? 'in-range' : 'out-range'}">
                 <span class="meter-current">${goalWordCount}</span>
                 <span>/ 100 كلمة</span>
               </div>
@@ -699,7 +797,6 @@
 
           <!-- شبكة صورة النتيجة والخلاصة -->
           <div class="outcome-grid">
-            <!-- صورة النتيجة -->
             <div class="media-shelf" onclick="handleShelfClick('res_file_${idx}', event)">
               <div style="display:flex; align-items:center; gap:6px;">
                 <span class="media-shelf-text" id="res_lbl_${idx}">صورة نتيجة التجربة</span>
@@ -712,7 +809,6 @@
               <input type="file" id="res_file_${idx}" accept="image/png, image/jpeg" style="display:none;" onchange="handleTrialImageSlot(${idx}, 'resultImage', this)">
               <img id="res_prev_${idx}" class="media-display" alt="نتيجة التجربة">
               
-              <!-- إزالة الصورة بتأكيد سلس -->
               <div id="res_del_container_${idx}" style="display:none; position:absolute; top:6px; left:6px; z-index:10;">
                 <button type="button" class="btn-discrete-action" style="background:var(--ink-deep); color:#fff; font-size:9.5px; border-radius:var(--radius-pill); padding:2px 8px;" id="res_del_init_${idx}" onclick="armMediaDelete(${idx}, 'resultImage')">إزالة الصورة</button>
                 <div class="confirm-pop-deck" id="res_del_confirm_${idx}">
@@ -727,7 +823,7 @@
               <div>
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                   <div style="display:flex; align-items:center; gap:6px;">
-                    <span style="font-size:11px; font-weight:600; color:var(--ink-soft);">الخلاصة الاستنتاجية:</span>
+                    <span class="subfield-label">الخلاصة الاستنتاجية:</span>
                     <button type="button" class="beacon-btn" data-tip="استخلاص النتيجة المحورية للتجربة في جملة موجزة لا تتجاوز 25 كلمة." aria-label="إرشاد">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
@@ -735,7 +831,8 @@
                     </button>
                   </div>
 
-                  <div class="word-meter-inline ${summaryWordCount <= 25 ? 'in-range' : 'out-range'}">
+                  <!-- عداد الكلمات: أحمر عند 0 -->
+                  <div class="word-meter-inline ${isSummaryValid ? 'in-range' : 'out-range'}">
                     <span class="meter-current">${summaryWordCount}</span>
                     <span>/ 25 كلمة</span>
                   </div>
@@ -747,7 +844,6 @@
 
           <!-- التحليل الثنائي (ما نجح وما لم ينجح) -->
           <div class="bipolar-analysis-grid">
-            <!-- ما الذي نجح -->
             <div class="bipolar-column">
               <div class="column-header-row">
                 <span class="column-title-pass">ما الذي نجح؟</span>
@@ -768,7 +864,6 @@
               </div>
             </div>
 
-            <!-- ما الذي لم ينجح -->
             <div class="bipolar-column">
               <div class="column-header-row">
                 <span class="column-title-fail">ما الذي لم ينجح؟</span>
@@ -793,7 +888,7 @@
           <!-- صورتان أثناء تنفيذ التجربة -->
           <div>
             <div style="display:flex; align-items:center; gap:6px; margin-bottom:4px;">
-              <span style="font-size:11px; font-weight:600; color:var(--ink-soft);">توثيق الفريق أثناء إجراء التجربة (صورتان):</span>
+              <span class="subfield-label">توثيق الفريق أثناء إجراء التجربة (صورتان):</span>
               <button type="button" class="beacon-btn" data-tip="صورتان توثقان أعضاء الفريق أثناء العمل المخبري أو الميداني الفعلي على هذا الاختبار." aria-label="إرشاد">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
@@ -858,6 +953,108 @@
 
       const total = trials.length;
       document.getElementById('trialsLedgerCountLabel').innerText = `${total < 10 ? '0' + total : total} تجارب مسجلة`;
+
+      renderQuickNavigationRibbon();
+      setupScrollSpy();
+    }
+
+    // ============================================================
+    // شريط الفهرس والقفز السريع الخالي تماماً من أخطاء القفز
+    // ============================================================
+    function renderQuickNavigationRibbon() {
+      const nav = document.getElementById('ledgerQuickNav');
+      nav.innerHTML = '';
+
+      if (trials.length <= 1) {
+        nav.style.display = 'none';
+        return;
+      }
+
+      nav.style.display = 'flex';
+
+      trials.forEach((t, idx) => {
+        const num = idx + 1;
+        const formattedNum = num < 10 ? `0${num}` : `${num}`;
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = `quick-nav-chip ${idx === currentActiveObservedTrial ? 'active' : ''}`;
+        chip.id = `nav_chip_${idx}`;
+        chip.onclick = () => jumpToTrial(idx);
+
+        const shortTitle = t.title ? (t.title.length > 18 ? t.title.substring(0, 18) + '...' : t.title) : 'غير معنونة';
+        chip.innerHTML = `<strong>${formattedNum}</strong>: ${escapeHtml(shortTitle)}`;
+        nav.appendChild(chip);
+      });
+    }
+
+    function jumpToTrial(idx) {
+      const card = document.getElementById(`trial_card_${idx}`);
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setActiveNavChip(idx);
+      }
+    }
+
+    // تم إزالة scrollIntoView التي كانت تخطف الشاشة للأعلى نهائياً
+    function setActiveNavChip(activeIdx) {
+      currentActiveObservedTrial = activeIdx;
+      document.querySelectorAll('.quick-nav-chip').forEach((chip, i) => {
+        chip.classList.toggle('active', i === activeIdx);
+      });
+
+      // تحريك شريط الرقاقات أفقياً فقط وبشكل داخلي معزول عن شاشة الصفحة
+      const nav = document.getElementById('ledgerQuickNav');
+      const activeChip = document.getElementById(`nav_chip_${activeIdx}`);
+      if (nav && activeChip) {
+        const scrollTarget = activeChip.offsetLeft - (nav.offsetWidth / 2) + (activeChip.offsetWidth / 2);
+        nav.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+      }
+    }
+
+    // محرك استشعار التمرير الآمن (بدون أي قفز)
+    let scrollObserver = null;
+    function setupScrollSpy() {
+      if (scrollObserver) scrollObserver.disconnect();
+
+      const options = {
+        root: null,
+        rootMargin: '-5% 0px -75% 0px',
+        threshold: 0
+      };
+
+      scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            const idx = parseInt(id.replace('trial_card_', ''), 10);
+            if (!isNaN(idx)) {
+              setActiveNavChip(idx);
+            }
+          }
+        });
+      }, options);
+
+      document.querySelectorAll('.trial-card').forEach(card => scrollObserver.observe(card));
+    }
+
+    // تحديث عنوان التجربة فورياً في الترويسة المثبتة وشريط الفهرس
+    function handleTrialTitleLiveUpdate(idx, val) {
+      trials[idx].title = val;
+      
+      const stickyPrev = document.getElementById(`sticky_title_prev_${idx}`);
+      if (stickyPrev) {
+        stickyPrev.innerText = val ? `• ${val}` : '';
+      }
+
+      const chip = document.getElementById(`nav_chip_${idx}`);
+      if (chip) {
+        const num = idx + 1;
+        const formattedNum = num < 10 ? `0${num}` : `${num}`;
+        const shortTitle = val ? (val.length > 18 ? val.substring(0, 18) + '...' : val) : 'غير معنونة';
+        chip.innerHTML = `<strong>${formattedNum}</strong>: ${escapeHtml(shortTitle)}`;
+      }
+
+      persistState();
     }
 
     // إدارة الحذف والتأكيد السلس
@@ -895,7 +1092,6 @@
       persistState();
     }
 
-    // تحديث البيانات الحقلية
     function updateTrialField(idx, field, val) {
       trials[idx][field] = val;
       persistState();
@@ -908,7 +1104,7 @@
       const digit = meter.querySelector('.meter-current');
       digit.innerText = count;
 
-      if (count <= 100) {
+      if (count > 0 && count <= 100) {
         meter.className = "word-meter-inline in-range";
       } else {
         meter.className = "word-meter-inline out-range";
@@ -923,7 +1119,7 @@
       const digit = meter.querySelector('.meter-current');
       digit.innerText = count;
 
-      if (count <= 25) {
+      if (count > 0 && count <= 25) {
         meter.className = "word-meter-inline in-range";
       } else {
         meter.className = "word-meter-inline out-range";
@@ -931,7 +1127,6 @@
       persistState();
     }
 
-    // إضافة تجربة جديدة مع انزلاق سلس فوري لبدايتها
     function appendNewTrial() {
       const newIndex = trials.length;
       trials.push({
@@ -964,7 +1159,6 @@
       });
     }
 
-    // معالجة الصور
     function handleTrialImageSlot(idx, slotKey, input) {
       if (input.files && input.files[0]) {
         const reader = new FileReader();
@@ -989,7 +1183,6 @@
       }
     }
 
-    // الحفظ والاسترجاع المحلي
     function persistState() {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(trials));
