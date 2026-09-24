@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+    /* التوافق اللوني الحرفي والمطلق مع منظومة ATHAR وباقي الأقسام */
     :root {
       --bg-sky: #faf9f6;
       --surface-pure: #ffffff;
@@ -22,8 +23,8 @@
       --border-whisper: rgba(0, 0, 0, 0.07);
       --border-focus: rgba(20, 22, 25, 0.3);
 
-      --green-serene: #15803d;
-      --red-serene: #b91c1c;
+      --accent-valid: #10b981;
+      --accent-alert: #f43f5e;
 
       --font-body: 'Readex Pro', -apple-system, sans-serif;
       --font-code: 'JetBrains Mono', monospace;
@@ -91,7 +92,7 @@
       line-height: 1.65;
     }
 
-    /* كتل الأقسام */
+    /* كتل الأقسام المتطابقة مع الأقسام 2 و 3 و 4 و 5 */
     .stage-section {
       background: var(--surface-card);
       border-radius: var(--radius-md);
@@ -99,7 +100,8 @@
       padding: clamp(14px, 3vw, 22px);
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
+      position: relative;
       transition: all 0.3s var(--ease);
       scroll-margin-top: 18px;
     }
@@ -141,7 +143,7 @@
       line-height: 1.4;
     }
 
-    /* شارات الترقيم التلقائي الموقرة */
+    /* شارات الترقيم التلقائي الموحدة */
     .auto-num-badge {
       font-family: var(--font-code);
       font-size: 12px;
@@ -209,7 +211,7 @@
       transform: translateY(0);
     }
 
-    /* عداد الكلمات المندمج: أحمر عند 0 ولا يتحول للأخضر إلا بين 50 إلى 100 كلمة */
+    /* عداد الكلمات الموحد بلوني المنظومة الأساسية */
     .word-meter-inline {
       font-family: var(--font-code);
       font-size: 11px;
@@ -225,17 +227,17 @@
       color: var(--ink-soft);
       transition: color 0.2s;
     }
-    .word-meter-inline.in-range .meter-current { color: var(--green-serene); }
-    .word-meter-inline.out-range .meter-current { color: var(--red-serene); }
+    .word-meter-inline.in-range .meter-current { color: var(--accent-valid); }
+    .word-meter-inline.out-range .meter-current { color: var(--accent-alert); }
 
-    /* الحقول النصية المعيارية */
+    /* الحقول النصية المتطابقة نقاءً مع باقي الأقسام */
     textarea, input[type="text"] {
       width: 100%;
       border: 1px solid var(--border-whisper);
       border-radius: var(--radius-sm);
-      padding: 10px 12px;
-      font-size: 13px;
-      line-height: 1.7;
+      padding: 9px 12px;
+      font-size: 12.5px;
+      line-height: 1.65;
       color: var(--ink-deep);
       background: var(--surface-pure);
       outline: none;
@@ -250,11 +252,11 @@
       min-height: 75px;
     }
 
-    /* مسرح إرفاق الصورة التأسيسية */
+    /* مسرح إرفاق الصورة التأسيسية المتطابق مع باقي الأقسام */
     .media-shelf {
       border: 1px dashed rgba(20, 22, 25, 0.16);
       border-radius: var(--radius-sm);
-      background: var(--surface-pure);
+      background: var(--surface-card);
       padding: 16px;
       display: flex;
       flex-direction: column;
@@ -271,7 +273,7 @@
       border-color: var(--ink-deep);
     }
     .media-shelf-text {
-      font-size: 11.5px;
+      font-size: 11px;
       color: var(--ink-soft);
     }
     .media-display {
@@ -295,11 +297,11 @@
       color: var(--ink-subtle);
       cursor: pointer;
       font-size: 11px;
-      padding: 3px 6px;
+      padding: 2px 4px;
       border-radius: var(--radius-sm);
       transition: all 0.2s var(--ease);
     }
-    .btn-discrete-action:hover { color: var(--red-serene); }
+    .btn-discrete-action:hover { color: var(--accent-alert); }
 
     .confirm-pop-deck {
       display: none;
@@ -308,14 +310,14 @@
       background: var(--surface-pure);
       padding: 2px 6px;
       border-radius: var(--radius-sm);
-      border: 1px solid rgba(185, 28, 28, 0.25);
+      border: 1px solid rgba(244, 63, 94, 0.3);
     }
     .confirm-pop-deck.active {
       display: inline-flex;
     }
     .btn-affirm-del {
       border: none;
-      background: var(--red-serene);
+      background: var(--accent-alert);
       color: #ffffff;
       font-size: 9.5px;
       font-weight: 600;
@@ -336,13 +338,13 @@
     .ledger-stack {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
     .ledger-entry {
       background: var(--surface-pure);
       border: 1px solid var(--border-whisper);
       border-radius: var(--radius-sm);
-      padding: 12px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -352,6 +354,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 1px solid var(--border-whisper);
+      padding-bottom: 8px;
     }
 
     .ledger-triplet {
@@ -366,13 +370,8 @@
       font-size: 10.5px;
       font-weight: 500;
       color: var(--ink-soft);
-      margin-bottom: 4px;
+      margin-bottom: 3px;
       display: block;
-    }
-    .ledger-triplet input {
-      background: var(--surface-card);
-      font-size: 12px;
-      padding: 7px 10px;
     }
 
     /* فضاء استكشاف البدائل */
@@ -400,9 +399,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 1px solid var(--border-whisper);
+      padding-bottom: 8px;
     }
 
-    /* التعديد الذري الملون والمرقم لنقاط القوة والضعف */
+    /* التعديد الذري الملون والمرقم لنقاط القوة والضعف بنقاء تام */
     .atomic-split-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -417,13 +418,12 @@
       gap: 6px;
     }
 
-    /* عناوين الأعمدة بالألوان الهادئة المعتمدة */
     .atomic-column-header {
-      font-size: 11.5px;
-      font-weight: 700;
+      font-size: 11px;
+      font-weight: 600;
     }
-    .header-pro { color: var(--green-serene); }
-    .header-con { color: var(--red-serene); }
+    .header-pro { color: var(--accent-valid); }
+    .header-con { color: var(--accent-alert); }
 
     .atomic-list {
       display: flex;
@@ -435,33 +435,25 @@
       align-items: center;
       gap: 6px;
     }
-    .atomic-point-row input {
-      background: var(--surface-card);
-      padding: 6px 10px;
-      font-size: 12px;
-      flex: 1;
-      min-width: 0;
-    }
 
-    /* شارات الترقيم الحسابية الدقيقة للنقاط */
+    /* شارات الترقيم النظيفة المتطابقة في الملمس مع بقية الأقسام */
     .point-num-tag {
       font-family: var(--font-code);
       font-size: 10.5px;
       font-weight: 700;
       padding: 3px 6px;
       border-radius: var(--radius-sm);
+      background: var(--surface-pure);
       flex-shrink: 0;
       letter-spacing: -0.2px;
     }
     .tag-pro {
-      color: var(--green-serene);
-      background: #f0fdf4;
-      border: 1px solid rgba(21, 128, 61, 0.25);
+      color: var(--accent-valid);
+      border: 1px solid rgba(16, 185, 129, 0.3);
     }
     .tag-con {
-      color: var(--red-serene);
-      background: #fef2f2;
-      border: 1px solid rgba(185, 28, 28, 0.25);
+      color: var(--accent-alert);
+      border: 1px solid rgba(244, 63, 94, 0.3);
     }
 
     .btn-remove-point {
@@ -474,34 +466,32 @@
       flex-shrink: 0;
       transition: color 0.2s;
     }
-    .btn-remove-point:hover { color: var(--red-serene); }
+    .btn-remove-point:hover { color: var(--accent-alert); }
 
     /* أزرار إضافة النقاط المتناغمة */
     .btn-add-point {
       background: transparent;
       border-radius: var(--radius-sm);
       padding: 5px 10px;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 500;
       cursor: pointer;
       text-align: center;
       transition: all 0.2s;
     }
     .pro-add {
-      color: var(--green-serene);
-      border: 1px dashed rgba(21, 128, 61, 0.3);
+      color: var(--accent-valid);
+      border: 1px dashed rgba(16, 185, 129, 0.35);
     }
     .pro-add:hover {
-      background: #f0fdf4;
-      border-color: var(--green-serene);
+      border-color: var(--accent-valid);
     }
     .con-add {
-      color: var(--red-serene);
-      border: 1px dashed rgba(185, 28, 28, 0.3);
+      color: var(--accent-alert);
+      border: 1px dashed rgba(244, 63, 94, 0.35);
     }
     .con-add:hover {
-      background: #fef2f2;
-      border-color: var(--red-serene);
+      border-color: var(--accent-alert);
     }
 
     /* أزرار الإضافة الذرية للأقسام */
@@ -567,22 +557,11 @@
       background: var(--surface-pure);
       border: 1px solid var(--border-whisper);
       border-radius: var(--radius-sm);
-      padding: 10px 12px;
+      padding: 12px 14px;
       align-items: center;
     }
     @media (max-width: 600px) {
       .single-pillar-layout { grid-template-columns: 1fr; }
-    }
-    .single-pillar-layout input {
-      border: none;
-      background: transparent;
-      padding: 4px 0;
-      font-size: 12.5px;
-      border-radius: 0;
-    }
-    .single-pillar-layout input:focus {
-      border-bottom: 1px solid var(--ink-deep);
-      box-shadow: none;
     }
 
     /* نافذة الاختيار المنضبطة */
@@ -680,7 +659,7 @@
           </button>
         </div>
 
-        <!-- عداد الكلمات: يبدأ أحمر عند 0 ولا يتحول للأخضر إلا بين 50 إلى 100 كلمة -->
+        <!-- عداد الكلمات الموحد بلوني المنظومة الأساسية -->
         <div class="word-meter-inline out-range" id="originMeterWrap">
           <span class="meter-current" id="wordCountDigit">0</span>
           <span>/ 50 – 100 كلمة</span>
@@ -737,7 +716,7 @@
       </button>
     </section>
 
-    <!-- 03: استكشاف المسارات وتقييم البدائل مع تأكيد حذف النقاط بخطوتين -->
+    <!-- 03: استكشاف المسارات وتقييم البدائل -->
     <section class="stage-section">
       <div class="stage-bar">
         <div class="stage-identity">
@@ -761,7 +740,7 @@
       </button>
     </section>
 
-    <!-- 04: الاستراتيجية المعتمدة وخارطة الطريق (محور استراتيجي أساسي واحد) -->
+    <!-- 04: الاستراتيجية المعتمدة وخارطة الطريق -->
     <section class="stage-section">
       <div class="stage-bar">
         <div class="stage-identity">
@@ -789,10 +768,16 @@
 
       <input type="text" id="finalStrategyStatement" placeholder="الصياغة المنهجية الشاملة للاستراتيجية المعتمدة..." oninput="persistMasterState()">
 
-      <!-- محور استراتيجي أساسي مفرَد مع بيان الأهمية -->
+      <!-- محور استراتيجي أساسي مفرَد متطابق مع باقي الأقسام -->
       <div class="single-pillar-layout">
-        <input type="text" id="single_pillar_axis" placeholder="المحور الاستراتيجي الأساسي الحاكم للمشروع..." oninput="persistMasterState()">
-        <input type="text" id="single_pillar_reason" placeholder="سبب الأهمية وعلاقته بأهداف وموثوقية النظام..." oninput="persistMasterState()">
+        <div>
+          <span class="triplet-label">المحور الاستراتيجي الأساسي:</span>
+          <input type="text" id="single_pillar_axis" placeholder="المبدأ الحاكم للمشروع..." oninput="persistMasterState()">
+        </div>
+        <div>
+          <span class="triplet-label">سبب الأهمية وعلاقته بالنظام:</span>
+          <input type="text" id="single_pillar_reason" placeholder="بيان الأثر المباشر في أهداف المنظومة..." oninput="persistMasterState()">
+        </div>
       </div>
     </section>
 
@@ -817,8 +802,8 @@
   </div>
 
   <script>
-    const STORAGE_KEY = 'ATHAR_FOUNDATION_SCHEMA_V9';
-    const IMAGE_KEY = 'ATHAR_FOUNDATION_IMAGE_V9';
+    const STORAGE_KEY = 'ATHAR_FOUNDATION_SCHEMA_V10';
+    const IMAGE_KEY = 'ATHAR_FOUNDATION_IMAGE_V10';
 
     let state = {
       narration: "",
@@ -909,7 +894,7 @@
       document.getElementById(targetInputId).click();
     }
 
-    // 1. تدقيق عداد الكلمات: يبدأ أحمر عند 0 ولا يتحول للأخضر إلا بين 50 إلى 100 كلمة
+    // 1. تدقيق عداد الكلمات
     function evaluateOriginMeter() {
       const text = document.getElementById('originNarration').value.trim();
       const count = text ? text.split(/\s+/).length : 0;
@@ -928,7 +913,7 @@
     }
 
     // ============================================================
-    // 2. إدارة مصفوفة التحديات مع الترقيم التلقائي والتأكيد بخطوتين
+    // 2. إدارة مصفوفة التحديات مع حقول نقية بيضاء كبقية الأقسام
     // ============================================================
     function renderChallenges() {
       const ledger = document.getElementById('challengesLedger');
@@ -1016,7 +1001,7 @@
     }
 
     // ============================================================
-    // 3. إدارة فضاء البدائل مع تأكيد حذف النقاط الفردية بخطوتين
+    // 3. إدارة فضاء البدائل مع حقول بيضاء وشارات متطابقة
     // ============================================================
     function renderStrategies() {
       const deck = document.getElementById('strategiesDeck');
@@ -1050,7 +1035,7 @@
           <input type="text" placeholder="المسمى التعريفي للمسار الاستراتيجي..." value="${escapeHtml(item.title)}" oninput="updateStrategyTitle(${sIdx}, this.value)" style="font-weight:600;">
 
           <div class="atomic-split-grid">
-            <!-- نقاط القوة والمكاسب (باللون الأخضر، والترقيم، والتأكيد بخطوتين) -->
+            <!-- نقاط القوة والمكاسب (بالشارات النظيفة المتوافقة) -->
             <div class="atomic-column">
               <span class="atomic-column-header header-pro">نقاط القوة والمكاسب:</span>
               <div class="atomic-list" id="pros_list_${sIdx}">
@@ -1078,7 +1063,7 @@
               <button type="button" class="btn-add-point pro-add" onclick="addAtomicPoint(${sIdx}, 'pros')">+ إضافة نقطة قوة</button>
             </div>
 
-            <!-- نقاط الضعف والمحددات (باللون الأحمر، والترقيم، والتأكيد بخطوتين) -->
+            <!-- نقاط الضعف والمحددات (بالشارات النظيفة المتوافقة) -->
             <div class="atomic-column">
               <span class="atomic-column-header header-con">نقاط الضعف والمحددات:</span>
               <div class="atomic-list" id="cons_list_${sIdx}">
@@ -1115,7 +1100,6 @@
       updateAdoptedDisplay();
     }
 
-    // إدارة تأكيد حذف النقاط الفردية بخطوتين
     function armPointDelete(type, sIdx, pIdx) {
       document.querySelector(`#${type}_del_slot_${sIdx}_${pIdx} .btn-remove-point`).style.display = 'none';
       document.getElementById(`${type}_del_confirm_${sIdx}_${pIdx}`).classList.add('active');
