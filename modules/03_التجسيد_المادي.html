@@ -187,6 +187,7 @@
       padding: 3px 10px;
       border-radius: var(--radius-sm);
       border: 1px solid rgba(20, 22, 25, 0.14);
+      letter-spacing: -0.2px;
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -230,7 +231,7 @@
       color: var(--ink-deep);
     }
 
-    /* الحقول النصية المعيارية */
+    /* الحقول النصية المعيارية الموحدة */
     textarea, input[type="text"], input[type="number"] {
       width: 100%;
       border: 1px solid var(--border-whisper);
@@ -275,7 +276,7 @@
       box-shadow: 0 0 0 2px rgba(20, 22, 25, 0.15);
     }
 
-    /* شريط رأس المكون المثبت مغناطيسياً: متحرر ونقي في أقصى اليمين واليسار */
+    /* شريط رأس المكون المثبت مغناطيسياً */
     .catalog-top-row {
       position: -webkit-sticky;
       position: sticky;
@@ -304,7 +305,7 @@
       flex: 1;
     }
 
-    /* شريط تحديد الموضع المكاني المستقل لمنع أي تداخل مع الاستبعاد */
+    /* شريط تحديد الموضع المكاني المستقل */
     .catalog-locator-bar {
       display: flex;
       align-items: center;
@@ -323,7 +324,7 @@
       white-space: nowrap;
     }
     
-    /* كبسولات الموضع وإلغاء التثبيت */
+    /* منظومة كبسولات الموضع: أرضية بيضاء موحدة وإطار نقي مطابق للمنظومة بالكامل */
     .pin-locator-group {
       display: flex;
       align-items: center;
@@ -333,11 +334,12 @@
     .pinned-capsule-deck {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      background: #f0fdf4;
-      border: 1px solid rgba(21, 128, 61, 0.25);
+      gap: 6px;
+      background: var(--surface-pure);
+      border: 1px solid rgba(16, 185, 129, 0.3);
       border-radius: var(--radius-pill);
-      padding: 2px 4px 2px 6px;
+      padding: 3px 8px;
+      flex-wrap: wrap;
     }
     .btn-pin-trigger {
       border: 1px solid var(--border-whisper);
@@ -367,44 +369,49 @@
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.03); }
     }
-    .btn-pin-trigger.has-pin {
-      background: transparent;
-      border: none;
-      color: #15803d;
+    .pin-status-pill {
+      color: var(--accent-valid);
       font-weight: 600;
-      padding: 2px 6px;
+      font-size: 10.5px;
+      padding: 2px 4px;
+      white-space: nowrap;
     }
     
-    .btn-pin-unpin {
-      border: 1px solid rgba(21, 128, 61, 0.2);
-      background: #ffffff;
+    /* أزرار العمليات المصغرة المتطابقة */
+    .btn-pin-action {
+      border: 1px solid var(--border-whisper);
+      background: var(--surface-card);
       color: var(--ink-soft);
       font-size: 10px;
       padding: 2px 8px;
       border-radius: var(--radius-pill);
       cursor: pointer;
       transition: all 0.2s;
+      white-space: nowrap;
     }
-    .btn-pin-unpin:hover {
+    .btn-pin-action:hover {
+      color: var(--ink-deep);
+      border-color: var(--ink-deep);
+    }
+    .btn-pin-action.danger:hover {
       color: var(--accent-alert);
-      border-color: rgba(185, 28, 28, 0.3);
+      border-color: rgba(244, 63, 94, 0.3);
     }
     
-    .unpin-confirm-deck {
+    .confirm-mini-deck {
       display: none;
       align-items: center;
       gap: 4px;
-      background: #ffffff;
+      background: var(--surface-pure);
       padding: 1px 6px;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(185, 28, 28, 0.3);
+      border: 1px solid var(--border-whisper);
     }
-    .unpin-confirm-deck.active {
+    .confirm-mini-deck.active {
       display: inline-flex;
     }
-    .btn-affirm-unpin {
+    .btn-affirm-mini {
       border: none;
-      background: var(--accent-alert);
       color: #ffffff;
       font-size: 9.5px;
       font-weight: 600;
@@ -412,7 +419,13 @@
       border-radius: var(--radius-pill);
       cursor: pointer;
     }
-    .btn-cancel-unpin {
+    .btn-affirm-mini.primary {
+      background: var(--ink-deep);
+    }
+    .btn-affirm-mini.danger {
+      background: var(--accent-alert);
+    }
+    .btn-cancel-mini {
       border: none;
       background: transparent;
       color: var(--ink-soft);
@@ -502,14 +515,14 @@
       padding: 2px 4px;
     }
 
-    /* مسرح صورة النموذج النهائي */
+    /* مسرح صورة النموذج النهائي: متطابق بخلفية هادئة مع سائر مسارح الصور */
     .blueprint-stage {
       position: relative;
       width: 100%;
       min-height: 260px;
       border: 1px dashed rgba(20, 22, 25, 0.16);
       border-radius: var(--radius-sm);
-      background: var(--surface-pure);
+      background: var(--surface-card); /* تطابق كامل مع مسارح الأقسام 1 و 2 و 4 */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -519,6 +532,9 @@
       cursor: pointer;
       user-select: none;
       transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .blueprint-stage:hover {
+      border-color: var(--ink-deep);
     }
     .blueprint-stage.is-armed-target {
       cursor: crosshair;
@@ -557,7 +573,7 @@
       background: var(--surface-pure);
       padding: 3px 8px;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(185, 28, 28, 0.35);
+      border: 1px solid rgba(244, 63, 94, 0.3);
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
     }
     .confirm-stage-deck.active {
@@ -814,7 +830,7 @@
         </div>
       </div>
 
-      <!-- مسرح الإسقاط -->
+      <!-- مسرح الإسقاط بخلفية موحدة مطابقة لكافة المسارح -->
       <div class="blueprint-stage" id="blueprintStageBoard" onclick="handleBlueprintStageClick(event)">
         <span id="blueprintPromptText" style="font-size:11.5px; color:var(--ink-soft); pointer-events:none;">
           إرفاق صورة النموذج النهائي المكتمل (PNG أو JPEG)
@@ -939,8 +955,8 @@
   </div>
 
   <script>
-    const STORAGE_KEY = 'ATHAR_DESIGN_SCHEMA_V6';
-    const BLUEPRINT_KEY = 'ATHAR_DESIGN_BLUEPRINT_V6';
+    const STORAGE_KEY = 'ATHAR_DESIGN_SCHEMA_V8';
+    const BLUEPRINT_KEY = 'ATHAR_DESIGN_BLUEPRINT_V8';
 
     let state = {
       catalog: [
@@ -1029,7 +1045,7 @@
     }
 
     // ============================================================
-    // 1. إدارة جدول المكونات (BOM) مع شريط رأس محرر وشريط موضع مستقل
+    // 1. إدارة جدول المكونات (BOM)
     // ============================================================
     function renderCatalogLedger() {
       const ledger = document.getElementById('catalogLedger');
@@ -1049,7 +1065,7 @@
         row.className = 'catalog-item-card';
         row.id = `catalog_item_${idx}`;
         row.innerHTML = `
-          <!-- شريط رأس المكون: متحرر تماماً في أقصى اليمين وأقصى اليسار دون أي تزاحم -->
+          <!-- شريط رأس المكون: متحرر في أقصى اليمين وأقصى اليسار دون أي تزاحم -->
           <div class="catalog-top-row">
             <div class="sub-identity-anchor">
               <span class="auto-num-badge">المكون ${formattedNum}</span>
@@ -1069,20 +1085,31 @@
             ` : ''}
           </div>
 
-          <!-- شريط موضع المكون المستقل والرحب لمنع أي تداخل نهائياً -->
+          <!-- شريط موضع المكون بالألوان الموحدة المتطابقة 100% -->
           <div class="catalog-locator-bar">
             <span class="locator-bar-label">الموضع على المجسم:</span>
             
             <div class="pin-locator-group">
               ${hasAssignedPin ? `
                 <div class="pinned-capsule-deck" id="pin_deck_${idx}">
-                  <button type="button" class="btn-pin-trigger has-pin" onclick="toggleTargetingForComponent(${idx})">
-                    الموضع محدد (${formattedNum}) • إعادة التعيين
-                  </button>
-                  <button type="button" class="btn-pin-unpin" id="unpin_init_${idx}" onclick="armUnpin(${idx})">إلغاء التثبيت</button>
-                  <div class="unpin-confirm-deck" id="unpin_confirm_${idx}">
-                    <button type="button" class="btn-affirm-unpin" onclick="confirmUnpin(${idx})">تأكيد الإلغاء</button>
-                    <button type="button" class="btn-cancel-unpin" onclick="disarmUnpin(${idx})">تراجع</button>
+                  <span class="pin-status-pill">الموضع محدد (${formattedNum})</span>
+
+                  <!-- زر إعادة التعيين بتأكيد سلس من خطوتين -->
+                  <div class="inline-action-slot" id="repin_slot_${idx}">
+                    <button type="button" class="btn-pin-action" id="repin_init_${idx}" onclick="armRepin(${idx})">إعادة التعيين</button>
+                    <div class="confirm-mini-deck" id="repin_confirm_${idx}">
+                      <button type="button" class="btn-affirm-mini primary" onclick="confirmRepin(${idx})">تأكيد التعيين</button>
+                      <button type="button" class="btn-cancel-mini" onclick="disarmRepin(${idx})">تراجع</button>
+                    </div>
+                  </div>
+
+                  <!-- زر إلغاء التثبيت بتأكيد سلس من خطوتين -->
+                  <div class="inline-action-slot" id="unpin_slot_${idx}">
+                    <button type="button" class="btn-pin-action danger" id="unpin_init_${idx}" onclick="armUnpin(${idx})">إلغاء التثبيت</button>
+                    <div class="confirm-mini-deck" id="unpin_confirm_${idx}">
+                      <button type="button" class="btn-affirm-mini danger" onclick="confirmUnpin(${idx})">تأكيد الإلغاء</button>
+                      <button type="button" class="btn-cancel-mini" onclick="disarmUnpin(${idx})">تراجع</button>
+                    </div>
                   </div>
                 </div>
               ` : `
@@ -1139,6 +1166,39 @@
 
       renderCatalogQuickNav();
       renderBlueprintPins();
+    }
+
+    // إدارة تأكيد إعادة التعيين للموضع بخطوتين
+    function armRepin(idx) {
+      document.getElementById(`repin_init_${idx}`).style.display = 'none';
+      document.getElementById(`repin_confirm_${idx}`).classList.add('active');
+    }
+
+    function disarmRepin(idx) {
+      document.getElementById(`repin_init_${idx}`).style.display = 'inline-block';
+      document.getElementById(`repin_confirm_${idx}`).classList.remove('active');
+    }
+
+    function confirmRepin(idx) {
+      disarmRepin(idx);
+      toggleTargetingForComponent(idx);
+    }
+
+    // إدارة تأكيد إلغاء التثبيت للموضع بخطوتين
+    function armUnpin(idx) {
+      document.getElementById(`unpin_init_${idx}`).style.display = 'none';
+      document.getElementById(`unpin_confirm_${idx}`).classList.add('active');
+    }
+
+    function disarmUnpin(idx) {
+      document.getElementById(`unpin_init_${idx}`).style.display = 'inline-block';
+      document.getElementById(`unpin_confirm_${idx}`).classList.remove('active');
+    }
+
+    function confirmUnpin(idx) {
+      state.catalog[idx].pin = null;
+      renderCatalogLedger();
+      persistMasterState();
     }
 
     // شريط الفهرس والقفز السريع للمكونات
@@ -1236,22 +1296,6 @@
       document.getElementById('targetingBanner').style.display = 'none';
       document.querySelectorAll('.catalog-item-card').forEach(c => c.classList.remove('highlighted'));
       renderCatalogLedger();
-    }
-
-    function armUnpin(idx) {
-      document.getElementById(`unpin_init_${idx}`).style.display = 'none';
-      document.getElementById(`unpin_confirm_${idx}`).classList.add('active');
-    }
-
-    function disarmUnpin(idx) {
-      document.getElementById(`unpin_init_${idx}`).style.display = 'inline-block';
-      document.getElementById(`unpin_confirm_${idx}`).classList.remove('active');
-    }
-
-    function confirmUnpin(idx) {
-      state.catalog[idx].pin = null;
-      renderCatalogLedger();
-      persistMasterState();
     }
 
     function updateCatalogField(idx, field, val) {
@@ -1412,9 +1456,7 @@
       });
     }
 
-    // ============================================================
     // محرك التتبع التلقائي للجدول (Scroll-Spy)
-    // ============================================================
     let catalogObserver = null;
     function setupCatalogScrollSpy() {
       if (catalogObserver) catalogObserver.disconnect();
