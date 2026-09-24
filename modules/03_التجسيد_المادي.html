@@ -201,11 +201,11 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 240px;
+      max-width: 280px;
     }
     @media (max-width: 580px) {
       .sticky-title-preview {
-        max-width: 120px;
+        max-width: 140px;
       }
     }
 
@@ -275,7 +275,7 @@
       box-shadow: 0 0 0 2px rgba(20, 22, 25, 0.15);
     }
 
-    /* شريط رأس المكون المثبت مغناطيسياً (Sticky Anchor Header) */
+    /* شريط رأس المكون المثبت مغناطيسياً: متحرر ونقي في أقصى اليمين واليسار */
     .catalog-top-row {
       position: -webkit-sticky;
       position: sticky;
@@ -294,7 +294,6 @@
       border-bottom: 1px solid var(--border-whisper);
       box-shadow: 0 4px 12px -4px rgba(20, 22, 25, 0.05);
       gap: 8px;
-      flex-wrap: wrap;
     }
 
     .sub-identity-anchor {
@@ -304,13 +303,32 @@
       min-width: 0;
       flex: 1;
     }
+
+    /* شريط تحديد الموضع المكاني المستقل لمنع أي تداخل مع الاستبعاد */
+    .catalog-locator-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: var(--surface-card);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 6px 12px;
+      flex-wrap: wrap;
+    }
+    .locator-bar-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      white-space: nowrap;
+    }
     
-    /* منظومة كبسولات الموضع وإلغاء التثبيت */
+    /* كبسولات الموضع وإلغاء التثبيت */
     .pin-locator-group {
       display: flex;
       align-items: center;
       gap: 6px;
-      flex-shrink: 0;
+      flex-wrap: wrap;
     }
     .pinned-capsule-deck {
       display: inline-flex;
@@ -323,11 +341,11 @@
     }
     .btn-pin-trigger {
       border: 1px solid var(--border-whisper);
-      background: var(--surface-card);
+      background: var(--surface-pure);
       color: var(--ink-soft);
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 500;
-      padding: 3px 10px;
+      padding: 4px 12px;
       border-radius: var(--radius-pill);
       cursor: pointer;
       display: inline-flex;
@@ -434,7 +452,7 @@
       border-bottom: 1px solid var(--border-whisper);
     }
 
-    /* نظام الحذف والتأكيد السلس للبطاقات */
+    /* نظام الحذف والتأكيد السلس للبطاقات في أقصى اليسار */
     .inline-action-slot {
       display: flex;
       align-items: center;
@@ -761,7 +779,7 @@
           </button>
         </div>
 
-        <!-- تعداد المكونات بنفس نمط الصورة وشارة التكلفة -->
+        <!-- تعداد المكونات بنفس نمط لقطة الشاشة المعتمدة -->
         <div style="display:flex; align-items:center; gap:10px;">
           <span style="font-family:var(--font-code); font-size:10.5px; color:var(--ink-subtle);" id="catalogCountLabel">01 مكونات</span>
           <div class="total-cost-deck">
@@ -921,8 +939,8 @@
   </div>
 
   <script>
-    const STORAGE_KEY = 'ATHAR_DESIGN_SCHEMA_V5';
-    const BLUEPRINT_KEY = 'ATHAR_DESIGN_BLUEPRINT_V5';
+    const STORAGE_KEY = 'ATHAR_DESIGN_SCHEMA_V6';
+    const BLUEPRINT_KEY = 'ATHAR_DESIGN_BLUEPRINT_V6';
 
     let state = {
       catalog: [
@@ -1011,7 +1029,7 @@
     }
 
     // ============================================================
-    // 1. إدارة جدول المكونات (BOM) مع شريط الفهرس والترويسة المثبتة
+    // 1. إدارة جدول المكونات (BOM) مع شريط رأس محرر وشريط موضع مستقل
     // ============================================================
     function renderCatalogLedger() {
       const ledger = document.getElementById('catalogLedger');
@@ -1031,35 +1049,13 @@
         row.className = 'catalog-item-card';
         row.id = `catalog_item_${idx}`;
         row.innerHTML = `
-          <!-- شريط رأس المكون المثبت مغناطيسياً (Sticky Anchor Header) -->
+          <!-- شريط رأس المكون: متحرر تماماً في أقصى اليمين وأقصى اليسار دون أي تزاحم -->
           <div class="catalog-top-row">
             <div class="sub-identity-anchor">
               <span class="auto-num-badge">المكون ${formattedNum}</span>
               <span class="sticky-title-preview" id="sticky_cat_prev_${idx}">
                 ${item.name ? `• ${escapeHtml(item.name)}` : ''}
               </span>
-
-              <!-- كبسولة الموضع وإلغاء التثبيت المتناغمة -->
-              <div class="pin-locator-group">
-                ${hasAssignedPin ? `
-                  <div class="pinned-capsule-deck" id="pin_deck_${idx}">
-                    <button type="button" class="btn-pin-trigger has-pin" onclick="toggleTargetingForComponent(${idx})">
-                      الموضع محدد (${formattedNum}) • إعادة التعيين
-                    </button>
-                    <button type="button" class="btn-pin-unpin" id="unpin_init_${idx}" onclick="armUnpin(${idx})">إلغاء التثبيت</button>
-                    <div class="unpin-confirm-deck" id="unpin_confirm_${idx}">
-                      <button type="button" class="btn-affirm-unpin" onclick="confirmUnpin(${idx})">تأكيد الإلغاء</button>
-                      <button type="button" class="btn-cancel-unpin" onclick="disarmUnpin(${idx})">تراجع</button>
-                    </div>
-                  </div>
-                ` : `
-                  <button type="button" 
-                    class="btn-pin-trigger ${isTargetingThis ? 'active-targeting' : ''}" 
-                    onclick="toggleTargetingForComponent(${idx})">
-                    ${isTargetingThis ? 'انقر فوق الصورة لتثبيت الموضع...' : 'تحديد الموضع على الصورة'}
-                  </button>
-                `}
-              </div>
             </div>
             
             ${state.catalog.length > 1 ? `
@@ -1071,6 +1067,32 @@
                 </div>
               </div>
             ` : ''}
+          </div>
+
+          <!-- شريط موضع المكون المستقل والرحب لمنع أي تداخل نهائياً -->
+          <div class="catalog-locator-bar">
+            <span class="locator-bar-label">الموضع على المجسم:</span>
+            
+            <div class="pin-locator-group">
+              ${hasAssignedPin ? `
+                <div class="pinned-capsule-deck" id="pin_deck_${idx}">
+                  <button type="button" class="btn-pin-trigger has-pin" onclick="toggleTargetingForComponent(${idx})">
+                    الموضع محدد (${formattedNum}) • إعادة التعيين
+                  </button>
+                  <button type="button" class="btn-pin-unpin" id="unpin_init_${idx}" onclick="armUnpin(${idx})">إلغاء التثبيت</button>
+                  <div class="unpin-confirm-deck" id="unpin_confirm_${idx}">
+                    <button type="button" class="btn-affirm-unpin" onclick="confirmUnpin(${idx})">تأكيد الإلغاء</button>
+                    <button type="button" class="btn-cancel-unpin" onclick="disarmUnpin(${idx})">تراجع</button>
+                  </div>
+                </div>
+              ` : `
+                <button type="button" 
+                  class="btn-pin-trigger ${isTargetingThis ? 'active-targeting' : ''}" 
+                  onclick="toggleTargetingForComponent(${idx})">
+                  ${isTargetingThis ? 'انقر فوق صورة المجسم الآن لتثبيت الرقم...' : 'تحديد الموضع على الصورة'}
+                </button>
+              `}
+            </div>
           </div>
 
           <!-- شبكة الحقول في طبقتين متكاملتين -->
