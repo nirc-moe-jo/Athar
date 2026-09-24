@@ -45,8 +45,6 @@
 
     html, body {
       width: 100%;
-      max-width: 100vw;
-      overflow-x: hidden;
       background-color: var(--surface-pure);
       color: var(--ink-deep);
     }
@@ -91,7 +89,7 @@
       line-height: 1.65;
     }
 
-    /* كتل الأقسام */
+    /* كتل الأقسام المتطابقة */
     .stage-section {
       background: var(--surface-card);
       border-radius: var(--radius-md);
@@ -102,6 +100,7 @@
       gap: 16px;
       position: relative;
       transition: all 0.3s var(--ease);
+      scroll-margin-top: 18px;
     }
     .stage-section:focus-within {
       background: var(--surface-pure);
@@ -139,6 +138,45 @@
       line-height: 1.4;
     }
 
+    /* شريط الفهرس والقفز السريع الذكي (Quick Navigation Ribbon) */
+    .sub-quick-navigator {
+      display: none;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding: 2px 0 6px 0;
+      border-bottom: 1px solid var(--border-whisper);
+    }
+    .sub-quick-navigator::-webkit-scrollbar {
+      display: none;
+    }
+    .sub-nav-chip {
+      background: var(--surface-pure);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-pill);
+      padding: 4px 12px;
+      font-size: 11px;
+      font-family: var(--font-code);
+      color: var(--ink-soft);
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s var(--ease);
+      flex-shrink: 0;
+    }
+    .sub-nav-chip:hover {
+      border-color: var(--ink-deep);
+      color: var(--ink-deep);
+    }
+    .sub-nav-chip.active {
+      background: var(--ink-deep);
+      color: #ffffff;
+      border-color: var(--ink-deep);
+    }
+
     /* شارات الترقيم التلقائي */
     .auto-num-badge {
       font-family: var(--font-code);
@@ -152,6 +190,23 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      flex-shrink: 0;
+    }
+
+    /* عنوان العنصر المنعكس تلقائياً في الشريط المثبت */
+    .sticky-title-preview {
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 240px;
+    }
+    @media (max-width: 580px) {
+      .sticky-title-preview {
+        max-width: 120px;
+      }
     }
 
     /* شارة التكلفة الإجمالية في ترويسة الجدول */
@@ -201,7 +256,7 @@
     .catalog-ledger {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
     }
     .catalog-item-card {
       background: var(--surface-pure);
@@ -210,8 +265,9 @@
       padding: 14px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      scroll-margin-top: 20px;
+      gap: 12px;
+      scroll-margin-top: 18px;
+      position: relative;
       transition: border-color 0.3s, box-shadow 0.3s;
     }
     .catalog-item-card.highlighted {
@@ -219,19 +275,42 @@
       box-shadow: 0 0 0 2px rgba(20, 22, 25, 0.15);
     }
 
+    /* شريط رأس المكون المثبت مغناطيسياً (Sticky Anchor Header) */
     .catalog-top-row {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 25;
+      background: var(--surface-pure);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 10px 14px;
+      margin: -14px -14px 4px -14px;
+      border-top-left-radius: var(--radius-sm);
+      border-top-right-radius: var(--radius-sm);
+      border-bottom: 1px solid var(--border-whisper);
+      box-shadow: 0 4px 12px -4px rgba(20, 22, 25, 0.05);
       gap: 8px;
       flex-wrap: wrap;
     }
+
+    .sub-identity-anchor {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      flex: 1;
+    }
     
-    /* منظومة كبسولات الموضع وإلغاء التثبيت المتناغمة */
+    /* منظومة كبسولات الموضع وإلغاء التثبيت */
     .pin-locator-group {
       display: flex;
       align-items: center;
       gap: 6px;
+      flex-shrink: 0;
     }
     .pinned-capsule-deck {
       display: inline-flex;
@@ -360,6 +439,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      flex-shrink: 0;
     }
     .btn-discrete-action {
       border: none;
@@ -380,7 +460,7 @@
       background: var(--surface-pure);
       padding: 2px 6px;
       border-radius: var(--radius-sm);
-      border: 1px solid rgba(185, 28, 28, 0.25);
+      border: 1px solid rgba(244, 63, 94, 0.3);
     }
     .confirm-pop-deck.active {
       display: inline-flex;
@@ -565,7 +645,7 @@
       object-fit: contain;
     }
 
-    /* زر الإضافة */
+    /* زر الإضافة الذرية */
     .btn-append-atom {
       background: transparent;
       border: 1px dashed var(--border-whisper);
@@ -681,11 +761,18 @@
           </button>
         </div>
 
-        <div class="total-cost-deck">
-          <span class="total-cost-label">المجموع التقديري:</span>
-          <span class="total-cost-val" id="totalCostDisplay">0.00 د.أ</span>
+        <!-- تعداد المكونات بنفس نمط الصورة وشارة التكلفة -->
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-family:var(--font-code); font-size:10.5px; color:var(--ink-subtle);" id="catalogCountLabel">01 مكونات</span>
+          <div class="total-cost-deck">
+            <span class="total-cost-label">المجموع التقديري:</span>
+            <span class="total-cost-val" id="totalCostDisplay">0.00 د.أ</span>
+          </div>
         </div>
       </div>
+
+      <!-- شريط الفهرس والقفز السريع للمكونات -->
+      <nav class="sub-quick-navigator" id="catalogQuickNav" aria-label="فهرس المكونات والعتاد"></nav>
 
       <div class="catalog-ledger" id="catalogLedger"></div>
 
@@ -755,7 +842,6 @@
             <input type="file" id="evo_file_0" accept="image/png, image/jpeg" style="display:none;" onchange="handleEvoImage(0, this)">
             <img id="evo_prev_0" class="media-preview-mini" alt="محطة 01">
 
-            <!-- منصة إزالة الصورة بخطوتين -->
             <div id="evo_del_container_0" style="display:none; position:absolute; top:4px; left:4px; z-index:10;" onclick="event.stopPropagation()">
               <button type="button" class="btn-discrete-action" style="background:var(--ink-deep); color:#fff; font-size:9px; border-radius:var(--radius-pill); padding:2px 7px;" id="evo_del_init_0" onclick="armEvoDelete(0)">إزالة</button>
               <div class="confirm-pop-deck" id="evo_del_confirm_0">
@@ -775,7 +861,6 @@
             <input type="file" id="evo_file_1" accept="image/png, image/jpeg" style="display:none;" onchange="handleEvoImage(1, this)">
             <img id="evo_prev_1" class="media-preview-mini" alt="محطة 02">
 
-            <!-- منصة إزالة الصورة بخطوتين -->
             <div id="evo_del_container_1" style="display:none; position:absolute; top:4px; left:4px; z-index:10;" onclick="event.stopPropagation()">
               <button type="button" class="btn-discrete-action" style="background:var(--ink-deep); color:#fff; font-size:9px; border-radius:var(--radius-pill); padding:2px 7px;" id="evo_del_init_1" onclick="armEvoDelete(1)">إزالة</button>
               <div class="confirm-pop-deck" id="evo_del_confirm_1">
@@ -795,7 +880,6 @@
             <input type="file" id="evo_file_2" accept="image/png, image/jpeg" style="display:none;" onchange="handleEvoImage(2, this)">
             <img id="evo_prev_2" class="media-preview-mini" alt="محطة 03">
 
-            <!-- منصة إزالة الصورة بخطوتين -->
             <div id="evo_del_container_2" style="display:none; position:absolute; top:4px; left:4px; z-index:10;" onclick="event.stopPropagation()">
               <button type="button" class="btn-discrete-action" style="background:var(--ink-deep); color:#fff; font-size:9px; border-radius:var(--radius-pill); padding:2px 7px;" id="evo_del_init_2" onclick="armEvoDelete(2)">إزالة</button>
               <div class="confirm-pop-deck" id="evo_del_confirm_2">
@@ -815,7 +899,6 @@
             <input type="file" id="evo_file_3" accept="image/png, image/jpeg" style="display:none;" onchange="handleEvoImage(3, this)">
             <img id="evo_prev_3" class="media-preview-mini" alt="محطة 04">
 
-            <!-- منصة إزالة الصورة بخطوتين -->
             <div id="evo_del_container_3" style="display:none; position:absolute; top:4px; left:4px; z-index:10;" onclick="event.stopPropagation()">
               <button type="button" class="btn-discrete-action" style="background:var(--ink-deep); color:#fff; font-size:9px; border-radius:var(--radius-pill); padding:2px 7px;" id="evo_del_init_3" onclick="armEvoDelete(3)">إزالة</button>
               <div class="confirm-pop-deck" id="evo_del_confirm_3">
@@ -838,8 +921,8 @@
   </div>
 
   <script>
-    const STORAGE_KEY = 'ATHAR_DESIGN_SCHEMA_V4';
-    const BLUEPRINT_KEY = 'ATHAR_DESIGN_BLUEPRINT_V4';
+    const STORAGE_KEY = 'ATHAR_DESIGN_SCHEMA_V5';
+    const BLUEPRINT_KEY = 'ATHAR_DESIGN_BLUEPRINT_V5';
 
     let state = {
       catalog: [
@@ -854,6 +937,7 @@
     };
 
     let activeTargetComponentIdx = null;
+    let activeCatalogObservedIdx = 0;
 
     // ============================================================
     // محرك التلميحات الذكي
@@ -927,7 +1011,7 @@
     }
 
     // ============================================================
-    // 1. إدارة جدول المكونات والعتاد (BOM)
+    // 1. إدارة جدول المكونات (BOM) مع شريط الفهرس والترويسة المثبتة
     // ============================================================
     function renderCatalogLedger() {
       const ledger = document.getElementById('catalogLedger');
@@ -947,11 +1031,15 @@
         row.className = 'catalog-item-card';
         row.id = `catalog_item_${idx}`;
         row.innerHTML = `
+          <!-- شريط رأس المكون المثبت مغناطيسياً (Sticky Anchor Header) -->
           <div class="catalog-top-row">
-            <div style="display:flex; align-items:center; gap:8px;">
+            <div class="sub-identity-anchor">
               <span class="auto-num-badge">المكون ${formattedNum}</span>
+              <span class="sticky-title-preview" id="sticky_cat_prev_${idx}">
+                ${item.name ? `• ${escapeHtml(item.name)}` : ''}
+              </span>
 
-              <!-- كبسولة الموضع المتناغمة مع إلغاء التثبيت المهدّأ -->
+              <!-- كبسولة الموضع وإلغاء التثبيت المتناغمة -->
               <div class="pin-locator-group">
                 ${hasAssignedPin ? `
                   <div class="pinned-capsule-deck" id="pin_deck_${idx}">
@@ -985,11 +1073,11 @@
             ` : ''}
           </div>
 
-          <!-- شبكة الحقول المنظمة في طبقتين متكاملتين -->
+          <!-- شبكة الحقول في طبقتين متكاملتين -->
           <div class="catalog-fields-tier1">
             <div>
               <span class="field-caption">المكون الرئيسي:</span>
-              <input type="text" placeholder="الاسم العام..." value="${escapeHtml(item.name)}" oninput="updateCatalogField(${idx}, 'name', this.value)">
+              <input type="text" placeholder="الاسم العام..." value="${escapeHtml(item.name)}" oninput="handleCatalogNameLiveUpdate(${idx}, this.value)">
             </div>
             <div>
               <span class="field-caption">الطراز والإصدار:</span>
@@ -1023,7 +1111,77 @@
       });
 
       document.getElementById('totalCostDisplay').innerText = sum.toFixed(2) + " د.أ";
+      
+      const total = state.catalog.length;
+      document.getElementById('catalogCountLabel').innerText = `${total < 10 ? '0' + total : total} مكونات`;
+
+      renderCatalogQuickNav();
       renderBlueprintPins();
+    }
+
+    // شريط الفهرس والقفز السريع للمكونات
+    function renderCatalogQuickNav() {
+      const nav = document.getElementById('catalogQuickNav');
+      if (!nav) return;
+      nav.innerHTML = '';
+
+      if (state.catalog.length <= 1) {
+        nav.style.display = 'none';
+        return;
+      }
+
+      nav.style.display = 'flex';
+
+      state.catalog.forEach((item, idx) => {
+        const num = idx + 1;
+        const formattedNum = num < 10 ? `0${num}` : `${num}`;
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = `sub-nav-chip ${idx === activeCatalogObservedIdx ? 'active' : ''}`;
+        chip.id = `cat_chip_${idx}`;
+        chip.onclick = () => jumpToCatalogItem(idx);
+
+        const shortTitle = item.name ? (item.name.length > 18 ? item.name.substring(0, 18) + '...' : item.name) : 'غير معنون';
+        chip.innerHTML = `<strong>${formattedNum}</strong>: ${escapeHtml(shortTitle)}`;
+        nav.appendChild(chip);
+      });
+    }
+
+    function jumpToCatalogItem(idx) {
+      const card = document.getElementById(`catalog_item_${idx}`);
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setActiveCatalogChip(idx);
+      }
+    }
+
+    function setActiveCatalogChip(idx) {
+      activeCatalogObservedIdx = idx;
+      document.querySelectorAll('#catalogQuickNav .sub-nav-chip').forEach((c, i) => {
+        c.classList.toggle('active', i === idx);
+      });
+      const nav = document.getElementById('catalogQuickNav');
+      const activeChip = document.getElementById(`cat_chip_${idx}`);
+      if (nav && activeChip) {
+        const targetScroll = activeChip.offsetLeft - (nav.offsetWidth / 2) + (activeChip.offsetWidth / 2);
+        nav.scrollTo({ left: targetScroll, behavior: 'smooth' });
+      }
+    }
+
+    function handleCatalogNameLiveUpdate(idx, val) {
+      state.catalog[idx].name = val;
+      const stickyPrev = document.getElementById(`sticky_cat_prev_${idx}`);
+      if (stickyPrev) {
+        stickyPrev.innerText = val ? `• ${val}` : '';
+      }
+      const chip = document.getElementById(`cat_chip_${idx}`);
+      if (chip) {
+        const num = idx + 1;
+        const formattedNum = num < 10 ? `0${num}` : `${num}`;
+        const shortTitle = val ? (val.length > 18 ? val.substring(0, 18) + '...' : val) : 'غير معنون';
+        chip.innerHTML = `<strong>${formattedNum}</strong>: ${escapeHtml(shortTitle)}`;
+      }
+      persistMasterState();
     }
 
     function toggleTargetingForComponent(idx) {
@@ -1233,7 +1391,35 @@
     }
 
     // ============================================================
-    // 3. مراحل التطور الزمني للتصميم وإزالة صورها بخطوتين
+    // محرك التتبع التلقائي للجدول (Scroll-Spy)
+    // ============================================================
+    let catalogObserver = null;
+    function setupCatalogScrollSpy() {
+      if (catalogObserver) catalogObserver.disconnect();
+
+      const options = {
+        root: null,
+        rootMargin: '-5% 0px -75% 0px',
+        threshold: 0
+      };
+
+      catalogObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            if (id.startsWith('catalog_item_')) {
+              const idx = parseInt(id.replace('catalog_item_', ''), 10);
+              if (!isNaN(idx)) setActiveCatalogChip(idx);
+            }
+          }
+        });
+      }, options);
+
+      document.querySelectorAll('.catalog-item-card').forEach(card => catalogObserver.observe(card));
+    }
+
+    // ============================================================
+    // 3. مراحل التطور الزمني للتصميم
     // ============================================================
     function handleEvoImage(idx, input) {
       if (input.files && input.files[0]) {
@@ -1277,9 +1463,9 @@
       const fileInput = document.getElementById(`evo_file_${idx}`);
       
       if (img) { img.src = ""; img.style.display = 'none'; }
-      if (lbl) { lbl.style.display = 'block'; }
-      if (del) { del.style.display = 'none'; }
-      if (fileInput) { fileInput.value = ""; }
+      if (lbl) lbl.style.display = 'block';
+      if (del) del.style.display = 'none';
+      if (fileInput) fileInput.value = "";
 
       disarmEvoDelete(idx);
       persistMasterState();
@@ -1322,6 +1508,8 @@
         const noteEl = document.getElementById(`evo_note_${idx}`);
         if (noteEl) noteEl.value = item.note || '';
       });
+
+      setupCatalogScrollSpy();
     }
 
     function escapeHtml(str) {
