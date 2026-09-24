@@ -45,8 +45,6 @@
 
     html, body {
       width: 100%;
-      max-width: 100vw;
-      overflow-x: hidden;
       background-color: var(--surface-pure);
       color: var(--ink-deep);
     }
@@ -102,6 +100,7 @@
       gap: 16px;
       position: relative;
       transition: all 0.3s var(--ease);
+      scroll-margin-top: 18px;
     }
     .stage-section:focus-within {
       background: var(--surface-pure);
@@ -139,6 +138,45 @@
       line-height: 1.4;
     }
 
+    /* شريط الفهرس والقفز السريع الذكي (Quick Navigation Ribbon) */
+    .sub-quick-navigator {
+      display: none; /* يظهر تلقائياً عند وجود بطاقتين أو أكثر */
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding: 2px 0 6px 0;
+      border-bottom: 1px solid var(--border-whisper);
+    }
+    .sub-quick-navigator::-webkit-scrollbar {
+      display: none;
+    }
+    .sub-nav-chip {
+      background: var(--surface-pure);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-pill);
+      padding: 4px 12px;
+      font-size: 11px;
+      font-family: var(--font-code);
+      color: var(--ink-soft);
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s var(--ease);
+      flex-shrink: 0;
+    }
+    .sub-nav-chip:hover {
+      border-color: var(--ink-deep);
+      color: var(--ink-deep);
+    }
+    .sub-nav-chip.active {
+      background: var(--ink-deep);
+      color: #ffffff;
+      border-color: var(--ink-deep);
+    }
+
     /* زر استعراض دليل draw.io */
     .btn-drawio-guide {
       background: var(--surface-pure);
@@ -159,7 +197,7 @@
       color: var(--ink-deep);
     }
 
-    /* شارات الترقيم التلقائي */
+    /* شارات الترقيم التلقائي الموحدة */
     .auto-num-badge {
       font-family: var(--font-code);
       font-size: 12px;
@@ -169,12 +207,30 @@
       padding: 3px 10px;
       border-radius: var(--radius-sm);
       border: 1px solid rgba(20, 22, 25, 0.14);
+      letter-spacing: -0.2px;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      flex-shrink: 0;
     }
 
-    /* الحقول النصية المعيارية */
+    /* عنوان العنصر المنعكس تلقائياً في الشريط المثبت */
+    .sticky-title-preview {
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 320px;
+    }
+    @media (max-width: 580px) {
+      .sticky-title-preview {
+        max-width: 140px;
+      }
+    }
+
+    /* الحقول النصية المعيارية الموحدة */
     textarea, input[type="text"] {
       width: 100%;
       border: 1px solid var(--border-whisper);
@@ -196,7 +252,7 @@
       min-height: 60px;
     }
 
-    /* مسرح إرفاق المخطط الانسيابي المتناسب */
+    /* مسرح إرفاق المخطط الانسيابي */
     .flowchart-shelf-large {
       border: 1px dashed rgba(20, 22, 25, 0.2);
       border-radius: var(--radius-md);
@@ -315,7 +371,7 @@
     .sub-ledger-deck {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
     }
     .sub-record-card {
       background: var(--surface-pure);
@@ -324,15 +380,42 @@
       padding: 14px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
+      position: relative;
       scroll-margin-top: 18px;
+      transition: border-color 0.25s var(--ease);
     }
+    .sub-record-card:focus-within {
+      border-color: rgba(20, 22, 25, 0.2);
+    }
+
+    /* شريط رأس البطاقة المثبت مغناطيسياً (Sticky Anchor Header) */
     .sub-card-top {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 25;
+      background: var(--surface-pure);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 10px 14px;
+      margin: -14px -14px 4px -14px;
+      border-top-left-radius: var(--radius-sm);
+      border-top-right-radius: var(--radius-sm);
       border-bottom: 1px solid var(--border-whisper);
-      padding-bottom: 8px;
+      box-shadow: 0 4px 12px -4px rgba(20, 22, 25, 0.05);
+      gap: 10px;
+    }
+
+    .sub-identity-anchor {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      flex: 1;
     }
 
     /* شبكة الصورتين */
@@ -382,6 +465,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      flex-shrink: 0;
     }
     .btn-discrete-action {
       border: none;
@@ -402,7 +486,7 @@
       background: var(--surface-pure);
       padding: 2px 6px;
       border-radius: var(--radius-sm);
-      border: 1px solid rgba(185, 28, 28, 0.25);
+      border: 1px solid rgba(244, 63, 94, 0.3);
     }
     .confirm-pop-deck.active {
       display: inline-flex;
@@ -426,7 +510,7 @@
       padding: 2px 4px;
     }
 
-    /* التحقق والتقويم */
+    /* التحقق والتقويم المقتضب والوقور */
     .human-oversight-card {
       background: var(--surface-card);
       border: 1px solid var(--border-whisper);
@@ -647,7 +731,7 @@
       </p>
     </header>
 
-    <!-- 01: المخطط الانسيابي العام للنظام (متناسب ومريح بصرياً) -->
+    <!-- 01: المخطط الانسيابي العام للنظام -->
     <section class="stage-section">
       <div class="stage-bar">
         <div class="stage-identity">
@@ -661,22 +745,16 @@
           </button>
         </div>
 
-        <!-- زر استعراض دليل المخطط وروابط draw.io المعتمدة -->
         <button type="button" class="btn-drawio-guide" onclick="openDrawioGuideModal()">
           دليل ومنصة draw.io ↗
         </button>
       </div>
 
       <div class="flowchart-shelf-large" onclick="handleShelfClick('flowchart_file', event)">
-        <!-- أيقونة المخطط الانسيابي المصححة هندسياً بدون أي تداخل أو تصادم -->
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-subtle);" id="flowchart_icon_svg">
-          <!-- الصندوق العلوي -->
           <rect x="3" y="3" width="7" height="6" rx="1.5"/>
-          <!-- خط التدفق المنحني -->
           <path d="M6.5 9v4a3 3 0 0 0 3 3h4.5"/>
-          <!-- رأس السهم المتصل بحافة الصندوق السفلي بدقة صفرية التداخل -->
           <polyline points="11.5 13.5 14 16 11.5 18.5"/>
-          <!-- الصندوق السفلي المستلم -->
           <rect x="14" y="12" width="7" height="8" rx="1.5"/>
         </svg>
 
@@ -740,7 +818,7 @@
       </div>
     </section>
 
-    <!-- 03: ابتكارات التصنيع الرقمي (CAD & Fabrication) -->
+    <!-- 03: ابتكارات التصنيع الرقمي (CAD & Fabrication) مع شريط الفهرس والترويسة المثبتة -->
     <section class="stage-section">
       <div class="stage-bar">
         <div class="stage-identity">
@@ -757,6 +835,9 @@
         <span style="font-family:var(--font-code); font-size:10.5px; color:var(--ink-subtle);" id="fabCountLabel">01 ابتكارات</span>
       </div>
 
+      <!-- شريط الفهرس والقفز السريع لابتكارات التصنيع -->
+      <nav class="sub-quick-navigator" id="fabQuickNav" aria-label="فهرس ابتكارات التصنيع"></nav>
+
       <div class="sub-ledger-deck" id="fabLedger"></div>
 
       <button type="button" class="btn-append-atom" onclick="appendNewFabItem()">
@@ -764,7 +845,7 @@
       </button>
     </section>
 
-    <!-- 04: توظيف الأدوات المتقدمة والتحقق والتقويم -->
+    <!-- 04: توظيف الأدوات المتقدمة والتحقق مع شريط الفهرس والترويسة المثبتة -->
     <section class="stage-section">
       <div class="stage-bar">
         <div class="stage-identity">
@@ -781,6 +862,9 @@
         <span style="font-family:var(--font-code); font-size:10.5px; color:var(--ink-subtle);" id="aiCountLabel">01 دراسات</span>
       </div>
 
+      <!-- شريط الفهرس والقفز السريع لدراسات الحالة -->
+      <nav class="sub-quick-navigator" id="aiQuickNav" aria-label="فهرس دراسات الحالة"></nav>
+
       <div class="sub-ledger-deck" id="aiLedger"></div>
 
       <button type="button" class="btn-append-atom" onclick="appendNewAiItem()">
@@ -796,16 +880,14 @@
 
   </div>
 
-  <!-- نافذة دليل منصة draw.io والمراجع الرسمية المحكمة على الهواتف والشاشات الصغيرة -->
+  <!-- نافذة دليل منصة draw.io والمراجع الرسمية المحكمة على الهواتف -->
   <div class="sheet-scrim" id="drawioGuideModal" onclick="if(event.target===this) closeDrawioGuideModal()">
     <div class="sheet-card" onclick="event.stopPropagation()">
-      <!-- ترويسة ثابتة لا تنحسر عند التمرير -->
       <div class="sheet-card-header">
         <span style="font-size:13px; font-weight:700; color:var(--ink-deep);">دليل ومنصة إعداد المخطط الانسيابي</span>
         <button type="button" onclick="closeDrawioGuideModal()" style="border:none; background:transparent; font-size:12px; cursor:pointer; color:var(--ink-subtle); padding:4px 8px;">✕ إغلاق</button>
       </div>
 
-      <!-- جسم النافذة القابل للتمرير اللمسي الانسيابي -->
       <div class="sheet-card-body">
         <div style="font-size:12px; color:var(--ink-soft); line-height:1.75;">
           المخطط الانسيابي هو لغة بصرية تترجم منطق برنامجكم إلى أشكال قياسية موحدة تفهمها لجان التحكيم:
@@ -817,7 +899,6 @@
           </ul>
         </div>
 
-        <!-- بطاقات الروابط الثلاث المعتمدة في باركودات الدليل الوطني -->
         <div style="display:flex; flex-direction:column; gap:8px;">
           <!-- 1. رابط المنصة المباشر -->
           <a href="https://app.diagrams.net/" target="_blank" class="drawio-resource-tile">
@@ -853,7 +934,7 @@
   </div>
 
   <script>
-    const STORAGE_KEY = 'ATHAR_INNOVATION_SCHEMA_V5';
+    const STORAGE_KEY = 'ATHAR_INNOVATION_SCHEMA_V8';
 
     let state = {
       flowchartImg: "",
@@ -866,8 +947,11 @@
       ]
     };
 
+    let activeFabObservedIdx = 0;
+    let activeAiObservedIdx = 0;
+
     // ============================================================
-    // محرك التلميحات الذكي المانع للفيضان
+    // محرك التلميحات الذكي
     // ============================================================
     const tooltipEl = document.getElementById('masterTooltip');
     let activeBeaconBtn = null;
@@ -937,10 +1021,9 @@
       document.getElementById(targetInputId).click();
     }
 
-    // إدارة نافذة draw.io الإرشادية المحكمة للموبايل
     function openDrawioGuideModal() {
       document.getElementById('drawioGuideModal').style.display = 'flex';
-      document.body.style.overflow = 'hidden'; // قفل التمرير الخلفي لمنع التشويش اللمسي
+      document.body.style.overflow = 'hidden';
     }
 
     function closeDrawioGuideModal() {
@@ -1011,7 +1094,7 @@
     }
 
     // ============================================================
-    // 2. إدارة ابتكارات التصنيع الرقمي (المسوغات الرأسية)
+    // 2. إدارة ابتكارات التصنيع مع شريط الفهرس والترويسة المثبتة
     // ============================================================
     function renderFabLedger() {
       const ledger = document.getElementById('fabLedger');
@@ -1025,8 +1108,14 @@
         card.className = 'sub-record-card';
         card.id = `fab_card_${idx}`;
         card.innerHTML = `
+          <!-- شريط رأس ابتكار التصنيع المثبت مغناطيسياً -->
           <div class="sub-card-top">
-            <span class="auto-num-badge">ابتكار التصنيع ${formattedNum}</span>
+            <div class="sub-identity-anchor">
+              <span class="auto-num-badge">ابتكار التصنيع ${formattedNum}</span>
+              <span class="sticky-title-preview" id="sticky_fab_prev_${idx}">
+                ${item.title ? `• ${escapeHtml(item.title)}` : ''}
+              </span>
+            </div>
 
             ${state.fabItems.length > 1 ? `
               <div class="inline-action-slot" id="fab_del_slot_${idx}">
@@ -1041,7 +1130,7 @@
 
           <div>
             <span style="font-size:10.5px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">اسم الابتكار المصنّع:</span>
-            <input type="text" placeholder="المسمى الوظيفي للقطعة المبتكرة المصنّعة..." value="${escapeHtml(item.title)}" oninput="updateFabField(${idx}, 'title', this.value)" style="font-weight:600;">
+            <input type="text" placeholder="المسمى الوظيفي للقطعة المبتكرة المصنّعة..." value="${escapeHtml(item.title)}" oninput="handleFabTitleLiveUpdate(${idx}, this.value)" style="font-weight:600;">
           </div>
 
           <div>
@@ -1051,7 +1140,6 @@
 
           <!-- شبكة الصورتين (المخطط الشامل مقابل الواقع) -->
           <div class="dual-media-grid">
-            <!-- صورة المخطط الشامل -->
             <div class="media-shelf" onclick="handleShelfClick('cad_file_${idx}', event)">
               <span class="media-shelf-text" id="cad_lbl_${idx}">المخطط الهندسي الرقمي قبل التنفيذ (2D / 3D)</span>
               <input type="file" id="cad_file_${idx}" accept="image/png, image/jpeg" style="display:none;" onchange="handleFabImage(${idx}, 'cadImg', this)">
@@ -1066,7 +1154,6 @@
               </div>
             </div>
 
-            <!-- صورة القطعة المصنعة -->
             <div class="media-shelf" onclick="handleShelfClick('real_file_${idx}', event)">
               <span class="media-shelf-text" id="real_lbl_${idx}">القطعة بعد التصنيع الفعلي</span>
               <input type="file" id="real_file_${idx}" accept="image/png, image/jpeg" style="display:none;" onchange="handleFabImage(${idx}, 'realImg', this)">
@@ -1082,7 +1169,7 @@
             </div>
           </div>
 
-          <!-- المسوغات رأسية واحدة تلو الأخرى -->
+          <!-- المسوغات مرتبة رأسياً -->
           <div style="display:flex; flex-direction:column; gap:10px;">
             <div>
               <span style="font-size:10.5px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">مسوغات الشكل والأبعاد:</span>
@@ -1102,6 +1189,73 @@
 
       const total = state.fabItems.length;
       document.getElementById('fabCountLabel').innerText = `${total < 10 ? '0' + total : total} ابتكارات`;
+
+      renderFabQuickNav();
+    }
+
+    // شريط الفهرس والقفز السريع لابتكارات التصنيع
+    function renderFabQuickNav() {
+      const nav = document.getElementById('fabQuickNav');
+      if (!nav) return;
+      nav.innerHTML = '';
+
+      if (state.fabItems.length <= 1) {
+        nav.style.display = 'none';
+        return;
+      }
+
+      nav.style.display = 'flex';
+
+      state.fabItems.forEach((item, idx) => {
+        const num = idx + 1;
+        const formattedNum = num < 10 ? `0${num}` : `${num}`;
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = `sub-nav-chip ${idx === activeFabObservedIdx ? 'active' : ''}`;
+        chip.id = `fab_chip_${idx}`;
+        chip.onclick = () => jumpToFabItem(idx);
+
+        const shortTitle = item.title ? (item.title.length > 18 ? item.title.substring(0, 18) + '...' : item.title) : 'غير معنون';
+        chip.innerHTML = `<strong>${formattedNum}</strong>: ${escapeHtml(shortTitle)}`;
+        nav.appendChild(chip);
+      });
+    }
+
+    function jumpToFabItem(idx) {
+      const card = document.getElementById(`fab_card_${idx}`);
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setActiveFabChip(idx);
+      }
+    }
+
+    function setActiveFabChip(idx) {
+      activeFabObservedIdx = idx;
+      document.querySelectorAll('#fabQuickNav .sub-nav-chip').forEach((c, i) => {
+        c.classList.toggle('active', i === idx);
+      });
+      const nav = document.getElementById('fabQuickNav');
+      const activeChip = document.getElementById(`fab_chip_${idx}`);
+      if (nav && activeChip) {
+        const targetScroll = activeChip.offsetLeft - (nav.offsetWidth / 2) + (activeChip.offsetWidth / 2);
+        nav.scrollTo({ left: targetScroll, behavior: 'smooth' });
+      }
+    }
+
+    function handleFabTitleLiveUpdate(idx, val) {
+      state.fabItems[idx].title = val;
+      const stickyPrev = document.getElementById(`sticky_fab_prev_${idx}`);
+      if (stickyPrev) {
+        stickyPrev.innerText = val ? `• ${val}` : '';
+      }
+      const chip = document.getElementById(`fab_chip_${idx}`);
+      if (chip) {
+        const num = idx + 1;
+        const formattedNum = num < 10 ? `0${num}` : `${num}`;
+        const shortTitle = val ? (val.length > 18 ? val.substring(0, 18) + '...' : val) : 'غير معنون';
+        chip.innerHTML = `<strong>${formattedNum}</strong>: ${escapeHtml(shortTitle)}`;
+      }
+      persistState();
     }
 
     function appendNewFabItem() {
@@ -1180,7 +1334,7 @@
     }
 
     // ============================================================
-    // 3. إدارة دراسات الحالة مع تمييز المدخل والمخرج والتحقق
+    // 3. إدارة دراسات الحالة مع شريط الفهرس والترويسة المثبتة
     // ============================================================
     function renderAiLedger() {
       const ledger = document.getElementById('aiLedger');
@@ -1194,8 +1348,14 @@
         card.className = 'sub-record-card';
         card.id = `ai_card_${idx}`;
         card.innerHTML = `
+          <!-- شريط رأس دراسة الحالة المثبت مغناطيسياً -->
           <div class="sub-card-top">
-            <span class="auto-num-badge">دراسة الحالة ${formattedNum}</span>
+            <div class="sub-identity-anchor">
+              <span class="auto-num-badge">دراسة الحالة ${formattedNum}</span>
+              <span class="sticky-title-preview" id="sticky_ai_prev_${idx}">
+                ${(item.challenge || item.toolName) ? `• ${escapeHtml(item.challenge || item.toolName)}` : ''}
+              </span>
+            </div>
 
             ${state.aiStudies.length > 1 ? `
               <div class="inline-action-slot" id="ai_del_slot_${idx}">
@@ -1208,16 +1368,16 @@
             ` : ''}
           </div>
 
-          <!-- التحدي الفني -->
+          <!-- التحدي الفني المعالج -->
           <div>
             <span style="font-size:10.5px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">التحدي الفني المعالج:</span>
-            <input type="text" placeholder="توصيف المعضلة المستعصية محل الاستشارة..." value="${escapeHtml(item.challenge)}" oninput="updateAiField(${idx}, 'challenge', this.value)">
+            <input type="text" placeholder="توصيف المعضلة المستعصية محل الاستشارة..." value="${escapeHtml(item.challenge)}" oninput="handleAiChallengeLiveUpdate(${idx}, this.value)">
           </div>
 
           <!-- اسم الأداة في سطر مستقل -->
           <div>
             <span style="font-size:10.5px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">اسم الأداة المستخدمة:</span>
-            <input type="text" list="toolsCommonDatalist" placeholder="أداة الذكاء الاصطناعي أو المنصة المتقدمة المستعان بها..." value="${escapeHtml(item.toolName)}" oninput="updateAiField(${idx}, 'toolName', this.value); registerDynamicToolName(this.value)">
+            <input type="text" list="toolsCommonDatalist" placeholder="أداة الذكاء الاصطناعي أو المنصة المتقدمة المستعان بها..." value="${escapeHtml(item.toolName)}" oninput="handleAiToolLiveUpdate(${idx}, this.value); registerDynamicToolName(this.value)">
           </div>
 
           <!-- خانة التوجيه الدقيق (المدخل) -->
@@ -1229,13 +1389,13 @@
           <!-- خانة المخرج المقترح من الأداة -->
           <div>
             <span style="font-size:10.5px; font-weight:500; color:var(--ink-soft); display:block; margin-bottom:2px;">المخرج المقترح من الأداة:</span>
-            <textarea rows="2" class="output-editorial-box" placeholder="الحل أو الشفرة الأولية المقترحة من قِبل الأداة..." oninput="updateAiField(${idx}, 'initialOutput', this.value)">${escapeHtml(item.initialOutput)}</textarea>
+            <textarea rows="2" class="output-editorial-box" placeholder="المقترح الفني أو المعالجة الأولية المقدمة من قِبل الأداة..." oninput="updateAiField(${idx}, 'initialOutput', this.value)">${escapeHtml(item.initialOutput)}</textarea>
           </div>
 
           <!-- التحقق والتقويم -->
           <div class="human-oversight-card">
             <span class="oversight-head-label">التحقق والتقويم:</span>
-            <textarea rows="2" placeholder="بيان مواضع الفحص والتقويم البشري والتعديل الهندسي للشفرات بما يثبت الملكية الفكرية للفريق..." oninput="updateAiField(${idx}, 'humanVerification', this.value)">${escapeHtml(item.humanVerification)}</textarea>
+            <textarea rows="2" placeholder="بيان مواضع الفحص والتقويم البشري وتعديل المقترح وتكييف المنطق بما يثبت الملكية الفكرية للفريق..." oninput="updateAiField(${idx}, 'humanVerification', this.value)">${escapeHtml(item.humanVerification)}</textarea>
           </div>
         `;
         ledger.appendChild(card);
@@ -1243,7 +1403,87 @@
 
       const total = state.aiStudies.length;
       document.getElementById('aiCountLabel').innerText = `${total < 10 ? '0' + total : total} دراسات`;
+
+      renderAiQuickNav();
       refreshDynamicDatalist();
+    }
+
+    // شريط الفهرس والقفز السريع لدراسات الحالة
+    function renderAiQuickNav() {
+      const nav = document.getElementById('aiQuickNav');
+      if (!nav) return;
+      nav.innerHTML = '';
+
+      if (state.aiStudies.length <= 1) {
+        nav.style.display = 'none';
+        return;
+      }
+
+      nav.style.display = 'flex';
+
+      state.aiStudies.forEach((item, idx) => {
+        const num = idx + 1;
+        const formattedNum = num < 10 ? `0${num}` : `${num}`;
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = `sub-nav-chip ${idx === activeAiObservedIdx ? 'active' : ''}`;
+        chip.id = `ai_chip_${idx}`;
+        chip.onclick = () => jumpToAiItem(idx);
+
+        const label = item.challenge || item.toolName || 'غير معنونة';
+        const shortTitle = label.length > 18 ? label.substring(0, 18) + '...' : label;
+        chip.innerHTML = `<strong>${formattedNum}</strong>: ${escapeHtml(shortTitle)}`;
+        nav.appendChild(chip);
+      });
+    }
+
+    function jumpToAiItem(idx) {
+      const card = document.getElementById(`ai_card_${idx}`);
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setActiveAiChip(idx);
+      }
+    }
+
+    function setActiveAiChip(idx) {
+      activeAiObservedIdx = idx;
+      document.querySelectorAll('#aiQuickNav .sub-nav-chip').forEach((c, i) => {
+        c.classList.toggle('active', i === idx);
+      });
+      const nav = document.getElementById('aiQuickNav');
+      const activeChip = document.getElementById(`ai_chip_${idx}`);
+      if (nav && activeChip) {
+        const targetScroll = activeChip.offsetLeft - (nav.offsetWidth / 2) + (activeChip.offsetWidth / 2);
+        nav.scrollTo({ left: targetScroll, behavior: 'smooth' });
+      }
+    }
+
+    function handleAiChallengeLiveUpdate(idx, val) {
+      state.aiStudies[idx].challenge = val;
+      updateAiStickyAndChip(idx);
+      persistState();
+    }
+
+    function handleAiToolLiveUpdate(idx, val) {
+      state.aiStudies[idx].toolName = val;
+      updateAiStickyAndChip(idx);
+      persistState();
+    }
+
+    function updateAiStickyAndChip(idx) {
+      const item = state.aiStudies[idx];
+      const label = item.challenge || item.toolName;
+      const stickyPrev = document.getElementById(`sticky_ai_prev_${idx}`);
+      if (stickyPrev) {
+        stickyPrev.innerText = label ? `• ${label}` : '';
+      }
+      const chip = document.getElementById(`ai_chip_${idx}`);
+      if (chip) {
+        const num = idx + 1;
+        const formattedNum = num < 10 ? `0${num}` : `${num}`;
+        const shortTitle = label ? (label.length > 18 ? label.substring(0, 18) + '...' : label) : 'غير معنونة';
+        chip.innerHTML = `<strong>${formattedNum}</strong>: ${escapeHtml(shortTitle)}`;
+      }
     }
 
     function appendNewAiItem() {
@@ -1314,6 +1554,37 @@
     }
 
     // ============================================================
+    // محرك التتبع التلقائي الآمن (Scroll-Spy) لأقسام التصنيع والدراسات
+    // ============================================================
+    let section4Observer = null;
+    function setupSection4ScrollSpy() {
+      if (section4Observer) section4Observer.disconnect();
+
+      const options = {
+        root: null,
+        rootMargin: '-5% 0px -75% 0px',
+        threshold: 0
+      };
+
+      section4Observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            if (id.startsWith('fab_card_')) {
+              const idx = parseInt(id.replace('fab_card_', ''), 10);
+              if (!isNaN(idx)) setActiveFabChip(idx);
+            } else if (id.startsWith('ai_card_')) {
+              const idx = parseInt(id.replace('ai_card_', ''), 10);
+              if (!isNaN(idx)) setActiveAiChip(idx);
+            }
+          }
+        });
+      }, options);
+
+      document.querySelectorAll('.sub-record-card').forEach(card => section4Observer.observe(card));
+    }
+
+    // ============================================================
     // 4. الحفظ المحلي واسترجاع البيانات
     // ============================================================
     function persistState() {
@@ -1351,6 +1622,7 @@
 
       renderFabLedger();
       renderAiLedger();
+      setupSection4ScrollSpy();
     }
 
     function restoreSubImageSlotView(idx, slotKey, imgPrefix, lblPrefix, delContainerPrefix, arr) {
