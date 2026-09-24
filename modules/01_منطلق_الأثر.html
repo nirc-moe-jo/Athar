@@ -22,8 +22,8 @@
       --border-whisper: rgba(0, 0, 0, 0.07);
       --border-focus: rgba(20, 22, 25, 0.3);
 
-      --accent-valid: #10b981;
-      --accent-alert: #b91c1c;
+      --green-serene: #15803d;
+      --red-serene: #b91c1c;
 
       --font-body: 'Readex Pro', -apple-system, sans-serif;
       --font-code: 'JetBrains Mono', monospace;
@@ -209,7 +209,7 @@
       transform: translateY(0);
     }
 
-    /* عداد الكلمات المندمج */
+    /* عداد الكلمات المندمج: أحمر عند 0 ولا يتحول للأخضر إلا بين 50 إلى 100 كلمة */
     .word-meter-inline {
       font-family: var(--font-code);
       font-size: 11px;
@@ -225,8 +225,8 @@
       color: var(--ink-soft);
       transition: color 0.2s;
     }
-    .word-meter-inline.in-range .meter-current { color: var(--accent-valid); }
-    .word-meter-inline.out-range .meter-current { color: var(--accent-alert); }
+    .word-meter-inline.in-range .meter-current { color: var(--green-serene); }
+    .word-meter-inline.out-range .meter-current { color: var(--red-serene); }
 
     /* الحقول النصية المعيارية */
     textarea, input[type="text"] {
@@ -287,6 +287,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      flex-shrink: 0;
     }
     .btn-discrete-action {
       border: none;
@@ -298,12 +299,12 @@
       border-radius: var(--radius-sm);
       transition: all 0.2s var(--ease);
     }
-    .btn-discrete-action:hover { color: var(--accent-alert); }
+    .btn-discrete-action:hover { color: var(--red-serene); }
 
     .confirm-pop-deck {
       display: none;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       background: var(--surface-pure);
       padding: 2px 6px;
       border-radius: var(--radius-sm);
@@ -314,11 +315,11 @@
     }
     .btn-affirm-del {
       border: none;
-      background: var(--accent-alert);
+      background: var(--red-serene);
       color: #ffffff;
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 600;
-      padding: 3px 8px;
+      padding: 2px 8px;
       border-radius: var(--radius-pill);
       cursor: pointer;
     }
@@ -326,7 +327,7 @@
       border: none;
       background: transparent;
       color: var(--ink-soft);
-      font-size: 10px;
+      font-size: 9.5px;
       cursor: pointer;
       padding: 2px 4px;
     }
@@ -401,11 +402,11 @@
       align-items: center;
     }
 
-    /* التعديد الذري لنقاط القوة والضعف */
+    /* التعديد الذري الملون والمرقم لنقاط القوة والضعف */
     .atomic-split-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 12px;
     }
     @media(max-width: 600px) {
       .atomic-split-grid { grid-template-columns: 1fr; }
@@ -415,11 +416,15 @@
       flex-direction: column;
       gap: 6px;
     }
+
+    /* عناوين الأعمدة بالألوان الهادئة المعتمدة */
     .atomic-column-header {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--ink-soft);
+      font-size: 11.5px;
+      font-weight: 700;
     }
+    .header-pro { color: var(--green-serene); }
+    .header-con { color: var(--red-serene); }
+
     .atomic-list {
       display: flex;
       flex-direction: column;
@@ -428,13 +433,37 @@
     .atomic-point-row {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
     }
     .atomic-point-row input {
       background: var(--surface-card);
-      padding: 6px 9px;
-      font-size: 11.5px;
+      padding: 6px 10px;
+      font-size: 12px;
+      flex: 1;
+      min-width: 0;
     }
+
+    /* شارات الترقيم الحسابية الدقيقة للنقاط */
+    .point-num-tag {
+      font-family: var(--font-code);
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 3px 6px;
+      border-radius: var(--radius-sm);
+      flex-shrink: 0;
+      letter-spacing: -0.2px;
+    }
+    .tag-pro {
+      color: var(--green-serene);
+      background: #f0fdf4;
+      border: 1px solid rgba(21, 128, 61, 0.25);
+    }
+    .tag-con {
+      color: var(--red-serene);
+      background: #fef2f2;
+      border: 1px solid rgba(185, 28, 28, 0.25);
+    }
+
     .btn-remove-point {
       border: none;
       background: transparent;
@@ -442,26 +471,40 @@
       cursor: pointer;
       font-size: 11px;
       padding: 2px 4px;
+      flex-shrink: 0;
+      transition: color 0.2s;
     }
-    .btn-remove-point:hover { color: var(--accent-alert); }
+    .btn-remove-point:hover { color: var(--red-serene); }
 
+    /* أزرار إضافة النقاط المتناغمة */
     .btn-add-point {
       background: transparent;
-      border: 1px dashed var(--border-whisper);
       border-radius: var(--radius-sm);
-      padding: 4px 8px;
-      font-size: 10.5px;
-      color: var(--ink-soft);
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 500;
       cursor: pointer;
       text-align: center;
       transition: all 0.2s;
     }
-    .btn-add-point:hover {
-      border-color: var(--ink-deep);
-      color: var(--ink-deep);
+    .pro-add {
+      color: var(--green-serene);
+      border: 1px dashed rgba(21, 128, 61, 0.3);
+    }
+    .pro-add:hover {
+      background: #f0fdf4;
+      border-color: var(--green-serene);
+    }
+    .con-add {
+      color: var(--red-serene);
+      border: 1px dashed rgba(185, 28, 28, 0.3);
+    }
+    .con-add:hover {
+      background: #fef2f2;
+      border-color: var(--red-serene);
     }
 
-    /* أزرار الإضافة الذرية */
+    /* أزرار الإضافة الذرية للأقسام */
     .btn-append-atom {
       background: transparent;
       border: 1px dashed var(--border-whisper);
@@ -609,7 +652,7 @@
 </head>
 <body>
 
-  <!-- حاوية التلميح المركزية الحرة المحسوبة برمجياً لمنع فيضان الشاشة -->
+  <!-- حاوية التلميح المركزية الحرة المحسوبة برمجياً -->
   <div id="masterTooltip"></div>
 
   <div class="master-flow">
@@ -637,7 +680,8 @@
           </button>
         </div>
 
-        <div class="word-meter-inline" id="originMeterWrap">
+        <!-- عداد الكلمات: يبدأ أحمر عند 0 ولا يتحول للأخضر إلا بين 50 إلى 100 كلمة -->
+        <div class="word-meter-inline out-range" id="originMeterWrap">
           <span class="meter-current" id="wordCountDigit">0</span>
           <span>/ 50 – 100 كلمة</span>
         </div>
@@ -693,7 +737,7 @@
       </button>
     </section>
 
-    <!-- 03: استكشاف المسارات وتقييم البدائل -->
+    <!-- 03: استكشاف المسارات وتقييم البدائل مع تأكيد حذف النقاط بخطوتين -->
     <section class="stage-section">
       <div class="stage-bar">
         <div class="stage-identity">
@@ -773,8 +817,8 @@
   </div>
 
   <script>
-    const STORAGE_KEY = 'ATHAR_FOUNDATION_SCHEMA_V7';
-    const IMAGE_KEY = 'ATHAR_FOUNDATION_IMAGE_V7';
+    const STORAGE_KEY = 'ATHAR_FOUNDATION_SCHEMA_V9';
+    const IMAGE_KEY = 'ATHAR_FOUNDATION_IMAGE_V9';
 
     let state = {
       narration: "",
@@ -858,7 +902,6 @@
       }
     }
 
-    // إدارة نقر رف الصورة لمنع تعارض زر التلميح مع فتح الملف
     function handleOriginShelfClick(targetInputId, e) {
       if (e.target.closest('.beacon-btn') || e.target.closest('.confirm-pop-deck') || e.target.closest('.btn-discrete-action')) {
         return;
@@ -866,7 +909,7 @@
       document.getElementById(targetInputId).click();
     }
 
-    // 1. تدقيق عداد الكلمات
+    // 1. تدقيق عداد الكلمات: يبدأ أحمر عند 0 ولا يتحول للأخضر إلا بين 50 إلى 100 كلمة
     function evaluateOriginMeter() {
       const text = document.getElementById('originNarration').value.trim();
       const count = text ? text.split(/\s+/).length : 0;
@@ -935,7 +978,6 @@
       document.getElementById('challengesCountLabel').innerText = `${total < 10 ? '0' + total : total} تحديات`;
     }
 
-    // تأكيد استبعاد التحدي بخطوتين
     function armChallengeDelete(idx) {
       document.querySelector(`#ch_del_slot_${idx} .btn-discrete-action`).style.display = 'none';
       document.getElementById(`ch_del_confirm_${idx}`).classList.add('active');
@@ -974,7 +1016,7 @@
     }
 
     // ============================================================
-    // 3. إدارة فضاء البدائل مع الترقيم التلقائي والتأكيد بخطوتين
+    // 3. إدارة فضاء البدائل مع تأكيد حذف النقاط الفردية بخطوتين
     // ============================================================
     function renderStrategies() {
       const deck = document.getElementById('strategiesDeck');
@@ -1008,32 +1050,60 @@
           <input type="text" placeholder="المسمى التعريفي للمسار الاستراتيجي..." value="${escapeHtml(item.title)}" oninput="updateStrategyTitle(${sIdx}, this.value)" style="font-weight:600;">
 
           <div class="atomic-split-grid">
-            <!-- نقاط القوة -->
+            <!-- نقاط القوة والمكاسب (باللون الأخضر، والترقيم، والتأكيد بخطوتين) -->
             <div class="atomic-column">
-              <span class="atomic-column-header">نقاط القوة والمكاسب:</span>
+              <span class="atomic-column-header header-pro">نقاط القوة والمكاسب:</span>
               <div class="atomic-list" id="pros_list_${sIdx}">
-                ${item.pros.map((p, pIdx) => `
-                  <div class="atomic-point-row">
-                    <input type="text" value="${escapeHtml(p)}" oninput="updateAtomicPoint(${sIdx}, 'pros', ${pIdx}, this.value)">
-                    ${item.pros.length > 1 ? `<button type="button" class="btn-remove-point" onclick="removeAtomicPoint(${sIdx}, 'pros', ${pIdx})">✕</button>` : ''}
-                  </div>
-                `).join('')}
+                ${item.pros.map((p, pIdx) => {
+                  const pNum = pIdx + 1;
+                  const formattedP = pNum < 10 ? `0${pNum}` : `${pNum}`;
+                  return `
+                    <div class="atomic-point-row">
+                      <span class="point-num-tag tag-pro">${formattedP}</span>
+                      <input type="text" placeholder="تدوين نقطة القوة والمكسب..." value="${escapeHtml(p)}" oninput="updateAtomicPoint(${sIdx}, 'pros', ${pIdx}, this.value)">
+                      
+                      ${item.pros.length > 1 ? `
+                        <div class="inline-action-slot" id="pros_del_slot_${sIdx}_${pIdx}">
+                          <button type="button" class="btn-remove-point" onclick="armPointDelete('pros', ${sIdx}, ${pIdx})" title="حذف النقطة">✕</button>
+                          <div class="confirm-pop-deck" id="pros_del_confirm_${sIdx}_${pIdx}">
+                            <button type="button" class="btn-affirm-del" onclick="confirmPointDelete('pros', ${sIdx}, ${pIdx})">تأكيد</button>
+                            <button type="button" class="btn-cancel-del" onclick="disarmPointDelete('pros', ${sIdx}, ${pIdx})">تراجع</button>
+                          </div>
+                        </div>
+                      ` : ''}
+                    </div>
+                  `;
+                }).join('')}
               </div>
-              <button type="button" class="btn-add-point" onclick="addAtomicPoint(${sIdx}, 'pros')">+ إضافة نقطة قوة</button>
+              <button type="button" class="btn-add-point pro-add" onclick="addAtomicPoint(${sIdx}, 'pros')">+ إضافة نقطة قوة</button>
             </div>
 
-            <!-- نقاط الضعف والمحددات -->
+            <!-- نقاط الضعف والمحددات (باللون الأحمر، والترقيم، والتأكيد بخطوتين) -->
             <div class="atomic-column">
-              <span class="atomic-column-header">نقاط الضعف والمحددات:</span>
+              <span class="atomic-column-header header-con">نقاط الضعف والمحددات:</span>
               <div class="atomic-list" id="cons_list_${sIdx}">
-                ${item.cons.map((c, cIdx) => `
-                  <div class="atomic-point-row">
-                    <input type="text" value="${escapeHtml(c)}" oninput="updateAtomicPoint(${sIdx}, 'cons', ${cIdx}, this.value)">
-                    ${item.cons.length > 1 ? `<button type="button" class="btn-remove-point" onclick="removeAtomicPoint(${sIdx}, 'cons', ${cIdx})">✕</button>` : ''}
-                  </div>
-                `).join('')}
+                ${item.cons.map((c, cIdx) => {
+                  const cNum = cIdx + 1;
+                  const formattedC = cNum < 10 ? `0${cNum}` : `${cNum}`;
+                  return `
+                    <div class="atomic-point-row">
+                      <span class="point-num-tag tag-con">${formattedC}</span>
+                      <input type="text" placeholder="تدوين القيد أو نقطة الضعف..." value="${escapeHtml(c)}" oninput="updateAtomicPoint(${sIdx}, 'cons', ${cIdx}, this.value)">
+                      
+                      ${item.cons.length > 1 ? `
+                        <div class="inline-action-slot" id="cons_del_slot_${sIdx}_${cIdx}">
+                          <button type="button" class="btn-remove-point" onclick="armPointDelete('cons', ${sIdx}, ${cIdx})" title="حذف النقطة">✕</button>
+                          <div class="confirm-pop-deck" id="cons_del_confirm_${sIdx}_${cIdx}">
+                            <button type="button" class="btn-affirm-del" onclick="confirmPointDelete('cons', ${sIdx}, ${cIdx})">تأكيد</button>
+                            <button type="button" class="btn-cancel-del" onclick="disarmPointDelete('cons', ${sIdx}, ${cIdx})">تراجع</button>
+                          </div>
+                        </div>
+                      ` : ''}
+                    </div>
+                  `;
+                }).join('')}
               </div>
-              <button type="button" class="btn-add-point" onclick="addAtomicPoint(${sIdx}, 'cons')">+ إضافة قيد أو ضعف</button>
+              <button type="button" class="btn-add-point con-add" onclick="addAtomicPoint(${sIdx}, 'cons')">+ إضافة قيد أو ضعف</button>
             </div>
           </div>
         `;
@@ -1045,7 +1115,23 @@
       updateAdoptedDisplay();
     }
 
-    // تأكيد استبعاد المسار بخطوتين
+    // إدارة تأكيد حذف النقاط الفردية بخطوتين
+    function armPointDelete(type, sIdx, pIdx) {
+      document.querySelector(`#${type}_del_slot_${sIdx}_${pIdx} .btn-remove-point`).style.display = 'none';
+      document.getElementById(`${type}_del_confirm_${sIdx}_${pIdx}`).classList.add('active');
+    }
+
+    function disarmPointDelete(type, sIdx, pIdx) {
+      document.querySelector(`#${type}_del_slot_${sIdx}_${pIdx} .btn-remove-point`).style.display = 'inline-block';
+      document.getElementById(`${type}_del_confirm_${sIdx}_${pIdx}`).classList.remove('active');
+    }
+
+    function confirmPointDelete(type, sIdx, pIdx) {
+      state.strategies[sIdx][type].splice(pIdx, 1);
+      renderStrategies();
+      persistMasterState();
+    }
+
     function armStrategyDelete(idx) {
       document.querySelector(`#strat_del_slot_${idx} .btn-discrete-action`).style.display = 'none';
       document.getElementById(`strat_del_confirm_${idx}`).classList.add('active');
@@ -1096,12 +1182,6 @@
 
     function addAtomicPoint(sIdx, type) {
       state.strategies[sIdx][type].push("");
-      renderStrategies();
-      persistMasterState();
-    }
-
-    function removeAtomicPoint(sIdx, type, pIdx) {
-      state.strategies[sIdx][type].splice(pIdx, 1);
       renderStrategies();
       persistMasterState();
     }
