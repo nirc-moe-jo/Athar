@@ -1,0 +1,2906 @@
+
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>أَثَر | رحلة الابتكار — ملف التوثيق الميداني</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #faf9f6;
+      --paper-card: #ffffff;
+      --paper-subtle: #f6f4ee;
+      --ink: #141619;
+      --ink-soft: #2b3037;
+      --muted: #59616b;
+      --gold: #a77824;
+      --gold-light: #fcf7ec;
+      --gold-border: #e8d7b6;
+      --line: #e7e3da;
+      --line-subtle: #f0ece3;
+      --success: #087f5b;
+      --success-bg: #eaf8f2;
+      --danger: #b42318;
+      --danger-bg: #fff5f5;
+      --ease: cubic-bezier(.2, .8, .2, 1);
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-pill: 9999px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      width: 100%;
+      min-height: 100vh;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Readex Pro', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    button, input, textarea, select {
+      font-family: inherit;
+      color: inherit;
+    }
+    button { cursor: pointer; border: 0; background: transparent; }
+    button:focus-visible, summary:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    /* شريط الترويسة */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      border-bottom: 1px solid var(--line);
+      background: rgba(250, 249, 246, 0.94);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .header-inner {
+      max-width: 1380px;
+      margin: auto;
+      padding: 12px clamp(16px, 3vw, 36px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: none;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .seed {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 5px rgba(167, 120, 36, 0.16);
+    }
+    .brand-title {
+      font-weight: 700;
+      font-size: 21px;
+      letter-spacing: -0.02em;
+    }
+    .insight-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 480px;
+      padding: 9px 18px;
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-pill);
+      background: #fff;
+      color: #754f16;
+      font-size: 13px;
+      transition: border-color .2s, box-shadow .2s, transform .15s;
+    }
+    .insight-trigger:hover {
+      border-color: var(--gold);
+      box-shadow: 0 4px 16px rgba(167, 120, 36, 0.14);
+    }
+    .insight-trigger .spark { color: var(--gold); flex: none; animation: glow 3.5s ease-in-out infinite; }
+    @keyframes glow { 50% { opacity: 0.35; } }
+    .header-tools {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: none;
+    }
+    .official-trigger, .team-code {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-pill);
+      padding: 8px 14px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .official-trigger {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .official-trigger:hover {
+      border-color: var(--gold);
+      box-shadow: 0 4px 14px rgba(167, 120, 36, 0.12);
+    }
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c74545;
+      box-shadow: 0 0 0 4px rgba(199, 69, 69, 0.18);
+    }
+    .team-code {
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      direction: ltr;
+      color: var(--gold);
+      border-color: var(--gold-border);
+    }
+
+    /* فهرس سريع علوي */
+    .quick-index {
+      position: sticky;
+      top: 61px;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 8px clamp(16px, 3vw, 36px);
+      background: rgba(250, 249, 246, 0.95);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+      scrollbar-width: none;
+    }
+    .quick-index::-webkit-scrollbar { display: none; }
+    .quick-index a {
+      flex: 0 0 auto;
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-pill);
+      background: #fff;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all .2s var(--ease);
+    }
+    .quick-index a strong {
+      color: var(--gold);
+      font-weight: 700;
+    }
+    .quick-index a:hover {
+      border-color: var(--gold);
+      color: var(--ink);
+    }
+    .quick-index a[aria-current="true"] {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+    .quick-index a[aria-current="true"] strong {
+      color: #d8c398;
+    }
+
+    /* ملخص إنجاز الملف */
+    .progress-overview {
+      width: 100%;
+      max-width: 1040px;
+      margin: 24px auto 0;
+      padding: 20px 24px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 8px 24px rgba(20, 22, 25, 0.04);
+    }
+    .progress-overview-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .eyebrow {
+      display: block;
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .progress-overview h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .progress-overview p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 2px;
+    }
+    .progress-overview-percent {
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .progress-overview-track {
+      height: 9px;
+      background: var(--paper-subtle);
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+      margin-top: 16px;
+      border: 1px solid var(--line-subtle);
+    }
+    .progress-overview-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #b9904b, #a77824);
+      border-radius: var(--radius-pill);
+      transition: width 0.4s var(--ease);
+    }
+    .progress-overview-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* المحتوى الأساسي والمسار العرضي */
+    .main-shell {
+      width: 100%;
+      max-width: 1380px;
+      margin: auto;
+      padding: clamp(24px, 4vw, 48px) clamp(16px, 3vw, 36px) 24px;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 24px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero h1 {
+      font-size: clamp(26px, 3.2vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.35;
+      margin: 8px 0;
+    }
+    .hero p {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+    .position-panel {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      text-align: center;
+      min-width: 160px;
+      box-shadow: 0 4px 18px rgba(20, 22, 25, 0.03);
+    }
+    .position-label {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+    .position-panel strong {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .position-panel small {
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 32px 0 16px;
+    }
+    .section-heading h2 {
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .section-heading p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .runway {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 8px 4px 24px;
+      scrollbar-width: thin;
+      scrollbar-color: #d9c79f transparent;
+    }
+    .stage {
+      flex: 0 0 min(80%, 580px);
+      min-height: 380px;
+      scroll-snap-align: center;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: #fff;
+      padding: clamp(22px, 3vw, 34px);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 26px rgba(20, 22, 25, 0.04);
+      transition: all .25s var(--ease);
+      position: relative;
+    }
+    .stage[aria-current="step"] {
+      border-color: #d8c398;
+      box-shadow: 0 14px 40px rgba(167, 120, 36, 0.12);
+    }
+    .stage-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .stage-number {
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .stage-mark {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-sm);
+      display: grid;
+      place-items: center;
+      color: var(--gold);
+      background: var(--gold-light);
+      font-size: 18px;
+    }
+    .stage h3 {
+      font-size: 24px;
+      margin: 24px 0 6px;
+      font-weight: 700;
+    }
+    .stage-subtitle {
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .stage-description {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .stage-nav {
+      align-self: flex-start;
+      min-height: 42px;
+      padding: 8px 18px;
+      border-radius: var(--radius-pill);
+      background: var(--ink);
+      color: #fff;
+      font-weight: 600;
+      font-size: 13px;
+      transition: background .2s, transform .15s;
+      margin-bottom: 18px;
+    }
+    .stage-nav:hover {
+      background: #343a40;
+      transform: translateY(-1px);
+    }
+    .stage details {
+      margin-top: auto;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+    .stage summary {
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .stage summary::-webkit-details-marker { display: none; }
+    .stage summary::after {
+      content: '+';
+      color: var(--gold);
+      font-size: 20px;
+    }
+    .stage details[open] summary::after { content: '−'; }
+    .detail-copy {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+      padding-top: 8px;
+    }
+    .journey-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 12px;
+    }
+    .journey-progress {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      max-width: 440px;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .progress-track {
+      height: 6px;
+      flex: 1;
+      background: #e9e4db;
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 20%;
+      background: var(--gold);
+      border-radius: var(--radius-pill);
+      transition: width .35s var(--ease);
+    }
+    .arrow-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .action {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--line);
+      background: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      transition: all .2s;
+    }
+    .action:hover:not(:disabled) {
+      background: var(--gold-light);
+      border-color: var(--gold-border);
+    }
+    .action:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    /* أقسام التوثيق التفصيلية المشتركة */
+    .module-section {
+      width: 100%;
+      max-width: 1040px;
+      margin: 44px auto 0;
+      padding: clamp(22px, 3.5vw, 36px);
+      background: #fff;
+      border: 1px solid var(--line);
+      border-top: 6px solid var(--gold);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 10px 30px rgba(20, 22, 25, 0.04);
+      scroll-margin-top: 115px;
+    }
+    .module-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .module-head-content { flex: 1; min-width: 0; }
+    .module-head h2 {
+      font-size: clamp(20px, 2.4vw, 26px);
+      font-weight: 700;
+      margin: 6px 0 8px;
+    }
+    .module-head p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.85;
+      max-width: 760px;
+    }
+    .module-badge {
+      min-width: 140px;
+      padding: 12px;
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-md);
+      background: var(--gold-light);
+      text-align: center;
+      color: #754f16;
+      flex: none;
+    }
+    .module-badge strong {
+      display: block;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .module-badge span {
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* مؤشر الإنجاز الداخلي لكل قسم */
+    .section-progress {
+      margin-top: 14px;
+      padding: 10px 14px;
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-md);
+      background: var(--gold-light);
+      color: #754f16;
+      display: block;
+      cursor: pointer;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .section-progress:hover {
+      border-color: var(--gold);
+      box-shadow: 0 3px 12px rgba(167, 120, 36, 0.1);
+    }
+    .section-progress-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .section-progress-top b {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .section-progress-track {
+      height: 6px;
+      background: #eadecb;
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+      margin: 8px 0 6px;
+    }
+    .section-progress-track i {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: var(--gold);
+      border-radius: var(--radius-pill);
+      transition: width .35s var(--ease);
+    }
+    .section-progress span {
+      display: block;
+      font-size: 11px;
+      color: #8c621e;
+    }
+
+    /* حقول الإدخال والأزرار العامة */
+    .input-field, .textarea-field {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      background: #fff;
+      font-size: 14px;
+      color: var(--ink);
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .textarea-field {
+      min-height: 96px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+    .input-field:focus, .textarea-field:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(167, 120, 36, 0.16);
+      outline: none;
+    }
+    .btn {
+      min-height: 42px;
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all .2s var(--ease);
+    }
+    .btn:hover {
+      border-color: var(--gold);
+      background: var(--gold-light);
+    }
+    .btn.primary {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+    .btn.primary:hover {
+      background: #343a40;
+    }
+    .btn.danger {
+      color: var(--danger);
+      border-color: #fca5a5;
+    }
+    .btn.danger:hover {
+      background: var(--danger-bg);
+      border-color: var(--danger);
+    }
+
+    /* القسم 01: الأساس والمشكلة */
+    .foundation-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .foundation-card {
+      background: #fafaf8;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 18px;
+    }
+    .foundation-card summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .foundation-card summary::-webkit-details-marker { display: none; }
+    .foundation-card summary::after { content: '+'; color: var(--gold); font-size: 22px; }
+    .foundation-card[open] summary::after { content: '−'; }
+    .foundation-body {
+      margin-top: 14px;
+      display: grid;
+      gap: 12px;
+    }
+    .field-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 4px;
+      display: block;
+    }
+    .foundation-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .foundation-meta .valid { color: var(--success); font-weight: 600; }
+    .foundation-meta .invalid { color: var(--danger); }
+    .foundation-image-zone {
+      margin-top: 14px;
+      padding: 18px;
+      border: 2px dashed #d8c398;
+      border-radius: var(--radius-md);
+      text-align: center;
+      background: #fffaf0;
+    }
+    .foundation-image-zone img {
+      max-width: 100%;
+      max-height: 280px;
+      border-radius: var(--radius-sm);
+      margin-top: 12px;
+      display: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    }
+    .challenge-row {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .challenge-row summary {
+      padding: 12px 16px;
+      background: #fff;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .challenge-row-body {
+      padding: 14px 16px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      gap: 10px;
+    }
+    .strategy-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 10px;
+    }
+    .strategy-card.selected {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(167, 120, 36, 0.15);
+    }
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    /* القسم 02: التجارب والتكرار */
+    .chips-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 10px 0 14px;
+      scrollbar-width: thin;
+    }
+    .chip {
+      flex: 0 0 auto;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: 12px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .chip:hover {
+      border-color: var(--gold);
+      color: var(--ink);
+    }
+    .chip.complete {
+      color: var(--success);
+      border-color: #a7ddc7;
+      background: var(--success-bg);
+    }
+    .iteration-card {
+      background: #fafaf8;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .iteration-card summary {
+      padding: 14px 18px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .iteration-body {
+      padding: 16px 18px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      gap: 12px;
+    }
+    .iteration-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* القسم 03: التصميم والمجسم التفاعلي */
+    .design-stage-container {
+      position: relative;
+      min-height: 320px;
+      border: 2px dashed #c9b48e;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #fcf7ec, #ffffff);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      margin-top: 14px;
+      touch-action: pan-y;
+      user-select: none;
+    }
+    .design-stage-container.has-image {
+      border-style: solid;
+      background: #14161908;
+    }
+    .design-stage-container.is-armed-target {
+      cursor: crosshair;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 4px rgba(167, 120, 36, 0.18);
+    }
+    .design-stage-container img {
+      max-width: 100%;
+      max-height: 560px;
+      display: none;
+      object-fit: contain;
+      pointer-events: none;
+    }
+    .design-annotation-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: visible;
+    }
+    .design-pin {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      transform: translate(-50%, -50%);
+      background: var(--ink);
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: 700;
+      display: grid;
+      place-items: center;
+      cursor: grab;
+      pointer-events: auto;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+      z-index: 10;
+      transition: transform .15s, background .15s;
+    }
+    .design-pin:hover, .design-pin.selected {
+      background: var(--gold);
+      transform: translate(-50%, -50%) scale(1.15);
+      z-index: 20;
+    }
+    .design-pin.dragging {
+      cursor: grabbing;
+      opacity: 0.85;
+    }
+    .design-leader-line {
+      position: absolute;
+      height: 2px;
+      background: var(--gold);
+      transform-origin: 0 50%;
+      pointer-events: none;
+      z-index: 8;
+      display: none;
+    }
+    .design-leader-line.visible { display: block; }
+    .design-pin-label {
+      position: absolute;
+      min-width: 130px;
+      max-width: 220px;
+      padding: 6px 10px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-sm);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink);
+      pointer-events: auto;
+      cursor: pointer;
+      display: none;
+      z-index: 9;
+    }
+    .design-pin-label.visible { display: block; }
+    .pin-radial-menu {
+      position: absolute;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.98);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-md);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.22);
+      padding: 10px;
+      display: grid;
+      gap: 6px;
+      min-width: 200px;
+      backdrop-filter: blur(12px);
+    }
+    .pin-radial-menu button {
+      min-height: 38px;
+      padding: 6px 12px;
+      text-align: right;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      transition: background .15s;
+    }
+    .pin-radial-menu button:hover {
+      background: var(--gold-light);
+      color: var(--gold);
+    }
+
+    /* شبكة تطور التصميم */
+    .evolution-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .evolution-card {
+      background: #fafaf8;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: grid;
+      gap: 8px;
+    }
+    .evolution-card h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .evolution-preview {
+      min-height: 120px;
+      border: 1px dashed var(--gold-border);
+      border-radius: var(--radius-sm);
+      background: #fff;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      overflow: hidden;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      padding: 8px;
+    }
+    .evolution-preview img {
+      max-width: 100%;
+      max-height: 140px;
+      object-fit: cover;
+      display: none;
+    }
+
+    /* القسم 04: دراسات الأدوات المتقدمة */
+    .tools-list { display: grid; gap: 14px; margin-top: 14px; }
+    .tool-study-card {
+      background: #fafaf8;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+    .tool-study-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    /* القسم 05: هوية الفريق وبصمة الصانع */
+    .identity-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .member-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+      text-align: center;
+    }
+    .member-avatar {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      margin: 0 auto;
+      border: 2px dashed var(--gold-border);
+      background: var(--paper-subtle);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      overflow: hidden;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .member-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .tabs-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      margin: 16px 0;
+      padding-bottom: 4px;
+    }
+    .tabs-bar button {
+      padding: 8px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-pill);
+      background: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      white-space: nowrap;
+      transition: all .2s;
+    }
+    .tabs-bar button[aria-selected="true"] {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    /* شريط التنقل العائم بالأسفل */
+    .dock {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 40;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-pill);
+      padding: 6px 8px;
+      display: flex;
+      gap: 4px;
+      box-shadow: 0 12px 36px rgba(20, 22, 25, 0.16);
+      max-width: calc(100% - 24px);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .dock::-webkit-scrollbar { display: none; }
+    .dock button {
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all .2s;
+    }
+    .dock button small {
+      color: var(--gold);
+      font-weight: 700;
+    }
+    .dock button:hover {
+      background: var(--gold-light);
+      color: var(--ink);
+    }
+    .dock button[aria-current="step"] {
+      background: var(--ink);
+      color: #fff;
+    }
+    .dock button[aria-current="step"] small {
+      color: #d8c398;
+    }
+
+    /* النوافذ الحوارية الإلهامية والإعلانية */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(20, 22, 25, 0.65);
+      backdrop-filter: blur(8px);
+      display: grid;
+      place-items: center;
+      padding: 16px;
+    }
+    .overlay[hidden] { display: none; }
+    .dialog-card {
+      width: min(100%, 520px);
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: clamp(24px, 4vw, 36px);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+    }
+    .verse {
+      font-family: 'Amiri', serif;
+      font-size: 26px;
+      line-height: 2;
+      text-align: center;
+      color: var(--ink);
+      padding: 20px 0;
+    }
+    .source {
+      display: block;
+      text-align: center;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .close-button {
+      width: 100%;
+      min-height: 46px;
+      border-radius: var(--radius-pill);
+      background: var(--ink);
+      color: #fff;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background .2s;
+    }
+    .close-button:hover { background: #343a40; }
+
+    /* التجاوب للشاشات الصغيرة */
+    @media (max-width: 768px) {
+      .header-inner { flex-wrap: wrap; }
+      .insight-trigger { order: 3; width: 100%; justify-content: center; }
+      .hero { grid-template-columns: 1fr; }
+      .position-panel { display: flex; align-items: center; justify-content: space-between; }
+      .module-head { flex-direction: column; }
+      .module-badge { width: 100%; }
+      .strategy-grid, .iteration-grid { grid-template-columns: 1fr; }
+      .dock button span { display: none; }
+      .dock button { padding: 8px 12px; }
+    }
+  </style>
+</head>
+<body id="page-root">
+
+  <!-- الترويسة الرئيسية -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="seed" aria-hidden="true"></span>
+        <span class="brand-title">أَثَر</span>
+      </div>
+
+      <button type="button" id="open-insight" class="insight-trigger" aria-haspopup="dialog" aria-controls="insight-dialog">
+        <span class="spark" aria-hidden="true">✦</span>
+        <span>قبس البصيرة · ﴿ وَقُل رَّبِّ زِدْنِي عِلْمًا ﴾</span>
+      </button>
+
+      <div class="header-tools">
+        <button type="button" id="open-official" class="official-trigger" aria-haspopup="dialog" aria-controls="official-dialog">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>الإعلانات الميدانية</span>
+        </button>
+        <span class="team-code">AED-1101</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- الفهرس السريع المستمر -->
+  <nav class="quick-index" aria-label="الفهرس السريع للأقسام" id="quick-index">
+    <a href="#foundation" data-index-target="foundation" aria-current="true"><strong>01</strong><span>المسألة والسياق</span></a>
+    <a href="#iteration" data-index-target="iteration"><strong>02</strong><span>التحديات والتجارب</span></a>
+    <a href="#design" data-index-target="design"><strong>03</strong><span>النماذج والعتاد</span></a>
+    <a href="#athar-tools" data-index-target="athar-tools"><strong>04</strong><span>الأدوات والتحقق</span></a>
+    <a href="#athar-identity" data-index-target="athar-identity"><strong>05</strong><span>الهوية والأثر</span></a>
+  </nav>
+
+  <!-- ملخص التقدم الإجمالي للملف -->
+  <section id="progress-overview" class="progress-overview" aria-labelledby="progress-overview-title">
+    <div class="progress-overview-head">
+      <div>
+        <span class="eyebrow">ATHAR • الإنجاز الميداني الموثق</span>
+        <h2 id="progress-overview-title">ملخص اكتمال متطلبات المشروع</h2>
+        <p id="progress-overview-summary" aria-live="polite">جارٍ فحص استيفاء الأقسام الخمسة…</p>
+      </div>
+      <strong id="progress-overview-percent" class="progress-overview-percent">0%</strong>
+    </div>
+    <div class="progress-overview-track">
+      <div id="progress-overview-fill" class="progress-overview-fill"></div>
+    </div>
+    <div class="progress-overview-meta">
+      <span id="progress-overview-complete">0 أقسام مكتملة بالكامل</span>
+      <span id="progress-overview-active">5 أقسام قيد العمل والتوثيق</span>
+    </div>
+  </section>
+
+  <!-- الواجهة التعريفية الأولى (المسار العرضي) -->
+  <main id="main-overview" class="main-shell">
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <span class="eyebrow">رحلة الابتكار والروبوت · فريق AED-1101</span>
+        <h1 id="page-title">من المُنطلق إلى البصمة، يتشكّل الأثر.</h1>
+        <p>خمسة آفاق مترابطة تؤسس للحل الهندسي المتقن. تصفح المسار العرضي، أو انتقل مباشرة للأقسام التفصيلية بالأسفل لتوثيق التجارب والمكونات.</p>
+      </div>
+      <div class="position-panel" aria-live="polite">
+        <span class="position-label">المرحلة الحالية</span>
+        <strong id="current-position">01</strong>
+        <small> / 05</small>
+      </div>
+    </section>
+
+    <section aria-labelledby="stages-heading">
+      <div class="section-heading">
+        <h2 id="stages-heading">مسار الابتكار</h2>
+        <p>اسحب للتنقل بين بطاقات المسار، أو استخدم مفاتيح الأسهم</p>
+      </div>
+
+      <div id="runway" class="runway" role="region" aria-label="مراحل رحلة الابتكار" tabindex="0">
+        <article class="stage" data-section-target="foundation" aria-current="step">
+          <div class="stage-top">
+            <span class="stage-number">01 / الأساس</span>
+            <span class="stage-mark" aria-hidden="true">◌</span>
+          </div>
+          <h3>المُنطلق</h3>
+          <p class="stage-subtitle">أصل الحاجة والتحليل</p>
+          <p class="stage-description">تبدأ الرحلة بتحديد التحدي الميداني بدقة، وفك ارتباط المشكلة عن أعراضها السطحية، واختيار الاستراتيجية المعتمدة.</p>
+          <button type="button" class="stage-nav" data-jump-to="foundation">الانتقال إلى أساس المشروع ↓</button>
+          <details>
+            <summary>إرشادات هذه المرحلة</summary>
+            <p class="detail-copy">وثق واقع المشكلة بوضوح، فكك التحديات التقنية في مصفوفة مسببة، وحدد بوضوح الاستراتيجية الهندسية المختارة.</p>
+          </details>
+        </article>
+
+        <article class="stage" data-section-target="iteration">
+          <div class="stage-top">
+            <span class="stage-number">02 / الاستكشاف</span>
+            <span class="stage-mark" aria-hidden="true">◇</span>
+          </div>
+          <h3>التجريب</h3>
+          <p class="stage-subtitle">دورة التطوير المستمر</p>
+          <p class="stage-description">سجل متسلسل لكل محاولة اختبار؛ نرصد ما نجح، نحلل أسباب الإخفاق، ونحدد قرارات التعديل للجولة التالية.</p>
+          <button type="button" class="stage-nav" data-jump-to="iteration">الانتقال إلى سجل التجارب ↓</button>
+          <details>
+            <summary>إرشادات هذه المرحلة</summary>
+            <p class="detail-copy">اختبر فرضية واحدة في كل جولة، دوّن القراءات الواقعية، ولا تتجاوز أي عائق دون تسجيل سببه الجذري.</p>
+          </details>
+        </article>
+
+        <article class="stage" data-section-target="design">
+          <div class="stage-top">
+            <span class="stage-number">03 / البناء</span>
+            <span class="stage-mark" aria-hidden="true">▣</span>
+          </div>
+          <h3>التجسيد</h3>
+          <p class="stage-subtitle">العتاد والنموذج النهائي</p>
+          <p class="stage-description">حصر عتاد المنظومة وبيان تكاليفها، وإسقاط أرقام المكونات تفاعلياً على صورة المجسم الميكانيكي والإلكتروني النهائي.</p>
+          <button type="button" class="stage-nav" data-jump-to="design">الانتقال إلى التصميم والعتاد ↓</button>
+          <details>
+            <summary>إرشادات هذه المرحلة</summary>
+            <p class="detail-copy">ارفع صورة النموذج النهائي، ثبّت مؤشرات المكونات، وسجل مسوغات اختيار كل قطعة وقابليتها للتطوير المستقبلي.</p>
+          </details>
+        </article>
+
+        <article class="stage" data-section-target="athar-tools">
+          <div class="stage-top">
+            <span class="stage-number">04 / المسؤولية</span>
+            <span class="stage-mark" aria-hidden="true">✧</span>
+          </div>
+          <h3>الابتكار والتحقق</h3>
+          <p class="stage-subtitle">أمانة المعرفة والذكاء الاصطناعي</p>
+          <p class="stage-description">توثيق شفاف للأدوات البرمجية المتقدمة المستخدمة، مع تبيان الفحص والتكييف البشري لحفظ الملكية الفكرية للفريق.</p>
+          <button type="button" class="stage-nav" data-jump-to="athar-tools">الانتقال إلى التحقق والمسؤولية ↓</button>
+          <details>
+            <summary>إرشادات هذه المرحلة</summary>
+            <p class="detail-copy">وضح الأوامر والتوجيهات المدخلة، ما تم استلامه من الأداة، وكيف تدخّل الفريق البشري لتصحيح النتيجة واختبارها.</p>
+          </details>
+        </article>
+
+        <article class="stage" data-section-target="athar-identity">
+          <div class="stage-top">
+            <span class="stage-number">05 / الأثر</span>
+            <span class="stage-mark" aria-hidden="true">✺</span>
+          </div>
+          <h3>بصمة الصانع</h3>
+          <p class="stage-subtitle">هوية الفريق والقيمة المضافة</p>
+          <p class="stage-description">توثيق الكوادر البشرية، وتبيان المهمة المركزية لكل عضو، والدروس المكتسبة، والرسالة المستدامة للمشروع في المجتمع.</p>
+          <button type="button" class="stage-nav" data-jump-to="athar-identity">الانتقال إلى هوية الفريق ↓</button>
+          <details>
+            <summary>إرشادات هذه المرحلة</summary>
+            <p class="detail-copy">وثق بيانات الطلاب والمشرف وصورهم، وسجل ما تركه كل فرد من أثر فعلي لا يُمحى في نجاح هذا الابتكار.</p>
+          </details>
+        </article>
+      </div>
+
+      <div class="journey-controls">
+        <div class="journey-progress" role="progressbar" aria-label="التقدم في استعراض المسار" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" id="progress">
+          <span aria-hidden="true">01</span>
+          <div class="progress-track">
+            <div id="progress-fill" class="progress-fill"></div>
+          </div>
+          <span aria-hidden="true">05</span>
+        </div>
+        <div class="arrow-actions">
+          <button id="previous" type="button" class="action" aria-label="المرحلة السابقة" disabled>→</button>
+          <button id="next" type="button" class="action" aria-label="المرحلة التالية">←</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- القسم 01: أساس المشروع -->
+  <section id="foundation" class="module-section" aria-labelledby="foundation-title">
+    <header class="module-head">
+      <div class="module-head-content">
+        <span class="eyebrow">ATHAR • HORIZON 01</span>
+        <h2 id="foundation-title">القسم الأول: أساس المشروع (من الفكرة إلى الواقع)</h2>
+        <div class="section-progress" data-progress-section="foundation" tabindex="0" role="button" aria-label="فحص المتبقي في القسم الأول">
+          <div class="section-progress-top">
+            <span>نسبة إنجاز أساس المشروع</span>
+            <b data-progress-percent>0%</b>
+          </div>
+          <div class="section-progress-track"><i data-progress-fill></i></div>
+          <span data-progress-summary aria-live="polite">لم يبدأ بعد</span>
+        </div>
+        <p>تأسيس الأثر: توثيق الواقع الميداني الذي انطلقت منه الحاجة، تفكيك المعضلات في مصفوفة تحليلية مسببة، والمفاضلة لترجيح الاستراتيجية المعتمدة.</p>
+      </div>
+      <div class="module-badge" aria-live="polite">
+        <strong id="foundation-progress-count">01/04</strong>
+        <span>مستوى التأسيس</span>
+      </div>
+    </header>
+
+    <div class="foundation-grid">
+      <details class="foundation-card" open>
+        <summary>01 · كيف بدأ كل شيء؟ (الشعور بالمشكلة الميدانية)</summary>
+        <div class="foundation-body">
+          <label class="field-label" for="originNarration">وصف المشكلة الميدانية وسياقها الواقعي (50 - 100 كلمة)</label>
+          <textarea id="originNarration" class="textarea-field" placeholder="اكتب قصة رصد المشكلة الميدانية، كيف شعرتم بها، وما هو الأثر السلبي المترتب على بقائها دون حل تقني..."></textarea>
+          <div class="foundation-meta">
+            <span id="origin-count">0 / 50–100 كلمة</span>
+            <span id="origin-status" class="invalid">يحتاج إلى 50 كلمة على الأقل</span>
+          </div>
+
+          <div class="foundation-image-zone">
+            <span class="field-label">إرفاق صورة توثيقية لبيئة المشكلة الميدانية (PNG, JPEG, WebP)</span>
+            <input id="foundation-image-input" type="file" accept="image/png,image/jpeg,image/webp" style="margin: 8px 0;">
+            <br>
+            <img id="foundation-image-preview" alt="معاينة بيئة المشكلة الميدانية">
+            <button id="foundation-image-remove" type="button" class="btn danger" style="margin-top: 8px;" hidden>إزالة الصورة</button>
+          </div>
+        </div>
+      </details>
+
+      <details class="foundation-card" open>
+        <summary>02 · تفكيك المسألة: مصفوفة التحديات التحليلية</summary>
+        <div class="foundation-body">
+          <p style="color:var(--muted); font-size:13px;">حلل المشكلة إلى عوائق تقنية واضحة، مع بيان السبب الجذري والمعالجة المقترحة لكل عائق:</p>
+          <div id="challenge-list"></div>
+          <button id="add-challenge" class="btn" type="button">+ إدراج تحدٍ تحليلي جديد</button>
+        </div>
+      </details>
+
+      <details class="foundation-card" open>
+        <summary>03 · استكشاف المسارات: العصف الذهني وتقييم البدائل</summary>
+        <div class="foundation-body">
+          <p style="color:var(--muted); font-size:13px;">قارن بين خيارين استراتيجيين على الأقل قبل اعتماد التوجه الهندسي النهائي للمنظومة:</p>
+          <div id="strategy-list"></div>
+          <button id="add-strategy" class="btn" type="button">+ إضافة مسار استراتيجي بديل</button>
+        </div>
+      </details>
+
+      <details class="foundation-card" open>
+        <summary>04 · الاستراتيجية المعتمدة وخارطة الطريق</summary>
+        <div class="foundation-body">
+          <label class="field-label" for="foundation-statement">الصياغة المنهجية الشاملة للاستراتيجية المعتمدة</label>
+          <input id="foundation-statement" class="input-field" type="text" placeholder="مثال: بناء منظومة روبوتية ذاتية التوازن تعتمد على معالجة الرؤية الحاسوبية...">
+
+          <label class="field-label" for="foundation-axis">المحور الاستراتيجي الأساسي (المبدأ الحاكم)</label>
+          <input id="foundation-axis" class="input-field" type="text" placeholder="مثال: الموثوقية الميدانية في البيئات الوعرة وخفة الوزن">
+
+          <label class="field-label" for="foundation-reason">سبب الأهمية وعلاقته بالنظام</label>
+          <input id="foundation-reason" class="input-field" type="text" placeholder="بيان الأثر المباشر في كفاءة النظام وتقليل استهلاك الطاقة...">
+
+          <div class="foundation-meta" style="margin-top: 10px;">
+            <span>المسار المعتمد للمشروع:</span>
+            <strong id="adopted-foundation" style="color:var(--gold);">لم يُحدد بعد من الخيارات السابقة</strong>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- القسم 02: سجل التجارب والتكرار -->
+  <section id="iteration" class="module-section" aria-labelledby="iteration-title">
+    <header class="module-head">
+      <div class="module-head-content">
+        <span class="eyebrow">ATHAR • HORIZON 02</span>
+        <h2 id="iteration-title">القسم الثاني: رحلة التطوير وتوثيق التجارب</h2>
+        <div class="section-progress" data-progress-section="iteration" tabindex="0" role="button" aria-label="فحص المتبقي في سجل التجارب">
+          <div class="section-progress-top">
+            <span>نسبة توثيق دورات التجريب</span>
+            <b data-progress-percent>0%</b>
+          </div>
+          <div class="section-progress-track"><i data-progress-fill></i></div>
+          <span data-progress-summary aria-live="polite">لم يبدأ بعد</span>
+        </div>
+        <p>التوثيق التكراري المنهجي: رصد كل جولة تجريبية، توثيق ما تم تحقيقه واقعياً، تفكيك أسباب التعثرات، واتخاذ قرار هندسي واضح للجولة اللاحقة.</p>
+      </div>
+      <div class="module-badge" aria-live="polite">
+        <strong id="iteration-count-number">01</strong>
+        <span>تجارب مسجلة</span>
+      </div>
+    </header>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; flex-wrap:wrap; gap:10px;">
+      <span style="font-weight:600; font-size:14px; color:var(--muted);">الفهرس السريع للتجارب:</span>
+      <button id="add-iteration-top" type="button" class="btn primary">+ إضافة تجربة جديدة</button>
+    </div>
+
+    <nav id="iteration-index" class="chips-bar" aria-label="فهرس التجارب"></nav>
+    <div id="iteration-list" class="tools-list" aria-live="polite"></div>
+
+    <div style="margin-top: 16px; text-align: center;">
+      <button id="add-iteration-bottom" type="button" class="btn">+ إضافة تجربة جديدة</button>
+    </div>
+  </section>
+
+  <!-- القسم 03: التصميم والعتاد والمجسم النهائي -->
+  <section id="design" class="module-section" aria-labelledby="design-title">
+    <header class="module-head">
+      <div class="module-head-content">
+        <span class="eyebrow">ATHAR • HORIZON 03</span>
+        <h2 id="design-title">القسم الثالث: التصميم والعتاد والنموذج النهائي</h2>
+        <div class="section-progress" data-progress-section="design" tabindex="0" role="button" aria-label="فحص المتبقي في التصميم والعتاد">
+          <div class="section-progress-top">
+            <span>نسبة اكتمال بيان المكونات والنموذج</span>
+            <b data-progress-percent>0%</b>
+          </div>
+          <div class="section-progress-track"><i data-progress-fill></i></div>
+          <span data-progress-summary aria-live="polite">لم يبدأ بعد</span>
+        </div>
+        <p>حصر دقيق لمكونات المنظومة وعتادها ومسوغات اختيارها، مع إسقاط مرقم على النموذج النهائي، وسجل التطور الزمني للمجسم.</p>
+      </div>
+      <div class="module-badge">
+        <strong id="design-count">01</strong>
+        <span id="design-total">المجموع: 0 د.أ</span>
+      </div>
+    </header>
+
+    <details class="foundation-card" open style="margin-top:20px;">
+      <summary>01 · بيان المكونات والعتاد ومسوغات الاختيار (BOM)</summary>
+      <div class="foundation-body">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <span style="font-size:13px; color:var(--muted);">أضف جميع القطع الميكانيكية والإلكترونية مع تفاصيل الطراز ومسوغات الاعتماد:</span>
+          <button id="design-add" type="button" class="btn primary">+ إدراج مكوّن جديد</button>
+        </div>
+        <nav id="design-index" class="chips-bar" aria-label="فهرس المكونات"></nav>
+        <div id="design-catalog"></div>
+      </div>
+    </details>
+
+    <details class="foundation-card" open style="margin-top:16px;">
+      <summary>02 · صورة النموذج النهائي وترقيم المكونات تفاعلياً</summary>
+      <div class="foundation-body">
+        <p style="color:var(--muted); font-size:13px;">ارفع صورة النموذج النهائي للمنظومة، ثم اختر القطعة واضغط على موضعها في الصورة لتثبيت رقمها بدقة:</p>
+
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:10px;">
+          <select id="design-picker" class="input-field" style="max-width:280px;" aria-label="اختر المكون لإسقاطه"></select>
+          <button id="design-arm-pin" type="button" class="btn" aria-pressed="false">تفعيل وضع الإسقاط</button>
+          <label class="btn" style="cursor:pointer;">
+            رفع صورة النموذج (PNG/JPEG)
+            <input id="design-image-input" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+          </label>
+          <button id="design-image-remove" type="button" class="btn danger" style="display:none;">إزالة الصورة</button>
+        </div>
+
+        <div id="design-stage" class="design-stage-container" tabindex="0" role="region" aria-label="لوحة عرض النموذج النهائي وتثبيت المكونات">
+          <span id="design-empty" style="color:var(--muted); font-size:13px; font-weight:600;">يرجى رفع صورة النموذج النهائي للبدء في ترقيم المكونات</span>
+          <img id="design-image" alt="النموذج النهائي للمشروع">
+          <div id="design-annotation" class="design-annotation-layer"></div>
+        </div>
+
+        <div id="design-stage-status" style="font-size:12px; color:var(--muted); margin-top:8px;">
+          الحالة: بانتظار رفع صورة النموذج النهائي
+        </div>
+        <div id="design-pin-legend" class="chips-bar" style="margin-top:10px;"></div>
+      </div>
+    </details>
+
+    <details class="foundation-card" open style="margin-top:16px;">
+      <summary>03 · مراحل التطور الزمني للتصميم</summary>
+      <div class="foundation-body">
+        <p style="color:var(--muted); font-size:13px;">توثيق المحطات المفصلية لتطور هيكل المنظومة من المفهوم الأولي وصولاً للنسخة المعتمدة:</p>
+        <div id="design-evolution" class="evolution-grid"></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- القسم 04: توظيف الأدوات المتقدمة والتحقق -->
+  <section id="athar-tools" class="module-section" aria-labelledby="athar-tools-title">
+    <header class="module-head">
+      <div class="module-head-content">
+        <span class="eyebrow">ATHAR • HORIZON 04</span>
+        <h2 id="athar-tools-title">القسم الرابع: توظيف الأدوات المتقدمة والتحقق البشري</h2>
+        <div class="section-progress" data-progress-section="athar-tools" tabindex="0" role="button" aria-label="فحص المتبقي في الأدوات المتقدمة">
+          <div class="section-progress-top">
+            <span>نسبة توثيق الأدوات والتحقق</span>
+            <b data-progress-percent>0%</b>
+          </div>
+          <div class="section-progress-track"><i data-progress-fill></i></div>
+          <span data-progress-summary aria-live="polite">لم يبدأ بعد</span>
+        </div>
+        <p>التزام الأمانة العلمية: توثيق دقيق للأدوات المتقدمة والذكاء الاصطناعي مع بيان الفحص والتكييف البشري الذي قام به الفريق لضمان أصالة العمل.</p>
+      </div>
+      <div class="module-badge">
+        <strong id="athar-tools-count-number">00</strong>
+        <span>دراسات موثقة</span>
+      </div>
+    </header>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; flex-wrap:wrap; gap:10px;">
+      <button id="athar-tools-guide" type="button" class="btn" aria-expanded="false">ⓘ إرشاد التوثيق الأكاديمي</button>
+      <button id="athar-tools-add" type="button" class="btn primary">+ إضافة دراسة حالة أداة</button>
+    </div>
+
+    <div id="athar-tools-guide-text" style="display:none; margin-top:12px; padding:14px; background:var(--gold-light); border:1px solid var(--gold-border); border-radius:var(--radius-md); font-size:13px; color:#754f16;">
+      <strong>معايير التحقق البشري:</strong> لا يكفي ذكر اسم الأداة؛ يجب توثيق الأمر (Prompt) المُعطى بدقة، والمخرج الأولي، والخطأ أو النقص الذي اكتشفه الفريق، وكيفية تصحيحه واختباره عملياً في الواقع.
+    </div>
+
+    <nav id="athar-tools-index" class="chips-bar" aria-label="فهرس دراسات الأدوات"></nav>
+    <div id="athar-tools-list" class="tools-list"></div>
+
+    <datalist id="athar-tools-suggestions">
+      <option value="ChatGPT (GPT-4o)"></option>
+      <option value="Claude 3.5 Sonnet"></option>
+      <option value="GitHub Copilot"></option>
+      <option value="Google Gemini Advanced"></option>
+      <option value="DeepSeek R1"></option>
+      <option value="Wolfram Alpha"></option>
+    </datalist>
+  </section>
+
+  <!-- القسم 05: هوية الفريق وبصمة الصانع -->
+  <section id="athar-identity" class="module-section" aria-labelledby="athar-identity-title">
+    <header class="module-head">
+      <div class="module-head-content">
+        <span class="eyebrow">ATHAR • HORIZON 05</span>
+        <h2 id="athar-identity-title">القسم الخامس: من نحن؟ (هوية الفريق وبصمة الصانع)</h2>
+        <div class="section-progress" data-progress-section="athar-identity" tabindex="0" role="button" aria-label="فحص المتبقي في هوية الفريق">
+          <div class="section-progress-top">
+            <span>نسبة اكتمال بيانات الفريق</span>
+            <b data-progress-percent>0%</b>
+          </div>
+          <div class="section-progress-track"><i data-progress-fill></i></div>
+          <span data-progress-summary aria-live="polite">لم يبدأ بعد</span>
+        </div>
+        <p>البعد الإنساني وراء الآلة: توثيق الكوادر الأكاديمية والطلابية، وتحديد المهمة المركزية، والأثر الملموس لكل فرد، والرسالة المستدامة للمشروع.</p>
+      </div>
+      <div class="module-badge">
+        <label style="font-size:11px; font-weight:700; display:block; margin-bottom:4px;">هيكل الفريق</label>
+        <select id="athar-identity-team-size" style="background:#fff; border:1px solid var(--gold-border); border-radius:6px; padding:4px 8px; font-size:12px; font-weight:600;">
+          <option value="3">3 طلاب والمشرف</option>
+          <option value="2">طالبان والمشرف</option>
+        </select>
+      </div>
+    </header>
+
+    <div style="margin-top:24px;">
+      <h3 style="font-size:16px; font-weight:700; margin-bottom:12px;">01 · البطاقات التعريفية الرسمية بالفريق</h3>
+      <div id="athar-identity-profile-grid" class="identity-grid"></div>
+    </div>
+
+    <div style="margin-top:32px; padding-top:20px; border-top:1px solid var(--line);">
+      <h3 style="font-size:16px; font-weight:700;">02 · بصمة الصانع والأثر الفردي في المنظومة</h3>
+      <p style="color:var(--muted); font-size:13px; margin:4px 0 12px;">اختر عضواً لاستعراض أو استكمال تفاصيل دوره وأثره الشخصي والدروس المكتسبة:</p>
+      <nav id="athar-identity-tabs" class="tabs-bar" aria-label="تبويب أعضاء الفريق"></nav>
+      <div id="athar-identity-footprint"></div>
+    </div>
+  </section>
+
+  <!-- شريط التنقل السفلي العائم -->
+  <nav class="dock" aria-label="شريط التنقل السريع بين الآفاق">
+    <button type="button" data-dock-target="foundation" aria-current="step">
+      <small>01</small>
+      <span>المُنطلق</span>
+    </button>
+    <button type="button" data-dock-target="iteration">
+      <small>02</small>
+      <span>التجريب</span>
+    </button>
+    <button type="button" data-dock-target="design">
+      <small>03</small>
+      <span>التجسيد</span>
+    </button>
+    <button type="button" data-dock-target="athar-tools">
+      <small>04</small>
+      <span>التحقق</span>
+    </button>
+    <button type="button" data-dock-target="athar-identity">
+      <small>05</small>
+      <span>البصمة</span>
+    </button>
+  </nav>
+
+  <!-- النوافذ الحوارية الإلهامية والإعلامية -->
+  <div id="insight-dialog" class="overlay" hidden>
+    <section class="dialog-card" role="dialog" aria-modal="true" aria-labelledby="insight-heading">
+      <span class="eyebrow" style="text-align:center;">قبس من نور الوحي والعمل</span>
+      <h2 id="insight-heading" style="text-align:center; font-size:22px; margin-top:6px;">قبس البصيرة</h2>
+      <p class="verse">﴿ إِنَّا لَا نُضِيعُ أَجْرَ مَنْ أَحْسَنَ عَمَلًا ﴾</p>
+      <span class="source">سورة الكهف · الآية 30</span>
+      <button type="button" class="close-button">تمثّل المعنى ومواصلة الأثر</button>
+    </section>
+  </div>
+
+  <div id="official-dialog" class="overlay" hidden>
+    <section class="dialog-card" role="dialog" aria-modal="true" aria-labelledby="official-heading">
+      <span class="eyebrow">إعلام رسمي معتمد</span>
+      <h2 id="official-heading" style="font-size:22px; margin:6px 0 14px;">الإعلانات والتوجيهات الميدانية</h2>
+      <div style="background:var(--gold-light); border:1px solid var(--gold-border); border-radius:var(--radius-md); padding:16px;">
+        <strong style="color:var(--gold); font-size:13px; display:block; margin-bottom:4px;">إدارة البطولة الوطنية للابتكار والروبوت</strong>
+        <h3 style="font-size:16px; margin-bottom:6px;">تأكيد موثوقية الأثر وتكامل التوثيق</h3>
+        <p style="color:var(--muted); font-size:13px; line-height:1.7;">
+          يرجى من جميع الفرق التأكد من توثيق مسوغات اختيار المكونات، وربط الصور الحية للمجسم النهائي، وإرفاق أدلة التحقق البشري من أدوات الذكاء الاصطناعي لحفظ الملكية الفكرية.
+        </p>
+      </div>
+      <button type="button" class="close-button" style="margin-top:20px;">إغلاق</button>
+    </section>
+  </div>
+
+  <!-- السكريبتات التفاعلية المصححة -->
+  <script>
+    /* =========================================================
+       0. أدوات عامة ومعالجة الصور المأمونة لتفادي تجاوز سعة التخزين
+       ========================================================= */
+    const esc = s => String(s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+    function processImageFile(file, maxDimension, quality, callback) {
+      if (!file || !['image/png', 'image/jpeg', 'image/webp'].includes(file.type)) {
+        callback(new Error('يرجى اختيار صورة بصيغة PNG أو JPEG أو WebP'));
+        return;
+      }
+      const reader = new FileReader();
+      reader.onerror = () => callback(new Error('تعذر قراءة ملف الصورة'));
+      reader.onload = () => {
+        const img = new Image();
+        img.onerror = () => callback(new Error('تعذر فك ترميز الصورة'));
+        img.onload = () => {
+          let w = img.width, h = img.height;
+          const max = maxDimension || 1200;
+          if (w > max || h > max) {
+            if (w > h) { h = Math.round((h * max) / w); w = max; }
+            else { w = Math.round((w * max) / h); h = max; }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.max(1, w);
+          canvas.height = Math.max(1, h);
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          const result = canvas.toDataURL('image/jpeg', quality || 0.82);
+          callback(null, result);
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    /* =========================================================
+       1. التنقل السلس بين الأقسام ومسار العرض والمؤشرات
+       ========================================================= */
+    const sectionIds = ['foundation', 'iteration', 'design', 'athar-tools', 'athar-identity'];
+    const quickIndexLinks = [...document.querySelectorAll('#quick-index a')];
+    const dockButtons = [...document.querySelectorAll('.dock button')];
+    const runway = document.getElementById('runway');
+    const stages = [...document.querySelectorAll('.stage')];
+    let currentStageIndex = 0;
+
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // التنقل من أزرار البطاقات العلوية
+    document.querySelectorAll('[data-jump-to]').forEach(btn => {
+      btn.addEventListener('click', () => scrollToSection(btn.dataset.jumpTo));
+    });
+
+    // التنقل من الفهرس السريع العلوي
+    quickIndexLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        scrollToSection(link.dataset.indexTarget);
+      });
+    });
+
+    // التنقل من الـ Dock السفلي
+    dockButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        scrollToSection(btn.dataset.dockTarget);
+      });
+    });
+
+    // مراقبة التمرير لتحديث الروابط النشطة في الأعلى والأسفل
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+      const id = visible.target.id;
+      quickIndexLinks.forEach(l => l.setAttribute('aria-current', String(l.dataset.indexTarget === id)));
+      dockButtons.forEach(b => {
+        if (b.dataset.dockTarget === id) b.setAttribute('aria-current', 'step');
+        else b.removeAttribute('aria-current');
+      });
+    }, { rootMargin: '-20% 0px -60% 0px', threshold: [0.1, 0.4] });
+
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    // تحكم مسار العرض الأفقي (Runway Carousel)
+    function setStageActive(index) {
+      currentStageIndex = Math.max(0, Math.min(stages.length - 1, index));
+      stages.forEach((st, i) => {
+        if (i === currentStageIndex) st.setAttribute('aria-current', 'step');
+        else st.removeAttribute('aria-current');
+      });
+      document.getElementById('current-position').textContent = String(currentStageIndex + 1).padStart(2, '0');
+      document.getElementById('progress-fill').style.width = `${((currentStageIndex + 1) / stages.length) * 100}%`;
+      document.getElementById('progress').setAttribute('aria-valuenow', String(currentStageIndex + 1));
+      document.getElementById('previous').disabled = currentStageIndex === 0;
+      document.getElementById('next').disabled = currentStageIndex === stages.length - 1;
+    }
+
+    function scrollRunwayTo(index) {
+      setStageActive(index);
+      const card = stages[index];
+      if (!card) return;
+      const left = card.offsetLeft - runway.offsetLeft - (runway.clientWidth - card.clientWidth) / 2;
+      runway.scrollTo({ left, behavior: 'smooth' });
+    }
+
+    document.getElementById('previous').addEventListener('click', () => scrollRunwayTo(currentStageIndex - 1));
+    document.getElementById('next').addEventListener('click', () => scrollRunwayTo(currentStageIndex + 1));
+
+    runway.addEventListener('scroll', () => {
+      const center = runway.getBoundingClientRect().left + runway.clientWidth / 2;
+      let closest = 0, minDist = Infinity;
+      stages.forEach((st, i) => {
+        const box = st.getBoundingClientRect();
+        const dist = Math.abs(box.left + box.width / 2 - center);
+        if (dist < minDist) { minDist = dist; closest = i; }
+      });
+      if (closest !== currentStageIndex) setStageActive(closest);
+    }, { passive: true });
+
+    // النوافذ الحوارية
+    let currentDialog = null;
+    function openModal(id) {
+      currentDialog = document.getElementById(id);
+      if (!currentDialog) return;
+      currentDialog.hidden = false;
+      document.body.style.overflow = 'hidden';
+      currentDialog.querySelector('.close-button')?.focus();
+    }
+    function closeModal() {
+      if (!currentDialog) return;
+      currentDialog.hidden = true;
+      currentDialog = null;
+      document.body.style.overflow = '';
+    }
+    document.getElementById('open-insight').addEventListener('click', () => openModal('insight-dialog'));
+    document.getElementById('open-official').addEventListener('click', () => openModal('official-dialog'));
+    document.querySelectorAll('.overlay').forEach(ov => {
+      ov.addEventListener('click', e => { if (e.target === ov) closeModal(); });
+      ov.querySelector('.close-button')?.addEventListener('click', closeModal);
+    });
+    document.addEventListener('keydown', e => {
+      if (currentDialog && e.key === 'Escape') closeModal();
+    });
+
+    /* =========================================================
+       2. القسم 01: الأساس وتفكيك المشكلة
+       ========================================================= */
+    const FOUNDATION_KEY = 'ATHAR_FOUNDATION_V1';
+    let foundationData = JSON.parse(localStorage.getItem(FOUNDATION_KEY) || 'null') || {
+      narration: '',
+      image: '',
+      challenges: [{ challenge: '', analysis: '', solution: '' }],
+      strategies: [{ title: '', pros: '', cons: '' }, { title: '', pros: '', cons: '' }],
+      adopted: null,
+      statement: '',
+      axis: '',
+      reason: ''
+    };
+
+    function saveFoundation() {
+      try {
+        localStorage.setItem(FOUNDATION_KEY, JSON.stringify(foundationData));
+      } catch (err) {
+        console.warn('تعذر حفظ بيانات الأساس في التخزين المحلي:', err);
+      }
+      updateFoundationUI();
+      triggerGlobalProgressUpdate();
+    }
+
+    function updateFoundationUI() {
+      const words = foundationData.narration.trim().split(/\s+/).filter(Boolean).length;
+      const countEl = document.getElementById('origin-count');
+      const statusEl = document.getElementById('origin-status');
+      countEl.textContent = `${words} / 50–100 كلمة`;
+      const isWordOk = words >= 50 && words <= 100;
+      statusEl.textContent = isWordOk ? 'مكتمل ومستوفٍ للمعايير ✓' : (words < 50 ? 'يحتاج إلى 50 كلمة على الأقل' : 'تجاوز 100 كلمة (يرجى التركيز)');
+      statusEl.className = isWordOk ? 'valid' : 'invalid';
+
+      const chList = document.getElementById('challenge-list');
+      chList.innerHTML = foundationData.challenges.map((c, i) => `
+        <details class="challenge-row" ${i === 0 || c.challenge ? 'open' : ''}>
+          <summary>
+            <span>التحدي ${String(i + 1).padStart(2, '0')}: ${esc(c.challenge || 'تحدٍ جديد')}</span>
+            <small style="color:var(--gold);">${c.challenge && c.analysis && c.solution ? 'مكتمل' : 'بانتظار البيانات'}</small>
+          </summary>
+          <div class="challenge-row-body">
+            <div>
+              <label class="field-label">توصيف العائق الفني بدقة</label>
+              <input class="input-field" data-ch="${i}" data-f="challenge" value="${esc(c.challenge)}" placeholder="مثال: فقدان الاتصال اللحظي في المناطق المغلقة">
+            </div>
+            <div>
+              <label class="field-label">السبب الجذري للعائق</label>
+              <textarea class="textarea-field" data-ch="${i}" data-f="analysis" placeholder="تحليل العوامل الفيزيائية أو البرمجية المسببة...">${esc(c.analysis)}</textarea>
+            </div>
+            <div>
+              <label class="field-label">المعالجة الهندسية المقترحة</label>
+              <textarea class="textarea-field" data-ch="${i}" data-f="solution" placeholder="كيف ستتعامل المنظومة مع هذا التحدي؟">${esc(c.solution)}</textarea>
+            </div>
+            ${foundationData.challenges.length > 1 ? `<div style="text-align:left;"><button type="button" class="btn danger" data-del-ch="${i}">حذف التحدي</button></div>` : ''}
+          </div>
+        </details>
+      `).join('');
+
+      const stList = document.getElementById('strategy-list');
+      stList.innerHTML = foundationData.strategies.map((s, i) => `
+        <div class="strategy-card ${foundationData.adopted === i ? 'selected' : ''}">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong>المسار ${String(i + 1).padStart(2, '0')}</strong>
+            <button type="button" class="btn ${foundationData.adopted === i ? 'primary' : ''}" data-pick-st="${i}">
+              ${foundationData.adopted === i ? '✓ الاستراتيجية المعتمدة' : 'اعتماد هذا المسار'}
+            </button>
+          </div>
+          <div style="margin-top:8px;">
+            <label class="field-label">عنوان الاستراتيجية البديلة</label>
+            <input class="input-field" data-st="${i}" data-f="title" value="${esc(s.title)}" placeholder="مثال: الاعتماد على محركات السيرفو الرقمية عالية العزم">
+          </div>
+          <div class="strategy-grid">
+            <div>
+              <label class="field-label">نقاط القوة والمكاسب</label>
+              <input class="input-field" data-st="${i}" data-f="pros" value="${esc(s.pros)}" placeholder="المكاسب التشغيلية">
+            </div>
+            <div>
+              <label class="field-label">المحددات والمخاطر</label>
+              <input class="input-field" data-st="${i}" data-f="cons" value="${esc(s.cons)}" placeholder="التكلفة، استهلاك الطاقة...">
+            </div>
+          </div>
+          ${foundationData.strategies.length > 2 ? `<button type="button" class="btn danger" data-del-st="${i}">حذف المسار</button>` : ''}
+        </div>
+      `).join('');
+
+      const adoptedEl = document.getElementById('adopted-foundation');
+      if (foundationData.adopted !== null && foundationData.strategies[foundationData.adopted]) {
+        adoptedEl.textContent = `المسار ${foundationData.adopted + 1}: ${foundationData.strategies[foundationData.adopted].title || 'مسار معتمد'}`;
+      } else {
+        adoptedEl.textContent = 'لم يُحدد بعد من الخيارات السابقة';
+      }
+
+      const imgPrev = document.getElementById('foundation-image-preview');
+      const imgRem = document.getElementById('foundation-image-remove');
+      if (foundationData.image) {
+        imgPrev.src = foundationData.image;
+        imgPrev.style.display = 'block';
+        imgRem.hidden = false;
+      } else {
+        imgPrev.style.display = 'none';
+        imgRem.hidden = true;
+      }
+    }
+
+    document.getElementById('originNarration').value = foundationData.narration;
+    document.getElementById('foundation-statement').value = foundationData.statement;
+    document.getElementById('foundation-axis').value = foundationData.axis;
+    document.getElementById('foundation-reason').value = foundationData.reason;
+
+    document.getElementById('originNarration').addEventListener('input', e => {
+      foundationData.narration = e.target.value;
+      saveFoundation();
+    });
+    ['statement', 'axis', 'reason'].forEach(key => {
+      document.getElementById('foundation-' + key).addEventListener('input', e => {
+        foundationData[key] = e.target.value;
+        saveFoundation();
+      });
+    });
+
+    document.addEventListener('input', e => {
+      if (e.target.dataset.ch !== undefined) {
+        const i = +e.target.dataset.ch, f = e.target.dataset.f;
+        foundationData.challenges[i][f] = e.target.value;
+        saveFoundation();
+      }
+      if (e.target.dataset.st !== undefined) {
+        const i = +e.target.dataset.st, f = e.target.dataset.f;
+        foundationData.strategies[i][f] = e.target.value;
+        saveFoundation();
+      }
+    });
+
+    document.getElementById('add-challenge').addEventListener('click', () => {
+      foundationData.challenges.push({ challenge: '', analysis: '', solution: '' });
+      saveFoundation();
+    });
+    document.getElementById('add-strategy').addEventListener('click', () => {
+      foundationData.strategies.push({ title: '', pros: '', cons: '' });
+      saveFoundation();
+    });
+
+    document.addEventListener('click', e => {
+      if (e.target.dataset.delCh !== undefined) {
+        foundationData.challenges.splice(+e.target.dataset.delCh, 1);
+        if (!foundationData.challenges.length) foundationData.challenges.push({ challenge: '', analysis: '', solution: '' });
+        saveFoundation();
+      }
+      if (e.target.dataset.delSt !== undefined) {
+        const idx = +e.target.dataset.delSt;
+        foundationData.strategies.splice(idx, 1);
+        if (foundationData.adopted === idx) foundationData.adopted = null;
+        else if (foundationData.adopted > idx) foundationData.adopted--;
+        saveFoundation();
+      }
+      if (e.target.dataset.pickSt !== undefined) {
+        foundationData.adopted = +e.target.dataset.pickSt;
+        saveFoundation();
+      }
+    });
+
+    document.getElementById('foundation-image-input').addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      processImageFile(file, 1000, 0.8, (err, res) => {
+        if (err) { alert(err.message); return; }
+        foundationData.image = res;
+        saveFoundation();
+      });
+    });
+    document.getElementById('foundation-image-remove').addEventListener('click', () => {
+      foundationData.image = '';
+      document.getElementById('foundation-image-input').value = '';
+      saveFoundation();
+    });
+
+    /* =========================================================
+       3. القسم 02: سجل التجارب ودورات التطوير
+       ========================================================= */
+    const ITERATION_KEY = 'ATHAR_ITERATIONS_V1';
+    let iterationData = JSON.parse(localStorage.getItem(ITERATION_KEY) || 'null') || [
+      { date: '', title: '', achievement: '', obstacle: '', analysis: '', next: '' }
+    ];
+
+    function saveIterations() {
+      try {
+        localStorage.setItem(ITERATION_KEY, JSON.stringify(iterationData));
+      } catch (err) {
+        console.warn('تعذر حفظ التجارب في التخزين المحلي:', err);
+      }
+      renderIterations();
+      triggerGlobalProgressUpdate();
+    }
+
+    function isIterationComplete(it) {
+      return it.title.trim() && it.achievement.trim() && it.analysis.trim() && it.next.trim();
+    }
+
+    function renderIterations() {
+      const list = document.getElementById('iteration-list');
+      const idxNav = document.getElementById('iteration-index');
+      list.innerHTML = '';
+      idxNav.innerHTML = '';
+
+      document.getElementById('iteration-count-number').textContent = String(iterationData.length).padStart(2, '0');
+
+      iterationData.forEach((it, i) => {
+        const complete = isIterationComplete(it);
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = `chip ${complete ? 'complete' : ''}`;
+        chip.textContent = `${String(i + 1).padStart(2, '0')} · ${it.title || 'تجربة جديدة'}`;
+        chip.addEventListener('click', () => {
+          document.getElementById('iter-card-' + i)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        idxNav.appendChild(chip);
+
+        const card = document.createElement('details');
+        card.className = 'iteration-card';
+        card.id = 'iter-card-' + i;
+        card.open = i === iterationData.length - 1;
+        card.innerHTML = `
+          <summary>
+            <span><strong>التجربة ${String(i + 1).padStart(2, '0')}:</strong> ${esc(it.title || 'غير معنونة')} (${it.date || 'بدون تاريخ'})</span>
+            <span style="font-size:12px; font-weight:700; color:${complete ? 'var(--success)' : 'var(--muted)'};">
+              ${complete ? '✓ مكتملة' : 'قيد التوثيق'}
+            </span>
+          </summary>
+          <div class="iteration-body">
+            <div class="iteration-grid">
+              <div>
+                <label class="field-label">عنوان الجولة التجريبية</label>
+                <input class="input-field" data-it="${i}" data-f="title" value="${esc(it.title)}" placeholder="مثال: اختبار استجابة حساس المسافة في الظلام">
+              </div>
+              <div>
+                <label class="field-label">تاريخ إجراء التجربة</label>
+                <input class="input-field" type="date" data-it="${i}" data-f="date" value="${esc(it.date)}">
+              </div>
+            </div>
+            <div>
+              <label class="field-label">ما الذي تحقق بنجاح في هذه الجولة؟ (المنجز)</label>
+              <textarea class="textarea-field" data-it="${i}" data-f="achievement" placeholder="سجل القراءات والنتائج الإيجابية الفعلية...">${esc(it.achievement)}</textarea>
+            </div>
+            <div>
+              <label class="field-label">العائق المكتشف أو سبب التعثر</label>
+              <textarea class="textarea-field" data-it="${i}" data-f="obstacle" placeholder="ما العطل أو الانحراف الذي ظهر أثناء الاختبار؟">${esc(it.obstacle)}</textarea>
+            </div>
+            <div>
+              <label class="field-label">التحليل الهندسي لسبب العائق</label>
+              <textarea class="textarea-field" data-it="${i}" data-f="analysis" placeholder="تفسير السبب البرمجي أو الفيزيائي أو الميكانيكي...">${esc(it.analysis)}</textarea>
+            </div>
+            <div>
+              <label class="field-label">القرار أو الإجراء الحاسم للجولة التالية</label>
+              <textarea class="textarea-field" data-it="${i}" data-f="next" placeholder="التعديل المقرر تطبيقه لاختباره في الجولة القادمة...">${esc(it.next)}</textarea>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+              <button type="button" class="btn danger" data-del-it="${i}">حذف هذه التجربة</button>
+              <small style="color:var(--muted);">الحفظ تلقائي فوري</small>
+            </div>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    document.getElementById('iteration-list').addEventListener('input', e => {
+      if (e.target.dataset.it !== undefined) {
+        const i = +e.target.dataset.it, f = e.target.dataset.f;
+        iterationData[i][f] = e.target.value;
+        saveIterations();
+      }
+    });
+
+    document.getElementById('iteration-list').addEventListener('click', e => {
+      if (e.target.dataset.delIt !== undefined) {
+        const i = +e.target.dataset.delIt;
+        if (confirm('هل أنت متأكد من حذف هذه التجربة؟')) {
+          iterationData.splice(i, 1);
+          if (!iterationData.length) iterationData.push({ date: '', title: '', achievement: '', obstacle: '', analysis: '', next: '' });
+          saveIterations();
+        }
+      }
+    });
+
+    function addIteration() {
+      iterationData.push({ date: new Date().toISOString().slice(0, 10), title: '', achievement: '', obstacle: '', analysis: '', next: '' });
+      saveIterations();
+      const last = document.getElementById('iter-card-' + (iterationData.length - 1));
+      last?.scrollIntoView({ behavior: 'smooth' });
+    }
+    document.getElementById('add-iteration-top').addEventListener('click', addIteration);
+    document.getElementById('add-iteration-bottom').addEventListener('click', addIteration);
+
+    /* =========================================================
+       4. القسم 03: التصميم والعتاد وإسقاط المؤشرات التفاعلي
+       ========================================================= */
+    const DESIGN_KEY = 'ATHAR_DESIGN_V1';
+    let designData = JSON.parse(localStorage.getItem(DESIGN_KEY) || 'null') || {
+      catalog: [
+        { name: 'وحدة المعالجة الرئيسية', model: 'ESP32-S3 WROOM', qty: '1', cost: '12.50', reason: 'دعم المعالجة المزدوجة والواي فاي والبلوتوث', challenge: 'الاستجابة اللحظية للحساسات', upgrade: 'إمكانية ربط كاميرا خارجية' }
+      ],
+      image: '',
+      pins: [],
+      evolution: [
+        { name: 'المفهوم الأولي', img: '', note: '' },
+        { name: 'المحاولة الثانية', img: '', note: '' },
+        { name: 'التحسين الثالث', img: '', note: '' },
+        { name: 'الاعتماد النهائي', img: '', note: '' }
+      ]
+    };
+
+    let isPinArmActive = false;
+    let selectedPinIndex = -1;
+    let draggingPinIndex = -1;
+    let activePinMenu = null;
+
+    function saveDesign() {
+      try {
+        localStorage.setItem(DESIGN_KEY, JSON.stringify(designData));
+      } catch (err) {
+        console.warn('تعذر حفظ بيانات التصميم في التخزين المحلي:', err);
+      }
+      renderDesignCatalog();
+      renderDesignPins();
+      renderEvolution();
+      triggerGlobalProgressUpdate();
+    }
+
+    function renderDesignCatalog() {
+      const list = document.getElementById('design-catalog');
+      const idx = document.getElementById('design-index');
+      const picker = document.getElementById('design-picker');
+      list.innerHTML = '';
+      idx.innerHTML = '';
+      picker.innerHTML = '';
+
+      let totalCost = 0;
+      designData.catalog.forEach((item, i) => {
+        totalCost += (parseFloat(item.cost) || 0) * (parseInt(item.qty, 10) || 1);
+
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'chip';
+        chip.textContent = `${String(i + 1).padStart(2, '0')} · ${item.name || 'مكوّن'}`;
+        chip.addEventListener('click', () => {
+          document.getElementById('item-card-' + i)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        idx.appendChild(chip);
+
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = `مكوّن ${String(i + 1).padStart(2, '0')}: ${item.name || 'غير معنون'}`;
+        picker.appendChild(opt);
+
+        const card = document.createElement('div');
+        card.className = 'challenge-row';
+        card.id = 'item-card-' + i;
+        card.innerHTML = `
+          <div style="padding:12px 16px; background:#fff; font-weight:700; display:flex; justify-content:space-between; align-items:center;">
+            <span>المكوّن ${String(i + 1).padStart(2, '0')}: ${esc(item.name || 'مكوّن جديد')}</span>
+            ${designData.catalog.length > 1 ? `<button type="button" class="btn danger" data-del-comp="${i}">حذف المكوّن</button>` : ''}
+          </div>
+          <div class="challenge-row-body">
+            <div class="strategy-grid">
+              <div>
+                <label class="field-label">اسم القطعة أو المكوّن</label>
+                <input class="input-field" data-comp="${i}" data-f="name" value="${esc(item.name)}" placeholder="مثال: محرك سيرفو رقمي">
+              </div>
+              <div>
+                <label class="field-label">الطراز والمواصفات الفنية</label>
+                <input class="input-field" data-comp="${i}" data-f="model" value="${esc(item.model)}" placeholder="مثال: MG996R Metal Gear">
+              </div>
+            </div>
+            <div class="strategy-grid">
+              <div>
+                <label class="field-label">الكمية المستخدمة</label>
+                <input class="input-field" type="number" min="1" data-comp="${i}" data-f="qty" value="${esc(item.qty || '1')}">
+              </div>
+              <div>
+                <label class="field-label">التكلفة التقديرية بالدينار الأردني (د.أ)</label>
+                <input class="input-field" type="number" step="0.1" data-comp="${i}" data-f="cost" value="${esc(item.cost)}" placeholder="0.00">
+              </div>
+            </div>
+            <div>
+              <label class="field-label">مسوغات اختيار هذا المكوّن تحديداً</label>
+              <textarea class="textarea-field" data-comp="${i}" data-f="reason" placeholder="لماذا اخترتم هذا الطراز دون غيره؟">${esc(item.reason)}</textarea>
+            </div>
+            <div class="strategy-grid">
+              <div>
+                <label class="field-label">التحدي الهندسي الذي يعالجه</label>
+                <textarea class="textarea-field" data-comp="${i}" data-f="challenge" placeholder="دوره في تجاوز العائق...">${esc(item.challenge)}</textarea>
+              </div>
+              <div>
+                <label class="field-label">قابلية التطوير المستقبلي</label>
+                <textarea class="textarea-field" data-comp="${i}" data-f="upgrade" placeholder="كيف يمكن ترقيته لاحقاً؟">${esc(item.upgrade)}</textarea>
+              </div>
+            </div>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+
+      document.getElementById('design-count').textContent = String(designData.catalog.length).padStart(2, '0');
+      document.getElementById('design-total').textContent = `المجموع: ${totalCost.toFixed(2)} د.أ`;
+    }
+
+    document.getElementById('design-add').addEventListener('click', () => {
+      designData.catalog.push({ name: '', model: '', qty: '1', cost: '', reason: '', challenge: '', upgrade: '' });
+      saveDesign();
+    });
+
+    document.getElementById('design-catalog').addEventListener('input', e => {
+      if (e.target.dataset.comp !== undefined) {
+        const i = +e.target.dataset.comp, f = e.target.dataset.f;
+        designData.catalog[i][f] = e.target.value;
+        saveDesign();
+      }
+    });
+
+    document.getElementById('design-catalog').addEventListener('click', e => {
+      if (e.target.dataset.delComp !== undefined) {
+        const i = +e.target.dataset.delComp;
+        if (confirm('حذف هذا المكوّن؟ سيتم إزالة أي مؤشر مرتبط به على النموذج.')) {
+          designData.catalog.splice(i, 1);
+          designData.pins = designData.pins.filter(p => p.component !== i).map(p => ({
+            ...p,
+            component: p.component > i ? p.component - 1 : p.component
+          }));
+          saveDesign();
+        }
+      }
+    });
+
+    // لوحة النموذج وترقيم المكونات
+    const stageContainer = document.getElementById('design-stage');
+    const stageImg = document.getElementById('design-image');
+    const stageEmpty = document.getElementById('design-empty');
+    const stageStatus = document.getElementById('design-stage-status');
+    const annotationLayer = document.getElementById('design-annotation');
+    const armBtn = document.getElementById('design-arm-pin');
+    const removeImgBtn = document.getElementById('design-image-remove');
+
+    function updateStageImageDisplay() {
+      if (designData.image) {
+        stageImg.src = designData.image;
+        stageImg.style.display = 'block';
+        stageEmpty.style.display = 'none';
+        stageContainer.classList.add('has-image');
+        removeImgBtn.style.display = 'inline-flex';
+        stageStatus.textContent = 'الصورة جاهزة. اختر المكوّن وفعّل وضع الإسقاط للنقر على موضعه.';
+      } else {
+        stageImg.style.display = 'none';
+        stageEmpty.style.display = 'block';
+        stageContainer.classList.remove('has-image');
+        removeImgBtn.style.display = 'none';
+        stageStatus.textContent = 'الحالة: بانتظار رفع صورة النموذج النهائي';
+      }
+    }
+
+    document.getElementById('design-image-input').addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      processImageFile(file, 1200, 0.85, (err, res) => {
+        if (err) { alert(err.message); return; }
+        designData.image = res;
+        saveDesign();
+        updateStageImageDisplay();
+      });
+    });
+
+    removeImgBtn.addEventListener('click', () => {
+      if (confirm('إزالة صورة النموذج ومسح المؤشرات المثبتة؟')) {
+        designData.image = '';
+        designData.pins = [];
+        saveDesign();
+        updateStageImageDisplay();
+      }
+    });
+
+    armBtn.addEventListener('click', () => {
+      if (!designData.image) {
+        alert('يرجى رفع صورة النموذج النهائي أولاً');
+        return;
+      }
+      isPinArmActive = !isPinArmActive;
+      armBtn.setAttribute('aria-pressed', String(isPinArmActive));
+      armBtn.textContent = isPinArmActive ? 'انقر على الصورة للإسقاط (نشط)' : 'تفعيل وضع الإسقاط';
+      stageContainer.classList.toggle('is-armed-target', isPinArmActive);
+      stageStatus.textContent = isPinArmActive ? 'وضع الإسقاط نشط: اضغط على موضع القطعة في الصورة.' : 'وضع الإسقاط متوقف.';
+    });
+
+    stageContainer.addEventListener('click', e => {
+      if (!isPinArmActive || !designData.image) return;
+      if (e.target.closest('.design-pin') || e.target.closest('.pin-radial-menu')) return;
+
+      const rect = stageContainer.getBoundingClientRect();
+      const x = +(((e.clientX - rect.left) / rect.width) * 100).toFixed(2);
+      const y = +(((e.clientY - rect.top) / rect.height) * 100).toFixed(2);
+      const compIdx = parseInt(document.getElementById('design-picker').value, 10) || 0;
+
+      designData.pins.push({ component: compIdx, x, y });
+      isPinArmActive = false;
+      armBtn.setAttribute('aria-pressed', 'false');
+      armBtn.textContent = 'تفعيل وضع الإسقاط';
+      stageContainer.classList.remove('is-armed-target');
+      saveDesign();
+    });
+
+    function renderDesignPins() {
+      annotationLayer.innerHTML = '';
+      const legend = document.getElementById('design-pin-legend');
+      legend.innerHTML = '';
+      closePinMenu();
+
+      designData.pins.forEach((pin, idx) => {
+        const item = designData.catalog[pin.component] || { name: 'مكوّن' };
+        const num = String(pin.component + 1).padStart(2, '0');
+
+        // مفتاح المؤشرات أسفل اللوحة
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = `chip ${selectedPinIndex === idx ? 'complete' : ''}`;
+        chip.textContent = `${num} · ${item.name}`;
+        chip.addEventListener('click', () => {
+          selectedPinIndex = idx;
+          renderDesignPins();
+        });
+        legend.appendChild(chip);
+
+        // خط الإشارة
+        const line = document.createElement('div');
+        line.className = `design-leader-line ${selectedPinIndex === idx ? 'visible' : ''}`;
+        const isRight = pin.x < 50;
+        const targetX = isRight ? Math.min(85, pin.x + 14) : Math.max(15, pin.x - 14);
+        const targetY = Math.max(8, Math.min(92, pin.y - 6));
+        line.style.left = pin.x + '%';
+        line.style.top = pin.y + '%';
+        const dx = (targetX - pin.x) * (stageContainer.clientWidth / 100);
+        const dy = (targetY - pin.y) * (stageContainer.clientHeight / 100);
+        const dist = Math.hypot(dx, dy);
+        line.style.width = dist + 'px';
+        line.style.transform = `rotate(${Math.atan2(dy, dx)}rad)`;
+        annotationLayer.appendChild(line);
+
+        // بطاقة البيان
+        const label = document.createElement('div');
+        label.className = `design-pin-label ${selectedPinIndex === idx ? 'visible' : ''}`;
+        label.style.left = targetX + '%';
+        label.style.top = targetY + '%';
+        label.innerHTML = `<strong>${num}</strong> · ${esc(item.name)}<br><small style="color:var(--muted);">${esc(item.model || '')}</small>`;
+        annotationLayer.appendChild(label);
+
+        // المؤشر نفسه
+        const pinBtn = document.createElement('button');
+        pinBtn.type = 'button';
+        pinBtn.className = `design-pin ${selectedPinIndex === idx ? 'selected' : ''}`;
+        pinBtn.textContent = num;
+        pinBtn.style.left = pin.x + '%';
+        pinBtn.style.top = pin.y + '%';
+
+        pinBtn.addEventListener('pointerdown', e => {
+          if (e.button !== 0) return;
+          selectedPinIndex = idx;
+          draggingPinIndex = idx;
+          pinBtn.setPointerCapture(e.pointerId);
+          pinBtn.classList.add('dragging');
+          e.stopPropagation();
+        });
+
+        pinBtn.addEventListener('pointermove', e => {
+          if (draggingPinIndex !== idx) return;
+          const rect = stageContainer.getBoundingClientRect();
+          pin.x = +Math.max(2, Math.min(98, ((e.clientX - rect.left) / rect.width) * 100)).toFixed(2);
+          pin.y = +Math.max(2, Math.min(98, ((e.clientY - rect.top) / rect.height) * 100)).toFixed(2);
+          pinBtn.style.left = pin.x + '%';
+          pinBtn.style.top = pin.y + '%';
+        });
+
+        pinBtn.addEventListener('pointerup', () => {
+          if (draggingPinIndex === idx) {
+            draggingPinIndex = -1;
+            pinBtn.classList.remove('dragging');
+            saveDesign();
+          }
+        });
+
+        pinBtn.addEventListener('contextmenu', e => {
+          e.preventDefault();
+          openPinMenu(idx, e.clientX, e.clientY);
+        });
+
+        annotationLayer.appendChild(pinBtn);
+      });
+    }
+
+    function openPinMenu(idx, clientX, clientY) {
+      closePinMenu();
+      const pin = designData.pins[idx];
+      if (!pin) return;
+      const item = designData.catalog[pin.component] || { name: 'مكوّن' };
+
+      activePinMenu = document.createElement('div');
+      activePinMenu.className = 'pin-radial-menu';
+      activePinMenu.innerHTML = `
+        <div style="font-size:12px; font-weight:700; color:var(--gold); border-bottom:1px solid var(--line); padding-bottom:4px;">
+          المؤشر ${String(pin.component + 1).padStart(2, '0')}: ${esc(item.name)}
+        </div>
+        <button type="button" data-act="jump">عرض تفاصيل المكوّن</button>
+        <button type="button" data-act="del" style="color:var(--danger);">حذف هذا المؤشر</button>
+      `;
+      document.body.appendChild(activePinMenu);
+
+      activePinMenu.style.position = 'fixed';
+      activePinMenu.style.left = Math.min(window.innerWidth - 220, clientX) + 'px';
+      activePinMenu.style.top = Math.min(window.innerHeight - 120, clientY) + 'px';
+
+      activePinMenu.querySelector('[data-act="jump"]').onclick = () => {
+        closePinMenu();
+        document.getElementById('item-card-' + pin.component)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      };
+      activePinMenu.querySelector('[data-act="del"]').onclick = () => {
+        closePinMenu();
+        designData.pins.splice(idx, 1);
+        saveDesign();
+      };
+    }
+
+    function closePinMenu() {
+      if (activePinMenu) {
+        activePinMenu.remove();
+        activePinMenu = null;
+      }
+    }
+    document.addEventListener('pointerdown', e => {
+      if (activePinMenu && !e.target.closest('.pin-radial-menu')) closePinMenu();
+    });
+
+    // تطور التصميم الزمني
+    function renderEvolution() {
+      const grid = document.getElementById('design-evolution');
+      grid.innerHTML = designData.evolution.map((evo, i) => `
+        <div class="evolution-card">
+          <h4>المرحلة ${String(i + 1).padStart(2, '0')}: ${esc(evo.name)}</h4>
+          <label class="evolution-preview">
+            <input type="file" accept="image/png,image/jpeg,image/webp" data-evo-file="${i}" hidden>
+            ${evo.img ? `<img src="${evo.img}" alt="${esc(evo.name)}" style="display:block;">` : '＋ رفع صورة المرحلة'}
+          </label>
+          <input class="input-field" data-evo-note="${i}" value="${esc(evo.note)}" placeholder="أبرز التحسينات التي أُضيفت...">
+        </div>
+      `).join('');
+    }
+
+    document.getElementById('design-evolution').addEventListener('change', e => {
+      if (e.target.dataset.evoFile !== undefined) {
+        const i = +e.target.dataset.evoFile;
+        const file = e.target.files[0];
+        if (!file) return;
+        processImageFile(file, 800, 0.8, (err, res) => {
+          if (err) { alert(err.message); return; }
+          designData.evolution[i].img = res;
+          saveDesign();
+        });
+      }
+    });
+
+    document.getElementById('design-evolution').addEventListener('input', e => {
+      if (e.target.dataset.evoNote !== undefined) {
+        designData.evolution[+e.target.dataset.evoNote].note = e.target.value;
+        saveDesign();
+      }
+    });
+
+    /* =========================================================
+       5. القسم 04: توظيف الأدوات المتقدمة والتحقق البشري
+       ========================================================= */
+    const TOOLS_KEY = 'ATHAR_ADVANCED_TOOLS_V1';
+    let toolsData = JSON.parse(localStorage.getItem(TOOLS_KEY) || 'null') || { studies: [] };
+
+    function saveTools() {
+      try {
+        localStorage.setItem(TOOLS_KEY, JSON.stringify(toolsData));
+      } catch (err) {
+        console.warn('تعذر حفظ بيانات الأدوات في التخزين المحلي:', err);
+      }
+      renderTools();
+      triggerGlobalProgressUpdate();
+    }
+
+    function renderTools() {
+      const list = document.getElementById('athar-tools-list');
+      const idx = document.getElementById('athar-tools-index');
+      list.innerHTML = '';
+      idx.innerHTML = '';
+
+      document.getElementById('athar-tools-count-number').textContent = String(toolsData.studies.length).padStart(2, '0');
+
+      if (!toolsData.studies.length) {
+        list.innerHTML = `
+          <div style="text-align:center; padding:32px 20px; border:2px dashed var(--line); border-radius:var(--radius-md); color:var(--muted);">
+            لم تُسجل أي دراسة لأداة متقدمة بعد. اضغط على "+ إضافة دراسة حالة أداة" بالاعلى لبدء التوثيق الأكاديمي.
+          </div>
+        `;
+        return;
+      }
+
+      toolsData.studies.forEach((st, i) => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'chip';
+        chip.textContent = `${String(i + 1).padStart(2, '0')} · ${st.tool || 'أداة'}`;
+        chip.addEventListener('click', () => {
+          document.getElementById('tool-card-' + i)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        idx.appendChild(chip);
+
+        const card = document.createElement('article');
+        card.className = 'tool-study-card';
+        card.id = 'tool-card-' + i;
+        card.innerHTML = `
+          <div class="tool-study-head">
+            <strong>دراسة الحالة ${String(i + 1).padStart(2, '0')}: ${esc(st.tool || 'أداة متقدمة')}</strong>
+            <button type="button" class="btn danger" data-del-tool="${i}">حذف الدراسة</button>
+          </div>
+          <div style="display:grid; gap:10px;">
+            <div class="strategy-grid">
+              <div>
+                <label class="field-label">اسم الأداة المستخدمة</label>
+                <input class="input-field" list="athar-tools-suggestions" data-ti="${i}" data-f="tool" value="${esc(st.tool)}" placeholder="مثال: ChatGPT (GPT-4o)">
+              </div>
+              <div>
+                <label class="field-label">الغرض الهندسي المحدد من الاستعانة بها</label>
+                <input class="input-field" data-ti="${i}" data-f="purpose" value="${esc(st.purpose)}" placeholder="مثال: تحسين خوارزمية تصفية الضوضاء من الحساس">
+              </div>
+            </div>
+            <div>
+              <label class="field-label">التوجيه البرمجي أو الأمر الدقيق (Prompt)</label>
+              <textarea class="textarea-field" data-ti="${i}" data-f="prompt" placeholder="اكتب نص الأمر الذي أرسله الفريق للأداة...">${esc(st.prompt)}</textarea>
+            </div>
+            <div>
+              <label class="field-label">المخرج الأولي المستلم من الأداة</label>
+              <textarea class="textarea-field" data-ti="${i}" data-f="initial" placeholder="الكود أو المقترح الأولي الذي قدمته الأداة...">${esc(st.initial)}</textarea>
+            </div>
+            <div style="background:#fffaf0; border:1px solid var(--gold-border); border-radius:var(--radius-sm); padding:12px;">
+              <label class="field-label" style="color:var(--gold);">التكييف والتدخل البشري الحاسم للفريق (أصالة العمل)</label>
+              <textarea class="textarea-field" data-ti="${i}" data-f="adaptation" placeholder="ما الأخطاء التي اكتشفها الفريق في مخرج الأداة؟ وكيف تم تكييفه ليناسب المنظومة الفعلية؟">${esc(st.adaptation)}</textarea>
+            </div>
+            <div>
+              <label class="field-label">آلية التحقق والتقييم المخبري الواقعي</label>
+              <textarea class="textarea-field" data-ti="${i}" data-f="verification" placeholder="كيف تم فحص صحة الحل على أرض الواقع؟">${esc(st.verification)}</textarea>
+            </div>
+            <div>
+              <label class="field-label">النتيجة النهائية المعتمدة</label>
+              <textarea class="textarea-field" data-ti="${i}" data-f="final" placeholder="النتيجة البرمجية أو التصميمية النهائية بعد المراجعة البشرية...">${esc(st.final)}</textarea>
+            </div>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    document.getElementById('athar-tools-add').addEventListener('click', () => {
+      toolsData.studies.push({ tool: '', purpose: '', prompt: '', initial: '', adaptation: '', verification: '', final: '' });
+      saveTools();
+    });
+
+    document.getElementById('athar-tools-list').addEventListener('input', e => {
+      if (e.target.dataset.ti !== undefined) {
+        const i = +e.target.dataset.ti, f = e.target.dataset.f;
+        toolsData.studies[i][f] = e.target.value;
+        saveTools();
+      }
+    });
+
+    document.getElementById('athar-tools-list').addEventListener('click', e => {
+      if (e.target.dataset.delTool !== undefined) {
+        if (confirm('تأكيد حذف دراسة حالة هذه الأداة؟')) {
+          toolsData.studies.splice(+e.target.dataset.delTool, 1);
+          saveTools();
+        }
+      }
+    });
+
+    document.getElementById('athar-tools-guide').addEventListener('click', () => {
+      const g = document.getElementById('athar-tools-guide-text');
+      g.style.display = g.style.display === 'none' ? 'block' : 'none';
+    });
+
+    /* =========================================================
+       6. القسم 05: هوية الفريق وبصمة الصانع
+       ========================================================= */
+    const IDENTITY_KEY = 'ATHAR_IDENTITY_V1';
+    let identityData = JSON.parse(localStorage.getItem(IDENTITY_KEY) || 'null') || {
+      teamSize: '3',
+      activeTab: 'sup',
+      members: {
+        sup: { role: 'المشرف الأكاديمي', name: '', major: '', image: '' },
+        st1: { role: 'قائد الفريق', name: '', major: '', image: '' },
+        st2: { role: 'مبرمج المنظومة', name: '', major: '', image: '' },
+        st3: { role: 'مهندس الهيكل الميكانيكي', name: '', major: '', image: '' }
+      },
+      prints: {
+        sup: { date: '', task: '', impact: '', lesson: '', message: '' },
+        st1: { date: '', task: '', impact: '', lesson: '', message: '' },
+        st2: { date: '', task: '', impact: '', lesson: '', message: '' },
+        st3: { date: '', task: '', impact: '', lesson: '', message: '' }
+      }
+    };
+
+    const memberKeys = ['sup', 'st1', 'st2', 'st3'];
+
+    function saveIdentity() {
+      try {
+        localStorage.setItem(IDENTITY_KEY, JSON.stringify(identityData));
+      } catch (err) {
+        console.warn('تعذر حفظ بيانات الهوية في التخزين المحلي:', err);
+      }
+      renderIdentity();
+      triggerGlobalProgressUpdate();
+    }
+
+    function renderIdentity() {
+      const activeKeys = memberKeys.filter(k => !(k === 'st3' && identityData.teamSize === '2'));
+      if (!activeKeys.includes(identityData.activeTab)) identityData.activeTab = 'sup';
+
+      // شبكة البطاقات التعريفية
+      const pGrid = document.getElementById('athar-identity-profile-grid');
+      pGrid.innerHTML = activeKeys.map((k, i) => {
+        const m = identityData.members[k];
+        const isSup = k === 'sup';
+        return `
+          <article class="member-card">
+            <strong style="color:var(--gold); font-size:13px;">${isSup ? 'المشرف الأكاديمي' : `الطالب ${String(i).padStart(2, '0')}`}</strong>
+            <label class="member-avatar">
+              <input type="file" accept="image/png,image/jpeg,image/webp" data-mem-img="${k}" hidden>
+              ${m.image ? `<img src="${m.image}" alt="${esc(m.name || m.role)}">` : '＋ صورة'}
+            </label>
+            <div>
+              <label class="field-label" style="text-align:right;">الدور الميداني</label>
+              <input class="input-field" data-mk="${k}" data-f="role" value="${esc(m.role)}" placeholder="الدور">
+            </div>
+            <div>
+              <label class="field-label" style="text-align:right;">الاسم الثلاثي</label>
+              <input class="input-field" data-mk="${k}" data-f="name" value="${esc(m.name)}" placeholder="الاسم الكامل">
+            </div>
+            <div>
+              <label class="field-label" style="text-align:right;">الصف أو التخصص</label>
+              <input class="input-field" data-mk="${k}" data-f="major" value="${esc(m.major)}" placeholder="التخصص أو الصف">
+            </div>
+            ${m.image ? `<button type="button" class="btn danger" data-rem-avatar="${k}" style="font-size:11px; min-height:32px;">إزالة الصورة</button>` : ''}
+          </article>
+        `;
+      }).join('');
+
+      // أشرطة التبويب للبصمة
+      const tabs = document.getElementById('athar-identity-tabs');
+      tabs.innerHTML = activeKeys.map(k => {
+        const m = identityData.members[k];
+        return `
+          <button type="button" data-switch-tab="${k}" aria-selected="${identityData.activeTab === k}">
+            ${esc(m.name || m.role || k)}
+          </button>
+        `;
+      }).join('');
+
+      // نموذج البصمة للعضو النشط
+      const curKey = identityData.activeTab;
+      const curMem = identityData.members[curKey];
+      const curPrint = identityData.prints[curKey] || { date: '', task: '', impact: '', lesson: '', message: '' };
+      const fpContainer = document.getElementById('athar-identity-footprint');
+
+      fpContainer.innerHTML = `
+        <div style="background:#fafaf8; border:1px solid var(--line); border-radius:var(--radius-md); padding:18px; display:grid; gap:12px;">
+          <div style="display:flex; align-items:center; gap:14px; margin-bottom:6px;">
+            <div style="width:48px; height:48px; border-radius:50%; overflow:hidden; border:1px solid var(--gold-border); background:#fff; display:grid; place-items:center;">
+              ${curMem.image ? `<img src="${curMem.image}" alt="" style="width:100%; height:100%; object-fit:cover;">` : '👤'}
+            </div>
+            <div>
+              <strong>${esc(curMem.name || 'عضو الفريق')}</strong>
+              <div style="font-size:12px; color:var(--gold); font-weight:600;">${esc(curMem.role)}</div>
+            </div>
+          </div>
+          <div>
+            <label class="field-label" for="fp-date">تاريخ الانضمام للمشروع</label>
+            <input id="fp-date" class="input-field" type="date" data-pk="${curKey}" data-f="date" value="${esc(curPrint.date)}">
+          </div>
+          <div>
+            <label class="field-label" for="fp-task">المهمة المركزية أو مسؤولية الإشراف</label>
+            <input id="fp-task" class="input-field" data-pk="${curKey}" data-f="task" value="${esc(curPrint.task)}" placeholder="مثال: مسؤول عن معايرة الحساسات وخوارزمية التحكم">
+          </div>
+          <div>
+            <label class="field-label" for="fp-impact">الأثر الملموس والمساهمة الشخصية الفارقة</label>
+            <textarea id="fp-impact" class="textarea-field" data-pk="${curKey}" data-f="impact" placeholder="ما الأثر الذي تحقق في المنظومة بفضل جهودك المباشرة؟">${esc(curPrint.impact)}</textarea>
+          </div>
+          <div>
+            <label class="field-label" for="fp-lesson">أهم درس مستفاد أو مهارة عملية جديدة</label>
+            <textarea id="fp-lesson" class="textarea-field" data-pk="${curKey}" data-f="lesson" placeholder="ما الذي تعلمته من مواجهة التحديات والأخطاء؟">${esc(curPrint.lesson)}</textarea>
+          </div>
+          <div>
+            <label class="field-label" for="fp-message">الرسالة والأثر المستدام للمشروع</label>
+            <textarea id="fp-message" class="textarea-field" data-pk="${curKey}" data-f="message" placeholder="ما الأثر الذي تطمح أن يتركه هذا الابتكار بعد انتهاء المنافسة؟">${esc(curPrint.message)}</textarea>
+          </div>
+        </div>
+      `;
+    }
+
+    document.getElementById('athar-identity-team-size').value = identityData.teamSize;
+    document.getElementById('athar-identity-team-size').addEventListener('change', e => {
+      identityData.teamSize = e.target.value;
+      saveIdentity();
+    });
+
+    document.getElementById('athar-identity').addEventListener('input', e => {
+      if (e.target.dataset.mk !== undefined) {
+        identityData.members[e.target.dataset.mk][e.target.dataset.f] = e.target.value;
+        saveIdentity();
+      }
+      if (e.target.dataset.pk !== undefined) {
+        identityData.prints[e.target.dataset.pk][e.target.dataset.f] = e.target.value;
+        saveIdentity();
+      }
+    });
+
+    document.getElementById('athar-identity').addEventListener('change', e => {
+      if (e.target.dataset.memImg !== undefined) {
+        const k = e.target.dataset.memImg;
+        const file = e.target.files[0];
+        if (!file) return;
+        processImageFile(file, 400, 0.8, (err, res) => {
+          if (err) { alert(err.message); return; }
+          identityData.members[k].image = res;
+          saveIdentity();
+        });
+      }
+    });
+
+    document.getElementById('athar-identity').addEventListener('click', e => {
+      if (e.target.dataset.switchTab !== undefined) {
+        identityData.activeTab = e.target.dataset.switchTab;
+        saveIdentity();
+      }
+      if (e.target.dataset.remAvatar !== undefined) {
+        identityData.members[e.target.dataset.remAvatar].image = '';
+        saveIdentity();
+      }
+    });
+
+    /* =========================================================
+       7. الحساب الموحد لإنجاز الأقسام وملخص التقدم الشامل
+       ========================================================= */
+    function calcSectionProgress(id) {
+      const hasText = s => Boolean(String(s || '').trim());
+
+      if (id === 'foundation') {
+        const words = foundationData.narration.trim().split(/\s+/).filter(Boolean).length;
+        const narOk = words >= 50;
+        const chDone = foundationData.challenges.filter(c => hasText(c.challenge) && hasText(c.analysis) && hasText(c.solution)).length;
+        const stDone = foundationData.strategies.filter(s => hasText(s.title) && hasText(s.pros) && hasText(s.cons)).length;
+        const adoptOk = foundationData.adopted !== null;
+        const finalOk = hasText(foundationData.statement) && hasText(foundationData.axis) && hasText(foundationData.reason);
+
+        const checks = [narOk, chDone > 0, stDone > 1, adoptOk, finalOk];
+        const done = checks.filter(Boolean).length;
+        const total = checks.length;
+        return {
+          done,
+          total,
+          percent: Math.round((done / total) * 100),
+          focusId: !narOk ? 'originNarration' : (!adoptOk ? 'strategy-list' : 'foundation-statement')
+        };
+      }
+
+      if (id === 'iteration') {
+        const done = iterationData.filter(isIterationComplete).length;
+        const total = Math.max(iterationData.length, 1);
+        return {
+          done,
+          total,
+          percent: Math.round((done / total) * 100),
+          focusId: done < total ? 'iteration-list' : 'add-iteration-top'
+        };
+      }
+
+      if (id === 'design') {
+        const catDone = designData.catalog.filter(c => hasText(c.name) && hasText(c.model) && hasText(c.reason)).length;
+        const catTotal = Math.max(designData.catalog.length, 1);
+        const hasImg = Boolean(designData.image);
+        const hasPins = designData.pins.length > 0;
+
+        const checks = [catDone === catTotal, hasImg, hasPins];
+        const done = checks.filter(Boolean).length;
+        const total = checks.length;
+        return {
+          done,
+          total,
+          percent: Math.round((done / total) * 100),
+          focusId: catDone < catTotal ? 'design-catalog' : (!hasImg ? 'design-image-input' : 'design-stage')
+        };
+      }
+
+      if (id === 'athar-tools') {
+        const req = ['tool', 'purpose', 'prompt', 'initial', 'adaptation', 'verification', 'final'];
+        const done = toolsData.studies.filter(st => req.every(k => hasText(st[k]))).length;
+        const total = Math.max(toolsData.studies.length, 1);
+        const percent = toolsData.studies.length === 0 ? 0 : Math.round((done / total) * 100);
+        return {
+          done,
+          total,
+          percent,
+          focusId: toolsData.studies.length === 0 ? 'athar-tools-add' : 'athar-tools-list'
+        };
+      }
+
+      if (id === 'athar-identity') {
+        const activeKeys = memberKeys.filter(k => !(k === 'st3' && identityData.teamSize === '2'));
+        let doneMembers = 0;
+        let missingFocus = null;
+
+        activeKeys.forEach(k => {
+          const m = identityData.members[k] || {};
+          const p = identityData.prints[k] || {};
+          const memOk = hasText(m.name) && hasText(m.role);
+          const prOk = hasText(p.task) && hasText(p.impact) && hasText(p.lesson) && hasText(p.message);
+
+          if (memOk && prOk) {
+            doneMembers++;
+          } else if (!missingFocus) {
+            missingFocus = !memOk ? 'athar-identity-profile-grid' : 'athar-identity-footprint';
+          }
+        });
+
+        const total = activeKeys.length;
+        return {
+          done: doneMembers,
+          total,
+          percent: Math.round((doneMembers / total) * 100),
+          focusId: missingFocus || 'athar-identity-profile-grid'
+        };
+      }
+
+      return { done: 0, total: 1, percent: 0, focusId: null };
+    }
+
+    function triggerGlobalProgressUpdate() {
+      let totalPercents = 0;
+      let completedSectionsCount = 0;
+
+      sectionIds.forEach(id => {
+        const res = calcSectionProgress(id);
+        totalPercents += res.percent;
+        if (res.percent === 100) completedSectionsCount++;
+
+        const sectionBox = document.querySelector(`[data-progress-section="${id}"]`);
+        if (sectionBox) {
+          sectionBox.querySelector('[data-progress-percent]').textContent = `${res.percent}%`;
+          sectionBox.querySelector('[data-progress-fill]').style.width = `${res.percent}%`;
+          const summaryText = res.percent === 100
+            ? 'مكتمل ومستوفٍ بالكامل ✓'
+            : (res.percent === 0 ? 'لم يبدأ التوثيق بعد — انقر للإكمال' : `${res.done} من ${res.total} متطلبات منجزة — انقر للمتابعة`);
+          sectionBox.querySelector('[data-progress-summary]').textContent = summaryText;
+          sectionBox.dataset.focusTarget = res.focusId || '';
+        }
+      });
+
+      const overall = Math.round(totalPercents / sectionIds.length);
+      document.getElementById('progress-overview-percent').textContent = `${overall}%`;
+      document.getElementById('progress-overview-fill').style.width = `${overall}%`;
+      document.getElementById('progress-overview-complete').textContent = `${completedSectionsCount} أقسام مكتملة بالكامل`;
+      document.getElementById('progress-overview-active').textContent = `${sectionIds.length - completedSectionsCount} أقسام قيد العمل والتوثيق`;
+      document.getElementById('progress-overview-summary').textContent = `${completedSectionsCount} من ${sectionIds.length} أقسام مستوفاة · نسبة الإنجاز الإجمالية ${overall}%`;
+    }
+
+    // تفاعل النقر على شريط التقدم الداخلي للقفز إلى الحقل المتبقي
+    document.querySelectorAll('.section-progress').forEach(box => {
+      box.addEventListener('click', () => {
+        const targetId = box.dataset.focusTarget;
+        if (targetId) {
+          const el = document.getElementById(targetId);
+          el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el?.focus?.();
+        }
+      });
+      box.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          box.click();
+        }
+      });
+    });
+
+    // التهيئة الشاملة عند تحميل المستند
+    window.addEventListener('DOMContentLoaded', () => {
+      updateFoundationUI();
+      renderIterations();
+      renderDesignCatalog();
+      updateStageImageDisplay();
+      renderDesignPins();
+      renderEvolution();
+      renderTools();
+      renderIdentity();
+      setStageActive(0);
+      triggerGlobalProgressUpdate();
+    });
+  </script>
+</body>
+</html>
