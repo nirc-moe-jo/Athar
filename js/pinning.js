@@ -3,9 +3,8 @@
    البطولة الوطنية للابتكار والروبوت — وزارة التربية والتعليم وتنمية الموارد البشرية
    ========================================================================= */
 
-// متغيرات التحكم اللحظي بالمسرح التفاعلي
 let activeTargetCompIdx = null; // المكون الجاري إسقاطه
-let relocatingPinIdx = null;    // الدبوس الجاري نقله لموضع جديد
+let relocatingPinIdx = null;    // الدبوس الجاري نقله
 let radialPinIdx = null;        // الدبوس النشط في القائمة الدائرية
 
 // =========================================================================
@@ -42,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!tightFrame) return;
 
   tightFrame.addEventListener('click', e => {
-    // تجاهل النقر إذا كان فوق الدبوس نفسه أو القائمة
     if (e.target.closest('.pin-specimen-node') || e.target.closest('.radial-menu-wheel')) return;
 
     const img = document.getElementById('robotImageEl');
@@ -52,11 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const clickX = e.clientX - rect.left;
     const clickY = e.clientY - rect.top;
 
-    // حساب نسبي مئوي محكوم بنطاق أمان [1.5% - 98.5%] لمنع أي مؤشر خارج الصورة
     const xPercent = Math.max(1.5, Math.min(98.5, +((clickX / rect.width) * 100).toFixed(2)));
     const yPercent = Math.max(1.5, Math.min(98.5, +((clickY / rect.height) * 100).toFixed(2)));
 
-    // حالة 1: نقل دبوس موجود لموضع جديد
+    // نقل دبوس موجود
     if (relocatingPinIdx !== null) {
       if (state.h3.pins[relocatingPinIdx]) {
         state.h3.pins[relocatingPinIdx].x = xPercent;
@@ -69,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // حالة 2: إسقاط دبوس جديد بعد اختيار المكون من الشريط
+    // إسقاط دبوس جديد
     if (activeTargetCompIdx !== null) {
       const existing = state.h3.pins.find(p => p.compIndex === activeTargetCompIdx);
       if (existing) {
@@ -108,20 +105,20 @@ function renderPins() {
     node.style.top = `${pin.y}%`;
     node.innerHTML = `<div class="pin-core-disc">${num}</div>`;
 
-    // 1. النقر العادي المباشر: فحص بيانات المكون في الدرج
+    // 1. النقر العادي: فحص
     node.onclick = e => {
       e.stopPropagation();
       openDrawer(pin.compIndex);
     };
 
-    // 2. النقر الأيمن بالفأرة (Desktop Context Menu): فتح القائمة الدائرية
+    // 2. النقر الأيمن (Desktop): القائمة الدائرية
     node.oncontextmenu = e => {
       e.preventDefault();
       e.stopPropagation();
       openRadialMenu(idx, e.clientX, e.clientY);
     };
 
-    // 3. الضغط المطول للهواتف المحمولة (Long-press 400ms + Haptic Vibration)
+    // 3. الضغط المطول للهواتف (Long-press 400ms + Haptic Vibration)
     let holdTimer = null;
     let startX = 0, startY = 0;
 
@@ -131,7 +128,7 @@ function renderPins() {
       startY = touch.clientY;
 
       holdTimer = setTimeout(() => {
-        if (navigator.vibrate) navigator.vibrate(45); // نبضة اهتزاز لمسية
+        if (navigator.vibrate) navigator.vibrate(45);
         openRadialMenu(idx, touch.clientX, touch.clientY);
       }, 400);
     }, { passive: true });
@@ -139,7 +136,7 @@ function renderPins() {
     node.addEventListener('touchmove', e => {
       const touch = e.touches[0];
       if (Math.hypot(touch.clientX - startX, touch.clientY - startY) > 8) {
-        clearTimeout(holdTimer); // إلغاء إذا كان تمرير شاشة طبيعي
+        clearTimeout(holdTimer);
       }
     }, { passive: true });
 
@@ -166,7 +163,6 @@ function openRadialMenu(pinIdx, clientX, clientY) {
     hubNum.innerText = String(state.h3.pins[pinIdx].compIndex + 1).padStart(2, '0');
   }
 
-  // حساب موضع القائمة لمنع خروجها عن حواف الشاشة
   const winW = window.innerWidth, winH = window.innerHeight;
   const posX = Math.max(110, Math.min(winW - 110, clientX));
   const posY = Math.max(110, Math.min(winH - 110, clientY));
@@ -330,4 +326,4 @@ function showToast(msg) {
 function hideToast() {
   const toast = document.getElementById('targetToast');
   if (toast) toast.style.display = 'none';
-                          }
+}
