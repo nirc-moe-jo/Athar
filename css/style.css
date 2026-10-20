@@ -1329,3 +1329,45 @@ input:focus::placeholder, textarea:focus::placeholder {
   white-space: normal;
 }
 #masterTooltip.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+function renderChallenges() {
+  const stream = document.getElementById('h1_challenges_stream');
+  if (!stream) return;
+  stream.innerHTML = '';
+
+  state.h1.challenges.forEach((ch, idx) => {
+    const row = document.createElement('div');
+    row.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:12px; display:flex; flex-direction:column; gap:8px;";
+    row.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:6px;">
+        <span style="font-family:var(--font-code); font-size:11px; font-weight:700;">التحدي ${String(idx+1).padStart(2,'0')}</span>
+        ${state.h1.challenges.length > 1 ? `
+          <div>
+            <button type="button" class="btn-discrete-del" onclick="armDel('ch_del_${idx}', 'ch_conf_${idx}')" id="ch_del_${idx}">استبعاد</button>
+            <div class="confirm-deck" id="ch_conf_${idx}">
+              <button type="button" class="btn-affirm" onclick="removeChallenge(${idx})">تأكيد</button>
+              <button type="button" class="btn-cancel" onclick="disarmDel('ch_del_${idx}', 'ch_conf_${idx}')">تراجع</button>
+            </div>
+          </div>
+        ` : ''}
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:8px;">
+        <div class="field-group">
+          <label class="field-label">توصيف العائق الفني بدقة:</label>
+          <input type="text" placeholder="مثال: فقدان الاتصال اللحظي في الأماكن المغلقة..." value="${esc(ch.challenge)}" oninput="state.h1.challenges[${idx}].challenge=this.value; persistState();">
+        </div>
+        <div class="field-group">
+          <label class="field-label">السبب الجذري للعائق:</label>
+          <input type="text" placeholder="تفسير العوامل الفيزيائية أو البرمجية المسببة..." value="${esc(ch.analysis)}" oninput="state.h1.challenges[${idx}].analysis=this.value; persistState();">
+        </div>
+        <div class="field-group">
+          <label class="field-label">المعالجة الهندسية المقترحة:</label>
+          <input type="text" placeholder="كيف ستتعامل المنظومة مع هذا التحدي؟" value="${esc(ch.solution)}" oninput="state.h1.challenges[${idx}].solution=this.value; persistState();">
+        </div>
+      </div>
+    `;
+    stream.appendChild(row);
+  });
+
+  const countEl = document.getElementById('h1_ch_count');
+  if (countEl) countEl.innerText = `${String(state.h1.challenges.length).padStart(2,'0')} تحديات`;
+                                     }
