@@ -7,7 +7,6 @@
 const STORAGE_KEY = 'ATHAR_MASTER_STUDIO_V2';
 
 // 2. الحالة الشاملة المركزية للمشروع (Single Source of Truth)
-// تبدأ المصفوفات فارغة تماماً حتى يضيف الطالب عنصره الأول بنقاء
 let state = {
   h1: {
     narration: "",
@@ -94,7 +93,6 @@ const INSIGHTS = [
 // 4. الأدوات الهندسية المشتركة (Utility Functions)
 // =========================================================================
 
-// تأمين النصوص لمنع تكسر القوالب
 const esc = str => String(str || '').replace(/[&<>"']/g, m => ({
   '&': '&amp;',
   '<': '&lt;',
@@ -103,7 +101,6 @@ const esc = str => String(str || '').replace(/[&<>"']/g, m => ({
   "'": '&#39;'
 }[m]));
 
-// تأخير زمني برمجى للمؤثرات الحركية
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 // محرك ضغط الصور المسبق عبر Canvas (يدعم WebP و PNG و JPEG)
@@ -126,7 +123,6 @@ function compressImageFile(file, maxDimension, quality, callback) {
       const ctx = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0, w, h);
       
-      // تصدير الصورة المضغوطة بصيغة WebP فائقة الخفة والكفاءة
       callback(canvas.toDataURL('image/webp', quality || 0.82));
     };
     img.src = e.target.result;
