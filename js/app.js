@@ -13,17 +13,14 @@ window.currentInsightIndex = 0;
 function switchHorizon(index) {
   activeHorizonIndex = index;
 
-  // إظهار الأفق المختار وإخفاء باقي الآفاق لمنع التشتت والإجهاد المعرفي
   document.querySelectorAll('.horizon-pane').forEach((pane, i) => {
     pane.classList.toggle('active', i === index);
   });
 
-  // تحديث حالة الأزرار في الشريط السفلي العائم
   document.querySelectorAll('.dock-btn').forEach((btn, i) => {
     btn.classList.toggle('active', i === index);
   });
 
-  // تحديث عنوان الأفق في رادار الرأس
   const horizonTitles = [
     "الأفق 01: أساس المشروع والمشكلة",
     "الأفق 02: مسار التجريب والتطوير",
@@ -34,10 +31,7 @@ function switchHorizon(index) {
   const radarLabel = document.getElementById('radarHorizonLabel');
   if (radarLabel) radarLabel.innerText = horizonTitles[index];
 
-  // انزلاق سلس ومريح لأعلى الصفحة
   window.scrollTo({ top: 0, behavior: 'smooth' });
-
-  // إعادة تدقيق مؤشرات الإنجاز
   triggerProgressAudit();
 }
 
@@ -60,7 +54,6 @@ async function runInsightEngine() {
     textEl.style.opacity = '1';
     await sleep(2200);
 
-    // حساب فيضان النص وتمريره أفقياً بنعومة إذا تجاوز العرض
     const overflow = textEl.scrollWidth - vpEl.clientWidth;
     if (overflow > 6) {
       const duration = overflow / 28;
@@ -105,9 +98,9 @@ function renderChallenges() {
 
   state.h1.challenges.forEach((ch, idx) => {
     const row = document.createElement('div');
-    row.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:10px; display:flex; flex-direction:column; gap:8px;";
+    row.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:12px; display:flex; flex-direction:column; gap:8px;";
     row.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:6px;">
         <span style="font-family:var(--font-code); font-size:11px; font-weight:700;">التحدي ${String(idx+1).padStart(2,'0')}</span>
         ${state.h1.challenges.length > 1 ? `
           <div>
@@ -119,10 +112,19 @@ function renderChallenges() {
           </div>
         ` : ''}
       </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:6px;">
-        <input type="text" placeholder="توصيف العائق الفني..." value="${esc(ch.challenge)}" oninput="state.h1.challenges[${idx}].challenge=this.value; persistState();">
-        <input type="text" placeholder="السبب الجذري للعائق..." value="${esc(ch.analysis)}" oninput="state.h1.challenges[${idx}].analysis=this.value; persistState();">
-        <input type="text" placeholder="المعالجة الهندسية المقترحة..." value="${esc(ch.solution)}" oninput="state.h1.challenges[${idx}].solution=this.value; persistState();">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:8px;">
+        <div class="field-group">
+          <label class="field-label">توصيف العائق الفني بدقة:</label>
+          <input type="text" placeholder="مثال: فقدان الاتصال اللحظي في الأماكن المغلقة..." value="${esc(ch.challenge)}" oninput="state.h1.challenges[${idx}].challenge=this.value; persistState();">
+        </div>
+        <div class="field-group">
+          <label class="field-label">السبب الجذري للعائق:</label>
+          <input type="text" placeholder="تفسير العوامل الفيزيائية أو البرمجية المسببة..." value="${esc(ch.analysis)}" oninput="state.h1.challenges[${idx}].analysis=this.value; persistState();">
+        </div>
+        <div class="field-group">
+          <label class="field-label">المعالجة الهندسية المقترحة:</label>
+          <input type="text" placeholder="كيف ستتعامل المنظومة مع هذا التحدي؟" value="${esc(ch.solution)}" oninput="state.h1.challenges[${idx}].solution=this.value; persistState();">
+        </div>
       </div>
     `;
     stream.appendChild(row);
@@ -167,14 +169,17 @@ function renderStrategies() {
           </div>
         ` : ''}
       </div>
-      <input type="text" placeholder="مسمى المسار الاستراتيجي البديل..." value="${esc(st.title)}" oninput="state.h1.strategies[${sIdx}].title=this.value; updateAdoptedView(); persistState();" style="font-weight:600;">
+      <div class="field-group">
+        <label class="field-label">مسمى المسار الاستراتيجي البديل:</label>
+        <input type="text" placeholder="مثال: بناء هيكل ثلاثي المحاور بمحركات سيرفو متزامنة..." value="${esc(st.title)}" oninput="state.h1.strategies[${sIdx}].title=this.value; updateAdoptedView(); persistState();" style="font-weight:600;">
+      </div>
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:8px;">
-        <div>
-          <span style="font-size:10px; color:var(--emerald-serene); font-weight:700;">نقاط القوة والمكاسب:</span>
+        <div class="field-group">
+          <label class="field-label" style="color:var(--emerald-serene);">نقاط القوة والمكاسب:</label>
           ${st.pros.map((p, pIdx) => `<input type="text" style="margin-top:3px;" placeholder="مكسب تشغيلي..." value="${esc(p)}" oninput="state.h1.strategies[${sIdx}].pros[${pIdx}]=this.value; persistState();">`).join('')}
         </div>
-        <div>
-          <span style="font-size:10px; color:var(--red-alert); font-weight:700;">نقاط الضعف والمحددات:</span>
+        <div class="field-group">
+          <label class="field-label" style="color:var(--red-alert);">نقاط الضعف والمحددات:</label>
           ${st.cons.map((c, cIdx) => `<input type="text" style="margin-top:3px;" placeholder="محدد أو مخاطرة..." value="${esc(c)}" oninput="state.h1.strategies[${sIdx}].cons[${cIdx}]=this.value; persistState();">`).join('')}
         </div>
       </div>
@@ -280,24 +285,45 @@ function renderTrials() {
           </div>
         </div>
       </div>
-      <input type="text" placeholder="عنوان التجربة (مثال: اختبار استجابة الحساس الليزري في الظلام)..." value="${esc(t.title)}" oninput="state.h2.trials[${idx}].title=this.value; persistState();" style="font-weight:600;">
-      <textarea rows="2" placeholder="هدف المحاولة وتوزيع أدوار الفريق في الاختبار..." oninput="state.h2.trials[${idx}].goal=this.value; persistState();">${esc(t.goal)}</textarea>
+
+      <div class="field-group">
+        <label class="field-label">عنوان التجربة والمكون قيد الاختبار:</label>
+        <input type="text" placeholder="مثال: اختبار استجابة الحساس الليزري في الظلام الدامس..." value="${esc(t.title)}" oninput="state.h2.trials[${idx}].title=this.value; persistState();" style="font-weight:600;">
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">هدف المحاولة وتوزيع أدوار الفريق في الاختبار:</label>
+        <textarea rows="2" placeholder="تحديد الغرض العلمي وتوزيع مهام الملاحظة والقياس بين الأعضاء..." oninput="state.h2.trials[${idx}].goal=this.value; persistState();">${esc(t.goal)}</textarea>
+      </div>
       
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px;">
-        <div style="background:var(--emerald-bg); border:1px solid rgba(15,118,110,0.2); border-radius:var(--radius-sm); padding:10px;">
+        <div style="background:var(--emerald-bg); border:1px solid rgba(15,118,110,0.2); border-radius:var(--radius-sm); padding:10px; display:flex; flex-direction:column; gap:6px;">
           <span style="font-size:11px; font-weight:700; color:var(--emerald-serene);">ما الذي نجح؟</span>
-          <input type="text" style="margin:4px 0;" placeholder="الجزء أو السلوك الذي أدى وظيفته بدقة..." value="${esc(t.passT)}" oninput="state.h2.trials[${idx}].passT=this.value; persistState();">
-          <textarea rows="2" placeholder="قرار الفريق للبناء على هذا النجاح واستثماره..." oninput="state.h2.trials[${idx}].passD=this.value; persistState();">${esc(t.passD)}</textarea>
+          <div class="field-group">
+            <label class="field-label">الجزء أو السلوك الناجح:</label>
+            <input type="text" placeholder="السلوك الذي أدى وظيفته بدقة..." value="${esc(t.passT)}" oninput="state.h2.trials[${idx}].passT=this.value; persistState();">
+          </div>
+          <div class="field-group">
+            <label class="field-label">قرار الفريق للبناء عليه:</label>
+            <textarea rows="2" placeholder="قرار الاستثمار والبناء على هذا النجاح..." oninput="state.h2.trials[${idx}].passD=this.value; persistState();">${esc(t.passD)}</textarea>
+          </div>
         </div>
-        <div style="background:var(--red-bg); border:1px solid rgba(185,28,28,0.2); border-radius:var(--radius-sm); padding:10px;">
+
+        <div style="background:var(--red-bg); border:1px solid rgba(185,28,28,0.2); border-radius:var(--radius-sm); padding:10px; display:flex; flex-direction:column; gap:6px;">
           <span style="font-size:11px; font-weight:700; color:var(--red-alert);">ما الذي لم ينجح؟</span>
-          <input type="text" style="margin:4px 0;" placeholder="موضع العائق وأسبابه الجذرية..." value="${esc(t.failT)}" oninput="state.h2.trials[${idx}].failT=this.value; persistState();">
-          <textarea rows="2" placeholder="قرار الفريق الإجرائي لتجاوز هذا الخلل..." oninput="state.h2.trials[${idx}].failD=this.value; persistState();">${esc(t.failD)}</textarea>
+          <div class="field-group">
+            <label class="field-label">موضع العائق وأسبابه الجذرية:</label>
+            <input type="text" placeholder="موضع الخلل وسببه المباشر..." value="${esc(t.failT)}" oninput="state.h2.trials[${idx}].failT=this.value; persistState();">
+          </div>
+          <div class="field-group">
+            <label class="field-label">قرار الفريق لمعالجته:</label>
+            <textarea rows="2" placeholder="قرار الفريق الإجرائي لتجاوز هذا الخلل..." oninput="state.h2.trials[${idx}].failD=this.value; persistState();">${esc(t.failD)}</textarea>
+          </div>
         </div>
       </div>
 
-      <div>
-        <span style="font-size:11px; font-weight:600; color:var(--ink-deep);">القرار للمحاولة القادمة:</span>
+      <div class="field-group">
+        <label class="field-label" style="font-weight:700; color:var(--ink-deep);">القرار للمحاولة القادمة:</label>
         <input type="text" placeholder="الخطة الإجرائية المترتبة مباشرة للتنفيذ في الجولة التالية..." value="${esc(t.nextV)}" oninput="state.h2.trials[${idx}].nextV=this.value; persistState();">
       </div>
     `;
@@ -364,9 +390,9 @@ function renderCatalog() {
     sum += cost * qty;
 
     const row = document.createElement('div');
-    row.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:10px; display:flex; flex-direction:column; gap:8px;";
+    row.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:12px; display:flex; flex-direction:column; gap:8px;";
     row.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:6px;">
         <span style="font-family:var(--font-code); font-size:11px; font-weight:700;">المكون ${String(idx+1).padStart(2,'0')}</span>
         <div>
           <button type="button" class="btn-discrete-del" onclick="armDel('cat_del_${idx}', 'cat_conf_${idx}')" id="cat_del_${idx}">استبعاد</button>
@@ -376,13 +402,30 @@ function renderCatalog() {
           </div>
         </div>
       </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:6px;">
-        <input type="text" placeholder="اسم المكون (مثال: محرك سيرفو)..." value="${esc(item.name)}" oninput="state.h3.catalog[${idx}].name=this.value; renderBomChips(); persistState();">
-        <input type="text" placeholder="الطراز: MG996R Metal Gear..." value="${esc(item.model)}" oninput="state.h3.catalog[${idx}].model=this.value; persistState();">
-        <input type="number" step="0.5" placeholder="الكلفة: 0.00" value="${item.cost}" oninput="state.h3.catalog[${idx}].cost=this.value; renderCatalog(); persistState();">
-        <input type="number" min="1" placeholder="الكمية: 1" value="${item.qty}" oninput="state.h3.catalog[${idx}].qty=this.value; renderCatalog(); persistState();">
+
+      <div style="display:grid; grid-template-columns:1.5fr 1.2fr 0.8fr 0.8fr; gap:8px;">
+        <div class="field-group">
+          <label class="field-label">اسم المكون:</label>
+          <input type="text" placeholder="مثال: محرك سيرفو رقمي..." value="${esc(item.name)}" oninput="state.h3.catalog[${idx}].name=this.value; renderBomChips(); persistState();">
+        </div>
+        <div class="field-group">
+          <label class="field-label">الطراز والإصدار:</label>
+          <input type="text" placeholder="مثال: MG996R Metal Gear..." value="${esc(item.model)}" oninput="state.h3.catalog[${idx}].model=this.value; persistState();">
+        </div>
+        <div class="field-group">
+          <label class="field-label">الكلفة (د.أ):</label>
+          <input type="number" step="0.5" placeholder="0.00" value="${item.cost}" oninput="state.h3.catalog[${idx}].cost=this.value; renderCatalog(); persistState();">
+        </div>
+        <div class="field-group">
+          <label class="field-label">الكمية:</label>
+          <input type="number" min="1" placeholder="1" value="${item.qty}" oninput="state.h3.catalog[${idx}].qty=this.value; renderCatalog(); persistState();">
+        </div>
       </div>
-      <input type="text" placeholder="مسوغات الاختيار الهندسية وصلتها بالتحديات..." value="${esc(item.reason)}" oninput="state.h3.catalog[${idx}].reason=this.value; persistState();">
+
+      <div class="field-group">
+        <label class="field-label">مسوغات الاختيار الهندسية وعلاقتها بالتحديات:</label>
+        <input type="text" placeholder="تفسير سبب اختيار هذه القطعة بالذات..." value="${esc(item.reason)}" oninput="state.h3.catalog[${idx}].reason=this.value; persistState();">
+      </div>
     `;
     stream.appendChild(row);
   });
@@ -411,13 +454,11 @@ function removeCatalogItem(idx) {
   persistState();
 }
 
-// مراحل التطور الزمني للتصميم (4 محطات محصنة بالكامل مع رفع الصور)
 function renderEvolution() {
   const grid = document.getElementById('h3_evolution_grid');
   if (!grid) return;
   grid.innerHTML = '';
 
-  // ضمان وجود المحطات الأربع دائماً
   if (!state.h3.evolution || !Array.isArray(state.h3.evolution) || state.h3.evolution.length < 4) {
     state.h3.evolution = [
       { img: "", note: "" }, { img: "", note: "" }, { img: "", note: "" }, { img: "", note: "" }
@@ -461,7 +502,10 @@ function renderEvolution() {
         `}
       </div>
 
-      <input type="text" placeholder="أبرز التحسينات المضافة في هذا النموذج..." value="${esc(evo.note)}" oninput="state.h3.evolution[${idx}].note=this.value; persistState();" style="font-size:11px; padding:6px 8px;">
+      <div class="field-group">
+        <label class="field-label">أبرز التحسينات والدروس المكتسبة:</label>
+        <input type="text" placeholder="بيان النقلة التطويرية في هذا النموذج..." value="${esc(evo.note)}" oninput="state.h3.evolution[${idx}].note=this.value; persistState();" style="font-size:11px; padding:6px 8px;">
+      </div>
     `;
 
     grid.appendChild(card);
@@ -507,51 +551,66 @@ function renderFab() {
 
   state.h4.fabItems.forEach((fab, idx) => {
     const card = document.createElement('div');
-    card.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:14px; display:flex; flex-direction:column; gap:8px;";
+    card.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:14px; display:flex; flex-direction:column; gap:10px;";
     card.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:6px;">
         <span style="font-family:var(--font-code); font-size:11px; font-weight:700;">ابتكار التصنيع ${String(idx+1).padStart(2,'0')}</span>
         <button type="button" class="btn-discrete-del" onclick="removeFabItem(${idx})">استبعاد</button>
       </div>
-      <input type="text" placeholder="اسم القطعة المبتكرة (مثال: ذراع توجيه ثلاثي الأبعاد)..." value="${esc(fab.title)}" oninput="state.h4.fabItems[${idx}].title=this.value; persistState();" style="font-weight:600;">
-      <input type="text" placeholder="المعضلة الميكانيكية التي حلها هذا التصميم المخصص..." value="${esc(fab.problem)}" oninput="state.h4.fabItems[${idx}].problem=this.value; persistState();">
+
+      <div class="field-group">
+        <label class="field-label">اسم القطعة المبتكرة المصنّعة:</label>
+        <input type="text" placeholder="مثال: ذراع توجيه ثلاثي الأبعاد مع مفاصل ارتكاز..." value="${esc(fab.title)}" oninput="state.h4.fabItems[${idx}].title=this.value; persistState();" style="font-weight:600;">
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">المعضلة الميكانيكية التي حلها هذا التصميم المخصص:</label>
+        <input type="text" placeholder="مثال: تفادي الاصطدام بالهيكل وتوزيع عزم الدوران بالتساوي..." value="${esc(fab.problem)}" oninput="state.h4.fabItems[${idx}].problem=this.value; persistState();">
+      </div>
       
       <div class="dual-media-grid">
-        <div class="media-shelf" onclick="document.getElementById('cad_f_${idx}').click()">
-          <input type="file" id="cad_f_${idx}" accept="image/png, image/jpeg, image/webp" style="display:none;" onchange="handleSubImgUpload('h4', 'fabItems', ${idx}, 'cadImg', this)">
-          ${fab.cadImg ? `
-            <img src="${fab.cadImg}" style="display:block;">
-          ` : `
-            <div class="upload-placeholder-content">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                <line x1="12" y1="22.08" x2="12" y2="12"/>
-              </svg>
-              <span class="upload-main-text">المخطط الهندسي الرقمي (CAD)</span>
-              <span class="upload-sub-text">اضغط للرفع • PNG, JPEG, WebP</span>
-            </div>
-          `}
+        <div class="field-group">
+          <label class="field-label">المخطط الهندسي الرقمي (CAD):</label>
+          <div class="media-shelf" onclick="document.getElementById('cad_f_${idx}').click()">
+            <input type="file" id="cad_f_${idx}" accept="image/png, image/jpeg, image/webp" style="display:none;" onchange="handleSubImgUpload('h4', 'fabItems', ${idx}, 'cadImg', this)">
+            ${fab.cadImg ? `<img src="${fab.cadImg}" style="display:block;">` : `
+              <div class="upload-placeholder-content">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                </svg>
+                <span class="upload-main-text">رفع مخطط CAD (2D / 3D)</span>
+                <span class="upload-sub-text">PNG, JPEG, WebP</span>
+              </div>
+            `}
+          </div>
         </div>
 
-        <div class="media-shelf" onclick="document.getElementById('real_f_${idx}').click()">
-          <input type="file" id="real_f_${idx}" accept="image/png, image/jpeg, image/webp" style="display:none;" onchange="handleSubImgUpload('h4', 'fabItems', ${idx}, 'realImg', this)">
-          ${fab.realImg ? `
-            <img src="${fab.realImg}" style="display:block;">
-          ` : `
-            <div class="upload-placeholder-content">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="3"/>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-              </svg>
-              <span class="upload-main-text">القطعة بعد التصنيع الفعلي</span>
-              <span class="upload-sub-text">اضغط للرفع • PNG, JPEG, WebP</span>
-            </div>
-          `}
+        <div class="field-group">
+          <label class="field-label">القطعة بعد التصنيع والتشغيل الفعلي:</label>
+          <div class="media-shelf" onclick="document.getElementById('real_f_${idx}').click()">
+            <input type="file" id="real_f_${idx}" accept="image/png, image/jpeg, image/webp" style="display:none;" onchange="handleSubImgUpload('h4', 'fabItems', ${idx}, 'realImg', this)">
+            ${fab.realImg ? `<img src="${fab.realImg}" style="display:block;">` : `
+              <div class="upload-placeholder-content">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <span class="upload-main-text">رفع صورة القطعة المصنّعة</span>
+                <span class="upload-sub-text">PNG, JPEG, WebP</span>
+              </div>
+            `}
+          </div>
         </div>
       </div>
-      <textarea rows="2" placeholder="مسوغات الشكل والأبعاد وتوزيع الكتل ومراكز الارتكاز..." oninput="state.h4.fabItems[${idx}].geoReason=this.value; persistState();">${esc(fab.geoReason)}</textarea>
-      <textarea rows="2" placeholder="مسوغات اختيار الخامة (PLA, ABS, ألمنيوم...) ومقاومة الإجهاد..." oninput="state.h4.fabItems[${idx}].matReason=this.value; persistState();">${esc(fab.matReason)}</textarea>
+
+      <div class="field-group">
+        <label class="field-label">مسوغات الشكل والأبعاد وتوزيع الكتل ومراكز الارتكاز:</label>
+        <textarea rows="2" placeholder="تفسير الزوايا المختارة وتوزيع الثقل الهندسي..." oninput="state.h4.fabItems[${idx}].geoReason=this.value; persistState();">${esc(fab.geoReason)}</textarea>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">مسوغات اختيار الخامة ومقاومة الإجهاد وظروف التشغيل:</label>
+        <textarea rows="2" placeholder="تفسير اختيار PLA أو ألمنيوم أو أكريليك بحسب الحرارة والضغط..." oninput="state.h4.fabItems[${idx}].matReason=this.value; persistState();">${esc(fab.matReason)}</textarea>
+      </div>
     `;
     stream.appendChild(card);
   });
@@ -592,18 +651,35 @@ function renderAiStudies() {
 
   state.h4.aiStudies.forEach((ai, idx) => {
     const card = document.createElement('div');
-    card.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:14px; display:flex; flex-direction:column; gap:8px;";
+    card.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:14px; display:flex; flex-direction:column; gap:10px;";
     card.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:6px;">
         <span style="font-family:var(--font-code); font-size:11px; font-weight:700;">دراسة الحالة ${String(idx+1).padStart(2,'0')}</span>
         <button type="button" class="btn-discrete-del" onclick="removeAiItem(${idx})">استبعاد</button>
       </div>
-      <input type="text" placeholder="التحدي الفني المعالج (مثال: تصفية إشارة الحساس البرمجية)..." value="${esc(ai.challenge)}" oninput="state.h4.aiStudies[${idx}].challenge=this.value; persistState();">
-      <input type="text" placeholder="اسم الأداة المستخدمة (مثال: ChatGPT, Claude, Copilot)..." value="${esc(ai.tool)}" oninput="state.h4.aiStudies[${idx}].tool=this.value; persistState();">
-      <textarea rows="2" class="prompt-box" placeholder="التوجيه الدقيق الموجه للأداة (Prompt)..." oninput="state.h4.aiStudies[${idx}].prompt=this.value; persistState();">${esc(ai.prompt)}</textarea>
-      <textarea rows="2" class="output-box" placeholder="المخرج أو الكود الأولي المقترح من الأداة..." oninput="state.h4.aiStudies[${idx}].output=this.value; persistState();">${esc(ai.output)}</textarea>
-      <div style="background:var(--gold-soft); border:1px solid var(--gold-border); border-radius:var(--radius-sm); padding:10px;">
-        <span style="font-size:10.5px; font-weight:700; color:var(--gold-deep);">التحقق والتقويم والتكييف البشري (أصالة العمل):</span>
+
+      <div class="field-group">
+        <label class="field-label">التحدي الفني المعالج محل الاستشارة:</label>
+        <input type="text" placeholder="مثال: تصفية إشارة الحساس البرمجية ومنع التشويش اللحظي..." value="${esc(ai.challenge)}" oninput="state.h4.aiStudies[${idx}].challenge=this.value; persistState();">
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">اسم الأداة المستخدمة:</label>
+        <input type="text" placeholder="مثال: ChatGPT (GPT-4o), Claude 3.5 Sonnet, GitHub Copilot..." value="${esc(ai.tool)}" oninput="state.h4.aiStudies[${idx}].tool=this.value; persistState();">
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" style="font-weight:700; color:var(--ink-deep);">التوجيه والأمر البرمجي الدقيق الموجه للأداة (Prompt):</label>
+        <textarea rows="2" class="prompt-box" placeholder="الصيغة الحرفية الدقيقة للأمر والمسألة المطروحة على الأداة..." oninput="state.h4.aiStudies[${idx}].prompt=this.value; persistState();">${esc(ai.prompt)}</textarea>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">المخرج أو الكود الأولي المقترح من الأداة:</label>
+        <textarea rows="2" class="output-box" placeholder="الكود أو المقترح الأولي المستلم من الأداة قبل التعديل..." oninput="state.h4.aiStudies[${idx}].output=this.value; persistState();">${esc(ai.output)}</textarea>
+      </div>
+
+      <div style="background:var(--gold-soft); border:1px solid var(--gold-border); border-radius:var(--radius-sm); padding:10px; display:flex; flex-direction:column; gap:4px;">
+        <label class="field-label" style="font-weight:700; color:var(--gold-deep);">التحقق والتقويم والتكييف البشري (أصالة العمل والملكية الفكرية):</label>
         <textarea rows="2" placeholder="بيان مواضع الفحص البشري والخلل المكتشف في مخرج الأداة وكيف قام الفريق بتعديله واختباره واقعياً..." oninput="state.h4.aiStudies[${idx}].verification=this.value; persistState();">${esc(ai.verification)}</textarea>
       </div>
     `;
@@ -655,15 +731,30 @@ function renderIdentity() {
         ${m.img ? `<img src="${m.img}" style="display:block;">` : `<span style="font-size:11px; color:var(--ink-subtle);">+ صورة</span>`}
       </div>
       <span style="font-size:10px; font-weight:700; color:var(--gold-primary);">${k==='sup'?'المشرف الأكاديمي':'طالب مبتكر'}</span>
-      <input type="text" placeholder="الاسم الكامل..." value="${esc(m.name)}" oninput="state.h5.members['${k}'].name=this.value; renderFpTabs(); persistState();" style="font-weight:600;">
-      <input type="text" placeholder="الدور التخصصي..." value="${esc(m.role)}" oninput="state.h5.members['${k}'].role=this.value; renderFpTabs(); persistState();">
+      
+      <div class="field-group">
+        <label class="field-label">الاسم الثلاثي الكامل:</label>
+        <input type="text" placeholder="الاسم الكامل للطالب..." value="${esc(m.name)}" oninput="state.h5.members['${k}'].name=this.value; renderFpTabs(); persistState();" style="font-weight:600;">
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">الدور الميداني التخصصي:</label>
+        <input type="text" placeholder="مثال: قائد الفريق، مبرمج المنظومة..." value="${esc(m.role)}" oninput="state.h5.members['${k}'].role=this.value; renderFpTabs(); persistState();">
+      </div>
+
       ${k !== 'sup' ? `
-        <select class="field-select" onchange="state.h5.members['${k}'].grade=this.value; persistState();">
-          <option value="">تحديد الصف الدراسي...</option>
-          ${['الصف السابع','الصف الثامن','الصف التاسع','الصف العاشر','الصف الحادي عشر','الصف الثاني عشر'].map(g=>`<option value="${g}" ${m.grade===g?'selected':''}>${g}</option>`).join('')}
-        </select>
+        <div class="field-group">
+          <label class="field-label">الصف الدراسي:</label>
+          <select class="field-select" onchange="state.h5.members['${k}'].grade=this.value; persistState();">
+            <option value="">تحديد الصف الدراسي...</option>
+            ${['الصف السابع','الصف الثامن','الصف التاسع','الصف العاشر','الصف الحادي عشر','الصف الثاني عشر'].map(g=>`<option value="${g}" ${m.grade===g?'selected':''}>${g}</option>`).join('')}
+          </select>
+        </div>
       ` : `
-        <input type="text" placeholder="التخصص الأكاديمي..." value="${esc(m.major)}" oninput="state.h5.members['sup'].major=this.value; persistState();">
+        <div class="field-group">
+          <label class="field-label">التخصص الأكاديمي للمشرف:</label>
+          <input type="text" placeholder="مثال: هندسة ميكاترونكس، حاسوب..." value="${esc(m.major)}" oninput="state.h5.members['sup'].major=this.value; persistState();">
+        </div>
       `}
     `;
     pDeck.appendChild(card);
@@ -702,15 +793,34 @@ function renderFpPanes() {
   if (!container || !m || !fp) return;
 
   container.innerHTML = `
-    <div class="stage-card" style="background:#fff;">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
+    <div class="stage-card" style="background:#fff; gap:10px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:6px;">
         <strong>${m.name || 'عضو الفريق'} • ${m.role}</strong>
-        <input type="date" value="${fp.date||''}" onchange="state.h5.footprints['${curKey}'].date=this.value; persistState();" style="width:auto; font-size:11px;">
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="font-size:10.5px; color:var(--ink-subtle);">تاريخ الانضمام:</span>
+          <input type="date" value="${fp.date||''}" onchange="state.h5.footprints['${curKey}'].date=this.value; persistState();" style="width:auto; font-size:11px; padding:2px 6px;">
+        </div>
       </div>
-      <input type="text" placeholder="مهمتي الرئيسية والمسؤولية المباشرة..." value="${esc(fp.role)}" oninput="state.h5.footprints['${curKey}'].role=this.value; persistState();">
-      <textarea rows="2" placeholder="أهم مساهمة وفارق أفتخر به في نجاح المنظومة..." oninput="state.h5.footprints['${curKey}'].impact=this.value; persistState();">${esc(fp.impact)}</textarea>
-      <textarea rows="2" placeholder="الدرس والتحول المهاري والفكري المكتسب..." oninput="state.h5.footprints['${curKey}'].lesson=this.value; persistState();">${esc(fp.lesson)}</textarea>
-      <textarea rows="2" placeholder="الرسالة والأثر المستدام المراد تركه..." oninput="state.h5.footprints['${curKey}'].quote=this.value; persistState();">${esc(fp.quote)}</textarea>
+
+      <div class="field-group">
+        <label class="field-label">مهمتي الرئيسية والمسؤولية المباشرة في المشروع:</label>
+        <input type="text" placeholder="توصيف المهام التنفيذية المباشرة في المنظومة..." value="${esc(fp.role)}" oninput="state.h5.footprints['${curKey}'].role=this.value; persistState();">
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">أهم مساهمة وفارق نوعي أفتخر به في نجاح المنظومة:</label>
+        <textarea rows="2" placeholder="المساهمة المحددة التي أحدثت فرقاً ملموساً في الأداء..." oninput="state.h5.footprints['${curKey}'].impact=this.value; persistState();">${esc(fp.impact)}</textarea>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">الدرس والتحول المهاري والفكري المكتسب من التحديات:</label>
+        <textarea rows="2" placeholder="المهارات التقنية والشخصية التي استقرت في نفسي بعد هذا العمل..." oninput="state.h5.footprints['${curKey}'].lesson=this.value; persistState();">${esc(fp.lesson)}</textarea>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" style="font-weight:700; color:var(--gold-deep);">الرسالة والأثر المستدام المراد تركه:</label>
+        <textarea rows="2" placeholder="الصياغة الشخصية للأثر والرسالة التي أطمح لغرسها في وطني..." oninput="state.h5.footprints['${curKey}'].quote=this.value; persistState();"></textarea>
+      </div>
     </div>
   `;
 }
@@ -850,7 +960,6 @@ function triggerProgressAudit() {
   updateBadgeSafe('badge_h5', h5_ok ? 'مكتمل ومستوفٍ ✓' : `${h5_score}% منجز`);
   updateDockCheckSafe('dock_chk_4', h5_ok);
 
-  // حساب المعدل العام التراكمي للمنظومة
   const overallPct = Math.round((h1_score + h2_score + h3_score + h4_score + h5_score) / 5);
 
   const pctEl = document.getElementById('radarPercentDigit');
@@ -858,7 +967,6 @@ function triggerProgressAudit() {
   if (pctEl) pctEl.innerText = `${overallPct}%`;
   if (barEl) barEl.style.width = `${overallPct}%`;
 
-  // التوجيه الذكي للمتبقي في الأفق النشط حالياً
   const horizonScores = [h1_score, h2_score, h3_score, h4_score, h5_score];
   const curScore = horizonScores[activeHorizonIndex];
   const hints = [
@@ -922,7 +1030,6 @@ function restoreMasterState() {
       const parsed = JSON.parse(raw);
       state = { ...state, ...parsed };
       
-      // ضمان سلامة بنية المحطات الأربع دائماً
       if (!state.h3.evolution || !Array.isArray(state.h3.evolution) || state.h3.evolution.length < 4) {
         state.h3.evolution = [
           { img: "", note: "" }, { img: "", note: "" }, { img: "", note: "" }, { img: "", note: "" }
@@ -989,7 +1096,6 @@ function restoreMasterState() {
   if (teamSizeEl) teamSizeEl.value = state.h5.teamSize || '3';
   renderIdentity();
 
-  // تدقيق الإنجاز العام
   triggerProgressAudit();
 }
 
