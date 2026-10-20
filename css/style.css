@@ -1,9 +1,11 @@
 /* =========================================================================
-   أَثَـر • ATHAR DESIGN SYSTEM
+   أَثَـر • ATHAR UNIFIED DESIGN SYSTEM (MASTER STYLESHEET)
    البطولة الوطنية للابتكار والروبوت — وزارة التربية والتعليم وتنمية الموارد البشرية
    ========================================================================= */
 
-/* 1. المتغيرات والأساسيات المعمارية (Design Tokens) */
+/* =========================================================================
+   1. المتغيرات والأساسيات المعمارية (Design Tokens & Reset)
+   ========================================================================= */
 :root {
   --bg-sky: #faf9f6;
   --surface-pure: #ffffff;
@@ -63,7 +65,7 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-  padding-bottom: 95px; /* حيز للشريط العائم */
+  padding-bottom: 100px; /* حيز مريح للشريط السفلي العائم */
 }
 
 button, input, textarea, select {
@@ -72,7 +74,7 @@ button, input, textarea, select {
 }
 
 /* =========================================================================
-   2. الترويسة الموحدة ومصباح البصيرة (Master Header)
+   2. الترويسة الموحدة ومصباح البصيرة (Master Header & Insight Ticker)
    ========================================================================= */
 .master-header {
   position: sticky;
@@ -120,7 +122,7 @@ button, input, textarea, select {
   color: var(--ink-deep);
 }
 
-/* مصباح البصيرة القرآني المتدفق */
+/* مصباح البصيرة القرآني والنبوي */
 .insight-deck {
   flex: 1;
   max-width: 440px;
@@ -133,7 +135,7 @@ button, input, textarea, select {
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  transition: all 0.25s;
+  transition: all 0.25s var(--ease-smooth);
 }
 .insight-deck:hover {
   box-shadow: 0 3px 12px var(--gold-glow);
@@ -162,7 +164,7 @@ button, input, textarea, select {
   font-size: 11.5px;
   font-weight: 500;
   color: var(--gold-deep);
-  transition: opacity 0.4s;
+  transition: opacity 0.4s var(--ease-smooth);
 }
 
 .tools-cluster {
@@ -184,7 +186,7 @@ button, input, textarea, select {
   font-weight: 600;
   color: var(--ink-soft);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s var(--ease-smooth);
 }
 .btn-notif:hover {
   border-color: var(--ink-deep);
@@ -311,7 +313,7 @@ button, input, textarea, select {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* رأس الأفق */
+/* ترويسة كل أفق */
 .horizon-head {
   background: #ffffff;
   border: 1px solid var(--border-whisper);
@@ -353,7 +355,7 @@ button, input, textarea, select {
   flex-shrink: 0;
 }
 
-/* بطاقات المراحل الهندسية داخل كل أفق */
+/* بطاقات المراحل الهندسية داخل الأفق */
 .stage-card {
   background: var(--surface-card);
   border: 1px solid var(--border-whisper);
@@ -396,7 +398,6 @@ button, input, textarea, select {
   font-weight: 600;
 }
 
-/* شارات الرموز والأكواد */
 .badge-code {
   font-family: var(--font-code);
   font-size: 11px;
@@ -408,8 +409,27 @@ button, input, textarea, select {
 }
 
 /* =========================================================================
-   5. الحقول النصية والنصوص الدلالية الشفافة (Inputs & Ghost Placeholders)
+   5. العناوين الدائمة والحقول والنصوص الدلالية (Form System & Ghost Placeholders)
    ========================================================================= */
+
+/* العناوين الحقلية الدائمة فوق المربعات - حل مشكلة الـ UX جذرياً */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+}
+
+.field-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 2px;
+  letter-spacing: 0.1px;
+}
+
+/* الحقول النصية المعيارية */
 textarea, input[type="text"], input[type="number"], input[type="date"], select, .field-select {
   width: 100%;
   border: 1px solid var(--border-whisper);
@@ -420,7 +440,7 @@ textarea, input[type="text"], input[type="number"], input[type="date"], select, 
   color: var(--ink-deep);
   background: #ffffff;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s var(--ease-smooth), box-shadow 0.2s var(--ease-smooth);
 }
 textarea:focus, input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus {
   border-color: var(--border-focus);
@@ -431,7 +451,7 @@ textarea {
   min-height: 64px;
 }
 
-/* نصوص دلالية إرشادية نصف شفافة تختفي فور النقر أو التركيز */
+/* نصوص دلالية إرشادية باهتة تختفي فور النقر أو التركيز */
 input::placeholder, textarea::placeholder {
   color: var(--ink-subtle);
   opacity: 0.52;
@@ -442,7 +462,7 @@ input:focus::placeholder, textarea:focus::placeholder {
   opacity: 0 !important;
 }
 
-/* عدادات الكلمات */
+/* عداد الكلمات المندمج */
 .word-meter {
   font-family: var(--font-code);
   font-size: 11px;
@@ -454,7 +474,7 @@ input:focus::placeholder, textarea:focus::placeholder {
 .word-meter.in-range { color: var(--emerald-serene); font-weight: 600; }
 .word-meter.out-range { color: var(--red-alert); }
 
-/* التيارات العمودية والبطاقات الفارغة */
+/* التيارات العمودية والبطاقات التمهيدية الفارغة */
 .vertical-stream {
   display: flex;
   flex-direction: column;
@@ -474,7 +494,7 @@ input:focus::placeholder, textarea:focus::placeholder {
   gap: 4px;
 }
 
-/* مصفوفة الأفق 01 */
+/* مسارات الأفق 01 */
 .adopted-selection-banner {
   background: #ffffff;
   border: 1px solid var(--border-whisper);
@@ -504,7 +524,7 @@ input:focus::placeholder, textarea:focus::placeholder {
   .grid-pillar { grid-template-columns: 1fr; }
 }
 
-/* زر التلميح */
+/* زر التلميح الموضعي */
 .beacon-btn {
   width: 18px;
   height: 18px;
@@ -517,7 +537,7 @@ input:focus::placeholder, textarea:focus::placeholder {
   color: var(--ink-subtle);
   cursor: pointer;
   flex-shrink: 0;
-  transition: transform 0.2s, color 0.2s;
+  transition: transform 0.2s var(--ease-smooth), color 0.2s var(--ease-smooth);
 }
 .beacon-btn:hover { color: var(--gold-primary); transform: scale(1.15); }
 .beacon-btn svg { width: 15px; height: 15px; }
@@ -622,7 +642,7 @@ input:focus::placeholder, textarea:focus::placeholder {
 }
 
 /* =========================================================================
-   7. مسرح الإسقاط المكاني التفاعلي للمجسم (Spatial Pinning Theater)
+   7. مسرح الإسقاط المكاني التفاعلي للمجسم (Hardware Pinning Theater)
    ========================================================================= */
 .stage-viewport-boundary {
   position: relative;
@@ -773,7 +793,7 @@ input:focus::placeholder, textarea:focus::placeholder {
   align-items: center;
   gap: 6px;
   flex-shrink: 0;
-  transition: all 0.2s;
+  transition: all 0.2s var(--ease-smooth);
 }
 .bom-chip-token.is-located {
   background: var(--gold-soft);
@@ -1012,7 +1032,7 @@ input:focus::placeholder, textarea:focus::placeholder {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: all 0.2s;
+  transition: all 0.2s var(--ease-smooth);
   text-decoration: none;
 }
 .btn-append-atom:hover {
@@ -1329,45 +1349,3 @@ input:focus::placeholder, textarea:focus::placeholder {
   white-space: normal;
 }
 #masterTooltip.visible { opacity: 1; visibility: visible; transform: translateY(0); }
-function renderChallenges() {
-  const stream = document.getElementById('h1_challenges_stream');
-  if (!stream) return;
-  stream.innerHTML = '';
-
-  state.h1.challenges.forEach((ch, idx) => {
-    const row = document.createElement('div');
-    row.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:12px; display:flex; flex-direction:column; gap:8px;";
-    row.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:6px;">
-        <span style="font-family:var(--font-code); font-size:11px; font-weight:700;">التحدي ${String(idx+1).padStart(2,'0')}</span>
-        ${state.h1.challenges.length > 1 ? `
-          <div>
-            <button type="button" class="btn-discrete-del" onclick="armDel('ch_del_${idx}', 'ch_conf_${idx}')" id="ch_del_${idx}">استبعاد</button>
-            <div class="confirm-deck" id="ch_conf_${idx}">
-              <button type="button" class="btn-affirm" onclick="removeChallenge(${idx})">تأكيد</button>
-              <button type="button" class="btn-cancel" onclick="disarmDel('ch_del_${idx}', 'ch_conf_${idx}')">تراجع</button>
-            </div>
-          </div>
-        ` : ''}
-      </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:8px;">
-        <div class="field-group">
-          <label class="field-label">توصيف العائق الفني بدقة:</label>
-          <input type="text" placeholder="مثال: فقدان الاتصال اللحظي في الأماكن المغلقة..." value="${esc(ch.challenge)}" oninput="state.h1.challenges[${idx}].challenge=this.value; persistState();">
-        </div>
-        <div class="field-group">
-          <label class="field-label">السبب الجذري للعائق:</label>
-          <input type="text" placeholder="تفسير العوامل الفيزيائية أو البرمجية المسببة..." value="${esc(ch.analysis)}" oninput="state.h1.challenges[${idx}].analysis=this.value; persistState();">
-        </div>
-        <div class="field-group">
-          <label class="field-label">المعالجة الهندسية المقترحة:</label>
-          <input type="text" placeholder="كيف ستتعامل المنظومة مع هذا التحدي؟" value="${esc(ch.solution)}" oninput="state.h1.challenges[${idx}].solution=this.value; persistState();">
-        </div>
-      </div>
-    `;
-    stream.appendChild(row);
-  });
-
-  const countEl = document.getElementById('h1_ch_count');
-  if (countEl) countEl.innerText = `${String(state.h1.challenges.length).padStart(2,'0')} تحديات`;
-                                     }
