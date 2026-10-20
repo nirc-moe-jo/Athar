@@ -1,0 +1,2640 @@
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>أَثَـر • استوديو التوثيق الهندسي المطور | البطولة الوطنية للابتكار والروبوت</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700&family=JetBrains+Mono:wght@400;500;600;700&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-sky: #faf9f6;
+      --surface-pure: #ffffff;
+      --surface-card: #fafaf8;
+      --surface-glass: rgba(255, 255, 255, 0.94);
+      
+      --ink-deep: #141619;
+      --ink-soft: #4b525a;
+      --ink-subtle: #8a929d;
+
+      --gold-primary: #a77824;
+      --gold-deep: #785312;
+      --gold-soft: #fcf8ee;
+      --gold-border: #e8d7b6;
+      --gold-glow: rgba(167, 120, 36, 0.28);
+
+      --emerald-serene: #0f766e;
+      --emerald-bg: #f0fdfa;
+      --red-alert: #b91c1c;
+      --red-bg: #fef2f2;
+
+      --border-whisper: rgba(20, 22, 25, 0.08);
+      --border-focus: rgba(20, 22, 25, 0.3);
+
+      --font-body: 'Readex Pro', -apple-system, sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+      --font-quran: 'Amiri', serif;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
+      --radius-pill: 9999px;
+
+      --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-elastic: cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100vw;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-color: var(--bg-sky);
+      color: var(--ink-deep);
+      line-height: 1.6;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding-bottom: 95px; /* حيز للشريط العائم */
+    }
+
+    /* ============================================================
+       1. الترويسة الموحدة: الشعار، قبس البصيرة، الإعلانات، وكود الفريق
+       ============================================================ */
+    .master-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--surface-glass);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border-whisper);
+      padding: 10px clamp(12px, 3vw, 32px);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .brand-seed {
+      width: 9px;
+      height: 9px;
+      background: var(--gold-primary);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px var(--gold-glow);
+      animation: pulseOrigin 3s infinite var(--ease-smooth);
+    }
+    @keyframes pulseOrigin {
+      0%, 100% { transform: scale(0.9); box-shadow: 0 0 0 3px var(--gold-glow); }
+      50% { transform: scale(1.15); box-shadow: 0 0 0 7px rgba(167, 120, 36, 0); }
+    }
+    .brand-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--ink-deep);
+    }
+
+    /* مصباح البصيرة القرآني */
+    .insight-deck {
+      flex: 1;
+      max-width: 440px;
+      height: 36px;
+      background: #ffffff;
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-pill);
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .insight-deck:hover {
+      box-shadow: 0 3px 12px var(--gold-glow);
+      border-color: var(--gold-primary);
+    }
+    .insight-beacon-icon {
+      color: var(--gold-primary);
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+    .insight-kinetic-viewport {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+      height: 100%;
+      mask-image: linear-gradient(to left, black 0%, black 88%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to left, black 0%, black 88%, transparent 100%);
+    }
+    .insight-kinetic-text {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      line-height: 36px;
+      white-space: nowrap;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--gold-deep);
+      transition: opacity 0.4s;
+    }
+
+    .tools-cluster {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .btn-notif {
+      height: 32px;
+      padding: 0 10px;
+      background: #ffffff;
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-pill);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-notif:hover {
+      border-color: var(--ink-deep);
+      color: var(--ink-deep);
+    }
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--red-alert);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--red-alert);
+      animation: pulseSignal 2s infinite;
+    }
+    @keyframes pulseSignal {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+    .team-badge {
+      background: #ffffff;
+      border: 1px solid var(--gold-border);
+      color: var(--gold-deep);
+      font-family: var(--font-code);
+      font-size: 11px;
+      font-weight: 700;
+      height: 32px;
+      padding: 0 10px;
+      border-radius: var(--radius-pill);
+      display: inline-flex;
+      align-items: center;
+      letter-spacing: 0.5px;
+    }
+
+    /* ============================================================
+       2. شريط رادار الإنجاز الموجه المانع للتشتت (Focus Radar)
+       ============================================================ */
+    .radar-strip {
+      max-width: 1000px;
+      margin: 14px auto 0;
+      padding: 0 clamp(12px, 3vw, 32px);
+      width: 100%;
+    }
+    .radar-card {
+      background: #ffffff;
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-md);
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .radar-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .radar-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .radar-status {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .radar-metrics {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .radar-pct {
+      font-family: var(--font-code);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink-deep);
+    }
+    .radar-track-mini {
+      width: 90px;
+      height: 6px;
+      background: var(--bg-sky);
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+      border: 1px solid var(--border-whisper);
+    }
+    .radar-fill-mini {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #c89b3c, var(--gold-primary));
+      border-radius: var(--radius-pill);
+      transition: width 0.4s var(--ease-smooth);
+    }
+
+    /* ============================================================
+       3. مسرح الأفق المشهدي المركّز (Horizon Studio Stage)
+       ============================================================ */
+    .studio-viewport {
+      max-width: 1000px;
+      margin: 16px auto 0;
+      padding: 0 clamp(12px, 3vw, 32px);
+      width: 100%;
+      flex: 1;
+    }
+
+    .horizon-pane {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+      animation: horizonFade 0.3s var(--ease-smooth);
+    }
+    .horizon-pane.active {
+      display: flex;
+    }
+    @keyframes horizonFade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* رأس الأفق */
+    .horizon-head {
+      background: #ffffff;
+      border: 1px solid var(--border-whisper);
+      border-right: 4px solid var(--gold-primary);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.02);
+    }
+    .horizon-tag {
+      font-family: var(--font-code);
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--gold-primary);
+      letter-spacing: 0.5px;
+    }
+    .horizon-title {
+      font-size: clamp(17px, 2.5vw, 21px);
+      font-weight: 700;
+      margin: 2px 0 4px;
+    }
+    .horizon-desc {
+      font-size: 12.5px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+    .horizon-state-pill {
+      background: var(--gold-soft);
+      border: 1px solid var(--gold-border);
+      color: var(--gold-deep);
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* كتل الأقسام الهندسية داخل الأفق */
+    .stage-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-md);
+      padding: clamp(14px, 2.5vw, 22px);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: all 0.25s var(--ease-smooth);
+    }
+    .stage-card:focus-within {
+      background: #ffffff;
+      border-color: rgba(20, 22, 25, 0.2);
+      box-shadow: 0 8px 24px -6px rgba(0,0,0,0.04);
+    }
+    .stage-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .stage-label-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stage-idx {
+      font-family: var(--font-code);
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--ink-soft);
+      background: #ffffff;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-whisper);
+    }
+    .stage-name {
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+
+    /* الحقول النصية المعيارية */
+    textarea, input[type="text"], input[type="number"], select.field-select {
+      width: 100%;
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 9px 12px;
+      font-size: 12.5px;
+      line-height: 1.65;
+      color: var(--ink-deep);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    textarea:focus, input[type="text"]:focus, input[type="number"]:focus, select.field-select:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(20, 22, 25, 0.035);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 64px;
+    }
+
+    /* عدادات الكلمات المندمجة */
+    .word-meter {
+      font-family: var(--font-code);
+      font-size: 11px;
+      color: var(--ink-subtle);
+      display: inline-flex;
+      align-items: baseline;
+      gap: 3px;
+    }
+    .word-meter.in-range { color: var(--emerald-serene); font-weight: 600; }
+    .word-meter.out-range { color: var(--red-alert); }
+
+    /* مسرح إرفاق الصور الميدانية */
+    .media-shelf {
+      border: 1px dashed rgba(20, 22, 25, 0.18);
+      border-radius: var(--radius-sm);
+      background: #ffffff;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 6px;
+      cursor: pointer;
+      position: relative;
+      min-height: 120px;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+    .media-shelf:hover {
+      border-color: var(--ink-deep);
+      background: var(--gold-soft);
+    }
+    .media-shelf img {
+      max-width: 100%;
+      max-height: 260px;
+      border-radius: var(--radius-sm);
+      display: none;
+      object-fit: contain;
+    }
+
+    /* نظام الحذف والتأكيد الذري من خطوتين */
+    .btn-discrete-del {
+      border: none;
+      background: transparent;
+      color: var(--ink-subtle);
+      cursor: pointer;
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+    .btn-discrete-del:hover { color: var(--red-alert); }
+    .confirm-deck {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(185, 28, 28, 0.3);
+    }
+    .confirm-deck.active { display: inline-flex; }
+    .btn-affirm {
+      border: none;
+      background: var(--red-alert);
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+    }
+    .btn-cancel {
+      border: none;
+      background: transparent;
+      color: var(--ink-soft);
+      font-size: 10px;
+      cursor: pointer;
+      padding: 1px 4px;
+    }
+
+    /* زر التلميح الموضعي */
+    .beacon-btn {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-subtle);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: transform 0.2s, color 0.2s;
+    }
+    .beacon-btn:hover { color: var(--gold-primary); transform: scale(1.15); }
+    .beacon-btn svg { width: 15px; height: 15px; }
+
+    /* أزرار الإضافة الذرية */
+    .btn-append-atom {
+      background: transparent;
+      border: 1px dashed var(--border-whisper);
+      border-radius: var(--radius-pill);
+      padding: 6px 14px;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      align-self: flex-start;
+      transition: all 0.2s;
+    }
+    .btn-append-atom:hover {
+      border-color: var(--ink-deep);
+      color: var(--ink-deep);
+      background: #ffffff;
+    }
+
+    /* ============================================================
+       أدوات الأفق 03: مسرح الإسقاط المكاني فائق الإحسان
+       ============================================================ */
+    .stage-viewport-boundary {
+      position: relative;
+      width: 100%;
+      min-height: 380px;
+      background: #ffffff;
+      background-image: radial-gradient(rgba(20, 22, 25, 0.07) 1px, transparent 1px);
+      background-size: 18px 18px;
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      touch-action: pan-y !important;
+      user-select: none;
+    }
+
+    .btn-camera-orbital {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--surface-glass);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-whisper);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 30;
+      transition: all 0.25s var(--ease-smooth);
+    }
+    .btn-camera-orbital:hover {
+      border-color: var(--gold-primary);
+      transform: scale(1.08) rotate(12deg);
+      box-shadow: 0 6px 20px var(--gold-glow);
+    }
+    .btn-camera-orbital svg { width: 26px; height: 26px; }
+
+    .image-tight-frame {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+      line-height: 0;
+    }
+    .robot-rendered-img {
+      max-width: 100%;
+      max-height: 520px;
+      display: none;
+      object-fit: contain;
+      pointer-events: none;
+      border-radius: var(--radius-sm);
+    }
+    .pins-strict-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .pin-specimen-node {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: none !important;
+    }
+    .pin-core-disc {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--ink-deep);
+      color: #ffffff;
+      border: 2px solid #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-code);
+      font-size: 11px;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
+      transition: all 0.2s var(--ease-smooth);
+    }
+
+    @media (max-width: 680px) {
+      .pin-core-disc {
+        width: 15px;
+        height: 15px;
+        font-size: 0px;
+        background: var(--gold-primary);
+        border: 2px solid #ffffff;
+        box-shadow: 0 0 0 3px var(--gold-glow);
+        animation: jewelPulse 3s infinite;
+      }
+      @keyframes jewelPulse {
+        0%, 100% { transform: scale(1); box-shadow: 0 0 0 3px var(--gold-glow); }
+        50% { transform: scale(1.25); box-shadow: 0 0 0 6px rgba(167, 120, 36, 0.45); }
+      }
+    }
+
+    .targeting-reticle-toast {
+      display: none;
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--ink-deep);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 18px;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      z-index: 35;
+    }
+
+    /* القائمة الدائرية الشعاعية */
+    .radial-pie-scrim {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      background: rgba(20, 22, 25, 0.3);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+    .radial-pie-scrim.visible { display: flex; }
+    .radial-menu-wheel {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(254, 250, 242, 0.98);
+      backdrop-filter: blur(20px);
+      border: 1.5px solid rgba(167, 120, 36, 0.35);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      transform: translate(-50%, -50%) scale(0.9);
+      animation: piePop 0.2s var(--ease-elastic) forwards;
+    }
+    @keyframes piePop { to { transform: translate(-50%, -50%) scale(1); } }
+    .pie-center-hub {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1.5px solid var(--gold-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+    .pie-sector-petal {
+      position: absolute;
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      border: none;
+      background: #ffffff;
+      color: var(--ink-deep);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+      transition: all 0.18s;
+    }
+    .pie-sector-petal:hover {
+      background: var(--gold-soft);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-deep);
+      transform: scale(1.08);
+    }
+    .petal-top { top: 6px; left: 50%; transform: translateX(-50%); }
+    .petal-bottom { bottom: 6px; left: 50%; transform: translateX(-50%); }
+    .petal-right { right: 6px; top: 50%; transform: translateY(-50%); }
+    .petal-left { left: 6px; top: 50%; transform: translateY(-50%); }
+
+    /* شريط شرائح الـ BOM ودرج الفحص */
+    .bom-chips-deck {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 0;
+      scrollbar-width: none;
+    }
+    .bom-chips-deck::-webkit-scrollbar { display: none; }
+    .bom-chip-token {
+      background: #ffffff;
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-pill);
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .bom-chip-token.is-located {
+      background: var(--gold-soft);
+      border-color: rgba(167, 120, 36, 0.35);
+      color: var(--gold-deep);
+    }
+    .bom-chip-token.is-active-target {
+      background: var(--gold-primary);
+      color: #ffffff;
+      border-color: var(--gold-primary);
+      box-shadow: 0 4px 12px var(--gold-glow);
+    }
+
+    .inspect-drawer-card {
+      background: #ffffff;
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+    }
+
+    /* ============================================================
+       أدوات الأفق 04: محرر الكود، التصنيع، ودليل draw.io
+       ============================================================ */
+    .code-terminal-box {
+      background: #141619;
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .terminal-meta-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-code);
+      font-size: 10px;
+      color: #717682;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 6px;
+    }
+    .terminal-textarea {
+      width: 100%;
+      background: transparent !important;
+      border: none !important;
+      outline: none !important;
+      color: #38bdf8;
+      font-family: var(--font-code);
+      font-size: 12px;
+      line-height: 1.6;
+      resize: vertical;
+      min-height: 110px;
+      direction: ltr;
+      text-align: left;
+      box-shadow: none !important;
+      padding: 4px 0;
+    }
+
+    .dual-media-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media(max-width: 580px) { .dual-media-grid { grid-template-columns: 1fr; } }
+
+    .prompt-box {
+      background: #ffffff !important;
+      border: 1.5px solid rgba(20, 22, 25, 0.16) !important;
+      font-size: 12px !important;
+    }
+    .output-box {
+      background: #f7f6f2 !important;
+      border: 1px dashed rgba(20, 22, 25, 0.2) !important;
+      font-size: 12px !important;
+    }
+
+    /* ============================================================
+       أدوات الأفق 05: هوية الفريق وبصمات الأثر الفردية
+       ============================================================ */
+    .profile-deck-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+    .member-profile-card {
+      background: #ffffff;
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+    }
+    .avatar-vault {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(20, 22, 25, 0.2);
+      background: var(--surface-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+    }
+    .avatar-vault img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .footprint-tabs-bar {
+      display: flex;
+      gap: 6px;
+      border-bottom: 1px solid var(--border-whisper);
+      padding-bottom: 8px;
+      overflow-x: auto;
+    }
+    .footprint-tab-btn {
+      background: #ffffff;
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-pill);
+      padding: 5px 14px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .footprint-tab-btn.active {
+      background: var(--ink-deep);
+      color: #ffffff;
+      border-color: var(--ink-deep);
+    }
+    .footprint-pane { display: none; flex-direction: column; gap: 12px; }
+    .footprint-pane.active { display: flex; }
+
+    /* ============================================================
+       4. شريط الأفق السفلي العائم (Floating Studio Dock)
+       ============================================================ */
+    .studio-dock {
+      position: fixed;
+      bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-whisper);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border-radius: var(--radius-pill);
+      padding: 5px 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      z-index: 100;
+      max-width: calc(100vw - 20px);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .studio-dock::-webkit-scrollbar { display: none; }
+    .dock-btn {
+      border: none;
+      background: transparent;
+      padding: 7px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.22s var(--ease-smooth);
+    }
+    .dock-btn small {
+      font-family: var(--font-code);
+      font-size: 9px;
+      color: var(--gold-primary);
+    }
+    .dock-btn.active {
+      background: var(--ink-deep);
+      color: #ffffff;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+    }
+    .dock-btn.active small { color: #d8c398; }
+    .dock-check {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--emerald-serene);
+    }
+
+    /* أزرار التنقل السفلية بين الآفاق داخل كل قسم */
+    .horizon-nav-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-whisper);
+      margin-top: 10px;
+    }
+
+    /* النوافذ العائمة المنبثقة */
+    .scrim-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 22, 25, 0.4);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100000;
+      padding: 16px;
+    }
+    .scrim-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      width: 100%;
+      max-width: 500px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 22px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+      border: 1px solid var(--border-whisper);
+    }
+    .btn-close-modal {
+      width: 100%;
+      background: var(--bg-sky);
+      border: 1px solid var(--border-whisper);
+      border-radius: var(--radius-pill);
+      padding: 9px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      cursor: pointer;
+      margin-top: 16px;
+      transition: all 0.2s;
+    }
+    .btn-close-modal:hover { background: var(--ink-deep); color: #ffffff; }
+
+    #masterTooltip {
+      position: fixed;
+      z-index: 1000000;
+      background: #141619;
+      color: #ffffff;
+      font-size: 11px;
+      line-height: 1.55;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(4px);
+      transition: opacity 0.2s, transform 0.2s;
+      max-width: 250px;
+      white-space: normal;
+    }
+    #masterTooltip.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- حاوية التلميحات الذكية المانعة للفيضان -->
+  <div id="masterTooltip"></div>
+
+  <!-- 1. الترويسة الموحدة -->
+  <header class="master-header">
+    <div class="header-inner">
+      <div class="brand-cluster" onclick="switchHorizon(0)" title="العودة لأول أفق">
+        <span class="brand-seed"></span>
+        <span class="brand-title">أَثَـر</span>
+      </div>
+
+      <!-- قبس البصيرة القرآني والنبوي المتدفق -->
+      <div class="insight-deck" onclick="openInsightModal()" title="انقر لقراءة قبس البصيرة كاملاً">
+        <span class="insight-beacon-icon">✦</span>
+        <div class="insight-kinetic-viewport" id="insightViewport">
+          <div class="insight-kinetic-text" id="insightText">﴿ وَقُل رَّبِّ زِدْنِي عِلْمًا ﴾</div>
+        </div>
+      </div>
+
+      <div class="tools-cluster">
+        <button type="button" class="btn-notif" onclick="openNotifModal()">
+          <span class="live-dot"></span>
+          <span>الإعلانات</span>
+        </button>
+        <span class="team-badge">AED-1101</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. رادار الإنجاز الموجه المانع للتشتت (Focus Radar) -->
+  <aside class="radar-strip">
+    <div class="radar-card">
+      <div class="radar-info">
+        <span class="radar-title" id="radarHorizonLabel">الأفق الحالي: 01 الأساس</span>
+        <span class="radar-status" id="radarMissingHint">جارٍ فحص استيفاء المعايير الهندسية...</span>
+      </div>
+      <div class="radar-metrics">
+        <div class="radar-track-mini">
+          <div class="radar-fill-mini" id="radarFillBar"></div>
+        </div>
+        <span class="radar-pct" id="radarPercentDigit">0%</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 3. استوديو الآفاق الخمسة المركزة (Horizon Studio Stage) -->
+  <main class="studio-viewport">
+
+    <!-- ============================================================
+         الأفق 01: أساس المشروع (من الفكرة إلى الواقع)
+         ============================================================ -->
+    <article class="horizon-pane active" id="pane_horizon_0">
+      <div class="horizon-head">
+        <div>
+          <span class="horizon-tag">HORIZON 01 • FOUNDATION</span>
+          <h1 class="horizon-title">القسم الأول: أساس المشروع (من الفكرة إلى الواقع)</h1>
+          <p class="horizon-desc">تأسيس الأثر: توثيق الواقع الميداني الذي انطلقت منه الحاجة، تفكيك المعضلات في مصفوفة مسببة، واعتماد الاستراتيجية الحاكمة.</p>
+        </div>
+        <span class="horizon-state-pill" id="badge_h0">قيد البناء</span>
+      </div>
+
+      <!-- 01: الشعور بالمشكلة -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">01</span>
+            <h2 class="stage-name">كيف بدأ كل شيء؟ (الشعور بالمشكلة الميدانية)</h2>
+            <button type="button" class="beacon-btn" data-tip="توصيف المشكلة الميدانية الواقعية بدقة دون استباق للحلول المقترحة (50 - 100 كلمة).">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </button>
+          </div>
+          <div class="word-meter" id="originMeterWrap">
+            <span id="originWordDigit">0</span> / 50 – 100 كلمة
+          </div>
+        </div>
+
+        <textarea id="h1_narration" rows="4" placeholder="اكتب قصة رصد المشكلة الميدانية، وظروف نشأتها، والأثر السلبي المترتب على بقائها دون حل..." oninput="evaluateOriginWords()"></textarea>
+
+        <div class="media-shelf" onclick="document.getElementById('h1_img_file').click()">
+          <span id="h1_img_prompt" style="font-size:11.5px; color:var(--ink-soft);">إرفاق الصورة التوثيقية لواقع المشكلة أو البيئة الميدانية (PNG / JPEG)</span>
+          <input type="file" id="h1_img_file" accept="image/png, image/jpeg" style="display:none;" onchange="handleShelfUpload('h1_img', 'h1_img_prev', 'h1_img_prompt', 'h1_img_del', this)">
+          <img id="h1_img_prev" alt="توثيق المشكلة">
+          <div id="h1_img_del" style="display:none; position:absolute; top:8px; left:8px;" onclick="event.stopPropagation()">
+            <button type="button" class="btn-discrete-del" onclick="armDel('h1_del_init', 'h1_del_conf')" id="h1_del_init">إزالة الصورة</button>
+            <div class="confirm-deck" id="h1_del_conf">
+              <button type="button" class="btn-affirm" onclick="confirmShelfDel('h1_img', 'h1_img_prev', 'h1_img_prompt', 'h1_img_del', 'h1_img_file')">تأكيد</button>
+              <button type="button" class="btn-cancel" onclick="disarmDel('h1_del_init', 'h1_del_conf')">تراجع</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02: مصفوفة التحديات التحليلية -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">02</span>
+            <h2 class="stage-name">تفكيك المسألة: مصفوفة التحديات التحليلية</h2>
+            <button type="button" class="beacon-btn" data-tip="تفكيك المشكلة إلى عوائق فنية مع بيان السبب الجذري والمعالجة المقترحة لكل عائق.">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </button>
+          </div>
+          <span style="font-family:var(--font-code); font-size:11px;" id="h1_ch_count">01 تحديات</span>
+        </div>
+
+        <div id="h1_challenges_stream" style="display:flex; flex-direction:column; gap:10px;"></div>
+        <button type="button" class="btn-append-atom" onclick="appendChallengeRow()">+ إدراج تحدٍ تحليلي جديد</button>
+      </section>
+
+      <!-- 03: استكشاف المسارات وتقييم البدائل -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">03</span>
+            <h2 class="stage-name">استكشاف المسارات: تقييم البدائل والخيارات</h2>
+            <button type="button" class="beacon-btn" data-tip="المفاضلة بين مسارين مختلفين جذرياً على الأقل، مع حصر نقاط القوة والضعف.">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </button>
+          </div>
+          <span style="font-family:var(--font-code); font-size:11px;" id="h1_st_count">02 مسارات</span>
+        </div>
+
+        <div id="h1_strategies_stream" style="display:flex; flex-direction:column; gap:12px;"></div>
+        <button type="button" class="btn-append-atom" onclick="appendStrategyNode()">+ إضافة مسار استراتيجي بديل</button>
+      </section>
+
+      <!-- 04: الاستراتيجية المعتمدة وخارطة الطريق -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">04</span>
+            <h2 class="stage-name">الاستراتيجية المعتمدة وخارطة الطريق</h2>
+          </div>
+        </div>
+
+        <div style="background:#ffffff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <span style="font-size:10.5px; color:var(--ink-subtle); display:block;">المسار الهندسي المعتمد:</span>
+            <strong style="font-size:13px;" id="h1_adopted_view">لم يتم تحديد المسار المعتمد بعد</strong>
+          </div>
+          <button type="button" class="btn-append-atom" onclick="openAdoptedPickerModal()" style="align-self:center;">تحديد المسار الفائز ↗</button>
+        </div>
+
+        <input type="text" id="h1_statement" placeholder="الصياغة المنهجية الشاملة للاستراتيجية المعتمدة..." oninput="persistState()">
+
+        <div style="display:grid; grid-template-columns:1fr 2fr; gap:10px;">
+          <input type="text" id="h1_pillar_axis" placeholder="المحور الحاكم الأساسي (مثال: الموثوقية وخفة الوزن)..." oninput="persistState()">
+          <input type="text" id="h1_pillar_reason" placeholder="سبب الأهمية وعلاقته بنجاح المنظومة وموثوقيتها..." oninput="persistState()">
+        </div>
+      </section>
+
+      <footer class="horizon-nav-footer">
+        <span></span>
+        <button type="button" class="btn-append-atom" style="background:var(--ink-deep); color:#fff; border:none;" onclick="switchHorizon(1)">
+          متابعة الإنجاز ➔ مسار التجريب والتطوير
+        </button>
+      </footer>
+    </article>
+
+    <!-- ============================================================
+         الأفق 02: مسار التجريب والتعلّم المستمر
+         ============================================================ -->
+    <article class="horizon-pane" id="pane_horizon_1">
+      <div class="horizon-head">
+        <div>
+          <span class="horizon-tag">HORIZON 02 • ITERATION</span>
+          <h1 class="horizon-title">القسم الثاني: رحلة التطوير وتوثيق التجارب</h1>
+          <p class="horizon-desc">سجل التوثيق التكراري: تدوين دورات التجريب؛ كل محاولة ترصد المنجز، تفكك أسباب العائق، وتقرر الإجراء للجولة التالية.</p>
+        </div>
+        <span class="horizon-state-pill" id="badge_h1">قيد التوثيق</span>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <span style="font-family:var(--font-code); font-size:11.5px; font-weight:600;" id="h2_trials_count">01 تجارب مسجلة</span>
+        <button type="button" class="btn-append-atom" onclick="appendTrialCard()">+ إدراج تجربة جديدة</button>
+      </div>
+
+      <div id="h2_trials_stream" style="display:flex; flex-direction:column; gap:16px;"></div>
+
+      <button type="button" class="btn-append-atom" onclick="appendTrialCard()" style="margin:0 auto;">+ إدراج تجربة جديدة</button>
+
+      <footer class="horizon-nav-footer">
+        <button type="button" class="btn-append-atom" onclick="switchHorizon(0)">← العودة لأساس المشروع</button>
+        <button type="button" class="btn-append-atom" style="background:var(--ink-deep); color:#fff; border:none;" onclick="switchHorizon(2)">
+          متابعة الإنجاز ➔ التصميم والعتاد المادي
+        </button>
+      </footer>
+    </article>
+
+    <!-- ============================================================
+         الأفق 03: التصميم والعتاد ومسرح الإسقاط المكاني
+         ============================================================ -->
+    <article class="horizon-pane" id="pane_horizon_2">
+      <div class="horizon-head">
+        <div>
+          <span class="horizon-tag">HORIZON 03 • PHYSICAL DESIGN</span>
+          <h1 class="horizon-title">القسم الثالث: التصميم وبيان المكونات والعتاد</h1>
+          <p class="horizon-desc">تجسيد الفكرة في الواقع: حصر المكونات وعتاد المنظومة، الإسقاط المكاني التفاعلي المرقم، ومراحل التطور الزمني للتصميم.</p>
+        </div>
+        <span class="horizon-state-pill" id="badge_h2">قيد التجسيد</span>
+      </div>
+
+      <!-- 01: بيان المكونات والعتاد BOM -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">01</span>
+            <h2 class="stage-name">بيان المكونات والعتاد ومسوغات الاختيار (BOM)</h2>
+          </div>
+          <div style="background:#ffffff; border:1px solid var(--border-whisper); padding:3px 12px; border-radius:var(--radius-pill); font-family:var(--font-code); font-size:11.5px; font-weight:700;">
+            المجموع: <span id="h3_total_cost">0.00 د.أ</span>
+          </div>
+        </div>
+
+        <div id="h3_catalog_stream" style="display:flex; flex-direction:column; gap:10px;"></div>
+        <button type="button" class="btn-append-atom" onclick="appendCatalogRow()">+ إدراج مكون جديد</button>
+      </section>
+
+      <!-- 02: مسرح الإسقاط المكاني المرقم فائق الإحسان -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">02</span>
+            <h2 class="stage-name">النموذج النهائي وترقيم المكونات تفاعلياً</h2>
+            <button type="button" class="beacon-btn" data-tip="ارفع صورة النموذج النهائي، ثم اضغط على أي مكون في الشريط السفلي لإسقاط رقمه في موضعه بدقة.">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="stage-viewport-boundary" id="stageBoundary">
+          <button type="button" class="btn-camera-orbital" onclick="document.getElementById('h3_robot_file').click()" title="تبديل صورة النموذج">
+            <svg viewBox="0 0 48 48" fill="none">
+              <path d="M 14 12 A 17 17 0 0 1 37 18" stroke="#a77824" stroke-width="2" stroke-linecap="round"/>
+              <path d="M 33 18 L 38 18.5 L 37.5 13.5" stroke="#a77824" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 34 36 A 17 17 0 0 1 11 30" stroke="#a77824" stroke-width="2" stroke-linecap="round"/>
+              <path d="M 15 30 L 10 29.5 L 10.5 34.5" stroke="#a77824" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 16 20 C 16 18.8 17 18 18 18 H 20.5 L 22 16 H 26 L 27.5 18 H 30 C 31 18 32 18.8 32 20 V 29 C 32 30.2 31 31 30 31 H 18 C 17 31 16 30.2 16 29 Z" stroke="#141619" stroke-width="2" stroke-linejoin="round"/>
+              <circle cx="24" cy="24.5" r="3.5" stroke="#141619" stroke-width="2"/>
+            </svg>
+          </button>
+          <input type="file" id="h3_robot_file" accept="image/png, image/jpeg" style="display:none;" onchange="handleRobotImageUpload(this)">
+
+          <div class="targeting-reticle-toast" id="targetToast">انقر فوق موضع القطعة على الصورة لتثبيتها</div>
+
+          <div class="empty-schematic-frame" id="h3_empty_prompt" onclick="document.getElementById('h3_robot_file').click()" style="display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; padding:40px; text-align:center;">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#a77824" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="3 3"/>
+              <circle cx="12" cy="12" r="3"/>
+              <line x1="12" y1="3" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="21"/>
+              <line x1="3" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="21" y2="12"/>
+            </svg>
+            <strong style="font-size:13px;">إرفاق صورة النموذج النهائي المكتمل</strong>
+            <span style="font-size:11px; color:var(--ink-subtle);">اضغط لاختيار صورة الروبوت للبدء في إسقاط المؤشرات</span>
+          </div>
+
+          <div class="image-tight-frame" id="imageTightFrame">
+            <img id="robotImageEl" class="robot-rendered-img" alt="النموذج النهائي">
+            <div class="pins-strict-overlay" id="pinsStrictOverlay"></div>
+          </div>
+        </div>
+
+        <!-- شريط المكونات السفلي البديهي -->
+        <nav class="bom-chips-deck" id="bomChipsDeck"></nav>
+
+        <!-- درج الفحص السريع المنساب -->
+        <div class="inspect-drawer-card" id="inspectDrawer">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:4px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="background:var(--gold-primary); color:#fff; font-family:var(--font-code); font-size:10px; font-weight:700; padding:1px 6px; border-radius:4px;" id="drawerNum">01</span>
+              <strong style="font-size:12.5px;" id="drawerTitle">اسم المكون</strong>
+              <span style="font-family:var(--font-code); font-size:10.5px; color:var(--ink-subtle);" id="drawerModel">الطراز</span>
+            </div>
+            <button type="button" style="border:none; background:transparent; font-size:13px; cursor:pointer;" onclick="closeDrawer()">✕</button>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:6px; font-size:11px;">
+            <div><span style="color:var(--ink-subtle);">المسوغات:</span> <span id="drawerReason" style="font-weight:600;">-</span></div>
+            <div><span style="color:var(--ink-subtle);">الكلفة:</span> <span id="drawerCost" style="font-weight:600;">-</span></div>
+            <div><span style="color:var(--ink-subtle);">أفق الترقية:</span> <span id="drawerUpgrade" style="font-weight:600;">-</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03: مراحل التطور الزمني للتصميم -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">03</span>
+            <h2 class="stage-name">مراحل التطور الزمني للتصميم (4 محطات)</h2>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px;" id="h3_evolution_grid"></div>
+      </section>
+
+      <footer class="horizon-nav-footer">
+        <button type="button" class="btn-append-atom" onclick="switchHorizon(1)">← العودة لمسار التجريب</button>
+        <button type="button" class="btn-append-atom" style="background:var(--ink-deep); color:#fff; border:none;" onclick="switchHorizon(3)">
+          متابعة الإنجاز ➔ الابتكار والتحقق البرمجي
+        </button>
+      </footer>
+    </article>
+
+    <!-- ============================================================
+         الأفق 04: الابتكار التقني، التصنيع، والتحقق البشري
+         ============================================================ -->
+    <article class="horizon-pane" id="pane_horizon_3">
+      <div class="horizon-head">
+        <div>
+          <span class="horizon-tag">HORIZON 04 • INNOVATION & AI</span>
+          <h1 class="horizon-title">القسم الرابع: الابتكار التقني والتصنيع الرقمي</h1>
+          <p class="horizon-desc">البنية البرمجية والخوارزمية، ابتكارات التصنيع الرقمي، وتوظيف الأدوات المتقدمة مع إثبات التحقق البشري لضمان الملكية الفكرية.</p>
+        </div>
+        <span class="horizon-state-pill" id="badge_h3">قيد التوثيق</span>
+      </div>
+
+      <!-- 01: المخطط الانسيابي العام للنظام -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">01</span>
+            <h2 class="stage-name">المنطق العام للنظام (المخطط الانسيابي)</h2>
+          </div>
+          <button type="button" class="btn-append-atom" onclick="openDrawioGuideModal()">دليل ومنصة draw.io ↗</button>
+        </div>
+
+        <div class="media-shelf" onclick="document.getElementById('h4_flow_file').click()">
+          <span id="h4_flow_prompt" style="font-size:11.5px; color:var(--ink-soft);">إرفاق المخطط الانسيابي للنظام (PNG / JPEG)</span>
+          <input type="file" id="h4_flow_file" accept="image/png, image/jpeg" style="display:none;" onchange="handleShelfUpload('h4_flow', 'h4_flow_prev', 'h4_flow_prompt', 'h4_flow_del', this)">
+          <img id="h4_flow_prev" alt="المخطط الانسيابي">
+          <div id="h4_flow_del" style="display:none; position:absolute; top:8px; left:8px;" onclick="event.stopPropagation()">
+            <button type="button" class="btn-discrete-del" onclick="armDel('h4_del_init', 'h4_del_conf')" id="h4_del_init">إزالة</button>
+            <div class="confirm-deck" id="h4_del_conf">
+              <button type="button" class="btn-affirm" onclick="confirmShelfDel('h4_flow', 'h4_flow_prev', 'h4_flow_prompt', 'h4_flow_del', 'h4_flow_file')">تأكيد</button>
+              <button type="button" class="btn-cancel" onclick="disarmDel('h4_del_init', 'h4_del_conf')">تراجع</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02: الخوارزمية المحورية تحت المجهر -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">02</span>
+            <h2 class="stage-name">الخوارزمية المحورية ومحرر الكود المصدري</h2>
+          </div>
+        </div>
+
+        <input type="text" id="h4_algo_name" placeholder="اسم الخوارزمية البرمجية..." oninput="persistState()">
+        <input type="text" id="h4_algo_problem" placeholder="المعضلة الفنية التي تعالجها الخوارزمية في الروبوت..." oninput="persistState()">
+
+        <div class="code-terminal-box">
+          <div class="terminal-meta-bar">
+            <span>CORE ALGORITHM SOURCE CODE</span>
+            <span>UTF-8 • MONO</span>
+          </div>
+          <textarea id="h4_algo_code" class="terminal-textarea" placeholder="// كتابة الشفرة البرمجية المكتوبة بأيدي الفريق بلغة البرمجة المعتمدة..." oninput="persistState()"></textarea>
+        </div>
+
+        <textarea rows="3" id="h4_algo_logic" placeholder="تفكيك المنطق الهندسي (المدخلات، العمليات والمعادلات، شروط القرار، والمخرجات)..." oninput="persistState()"></textarea>
+      </section>
+
+      <!-- 03: ابتكارات التصنيع الرقمي CAD vs Real -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">03</span>
+            <h2 class="stage-name">ابتكارات التصنيع الرقمي والمجسمات (CAD vs Real)</h2>
+          </div>
+          <span style="font-family:var(--font-code); font-size:11px;" id="h4_fab_count">01 ابتكارات</span>
+        </div>
+
+        <div id="h4_fab_stream" style="display:flex; flex-direction:column; gap:12px;"></div>
+        <button type="button" class="btn-append-atom" onclick="appendFabItem()">+ إضافة ابتكار تصنيع جديد</button>
+      </section>
+
+      <!-- 04: توظيف الأدوات المتقدمة والتحقق البشري -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">04</span>
+            <h2 class="stage-name">توظيف الأدوات المتقدمة والتحقق البشري من الذكاء الاصطناعي</h2>
+          </div>
+          <span style="font-family:var(--font-code); font-size:11px;" id="h4_ai_count">01 دراسات</span>
+        </div>
+
+        <div id="h4_ai_stream" style="display:flex; flex-direction:column; gap:12px;"></div>
+        <button type="button" class="btn-append-atom" onclick="appendAiItem()">+ إضافة دراسة حالة أداة ذكاء اصطناعي</button>
+      </section>
+
+      <footer class="horizon-nav-footer">
+        <button type="button" class="btn-append-atom" onclick="switchHorizon(2)">← العودة للتصميم والعتاد</button>
+        <button type="button" class="btn-append-atom" style="background:var(--ink-deep); color:#fff; border:none;" onclick="switchHorizon(4)">
+          متابعة الإنجاز ➔ هوية الفريق وبصمة الصانع
+        </button>
+      </footer>
+    </article>
+
+    <!-- ============================================================
+         الأفق 05: هوية الفريق وبصمة الصانع
+         ============================================================ -->
+    <article class="horizon-pane" id="pane_horizon_4">
+      <div class="horizon-head">
+        <div>
+          <span class="horizon-tag">HORIZON 05 • TEAM IDENTITY</span>
+          <h1 class="horizon-title">القسم الخامس: من نحن؟ (هوية الفريق وبصمة الصانع)</h1>
+          <p class="horizon-desc">البعد الإنساني وروح الفريق: توثيق البطاقات التعريفية للمشرف والطلبة، ورصد بصمة الأثر الفردي والرسالة المستدامة.</p>
+        </div>
+        <span class="horizon-state-pill" id="badge_h5">قيد الاكتمال</span>
+      </div>
+
+      <!-- 01: البطاقات التعريفية -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">01</span>
+            <h2 class="stage-name">بطاقات التعريف الرسمية بأعضاء الفريق</h2>
+          </div>
+          <div style="display:inline-flex; align-items:center; gap:6px; background:#fff; border:1px solid var(--border-whisper); padding:2px 8px; border-radius:var(--radius-pill);">
+            <span style="font-size:10px; color:var(--ink-soft);">هيكل الفريق:</span>
+            <select id="h5_team_size" style="border:none; font-size:11px; font-weight:700; outline:none; background:transparent;" onchange="adjustTeamSize(this.value)">
+              <option value="3">3 طلاب والمشرف</option>
+              <option value="2">طالبان والمشرف</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="profile-deck-grid" id="h5_profiles_deck"></div>
+      </section>
+
+      <!-- 02: بصمات الأثر والرسالة المستدامة -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">02</span>
+            <h2 class="stage-name">بصمة الصانع والأثر الفردي في المنظومة</h2>
+          </div>
+        </div>
+
+        <div class="footprint-tabs-bar" id="h5_fp_tabs"></div>
+        <div id="h5_fp_panes"></div>
+      </section>
+
+      <footer class="horizon-nav-footer">
+        <button type="button" class="btn-append-atom" onclick="switchHorizon(3)">← العودة للابتكار والتحقق</button>
+        <span style="font-size:11.5px; font-weight:700; color:var(--emerald-serene);">✓ تم استعراض كافة الآفاق الهندسية للأثر</span>
+      </footer>
+    </article>
+
+  </main>
+
+  <!-- 4. شريط الأفق السفلي العائم (Floating Studio Dock) -->
+  <nav class="studio-dock">
+    <button type="button" class="dock-btn active" onclick="switchHorizon(0)" id="dock_btn_0">
+      <small>01</small>
+      <span>المُنطلق</span>
+      <span class="dock-check" id="dock_chk_0" style="display:none;"></span>
+    </button>
+    <button type="button" class="dock-btn" onclick="switchHorizon(1)" id="dock_btn_1">
+      <small>02</small>
+      <span>التجريب</span>
+      <span class="dock-check" id="dock_chk_1" style="display:none;"></span>
+    </button>
+    <button type="button" class="dock-btn" onclick="switchHorizon(2)" id="dock_btn_2">
+      <small>03</small>
+      <span>التجسيد</span>
+      <span class="dock-check" id="dock_chk_2" style="display:none;"></span>
+    </button>
+    <button type="button" class="dock-btn" onclick="switchHorizon(3)" id="dock_btn_3">
+      <small>04</small>
+      <span>الابتكار</span>
+      <span class="dock-check" id="dock_chk_3" style="display:none;"></span>
+    </button>
+    <button type="button" class="dock-btn" onclick="switchHorizon(4)" id="dock_btn_4">
+      <small>05</small>
+      <span>البصمة</span>
+      <span class="dock-check" id="dock_chk_4" style="display:none;"></span>
+    </button>
+  </nav>
+
+  <!-- ============================================================
+       النوافذ المنبثقة: البصيرة، الإعلانات، draw.io، والقائمة الدائرية
+       ============================================================ -->
+
+  <!-- القائمة الدائرية القطاعية (The Radial Pie Menu) -->
+  <div class="radial-pie-scrim" id="radialScrim" onclick="closeRadialMenu(event)">
+    <div class="radial-menu-wheel" id="radialWheel">
+      <div class="pie-center-hub">
+        <span style="font-family:var(--font-code); font-size:12px; font-weight:700; color:var(--gold-primary);" id="pieHubNum">01</span>
+        <span style="font-size:8px; color:var(--ink-subtle);">مكون</span>
+      </div>
+      <button type="button" class="pie-sector-petal petal-top" onclick="triggerRadialAction('relocate')">
+        <span style="font-size:15px;">✥</span>
+        <span style="font-size:9px; font-weight:700;">تحريك</span>
+      </button>
+      <button type="button" class="pie-sector-petal petal-right" onclick="triggerRadialAction('inspect')">
+        <span style="font-size:15px;">ⓘ</span>
+        <span style="font-size:9px; font-weight:700;">فحص</span>
+      </button>
+      <button type="button" class="pie-sector-petal petal-bottom" onclick="triggerRadialAction('remove')" style="color:var(--red-alert);">
+        <span style="font-size:15px;">✕</span>
+        <span style="font-size:9px; font-weight:700;">إزالة</span>
+      </button>
+      <button type="button" class="pie-sector-petal petal-left" onclick="triggerRadialAction('reassign')">
+        <span style="font-size:15px;">⇄</span>
+        <span style="font-size:9px; font-weight:700;">تبديل</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- نافذة التبديل الواعية (Reassign Sheet Modal) -->
+  <div class="scrim-modal" id="reassignModal" onclick="if(event.target===this) closeReassignModal()">
+    <div class="scrim-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:8px; margin-bottom:12px;">
+        <strong style="font-size:13px;">تحديد المكون البديل للمؤشر</strong>
+        <button type="button" onclick="closeReassignModal()" style="border:none; background:transparent; font-size:14px; cursor:pointer;">✕</button>
+      </div>
+      <div id="reassignOptionsStream" style="display:flex; flex-direction:column; gap:8px;"></div>
+    </div>
+  </div>
+
+  <!-- نافذة اختيار المسار المعتمد في الأفق 01 -->
+  <div class="scrim-modal" id="adoptedPickerModal" onclick="if(event.target===this) closeAdoptedPickerModal()">
+    <div class="scrim-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:8px; margin-bottom:12px;">
+        <strong style="font-size:13px;">اعتماد المسار الهندسي الفائز</strong>
+        <button type="button" onclick="closeAdoptedPickerModal()" style="border:none; background:transparent; font-size:14px; cursor:pointer;">✕</button>
+      </div>
+      <div id="adoptedOptionsStream" style="display:flex; flex-direction:column; gap:8px;"></div>
+    </div>
+  </div>
+
+  <!-- نافذة دليل منصة draw.io المعتمدة -->
+  <div class="scrim-modal" id="drawioModal" onclick="if(event.target===this) closeDrawioGuideModal()">
+    <div class="scrim-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:8px; margin-bottom:12px;">
+        <strong style="font-size:13px;">دليل ومنصة إعداد المخطط الانسيابي المعتمد</strong>
+        <button type="button" onclick="closeDrawioGuideModal()" style="border:none; background:transparent; font-size:14px; cursor:pointer;">✕</button>
+      </div>
+      <div style="font-size:11.5px; color:var(--ink-soft); line-height:1.7; display:flex; flex-direction:column; gap:8px;">
+        <p>المخطط الانسيابي هو لغة بصرية موحدة تترجم منطق البرنامج وفق الأشكال القياسية:</p>
+        <ul style="margin-right:18px;">
+          <li><strong>الشكل البيضاوي:</strong> نقطة البداية والنهاية الحتمية.</li>
+          <li><strong>المستطيل:</strong> العمليات الحسابية وتحديث قيم المتغيرات.</li>
+          <li><strong>المعين:</strong> الشروط المنطقية ونقاط اتخاذ القرار (نعم / لا).</li>
+          <li><strong>الأسهم:</strong> اتجاه تدفق البيانات والأوامر.</li>
+        </ul>
+        <div style="display:flex; flex-direction:column; gap:6px; margin-top:6px;">
+          <a href="https://app.diagrams.net/" target="_blank" class="btn-append-atom" style="justify-content:space-between; width:100%;">
+            <span>فتح منصة draw.io الهندسية السحابية</span> <span>↗</span>
+          </a>
+          <a href="https://drive.google.com/file/d/1oISZKI-GKpwcGaVVRuyU-dLCb5_JzqyS/view?usp=drivesdk#page=95" target="_blank" class="btn-append-atom" style="justify-content:space-between; width:100%;">
+            <span>كتاب المهارات الرقمية (ص 95) • درس تصميم الخوارزميات</span> <span>↗</span>
+          </a>
+        </div>
+      </div>
+      <button type="button" class="btn-close-modal" onclick="closeDrawioGuideModal()">إغلاق الدليل والعودة</button>
+    </div>
+  </div>
+
+  <!-- نافذة قبس البصيرة -->
+  <div class="scrim-modal" id="insightModal" onclick="if(event.target===this) closeInsightModal()">
+    <div class="scrim-card" style="text-align:center;">
+      <span style="font-size:11px; font-weight:700; color:var(--gold-primary);">قبس من نور الوحي والعمل</span>
+      <div style="font-family:var(--font-quran); font-size:22px; line-height:1.9; margin:16px 0; color:var(--ink-deep);" id="modalFullQuote"></div>
+      <span style="font-size:12px; color:var(--gold-deep); font-weight:600;" id="modalQuoteSource"></span>
+      <button type="button" class="btn-close-modal" onclick="closeInsightModal()">تمثّل المعنى ومواصلة الأثر</button>
+    </div>
+  </div>
+
+  <!-- نافذة الإعلانات الرسمية -->
+  <div class="scrim-modal" id="notifModal" onclick="if(event.target===this) closeNotifModal()">
+    <div class="scrim-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:8px; margin-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span class="live-dot"></span>
+          <strong style="font-size:13px;">الإعلانات والتوجيهات الميدانية</strong>
+        </div>
+        <button type="button" onclick="closeNotifModal()" style="border:none; background:transparent; font-size:14px; cursor:pointer;">✕</button>
+      </div>
+      <div style="background:var(--gold-soft); border:1px solid var(--gold-border); border-radius:var(--radius-sm); padding:12px;">
+        <span style="font-size:10px; font-weight:700; color:var(--gold-deep);">إدارة البطولة الوطنية للابتكار والروبوت</span>
+        <h4 style="font-size:12px; margin:2px 0 4px;">تأكيد موثوقية الأثر وتكامل التوثيق</h4>
+        <p style="font-size:11.5px; color:var(--ink-soft); line-height:1.6;">
+          يرجى من جميع الفرق إكمال مسوغات اختيار المكونات، وربط دبابيس الإسقاط بالصورة، وتوثيق التدخل البشري في مخرجات الذكاء الاصطناعي لحفظ الملكية الفكرية.
+        </p>
+      </div>
+      <button type="button" class="btn-close-modal" onclick="closeNotifModal()">إغلاق</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       5. العقل البرمجي الموحد (Unified Application Engine)
+       ============================================================ -->
+  <script>
+    const STORAGE_KEY = 'ATHAR_MASTER_STUDIO_V1';
+
+    // الحالة الشاملة المركزية للمشروع
+    let state = {
+      h1: {
+        narration: "",
+        image: "",
+        challenges: [{ challenge: "", analysis: "", solution: "" }],
+        strategies: [{ title: "", pros: [""], cons: [""] }, { title: "", pros: [""], cons: [""] }],
+        adoptedIndex: null,
+        statement: "",
+        pillarAxis: "",
+        pillarReason: ""
+      },
+      h2: {
+        trials: [{ date: "", title: "", goal: "", summary: "", resImg: "", act1Img: "", act2Img: "", passT: "", passD: "", failT: "", failD: "", nextV: "" }]
+      },
+      h3: {
+        catalog: [
+          { name: "المعالج المركزي المزدوج", model: "ESP32-S3 WROOM", cost: "12.50", qty: "1", reason: "معالجة الخوارزميات والاتصال اللحظي", upgrade: "دعم شبكات MESH", link: "" }
+        ],
+        robotImg: "",
+        pins: [],
+        evolution: [
+          { img: "", note: "" }, { img: "", note: "" }, { img: "", note: "" }, { img: "", note: "" }
+        ]
+      },
+      h4: {
+        flowImg: "",
+        algoName: "",
+        algoProblem: "",
+        algoCode: "",
+        algoLogic: "",
+        fabItems: [{ title: "", problem: "", cadImg: "", realImg: "", geoReason: "", matReason: "" }],
+        aiStudies: [{ challenge: "", tool: "", prompt: "", output: "", verification: "" }]
+      },
+      h5: {
+        teamSize: "3",
+        activeFpKey: "sup",
+        members: {
+          sup: { name: "", role: "المشرف الأكاديمي", major: "", img: "" },
+          st1: { name: "", role: "قائد الفريق", grade: "", branch: "", img: "" },
+          st2: { name: "", role: "مبرمج المنظومة", grade: "", branch: "", img: "" },
+          st3: { name: "", role: "مصمم الهيكل", grade: "", branch: "", img: "" }
+        },
+        footprints: {
+          sup: { date: "", role: "", impact: "", lesson: "", quote: "" },
+          st1: { date: "", role: "", impact: "", lesson: "", quote: "" },
+          st2: { date: "", role: "", impact: "", lesson: "", quote: "" },
+          st3: { date: "", role: "", impact: "", lesson: "", quote: "" }
+        }
+      }
+    };
+
+    let activeHorizonIndex = 0;
+    const esc = str => (str || '').replace(/"/g, '&quot;');
+
+    // ============================================================
+    // محرك ضغط الصور المسبق المانع لامتلاء التخزين (Canvas Compressor)
+    // ============================================================
+    function compressImageFile(file, maxDimension, quality, callback) {
+      if (!file || !file.type.match(/image.*/)) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        const img = new Image();
+        img.onload = () => {
+          let w = img.width, h = img.height;
+          const max = maxDimension || 1200;
+          if (w > max || h > max) {
+            if (w > h) { h = Math.round((h * max) / w); w = max; }
+            else { w = Math.round((w * max) / h); h = max; }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.max(1, w);
+          canvas.height = Math.max(1, h);
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          callback(canvas.toDataURL('image/jpeg', quality || 0.82));
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // ============================================================
+    // محرك التنقل المشهدي المركّز (Horizon Studio Switching)
+    // ============================================================
+    function switchHorizon(index) {
+      activeHorizonIndex = index;
+      document.querySelectorAll('.horizon-pane').forEach((p, i) => {
+        p.classList.toggle('active', i === index);
+      });
+      document.querySelectorAll('.dock-btn').forEach((b, i) => {
+        b.classList.toggle('active', i === index);
+      });
+
+      const titles = [
+        "الأفق 01: أساس المشروع والمشكلة",
+        "الأفق 02: مسار التجريب والتطوير",
+        "الأفق 03: التصميم والعتاد المادي",
+        "الأفق 04: الابتكار التقني والتحقق",
+        "الأفق 05: هوية الفريق وبصمة الصانع"
+      ];
+      document.getElementById('radarHorizonLabel').innerText = titles[index];
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      triggerProgressAudit();
+    }
+
+    // ============================================================
+    // قبس البصيرة وتدفق الوحي والعمل
+    // ============================================================
+    const INSIGHTS = [
+      { short: "﴿ وَقُل رَّبِّ زِدْنِي عِلْمًا ﴾", full: "﴿ فَتَعَالَى اللَّهُ الْمَلِكُ الْحَقُّ ۗ وَلَا تَعْجَلْ بِالْقُرْآنِ مِن قَبْلِ أَن يُقْضَىٰ إِلَيْكَ وَحْيُهُ ۖ وَقُل رَّبِّ زِدْنِي عِلْمًا ﴾", src: "سورة طه · الآية 114" },
+      { short: "« إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ »", full: "« إِنَّ اللَّهَ تَعَالَى يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ »", src: "حديث شريف · رواه البيهقي" },
+      { short: "﴿ صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ ﴾", full: "﴿ صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ ۚ إِنَّهُ خَبِيرٌ بِمَا تَفْعَلُونَ ﴾", src: "سورة النمل · الآية 88" },
+      { short: "﴿ إِنَّا لَا نُضِيعُ أَجْرَ مَنْ أَحْسَنَ عَمَلًا ﴾", full: "﴿ إِنَّ الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ إِنَّا لَا نُضِيعُ أَجْرَ مَنْ أَحْسَنَ عَمَلًا ﴾", src: "سورة الكهف · الآية 30" }
+    ];
+    let insightIdx = 0;
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+    async function runInsightEngine() {
+      const el = document.getElementById('insightText');
+      const vp = document.getElementById('insightViewport');
+      while (true) {
+        const item = INSIGHTS[insightIdx];
+        el.style.opacity = '0';
+        el.style.right = '0px';
+        el.textContent = item.short;
+        await sleep(50);
+        el.style.opacity = '1';
+        await sleep(2200);
+
+        const overflow = el.scrollWidth - vp.clientWidth;
+        if (overflow > 6) {
+          const duration = overflow / 28;
+          el.style.transition = `right ${duration}s linear`;
+          el.style.right = `-${overflow + 8}px`;
+          await sleep(duration * 1000);
+        }
+        await sleep(3500);
+        el.style.transition = 'opacity 0.4s';
+        el.style.opacity = '0';
+        await sleep(400);
+        insightIdx = (insightIdx + 1) % INSIGHTS.length;
+      }
+    }
+
+    function openInsightModal() {
+      const it = INSIGHTS[insightIdx];
+      document.getElementById('modalFullQuote').innerText = it.full;
+      document.getElementById('modalQuoteSource').innerText = it.src;
+      document.getElementById('insightModal').style.display = 'flex';
+    }
+    function closeInsightModal() { document.getElementById('insightModal').style.display = 'none'; }
+    function openNotifModal() { document.getElementById('notifModal').style.display = 'flex'; }
+    function closeNotifModal() { document.getElementById('notifModal').style.display = 'none'; }
+    function openDrawioGuideModal() { document.getElementById('drawioModal').style.display = 'flex'; }
+    function closeDrawioGuideModal() { document.getElementById('drawioModal').style.display = 'none'; }
+
+    // ============================================================
+    // الأفق 01: الأساس والتحديات والبدائل
+    // ============================================================
+    function evaluateOriginWords() {
+      const text = document.getElementById('h1_narration').value.trim();
+      const count = text ? text.split(/\s+/).length : 0;
+      document.getElementById('originWordDigit').innerText = count;
+      const wrap = document.getElementById('originMeterWrap');
+      wrap.className = (count >= 50 && count <= 100) ? 'word-meter in-range' : 'word-meter out-range';
+      state.h1.narration = document.getElementById('h1_narration').value;
+      persistState();
+    }
+
+    function renderChallenges() {
+      const stream = document.getElementById('h1_challenges_stream');
+      stream.innerHTML = '';
+      state.h1.challenges.forEach((ch, idx) => {
+        const row = document.createElement('div');
+        row.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:10px; display:flex; flex-direction:column; gap:8px;";
+        row.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-family:var(--font-code); font-size:11px; font-weight:700;">التحدي ${String(idx+1).padStart(2,'0')}</span>
+            ${state.h1.challenges.length > 1 ? `
+              <div>
+                <button type="button" class="btn-discrete-del" onclick="armDel('ch_del_${idx}', 'ch_conf_${idx}')" id="ch_del_${idx}">استبعاد</button>
+                <div class="confirm-deck" id="ch_conf_${idx}">
+                  <button type="button" class="btn-affirm" onclick="removeChallenge(${idx})">تأكيد</button>
+                  <button type="button" class="btn-cancel" onclick="disarmDel('ch_del_${idx}', 'ch_conf_${idx}')">تراجع</button>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1.3fr 1.3fr; gap:6px;">
+            <input type="text" placeholder="توصيف العائق..." value="${esc(ch.challenge)}" oninput="state.h1.challenges[${idx}].challenge=this.value; persistState();">
+            <input type="text" placeholder="السبب الجذري..." value="${esc(ch.analysis)}" oninput="state.h1.challenges[${idx}].analysis=this.value; persistState();">
+            <input type="text" placeholder="المعالجة الهندسية..." value="${esc(ch.solution)}" oninput="state.h1.challenges[${idx}].solution=this.value; persistState();">
+          </div>
+        `;
+        stream.appendChild(row);
+      });
+      document.getElementById('h1_ch_count').innerText = `${String(state.h1.challenges.length).padStart(2,'0')} تحديات`;
+    }
+
+    function appendChallengeRow() {
+      state.h1.challenges.push({ challenge: "", analysis: "", solution: "" });
+      renderChallenges();
+      persistState();
+    }
+    function removeChallenge(idx) {
+      state.h1.challenges.splice(idx, 1);
+      renderChallenges();
+      persistState();
+    }
+
+    function renderStrategies() {
+      const stream = document.getElementById('h1_strategies_stream');
+      stream.innerHTML = '';
+      state.h1.strategies.forEach((st, sIdx) => {
+        const isAdopted = (state.h1.adoptedIndex === sIdx);
+        const card = document.createElement('div');
+        card.style.cssText = `background:#fff; border:1px solid ${isAdopted ? 'var(--gold-primary)' : 'var(--border-whisper)'}; border-radius:var(--radius-sm); padding:12px; display:flex; flex-direction:column; gap:8px;`;
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-family:var(--font-code); font-size:11px; font-weight:700;">المسار ${String(sIdx+1).padStart(2,'0')} ${isAdopted ? '• [المعتمد للمشروع]' : ''}</span>
+            ${state.h1.strategies.length > 2 ? `
+              <div>
+                <button type="button" class="btn-discrete-del" onclick="armDel('st_del_${sIdx}', 'st_conf_${sIdx}')" id="st_del_${sIdx}">استبعاد</button>
+                <div class="confirm-deck" id="st_conf_${sIdx}">
+                  <button type="button" class="btn-affirm" onclick="removeStrategy(${sIdx})">تأكيد</button>
+                  <button type="button" class="btn-cancel" onclick="disarmDel('st_del_${sIdx}', 'st_conf_${sIdx}')">تراجع</button>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+          <input type="text" placeholder="مسمى المسار الاستراتيجي البديل..." value="${esc(st.title)}" oninput="state.h1.strategies[${sIdx}].title=this.value; updateAdoptedView(); persistState();" style="font-weight:600;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <div>
+              <span style="font-size:10px; color:var(--emerald-serene); font-weight:700;">نقاط القوة والمكاسب:</span>
+              ${st.pros.map((p, pIdx) => `<input type="text" style="margin-top:3px;" value="${esc(p)}" oninput="state.h1.strategies[${sIdx}].pros[${pIdx}]=this.value; persistState();">`).join('')}
+            </div>
+            <div>
+              <span style="font-size:10px; color:var(--red-alert); font-weight:700;">نقاط الضعف والمحددات:</span>
+              ${st.cons.map((c, cIdx) => `<input type="text" style="margin-top:3px;" value="${esc(c)}" oninput="state.h1.strategies[${sIdx}].cons[${cIdx}]=this.value; persistState();">`).join('')}
+            </div>
+          </div>
+        `;
+        stream.appendChild(card);
+      });
+      document.getElementById('h1_st_count').innerText = `${String(state.h1.strategies.length).padStart(2,'0')} مسارات`;
+      updateAdoptedView();
+    }
+
+    function appendStrategyNode() {
+      state.h1.strategies.push({ title: "", pros: [""], cons: [""] });
+      renderStrategies();
+      persistState();
+    }
+    function removeStrategy(idx) {
+      state.h1.strategies.splice(idx, 1);
+      if (state.h1.adoptedIndex === idx) state.h1.adoptedIndex = null;
+      else if (state.h1.adoptedIndex > idx) state.h1.adoptedIndex--;
+      renderStrategies();
+      persistState();
+    }
+
+    function updateAdoptedView() {
+      const v = document.getElementById('h1_adopted_view');
+      if (state.h1.adoptedIndex !== null && state.h1.strategies[state.h1.adoptedIndex]) {
+        v.innerText = `المسار ${state.h1.adoptedIndex + 1}: ${state.h1.strategies[state.h1.adoptedIndex].title || 'مسار معتمد'}`;
+      } else {
+        v.innerText = 'لم يتم تحديد المسار المعتمد بعد';
+      }
+    }
+
+    function openAdoptedPickerModal() {
+      const stream = document.getElementById('adoptedOptionsStream');
+      stream.innerHTML = '';
+      state.h1.strategies.forEach((st, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn-append-atom';
+        btn.style.cssText = "width:100%; justify-content:space-between; padding:10px 14px;";
+        btn.innerHTML = `<strong>المسار ${idx+1}: ${st.title || '(بدون عنوان)'}</strong> <span>اعتماد ✓</span>`;
+        btn.onclick = () => {
+          state.h1.adoptedIndex = idx;
+          updateAdoptedView();
+          renderStrategies();
+          closeAdoptedPickerModal();
+          persistState();
+        };
+        stream.appendChild(btn);
+      });
+      document.getElementById('adoptedPickerModal').style.display = 'flex';
+    }
+    function closeAdoptedPickerModal() { document.getElementById('adoptedPickerModal').style.display = 'none'; }
+
+    // ============================================================
+    // الأفق 02: مسار التجريب ودورات التطوير المستمر
+    // ============================================================
+    function renderTrials() {
+      const stream = document.getElementById('h2_trials_stream');
+      stream.innerHTML = '';
+      state.h2.trials.forEach((t, idx) => {
+        const card = document.createElement('div');
+        card.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-md); padding:16px; display:flex; flex-direction:column; gap:12px;";
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:8px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-family:var(--font-code); font-size:12px; font-weight:700;">التجربة ${String(idx+1).padStart(2,'0')}</span>
+              <input type="date" value="${t.date||''}" onchange="state.h2.trials[${idx}].date=this.value; persistState();" style="width:auto; padding:2px 8px; font-size:11px;">
+            </div>
+            ${state.h2.trials.length > 1 ? `
+              <div>
+                <button type="button" class="btn-discrete-del" onclick="armDel('tr_del_${idx}', 'tr_conf_${idx}')" id="tr_del_${idx}">استبعاد التجربة</button>
+                <div class="confirm-deck" id="tr_conf_${idx}">
+                  <button type="button" class="btn-affirm" onclick="removeTrial(${idx})">تأكيد</button>
+                  <button type="button" class="btn-cancel" onclick="disarmDel('tr_del_${idx}', 'tr_conf_${idx}')">تراجع</button>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+          <input type="text" placeholder="عنوان التجربة والمكون قيد الاختبار..." value="${esc(t.title)}" oninput="state.h2.trials[${idx}].title=this.value; persistState();" style="font-weight:600;">
+          <textarea rows="2" placeholder="هدف المحاولة وتوزيع أدوار الفريق..." oninput="state.h2.trials[${idx}].goal=this.value; persistState();">${esc(t.goal)}</textarea>
+          
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div style="background:var(--emerald-bg); border:1px solid rgba(15,118,110,0.2); border-radius:var(--radius-sm); padding:10px;">
+              <span style="font-size:11px; font-weight:700; color:var(--emerald-serene);">ما الذي نجح؟</span>
+              <input type="text" style="margin:4px 0;" placeholder="السلوك الناجح..." value="${esc(t.passT)}" oninput="state.h2.trials[${idx}].passT=this.value; persistState();">
+              <textarea rows="2" placeholder="قرار الاستثمار والبناء عليه..." oninput="state.h2.trials[${idx}].passD=this.value; persistState();">${esc(t.passD)}</textarea>
+            </div>
+            <div style="background:var(--red-bg); border:1px solid rgba(185,28,28,0.2); border-radius:var(--radius-sm); padding:10px;">
+              <span style="font-size:11px; font-weight:700; color:var(--red-alert);">ما الذي لم ينجح؟</span>
+              <input type="text" style="margin:4px 0;" placeholder="موضع العائق وسببه..." value="${esc(t.failT)}" oninput="state.h2.trials[${idx}].failT=this.value; persistState();">
+              <textarea rows="2" placeholder="قرار المعالجة والتجاوز..." oninput="state.h2.trials[${idx}].failD=this.value; persistState();">${esc(t.failD)}</textarea>
+            </div>
+          </div>
+
+          <div>
+            <span style="font-size:11px; font-weight:600; color:var(--ink-deep);">القرار للمحاولة القادمة:</span>
+            <input type="text" placeholder="الخطة الإجرائية المباشرة للجولة التالية..." value="${esc(t.nextV)}" oninput="state.h2.trials[${idx}].nextV=this.value; persistState();">
+          </div>
+        `;
+        stream.appendChild(card);
+      });
+      document.getElementById('h2_trials_count').innerText = `${String(state.h2.trials.length).padStart(2,'0')} تجارب مسجلة`;
+    }
+
+    function appendTrialCard() {
+      state.h2.trials.push({ date: new Date().toISOString().slice(0, 10), title: "", goal: "", summary: "", resImg: "", act1Img: "", act2Img: "", passT: "", passD: "", failT: "", failD: "", nextV: "" });
+      renderTrials();
+      persistState();
+    }
+    function removeTrial(idx) {
+      state.h2.trials.splice(idx, 1);
+      renderTrials();
+      persistState();
+    }
+
+    // ============================================================
+    // الأفق 03: مسرح الإسقاط المكاني التفاعلي
+    // ============================================================
+    let activeTargetCompIdx = null;
+    let relocatingPinIdx = null;
+    let radialPinIdx = null;
+
+    function renderCatalog() {
+      const stream = document.getElementById('h3_catalog_stream');
+      stream.innerHTML = '';
+      let sum = 0;
+      state.h3.catalog.forEach((item, idx) => {
+        const cost = parseFloat(item.cost) || 0;
+        const qty = parseInt(item.qty, 10) || 1;
+        sum += cost * qty;
+        const row = document.createElement('div');
+        row.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:10px; display:flex; flex-direction:column; gap:8px;";
+        row.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-family:var(--font-code); font-size:11px; font-weight:700;">المكون ${String(idx+1).padStart(2,'0')}</span>
+            ${state.h3.catalog.length > 1 ? `
+              <div>
+                <button type="button" class="btn-discrete-del" onclick="armDel('cat_del_${idx}', 'cat_conf_${idx}')" id="cat_del_${idx}">استبعاد</button>
+                <div class="confirm-deck" id="cat_conf_${idx}">
+                  <button type="button" class="btn-affirm" onclick="removeCatalogItem(${idx})">تأكيد</button>
+                  <button type="button" class="btn-cancel" onclick="disarmDel('cat_del_${idx}', 'cat_conf_${idx}')">تراجع</button>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+          <div style="display:grid; grid-template-columns:1.5fr 1.2fr 0.8fr 0.8fr; gap:6px;">
+            <input type="text" placeholder="اسم المكون..." value="${esc(item.name)}" oninput="state.h3.catalog[${idx}].name=this.value; renderBomChips(); persistState();">
+            <input type="text" placeholder="الطراز..." value="${esc(item.model)}" oninput="state.h3.catalog[${idx}].model=this.value; persistState();">
+            <input type="number" step="0.5" placeholder="الكلفة..." value="${item.cost}" oninput="state.h3.catalog[${idx}].cost=this.value; renderCatalog(); persistState();">
+            <input type="number" min="1" placeholder="الكمية..." value="${item.qty}" oninput="state.h3.catalog[${idx}].qty=this.value; renderCatalog(); persistState();">
+          </div>
+          <input type="text" placeholder="مسوغات الاختيار الهندسية..." value="${esc(item.reason)}" oninput="state.h3.catalog[${idx}].reason=this.value; persistState();">
+        `;
+        stream.appendChild(row);
+      });
+      document.getElementById('h3_total_cost').innerText = `${sum.toFixed(2)} د.أ`;
+      renderBomChips();
+      renderPins();
+    }
+
+    function appendCatalogRow() {
+      state.h3.catalog.push({ name: "", model: "", cost: "0.00", qty: "1", reason: "", upgrade: "", link: "" });
+      renderCatalog();
+      persistState();
+    }
+    function removeCatalogItem(idx) {
+      state.h3.catalog.splice(idx, 1);
+      state.h3.pins = state.h3.pins.filter(p => p.compIndex !== idx).map(p => ({
+        ...p,
+        compIndex: p.compIndex > idx ? p.compIndex - 1 : p.compIndex
+      }));
+      renderCatalog();
+      persistState();
+    }
+
+    function handleRobotImageUpload(input) {
+      if (input.files && input.files[0]) {
+        compressImageFile(input.files[0], 1200, 0.82, base64 => {
+          state.h3.robotImg = base64;
+          displayRobotImg(base64);
+          persistState();
+        });
+      }
+    }
+
+    function displayRobotImg(src) {
+      const img = document.getElementById('robotImageEl');
+      img.src = src;
+      img.style.display = 'block';
+      document.getElementById('h3_empty_prompt').style.display = 'none';
+      renderPins();
+    }
+
+    // التثبيت المقيد داخل الصورة حصراً
+    document.getElementById('imageTightFrame').addEventListener('click', e => {
+      if (e.target.closest('.pin-specimen-node')) return;
+      const img = document.getElementById('robotImageEl');
+      if (!img.src || img.style.display === 'none') return;
+
+      const rect = img.getBoundingClientRect();
+      const xPercent = Math.max(1.5, Math.min(98.5, +(((e.clientX - rect.left) / rect.width) * 100).toFixed(2)));
+      const yPercent = Math.max(1.5, Math.min(98.5, +(((e.clientY - rect.top) / rect.height) * 100).toFixed(2)));
+
+      if (relocatingPinIdx !== null) {
+        state.h3.pins[relocatingPinIdx].x = xPercent;
+        state.h3.pins[relocatingPinIdx].y = yPercent;
+        relocatingPinIdx = null;
+        document.getElementById('targetToast').style.display = 'none';
+        renderPins();
+        persistState();
+        return;
+      }
+
+      if (activeTargetCompIdx !== null) {
+        const exist = state.h3.pins.find(p => p.compIndex === activeTargetCompIdx);
+        if (exist) { exist.x = xPercent; exist.y = yPercent; }
+        else { state.h3.pins.push({ compIndex: activeTargetCompIdx, x: xPercent, y: yPercent }); }
+        const sel = activeTargetCompIdx;
+        activeTargetCompIdx = null;
+        document.getElementById('targetToast').style.display = 'none';
+        renderPins();
+        persistState();
+        openDrawer(sel);
+      }
+    });
+
+    function renderPins() {
+      const overlay = document.getElementById('pinsStrictOverlay');
+      overlay.innerHTML = '';
+
+      state.h3.pins.forEach((pin, idx) => {
+        const num = String(pin.compIndex + 1).padStart(2, '0');
+        const node = document.createElement('div');
+        node.className = 'pin-specimen-node';
+        node.style.left = `${pin.x}%`;
+        node.style.top = `${pin.y}%`;
+        node.innerHTML = `<div class="pin-core-disc">${num}</div>`;
+
+        node.onclick = ev => { ev.stopPropagation(); openDrawer(pin.compIndex); };
+        node.oncontextmenu = ev => { ev.preventDefault(); ev.stopPropagation(); openRadialMenu(idx, ev.clientX, ev.clientY); };
+
+        let holdTimer = null;
+        node.addEventListener('touchstart', ev => {
+          const t = ev.touches[0];
+          holdTimer = setTimeout(() => {
+            if (navigator.vibrate) navigator.vibrate(45);
+            openRadialMenu(idx, t.clientX, t.clientY);
+          }, 400);
+        }, { passive: true });
+        node.addEventListener('touchend', () => clearTimeout(holdTimer));
+        overlay.appendChild(node);
+      });
+      renderBomChips();
+    }
+
+    function openRadialMenu(pinIdx, clientX, clientY) {
+      radialPinIdx = pinIdx;
+      const scrim = document.getElementById('radialScrim');
+      const wheel = document.getElementById('radialWheel');
+      document.getElementById('pieHubNum').innerText = String(state.h3.pins[pinIdx].compIndex + 1).padStart(2, '0');
+      const posX = Math.max(110, Math.min(window.innerWidth - 110, clientX));
+      const posY = Math.max(110, Math.min(window.innerHeight - 110, clientY));
+      wheel.style.left = `${posX}px`;
+      wheel.style.top = `${posY}px`;
+      scrim.classList.add('visible');
+    }
+    function closeRadialMenu(e) {
+      if (e && e.target !== document.getElementById('radialScrim')) return;
+      document.getElementById('radialScrim').classList.remove('visible');
+      radialPinIdx = null;
+    }
+
+    function triggerRadialAction(act) {
+      const idx = radialPinIdx;
+      document.getElementById('radialScrim').classList.remove('visible');
+      if (idx === null || !state.h3.pins[idx]) return;
+
+      if (act === 'relocate') {
+        relocatingPinIdx = idx;
+        const toast = document.getElementById('targetToast');
+        toast.innerText = 'انقر الآن على الموضع الجديد داخل الصورة لنقل هذا المؤشر';
+        toast.style.display = 'block';
+      } else if (act === 'inspect') {
+        openDrawer(state.h3.pins[idx].compIndex);
+      } else if (act === 'remove') {
+        state.h3.pins.splice(idx, 1);
+        renderPins();
+        persistState();
+        closeDrawer();
+      } else if (act === 'reassign') {
+        openReassignModal(idx);
+      }
+    }
+
+    function openReassignModal(pinIdx) {
+      const stream = document.getElementById('reassignOptionsStream');
+      stream.innerHTML = '';
+      const current = state.h3.pins[pinIdx].compIndex;
+      state.h3.catalog.forEach((item, cIdx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn-append-atom';
+        btn.style.cssText = "width:100%; justify-content:space-between; padding:8px 12px;";
+        btn.innerHTML = `<strong>${cIdx+1} • ${item.name || 'مكون'}</strong> <span>${cIdx === current ? 'المعين حالياً ✓' : 'اختيار'}</span>`;
+        btn.onclick = () => {
+          state.h3.pins[pinIdx].compIndex = cIdx;
+          renderPins();
+          closeReassignModal();
+          persistState();
+          openDrawer(cIdx);
+        };
+        stream.appendChild(btn);
+      });
+      document.getElementById('reassignModal').style.display = 'flex';
+    }
+    function closeReassignModal() { document.getElementById('reassignModal').style.display = 'none'; }
+
+    function renderBomChips() {
+      const deck = document.getElementById('bomChipsDeck');
+      deck.innerHTML = '';
+      state.h3.catalog.forEach((item, i) => {
+        const pin = state.h3.pins.find(p => p.compIndex === i);
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = `bom-chip-token ${pin ? 'is-located' : ''} ${activeTargetCompIdx === i ? 'is-active-target' : ''}`;
+        chip.innerHTML = `<span>${String(i+1).padStart(2,'0')}</span> <span>${item.name||'مكون'}</span> <span>${pin ? '✓' : '＋'}</span>`;
+        chip.onclick = () => {
+          if (!state.h3.robotImg) { document.getElementById('h3_robot_file').click(); return; }
+          if (pin) {
+            openDrawer(i);
+          } else {
+            activeTargetCompIdx = i;
+            relocatingPinIdx = null;
+            const toast = document.getElementById('targetToast');
+            toast.innerText = `انقر فوق موضع القطعة [${item.name||'مكون'}] على الصورة`;
+            toast.style.display = 'block';
+            renderBomChips();
+          }
+        };
+        deck.appendChild(chip);
+      });
+    }
+
+    function openDrawer(compIdx) {
+      const it = state.h3.catalog[compIdx];
+      if (!it) return;
+      const dr = document.getElementById('inspectDrawer');
+      dr.style.display = 'flex';
+      document.getElementById('drawerNum').innerText = String(compIdx + 1).padStart(2, '0');
+      document.getElementById('drawerTitle').innerText = it.name || 'مكون بدون اسم';
+      document.getElementById('drawerModel').innerText = it.model || '-';
+      document.getElementById('drawerReason').innerText = it.reason || 'لم تدون مسوغات بعد';
+      document.getElementById('drawerCost').innerText = `${it.cost} د.أ (كمية: ${it.qty})`;
+      document.getElementById('drawerUpgrade').innerText = it.upgrade || 'لا يوجد';
+    }
+    function closeDrawer() { document.getElementById('inspectDrawer').style.display = 'none'; }
+
+    function renderEvolution() {
+      const grid = document.getElementById('h3_evolution_grid');
+      grid.innerHTML = '';
+      const titles = ["المفهوم الأولي", "المحاولة الثانية", "التحسين الثالث", "الاعتماد النهائي"];
+      state.h3.evolution.forEach((evo, idx) => {
+        const card = document.createElement('div');
+        card.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:10px; display:flex; flex-direction:column; gap:6px;";
+        card.innerHTML = `
+          <strong style="font-size:11px; color:var(--gold-deep);">${titles[idx]}</strong>
+          <div class="media-shelf" style="min-height:90px;" onclick="document.getElementById('evo_file_${idx}').click()">
+            <input type="file" id="evo_file_${idx}" accept="image/png, image/jpeg" style="display:none;" onchange="handleEvoUpload(${idx}, this)">
+            ${evo.img ? `<img src="${evo.img}" style="display:block; max-height:100px;">` : `<span style="font-size:10px; color:var(--ink-subtle);">+ رفع صورة المحطة</span>`}
+          </div>
+          <input type="text" placeholder="أبرز التحسينات..." value="${esc(evo.note)}" oninput="state.h3.evolution[${idx}].note=this.value; persistState();" style="font-size:11px;">
+        `;
+        grid.appendChild(card);
+      });
+    }
+    function handleEvoUpload(idx, input) {
+      if (input.files && input.files[0]) {
+        compressImageFile(input.files[0], 800, 0.8, base64 => {
+          state.h3.evolution[idx].img = base64;
+          renderEvolution();
+          persistState();
+        });
+      }
+    }
+
+    // ============================================================
+    // الأفق 04: الابتكار، التصنيع، والتحقق البشري
+    // ============================================================
+    function renderFab() {
+      const stream = document.getElementById('h4_fab_stream');
+      stream.innerHTML = '';
+      state.h4.fabItems.forEach((fab, idx) => {
+        const card = document.createElement('div');
+        card.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:14px; display:flex; flex-direction:column; gap:8px;";
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-family:var(--font-code); font-size:11px; font-weight:700;">ابتكار التصنيع ${String(idx+1).padStart(2,'0')}</span>
+            ${state.h4.fabItems.length > 1 ? `<button type="button" class="btn-discrete-del" onclick="removeFabItem(${idx})">استبعاد</button>` : ''}
+          </div>
+          <input type="text" placeholder="اسم القطعة المبتكرة المصنعة..." value="${esc(fab.title)}" oninput="state.h4.fabItems[${idx}].title=this.value; persistState();" style="font-weight:600;">
+          <input type="text" placeholder="المشكلة التي تم حلها بهذا التصميم..." value="${esc(fab.problem)}" oninput="state.h4.fabItems[${idx}].problem=this.value; persistState();">
+          
+          <div class="dual-media-grid">
+            <div class="media-shelf" onclick="document.getElementById('cad_f_${idx}').click()">
+              <input type="file" id="cad_f_${idx}" accept="image/png, image/jpeg" style="display:none;" onchange="handleSubImgUpload('h4', 'fabItems', ${idx}, 'cadImg', this)">
+              ${fab.cadImg ? `<img src="${fab.cadImg}" style="display:block;">` : `<span style="font-size:10.5px; color:var(--ink-soft);">المخطط الهندسي الرقمي (CAD)</span>`}
+            </div>
+            <div class="media-shelf" onclick="document.getElementById('real_f_${idx}').click()">
+              <input type="file" id="real_f_${idx}" accept="image/png, image/jpeg" style="display:none;" onchange="handleSubImgUpload('h4', 'fabItems', ${idx}, 'realImg', this)">
+              ${fab.realImg ? `<img src="${fab.realImg}" style="display:block;">` : `<span style="font-size:10.5px; color:var(--ink-soft);">القطعة بعد التصنيع الفعلي</span>`}
+            </div>
+          </div>
+          <textarea rows="2" placeholder="مسوغات الشكل والأبعاد ومراكز الارتكاز..." oninput="state.h4.fabItems[${idx}].geoReason=this.value; persistState();">${esc(fab.geoReason)}</textarea>
+          <textarea rows="2" placeholder="مسوغات اختيار الخامة ومقاومة الإجهاد..." oninput="state.h4.fabItems[${idx}].matReason=this.value; persistState();">${esc(fab.matReason)}</textarea>
+        `;
+        stream.appendChild(card);
+      });
+      document.getElementById('h4_fab_count').innerText = `${String(state.h4.fabItems.length).padStart(2,'0')} ابتكارات`;
+    }
+    function appendFabItem() {
+      state.h4.fabItems.push({ title: "", problem: "", cadImg: "", realImg: "", geoReason: "", matReason: "" });
+      renderFab();
+      persistState();
+    }
+    function removeFabItem(idx) {
+      state.h4.fabItems.splice(idx, 1);
+      renderFab();
+      persistState();
+    }
+
+    function renderAiStudies() {
+      const stream = document.getElementById('h4_ai_stream');
+      stream.innerHTML = '';
+      state.h4.aiStudies.forEach((ai, idx) => {
+        const card = document.createElement('div');
+        card.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:14px; display:flex; flex-direction:column; gap:8px;";
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-family:var(--font-code); font-size:11px; font-weight:700;">دراسة الحالة ${String(idx+1).padStart(2,'0')}</span>
+            ${state.h4.aiStudies.length > 1 ? `<button type="button" class="btn-discrete-del" onclick="removeAiItem(${idx})">استبعاد</button>` : ''}
+          </div>
+          <input type="text" placeholder="التحدي الفني المعالج..." value="${esc(ai.challenge)}" oninput="state.h4.aiStudies[${idx}].challenge=this.value; persistState();">
+          <input type="text" placeholder="اسم الأداة المستخدمة (مثال: ChatGPT, Claude)..." value="${esc(ai.tool)}" oninput="state.h4.aiStudies[${idx}].tool=this.value; persistState();">
+          <textarea rows="2" class="prompt-box" placeholder="التوجيه الدقيق الموجه للأداة (Prompt)..." oninput="state.h4.aiStudies[${idx}].prompt=this.value; persistState();">${esc(ai.prompt)}</textarea>
+          <textarea rows="2" class="output-box" placeholder="المخرج المقترح الأولي من الأداة..." oninput="state.h4.aiStudies[${idx}].output=this.value; persistState();">${esc(ai.output)}</textarea>
+          <div style="background:var(--gold-soft); border:1px solid var(--gold-border); border-radius:var(--radius-sm); padding:10px;">
+            <span style="font-size:10.5px; font-weight:700; color:var(--gold-deep);">التحقق والتقويم والتكييف البشري (أصالة الملكية الفكرية):</span>
+            <textarea rows="2" placeholder="بيان مواضع الفحص والتقويم البشري والتعديل الهندسي..." oninput="state.h4.aiStudies[${idx}].verification=this.value; persistState();">${esc(ai.verification)}</textarea>
+          </div>
+        `;
+        stream.appendChild(card);
+      });
+      document.getElementById('h4_ai_count').innerText = `${String(state.h4.aiStudies.length).padStart(2,'0')} دراسات`;
+    }
+    function appendAiItem() {
+      state.h4.aiStudies.push({ challenge: "", tool: "", prompt: "", output: "", verification: "" });
+      renderAiStudies();
+      persistState();
+    }
+    function removeAiItem(idx) {
+      state.h4.aiStudies.splice(idx, 1);
+      renderAiStudies();
+      persistState();
+    }
+
+    // ============================================================
+    // الأفق 05: هوية الفريق وبصمة الصانع
+    // ============================================================
+    const memberKeys = ['sup', 'st1', 'st2', 'st3'];
+    function adjustTeamSize(size) {
+      state.h5.teamSize = size;
+      renderIdentity();
+      persistState();
+    }
+
+    function renderIdentity() {
+      const activeKeys = memberKeys.filter(k => !(k === 'st3' && state.h5.teamSize === '2'));
+      if (!activeKeys.includes(state.h5.activeFpKey)) state.h5.activeFpKey = 'sup';
+
+      // 1. البطاقات التعريفية
+      const pDeck = document.getElementById('h5_profiles_deck');
+      pDeck.innerHTML = '';
+      activeKeys.forEach(k => {
+        const m = state.h5.members[k];
+        const card = document.createElement('div');
+        card.className = 'member-profile-card';
+        card.innerHTML = `
+          <div class="avatar-vault" onclick="document.getElementById('av_f_${k}').click()">
+            <input type="file" id="av_f_${k}" accept="image/png, image/jpeg" style="display:none;" onchange="handleAvatarUpload('${k}', this)">
+            ${m.img ? `<img src="${m.img}" style="display:block;">` : `<span style="font-size:11px; color:var(--ink-subtle);">+ صورة</span>`}
+          </div>
+          <span style="font-size:10px; font-weight:700; color:var(--gold-primary);">${k==='sup'?'المشرف الأكاديمي':'طالب مبتكر'}</span>
+          <input type="text" placeholder="الاسم الكامل..." value="${esc(m.name)}" oninput="state.h5.members['${k}'].name=this.value; renderFpTabs(); persistState();" style="font-weight:600;">
+          <input type="text" placeholder="الدور التخصصي..." value="${esc(m.role)}" oninput="state.h5.members['${k}'].role=this.value; renderFpTabs(); persistState();">
+          ${k !== 'sup' ? `
+            <select class="field-select" onchange="state.h5.members['${k}'].grade=this.value; persistState();">
+              <option value="">تحديد الصف...</option>
+              ${['الصف السابع','الصف الثامن','الصف التاسع','الصف العاشر','الصف الحادي عشر','الصف الثاني عشر'].map(g=>`<option value="${g}" ${m.grade===g?'selected':''}>${g}</option>`).join('')}
+            </select>
+          ` : `
+            <input type="text" placeholder="التخصص الأكاديمي..." value="${esc(m.major)}" oninput="state.h5.members['sup'].major=this.value; persistState();">
+          `}
+        `;
+        pDeck.appendChild(card);
+      });
+
+      renderFpTabs();
+      renderFpPanes();
+    }
+
+    function renderFpTabs() {
+      const activeKeys = memberKeys.filter(k => !(k === 'st3' && state.h5.teamSize === '2'));
+      const tabsBar = document.getElementById('h5_fp_tabs');
+      tabsBar.innerHTML = '';
+      activeKeys.forEach(k => {
+        const m = state.h5.members[k];
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `footprint-tab-btn ${state.h5.activeFpKey === k ? 'active' : ''}`;
+        btn.innerText = m.name || m.role || k;
+        btn.onclick = () => {
+          state.h5.activeFpKey = k;
+          renderFpTabs();
+          renderFpPanes();
+        };
+        tabsBar.appendChild(btn);
+      });
+    }
+
+    function renderFpPanes() {
+      const curKey = state.h5.activeFpKey;
+      const m = state.h5.members[curKey];
+      const fp = state.h5.footprints[curKey];
+      const container = document.getElementById('h5_fp_panes');
+      container.innerHTML = `
+        <div class="stage-card" style="background:#fff;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong>${m.name || 'عضو الفريق'} • ${m.role}</strong>
+            <input type="date" value="${fp.date||''}" onchange="state.h5.footprints['${curKey}'].date=this.value; persistState();" style="width:auto; font-size:11px;">
+          </div>
+          <input type="text" placeholder="مهمتي الرئيسية والمسؤولية المباشرة..." value="${esc(fp.role)}" oninput="state.h5.footprints['${curKey}'].role=this.value; persistState();">
+          <textarea rows="2" placeholder="أهم مساهمة وفارق أفتخر به في المنظومة..." oninput="state.h5.footprints['${curKey}'].impact=this.value; persistState();">${esc(fp.impact)}</textarea>
+          <textarea rows="2" placeholder="الدرس والتحول المهاري والفكري المكتسب..." oninput="state.h5.footprints['${curKey}'].lesson=this.value; persistState();">${esc(fp.lesson)}</textarea>
+          <textarea rows="2" placeholder="الرسالة والأثر المستدام المراد تركه..." oninput="state.h5.footprints['${curKey}'].quote=this.value; persistState();">${esc(fp.quote)}</textarea>
+        </div>
+      `;
+    }
+
+    function handleAvatarUpload(k, input) {
+      if (input.files && input.files[0]) {
+        compressImageFile(input.files[0], 400, 0.8, base64 => {
+          state.h5.members[k].img = base64;
+          renderIdentity();
+          persistState();
+        });
+      }
+    }
+
+    function handleShelfUpload(stateProp, imgId, promptId, delContainerId, input) {
+      if (input.files && input.files[0]) {
+        compressImageFile(input.files[0], 1200, 0.82, base64 => {
+          if (stateProp === 'h1_img') state.h1.image = base64;
+          else if (stateProp === 'h4_flow') state.h4.flowImg = base64;
+          const img = document.getElementById(imgId);
+          img.src = base64;
+          img.style.display = 'block';
+          document.getElementById(promptId).style.display = 'none';
+          document.getElementById(delContainerId).style.display = 'block';
+          persistState();
+        });
+      }
+    }
+
+    function handleSubImgUpload(section, subArray, idx, key, input) {
+      if (input.files && input.files[0]) {
+        compressImageFile(input.files[0], 800, 0.8, base64 => {
+          state[section][subArray][idx][key] = base64;
+          if (subArray === 'fabItems') renderFab();
+          persistState();
+        });
+      }
+    }
+
+    function armDel(initId, confId) {
+      document.getElementById(initId).style.display = 'none';
+      document.getElementById(confId).classList.add('active');
+    }
+    function disarmDel(initId, confId) {
+      document.getElementById(initId).style.display = 'inline-block';
+      document.getElementById(confId).classList.remove('active');
+    }
+    function confirmShelfDel(stateProp, imgId, promptId, delContainerId, inputId) {
+      if (stateProp === 'h1_img') state.h1.image = "";
+      else if (stateProp === 'h4_flow') state.h4.flowImg = "";
+      const img = document.getElementById(imgId);
+      img.src = "";
+      img.style.display = 'none';
+      document.getElementById(promptId).style.display = 'block';
+      document.getElementById(delContainerId).style.display = 'none';
+      document.getElementById(inputId).value = '';
+      persistState();
+    }
+
+    // ============================================================
+    // 6. خوارزمية قياس التقدم والتدقيق الهندسي (Progress Radar)
+    // ============================================================
+    function triggerProgressAudit() {
+      const has = s => Boolean(String(s || '').trim());
+      
+      // تدقيق أفق 1
+      const h1_words = state.h1.narration.trim().split(/\s+/).filter(Boolean).length;
+      const h1_ok = (h1_words >= 50) && (state.h1.challenges.length > 0 && has(state.h1.challenges[0].challenge)) && (state.h1.adoptedIndex !== null) && has(state.h1.statement);
+      document.getElementById('badge_h0').innerText = h1_ok ? 'مكتمل ومستوفٍ ✓' : 'قيد البناء';
+      document.getElementById('dock_chk_0').style.display = h1_ok ? 'inline-block' : 'none';
+
+      // تدقيق أفق 2
+      const h2_ok = state.h2.trials.length > 0 && state.h2.trials.every(t => has(t.title) && has(t.passT) && has(t.failT) && has(t.nextV));
+      document.getElementById('badge_h1').innerText = h2_ok ? 'مكتمل ومستوفٍ ✓' : 'قيد التوثيق';
+      document.getElementById('dock_chk_1').style.display = h2_ok ? 'inline-block' : 'none';
+
+      // تدقيق أفق 3
+      const h3_ok = state.h3.catalog.length > 0 && Boolean(state.h3.robotImg) && state.h3.pins.length > 0;
+      document.getElementById('badge_h2').innerText = h3_ok ? 'مكتمل ومستوفٍ ✓' : 'قيد التجسيد';
+      document.getElementById('dock_chk_2').style.display = h3_ok ? 'inline-block' : 'none';
+
+      // تدقيق أفق 4
+      const h4_ok = Boolean(state.h4.flowImg) && has(state.h4.algoCode) && state.h4.fabItems.length > 0 && state.h4.aiStudies.length > 0;
+      document.getElementById('badge_h3').innerText = h4_ok ? 'مكتمل ومستوفٍ ✓' : 'قيد التوثيق';
+      document.getElementById('dock_chk_3').style.display = h4_ok ? 'inline-block' : 'none';
+
+      // تدقيق أفق 5
+      const activeKeys = memberKeys.filter(k => !(k === 'st3' && state.h5.teamSize === '2'));
+      const h5_ok = activeKeys.every(k => has(state.h5.members[k].name) && has(state.h5.footprints[k].quote));
+      document.getElementById('badge_h5').innerText = h5_ok ? 'مكتمل ومستوفٍ ✓' : 'قيد الاكتمال';
+      document.getElementById('dock_chk_5' || 'dock_chk_4').style.display = h5_ok ? 'inline-block' : 'none';
+
+      const horizons = [h1_ok, h2_ok, h3_ok, h4_ok, h5_ok];
+      const completed = horizons.filter(Boolean).length;
+      const pct = Math.round((completed / 5) * 100);
+
+      document.getElementById('radarPercentDigit').innerText = `${pct}%`;
+      document.getElementById('radarFillBar').style.width = `${pct}%`;
+
+      const hints = [
+        (!h1_ok ? "الأفق 01 يحتاج: صياغة المشكلة (50 كلمة) واعتماد المسار الهادف." : "الأفق 01 مستوفٍ بامتياز ✓"),
+        (!h2_ok ? "الأفق 02 يحتاج: استكمال توثيق قرارات ما نجح وما لم ينجح في التجارب." : "الأفق 02 مستوفٍ بامتياز ✓"),
+        (!h3_ok ? "الأفق 03 يحتاج: رفع صورة النموذج النهائي وتثبيت دبابيس المكونات." : "الأفق 03 مستوفٍ بامتياز ✓"),
+        (!h4_ok ? "الأفق 04 يحتاج: إرفاق المخطط الانسيابي وكتابة كود الخوارزمية." : "الأفق 04 مستوفٍ بامتياز ✓"),
+        (!h5_ok ? "الأفق 05 يحتاج: تدوين أسماء الفريق ورسالة الأثر المستدام." : "الأفق 05 مستوفٍ بامتياز ✓")
+      ];
+      document.getElementById('radarMissingHint').innerText = hints[activeHorizonIndex];
+    }
+
+    // ============================================================
+    // 7. الحفظ والاسترجاع المحلي (Persistence Engine)
+    // ============================================================
+    function persistState() {
+      state.h1.statement = document.getElementById('h1_statement').value;
+      state.h1.pillarAxis = document.getElementById('h1_pillar_axis').value;
+      state.h1.pillarReason = document.getElementById('h1_pillar_reason').value;
+
+      state.h4.algoName = document.getElementById('h4_algo_name').value;
+      state.h4.algoProblem = document.getElementById('h4_algo_problem').value;
+      state.h4.algoCode = document.getElementById('h4_algo_code').value;
+      state.h4.algoLogic = document.getElementById('h4_algo_logic').value;
+
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (err) {
+        console.warn('تجاوزت البيانات الحجم التخزيني المقترح.');
+      }
+      triggerProgressAudit();
+    }
+
+    function restoreMasterState() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        try {
+          const parsed = JSON.parse(raw);
+          state = { ...state, ...parsed };
+        } catch (e) {}
+      }
+
+      // استرجاع أفق 1
+      document.getElementById('h1_narration').value = state.h1.narration || '';
+      document.getElementById('h1_statement').value = state.h1.statement || '';
+      document.getElementById('h1_pillar_axis').value = state.h1.pillarAxis || '';
+      document.getElementById('h1_pillar_reason').value = state.h1.pillarReason || '';
+      if (state.h1.image) {
+        const img = document.getElementById('h1_img_prev');
+        img.src = state.h1.image;
+        img.style.display = 'block';
+        document.getElementById('h1_img_prompt').style.display = 'none';
+        document.getElementById('h1_img_del').style.display = 'block';
+      }
+      evaluateOriginWords();
+      renderChallenges();
+      renderStrategies();
+
+      // استرجاع أفق 2
+      renderTrials();
+
+      // استرجاع أفق 3
+      renderCatalog();
+      if (state.h3.robotImg) displayRobotImg(state.h3.robotImg);
+      renderEvolution();
+
+      // استرجاع أفق 4
+      document.getElementById('h4_algo_name').value = state.h4.algoName || '';
+      document.getElementById('h4_algo_problem').value = state.h4.algoProblem || '';
+      document.getElementById('h4_algo_code').value = state.h4.algoCode || '';
+      document.getElementById('h4_algo_logic').value = state.h4.algoLogic || '';
+      if (state.h4.flowImg) {
+        const img = document.getElementById('h4_flow_prev');
+        img.src = state.h4.flowImg;
+        img.style.display = 'block';
+        document.getElementById('h4_flow_prompt').style.display = 'none';
+        document.getElementById('h4_flow_del').style.display = 'block';
+      }
+      renderFab();
+      renderAiStudies();
+
+      // استرجاع أفق 5
+      document.getElementById('h5_team_size').value = state.h5.teamSize || '3';
+      renderIdentity();
+
+      triggerProgressAudit();
+    }
+
+    // ============================================================
+    // محرك التلميحات الذكي
+    // ============================================================
+    const tooltipEl = document.getElementById('masterTooltip');
+    function initTooltips() {
+      document.body.addEventListener('click', e => {
+        const btn = e.target.closest('.beacon-btn');
+        if (btn) {
+          const text = btn.getAttribute('data-tip');
+          tooltipEl.textContent = text;
+          tooltipEl.classList.add('visible');
+          const rect = btn.getBoundingClientRect();
+          let left = Math.max(14, Math.min(window.innerWidth - 264, rect.left + rect.width / 2 - 125));
+          let top = rect.bottom + 8;
+          if (top + 60 > window.innerHeight) top = rect.top - 68;
+          tooltipEl.style.left = `${left}px`;
+          tooltipEl.style.top = `${top}px`;
+        } else if (tooltipEl.classList.contains('visible')) {
+          tooltipEl.classList.remove('visible');
+        }
+      });
+      window.addEventListener('scroll', () => tooltipEl.classList.remove('visible'), { passive: true });
+    }
+
+    // التهيئة الشاملة
+    window.addEventListener('DOMContentLoaded', () => {
+      restoreMasterState();
+      initTooltips();
+      runInsightEngine();
+    });
+  </script>
+</body>
+</html>
+
