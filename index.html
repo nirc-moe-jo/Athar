@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>أَثَـر • استوديو التوثيق الهندسي المطور | البطولة الوطنية للابتكار والروبوت</title>
+  
+  <!-- الخطوط العربية والأكاديمية المعتمدة -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700&family=JetBrains+Mono:wght@400;500;600;700&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- ملف الأنماط البصرية والهوية التصميمية الموحدة -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- حاوية التلميحات الذكية المانعة للفيضان -->
+  <div id="masterTooltip"></div>
+
+  <!-- 1. الترويسة الموحدة: الشعار، قبس البصيرة، الإعلانات، وكود الفريق -->
+  <header class="master-header">
+    <div class="header-inner">
+      <div class="brand-cluster" onclick="switchHorizon(0)" title="العودة لأول أفق">
+        <span class="brand-seed"></span>
+        <span class="brand-title">أَثَـر</span>
+      </div>
+
+      <!-- قبس البصيرة القرآني والنبوي المتدفق -->
+      <div class="insight-deck" onclick="openInsightModal()" title="انقر لقراءة قبس البصيرة كاملاً">
+        <span class="insight-beacon-icon">✦</span>
+        <div class="insight-kinetic-viewport" id="insightViewport">
+          <div class="insight-kinetic-text" id="insightText">﴿ وَقُل رَّبِّ زِدْنِي عِلْمًا ﴾</div>
+        </div>
+      </div>
+
+      <div class="tools-cluster">
+        <button type="button" class="btn-notif" onclick="openNotifModal()">
+          <span class="live-dot"></span>
+          <span>الإعلانات</span>
+        </button>
+        <span class="team-badge">AED-1101</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. رادار الإنجاز الموجه المانع للتشتت (Focus Radar) -->
+  <aside class="radar-strip">
+    <div class="radar-card">
+      <div class="radar-info">
+        <span class="radar-title" id="radarHorizonLabel">الأفق الحالي: 01 الأساس</span>
+        <span class="radar-status" id="radarMissingHint">جارٍ فحص استيفاء المعايير الهندسية...</span>
+      </div>
+      <div class="radar-metrics">
+        <div class="radar-track-mini">
+          <div class="radar-fill-mini" id="radarFillBar"></div>
+        </div>
+        <span class="radar-pct" id="radarPercentDigit">0%</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 3. استوديو الآفاق الخمسة المركزة (Horizon Studio Stage) -->
+  <main class="studio-viewport">
+
+    <!-- ============================================================
+         الأفق 01: أساس المشروع (من الفكرة إلى الواقع)
+         ============================================================ -->
+    <article class="horizon-pane active" id="pane_horizon_0">
+      <div class="horizon-head">
+        <div>
+          <span class="horizon-tag">HORIZON 01 • FOUNDATION</span>
+          <h1 class="horizon-title">القسم الأول: أساس المشروع (من الفكرة إلى الواقع)</h1>
+          <p class="horizon-desc">تأسيس الأثر: توثيق الواقع الميداني الذي انطلقت منه الحاجة، تفكيك المعضلات في مصفوفة مسببة، واعتماد الاستراتيجية الحاكمة للمنظومة.</p>
+        </div>
+        <span class="horizon-state-pill" id="badge_h0">قيد البناء</span>
+      </div>
+
+      <!-- 01: الشعور بالمشكلة الميدانية -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">01</span>
+            <h2 class="stage-name">كيف بدأ كل شيء؟ (الشعور بالمشكلة الميدانية)</h2>
+            <button type="button" class="beacon-btn" data-tip="توصيف المشكلة الميدانية الواقعية بدقة دون استباق للحلول المقترحة (50 - 100 كلمة).">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </button>
+          </div>
+          <div class="word-meter" id="originMeterWrap">
+            <span id="originWordDigit">0</span> / 50 – 100 كلمة
+          </div>
+        </div>
+
+        <textarea id="h1_narration" rows="4" placeholder="اكتب قصة رصد المشكلة الميدانية، وظروف نشأتها، والأثر السلبي المترتب على بقائها دون حل تقني..." oninput="evaluateOriginWords()"></textarea>
+
+        <!-- مسرح صورة واقع المشكلة الموحد -->
+        <div class="media-shelf" onclick="document.getElementById('h1_img_file').click()">
+          <div class="upload-placeholder-content" id="h1_img_prompt">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span class="upload-main-text">صورة توثيق المشكلة الميدانية أو بيئة النشأة</span>
+            <span class="upload-sub-text">اضغط لرفع الصورة • الصيغ المعتمدة: PNG, JPEG, WebP</span>
+          </div>
+          <input type="file" id="h1_img_file" accept="image/png, image/jpeg, image/webp" style="display:none;" onchange="handleShelfUpload('h1_img', 'h1_img_prev', 'h1_img_prompt', 'h1_img_del', this)">
+          <img id="h1_img_prev" alt="توثيق المشكلة الميدانية">
+          <div id="h1_img_del" class="del-btn-container" onclick="event.stopPropagation()">
+            <button type="button" class="btn-discrete-del" onclick="armDel('h1_del_init', 'h1_del_conf')" id="h1_del_init">إزالة الصورة</button>
+            <div class="confirm-deck" id="h1_del_conf">
+              <button type="button" class="btn-affirm" onclick="confirmShelfDel('h1_img', 'h1_img_prev', 'h1_img_prompt', 'h1_img_del', 'h1_img_file')">تأكيد</button>
+              <button type="button" class="btn-cancel" onclick="disarmDel('h1_del_init', 'h1_del_conf')">تراجع</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02: مصفوفة التحديات التحليلية -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">02</span>
+            <h2 class="stage-name">تفكيك المسألة: مصفوفة التحديات التحليلية</h2>
+            <button type="button" class="beacon-btn" data-tip="تفكيك المشكلة إلى عوائق فنية مع بيان السبب الجذري والمعالجة المقترحة لكل عائق.">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </button>
+          </div>
+          <span class="badge-code" id="h1_ch_count">01 تحديات</span>
+        </div>
+
+        <div id="h1_challenges_stream" class="vertical-stream"></div>
+        <button type="button" class="btn-append-atom" onclick="appendChallengeRow()">+ إدراج تحدٍ تحليلي جديد</button>
+      </section>
+
+      <!-- 03: استكشاف المسارات وتقييم البدائل -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">03</span>
+            <h2 class="stage-name">استكشاف المسارات: تقييم البدائل والخيارات</h2>
+            <button type="button" class="beacon-btn" data-tip="المفاضلة بين مسارين مختلفين جذرياً على الأقل، مع حصر نقاط القوة والضعف.">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </button>
+          </div>
+          <span class="badge-code" id="h1_st_count">02 مسارات</span>
+        </div>
+
+        <div id="h1_strategies_stream" class="vertical-stream"></div>
+        <button type="button" class="btn-append-atom" onclick="appendStrategyNode()">+ إضافة مسار استراتيجي بديل</button>
+      </section>
+
+      <!-- 04: الاستراتيجية المعتمدة وخارطة الطريق -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">04</span>
+            <h2 class="stage-name">الاستراتيجية المعتمدة وخارطة الطريق</h2>
+          </div>
+        </div>
+
+        <div class="adopted-selection-banner">
+          <div>
+            <span class="caption-muted">المسار الهندسي المعتمد:</span>
+            <strong class="title-adopted" id="h1_adopted_view">لم يتم تحديد المسار المعتمد بعد</strong>
+          </div>
+          <button type="button" class="btn-append-atom" onclick="openAdoptedPickerModal()">تحديد المسار الفائز ↗</button>
+        </div>
+
+        <input type="text" id="h1_statement" placeholder="الصياغة المنهجية الشاملة للاستراتيجية المعتمدة..." oninput="persistState()">
+
+        <div class="grid-pillar">
+          <input type="text" id="h1_pillar_axis" placeholder="المحور الحاكم الأساسي (مثال: الموثوقية الميدانية في البيئات الوعرة)..." oninput="persistState()">
+          <input type="text" id="h1_pillar_reason" placeholder="سبب الأهمية وعلاقته بنجاح المنظومة وموثوقيتها التشغيلية..." oninput="persistState()">
+        </div>
+      </section>
+
+      <footer class="horizon-nav-footer">
+        <span></span>
+        <button type="button" class="btn-append-atom btn-next-action" onclick="switchHorizon(1)">
+          <span>متابعة الإنجاز</span>
+          <span class="arrow-glyph">←</span>
+        </button>
+      </footer>
+    </article>
+
+    <!-- ============================================================
+         الأفق 02: مسار التجريب والتعلّم المستمر
+         ============================================================ -->
+    <article class="horizon-pane" id="pane_horizon_1">
+      <div class="horizon-head">
+        <div>
+          <span class="horizon-tag">HORIZON 02 • ITERATION</span>
+          <h1 class="horizon-title">القسم الثاني: رحلة التطوير وتوثيق التجارب</h1>
+          <p class="horizon-desc">سجل التوثيق التكراري: تدوين دورات التجريب الميداني؛ كل محاولة ترصد المنجز، تفكك أسباب العائق، وتقرر الإجراء للجولة التالية.</p>
+        </div>
+        <span class="horizon-state-pill" id="badge_h1">قيد التوثيق</span>
+      </div>
+
+      <div class="stream-toolbar">
+        <span class="badge-code" id="h2_trials_count">00 تجارب مسجلة</span>
+        <button type="button" class="btn-append-atom" onclick="appendTrialCard()">+ إدراج تجربة جديدة</button>
+      </div>
+
+      <div id="h2_trials_stream" class="vertical-stream"></div>
+
+      <button type="button" class="btn-append-atom btn-center" onclick="appendTrialCard()">+ إدراج تجربة جديدة</button>
+
+      <footer class="horizon-nav-footer">
+        <button type="button" class="btn-append-atom" onclick="switchHorizon(0)">
+          <span class="arrow-glyph">→</span>
+          <span>العودة لأساس المشروع</span>
+        </button>
+        <button type="button" class="btn-append-atom btn-next-action" onclick="switchHorizon(2)">
+          <span>متابعة الإنجاز</span>
+          <span class="arrow-glyph">←</span>
+        </button>
+      </footer>
+    </article>
+
+    <!-- ============================================================
+         الأفق 03: التصميم والعتاد ومسرح الإسقاط المكاني
+         ============================================================ -->
+    <article class="horizon-pane" id="pane_horizon_2">
+      <div class="horizon-head">
+        <div>
+          <span class="horizon-tag">HORIZON 03 • PHYSICAL DESIGN</span>
+          <h1 class="horizon-title">القسم الثالث: التصميم وبيان المكونات والعتاد</h1>
+          <p class="horizon-desc">تجسيد الفكرة في الواقع: حصر المكونات وعتاد المنظومة، الإسقاط المكاني التفاعلي المرقم، ومراحل التطور الزمني للتصميم.</p>
+        </div>
+        <span class="horizon-state-pill" id="badge_h2">قيد التجسيد</span>
+      </div>
+
+      <!-- 01: بيان المكونات والعتاد BOM -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">01</span>
+            <h2 class="stage-name">بيان المكونات والعتاد ومسوغات الاختيار (BOM)</h2>
+          </div>
+          <div class="cost-summary-pill">
+            المجموع: <span id="h3_total_cost">0.00 د.أ</span>
+          </div>
+        </div>
+
+        <div id="h3_catalog_stream" class="vertical-stream"></div>
+        <button type="button" class="btn-append-atom" onclick="appendCatalogRow()">+ إدراج مكون جديد</button>
+      </section>
+
+      <!-- 02: مسرح الإسقاط المكاني المرقم فائق الإحسان -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">02</span>
+            <h2 class="stage-name">النموذج النهائي وترقيم المكونات تفاعلياً</h2>
+            <button type="button" class="beacon-btn" data-tip="ارفع صورة النموذج النهائي، ثم اضغط على أي مكون في الشريط السفلي لإسقاط رقمه في موضعه بدقة.">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="stage-viewport-boundary" id="stageBoundary">
+          <!-- زر الكاميرا المداري SVG المعزول بدقة -->
+          <button type="button" class="btn-camera-orbital" onclick="document.getElementById('h3_robot_file').click()" title="تبديل صورة النموذج">
+            <svg viewBox="0 0 48 48" fill="none">
+              <path d="M 14 12 A 17 17 0 0 1 37 18" stroke="#a77824" stroke-width="2" stroke-linecap="round"/>
+              <path d="M 33 18 L 38 18.5 L 37.5 13.5" stroke="#a77824" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 34 36 A 17 17 0 0 1 11 30" stroke="#a77824" stroke-width="2" stroke-linecap="round"/>
+              <path d="M 15 30 L 10 29.5 L 10.5 34.5" stroke="#a77824" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 16 20 C 16 18.8 17 18 18 18 H 20.5 L 22 16 H 26 L 27.5 18 H 30 C 31 18 32 18.8 32 20 V 29 C 32 30.2 31 31 30 31 H 18 C 17 31 16 30.2 16 29 Z" stroke="#141619" stroke-width="2" stroke-linejoin="round"/>
+              <circle cx="24" cy="24.5" r="3.5" stroke="#141619" stroke-width="2"/>
+            </svg>
+          </button>
+          <input type="file" id="h3_robot_file" accept="image/png, image/jpeg, image/webp" style="display:none;" onchange="handleRobotImageUpload(this)">
+
+          <div class="targeting-reticle-toast" id="targetToast">انقر فوق موضع القطعة على الصورة لتثبيتها</div>
+
+          <!-- الصندوق التمهيدي لصورة الروبوت -->
+          <div class="upload-placeholder-content" id="h3_empty_prompt" onclick="document.getElementById('h3_robot_file').click()" style="padding:44px 20px; cursor:pointer;">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="3 3"/>
+              <circle cx="12" cy="12" r="3"/>
+              <line x1="12" y1="3" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="21"/>
+              <line x1="3" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="21" y2="12"/>
+            </svg>
+            <span class="upload-main-text" style="font-size:13px; margin-top:4px;">صورة النموذج النهائي المكتمل للمنظومة</span>
+            <span class="upload-sub-text">اضغط لرفع الصورة للبدء في إسقاط المؤشرات • الصيغ المعتمدة: PNG, JPEG, WebP</span>
+          </div>
+
+          <div class="image-tight-frame" id="imageTightFrame">
+            <img id="robotImageEl" class="robot-rendered-img" alt="النموذج النهائي للمنظومة">
+            <div class="pins-strict-overlay" id="pinsStrictOverlay"></div>
+          </div>
+        </div>
+
+        <!-- شريط المكونات السفلي البديهي -->
+        <nav class="bom-chips-deck" id="bomChipsDeck"></nav>
+
+        <!-- درج الفحص السريع المنساب للمكون -->
+        <div class="inspect-drawer-card" id="inspectDrawer">
+          <div class="inspect-drawer-top">
+            <div class="inspect-drawer-title-group">
+              <span class="badge-drawer-num" id="drawerNum">01</span>
+              <strong class="drawer-comp-name" id="drawerTitle">اسم المكون</strong>
+              <span class="drawer-comp-model" id="drawerModel">الطراز</span>
+            </div>
+            <button type="button" class="btn-close-drawer" onclick="closeDrawer()">✕</button>
+          </div>
+          <div class="specs-grid-mini">
+            <div><span class="caption-muted">المسوغات:</span> <span id="drawerReason" class="spec-value">-</span></div>
+            <div><span class="caption-muted">الكلفة:</span> <span id="drawerCost" class="spec-value">-</span></div>
+            <div><span class="caption-muted">أفق الترقية:</span> <span id="drawerUpgrade" class="spec-value">-</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03: مراحل التطور الزمني للتصميم (4 محطات محصنة) -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">03</span>
+            <h2 class="stage-name">مراحل التطور الزمني للتصميم (4 محطات)</h2>
+          </div>
+        </div>
+        <div class="evolution-quad-grid" id="h3_evolution_grid"></div>
+      </section>
+
+      <footer class="horizon-nav-footer">
+        <button type="button" class="btn-append-atom" onclick="switchHorizon(1)">
+          <span class="arrow-glyph">→</span>
+          <span>العودة لمسار التجريب</span>
+        </button>
+        <button type="button" class="btn-append-atom btn-next-action" onclick="switchHorizon(3)">
+          <span>متابعة الإنجاز</span>
+          <span class="arrow-glyph">←</span>
+        </button>
+      </footer>
+    </article>
+
+    <!-- ============================================================
+         الأفق 04: الابتكار التقني، التصنيع، والتحقق البشري
+         ============================================================ -->
+    <article class="horizon-pane" id="pane_horizon_3">
+      <div class="horizon-head">
+        <div>
+          <span class="horizon-tag">HORIZON 04 • INNOVATION & AI</span>
+          <h1 class="horizon-title">القسم الرابع: الابتكار التقني والتصنيع الرقمي</h1>
+          <p class="horizon-desc">البنية البرمجية والخوارزمية، ابتكارات التصنيع الرقمي، وتوظيف الأدوات المتقدمة مع إثبات التحقق البشري لضمان الملكية الفكرية.</p>
+        </div>
+        <span class="horizon-state-pill" id="badge_h3">قيد التوثيق</span>
+      </div>
+
+      <!-- 01: المخطط الانسيابي العام للنظام -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">01</span>
+            <h2 class="stage-name">المنطق العام للنظام (المخطط الانسيابي)</h2>
+          </div>
+          <button type="button" class="btn-append-atom" onclick="openDrawioGuideModal()">دليل ومنصة draw.io ↗</button>
+        </div>
+
+        <div class="media-shelf" onclick="document.getElementById('h4_flow_file').click()">
+          <div class="upload-placeholder-content" id="h4_flow_prompt">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="6" rx="1.5"/>
+              <path d="M6.5 9v4a3 3 0 0 0 3 3h4.5"/>
+              <polyline points="11.5 13.5 14 16 11.5 18.5"/>
+              <rect x="14" y="12" width="7" height="8" rx="1.5"/>
+            </svg>
+            <span class="upload-main-text">المخطط الانسيابي العام لمنطق النظام</span>
+            <span class="upload-sub-text">اضغط لرفع المخطط • الصيغ المعتمدة: PNG, JPEG, WebP</span>
+          </div>
+          <input type="file" id="h4_flow_file" accept="image/png, image/jpeg, image/webp" style="display:none;" onchange="handleShelfUpload('h4_flow', 'h4_flow_prev', 'h4_flow_prompt', 'h4_flow_del', this)">
+          <img id="h4_flow_prev" alt="المخطط الانسيابي العام">
+          <div id="h4_flow_del" class="del-btn-container" onclick="event.stopPropagation()">
+            <button type="button" class="btn-discrete-del" onclick="armDel('h4_del_init', 'h4_del_conf')" id="h4_del_init">إزالة المخطط</button>
+            <div class="confirm-deck" id="h4_del_conf">
+              <button type="button" class="btn-affirm" onclick="confirmShelfDel('h4_flow', 'h4_flow_prev', 'h4_flow_prompt', 'h4_flow_del', 'h4_flow_file')">تأكيد</button>
+              <button type="button" class="btn-cancel" onclick="disarmDel('h4_del_init', 'h4_del_conf')">تراجع</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02: الخوارزمية المحورية تحت المجهر -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">02</span>
+            <h2 class="stage-name">الخوارزمية المحورية ومحرر الكود المصدري</h2>
+          </div>
+        </div>
+
+        <input type="text" id="h4_algo_name" placeholder="اسم الخوارزمية البرمجية (مثال: PID Controller لمعادلة الاتزان)..." oninput="persistState()">
+        <input type="text" id="h4_algo_problem" placeholder="المعضلة الفنية التي تعالجها الخوارزمية في عمل الروبوت..." oninput="persistState()">
+
+        <div class="code-terminal-box">
+          <div class="terminal-meta-bar">
+            <span>CORE ALGORITHM SOURCE CODE</span>
+            <span>UTF-8 • MONO</span>
+          </div>
+          <textarea id="h4_algo_code" class="terminal-textarea" placeholder="// كتابة الشفرة البرمجية المكتوبة بأيدي الفريق بلغة البرمجة المعتمدة..." oninput="persistState()"></textarea>
+        </div>
+
+        <textarea rows="3" id="h4_algo_logic" placeholder="تفكيك المنطق الهندسي (المدخلات، العمليات والمعادلات الرياضية، شروط القرار، والمخرجات)..." oninput="persistState()"></textarea>
+      </section>
+
+      <!-- 03: ابتكارات التصنيع الرقمي CAD vs Real -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">03</span>
+            <h2 class="stage-name">ابتكارات التصنيع الرقمي والمجسمات (CAD vs Real)</h2>
+          </div>
+          <span class="badge-code" id="h4_fab_count">00 ابتكارات</span>
+        </div>
+
+        <div id="h4_fab_stream" class="vertical-stream"></div>
+        <button type="button" class="btn-append-atom" onclick="appendFabItem()">+ إضافة ابتكار تصنيع جديد</button>
+      </section>
+
+      <!-- 04: توظيف الأدوات المتقدمة والتحقق البشري -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">04</span>
+            <h2 class="stage-name">توظيف الأدوات المتقدمة والتحقق البشري من الذكاء الاصطناعي</h2>
+          </div>
+          <span class="badge-code" id="h4_ai_count">00 دراسات</span>
+        </div>
+
+        <div id="h4_ai_stream" class="vertical-stream"></div>
+        <button type="button" class="btn-append-atom" onclick="appendAiItem()">+ إضافة دراسة حالة أداة ذكاء اصطناعي</button>
+      </section>
+
+      <footer class="horizon-nav-footer">
+        <button type="button" class="btn-append-atom" onclick="switchHorizon(2)">
+          <span class="arrow-glyph">→</span>
+          <span>العودة للتصميم والعتاد</span>
+        </button>
+        <button type="button" class="btn-append-atom btn-next-action" onclick="switchHorizon(4)">
+          <span>متابعة الإنجاز</span>
+          <span class="arrow-glyph">←</span>
+        </button>
+      </footer>
+    </article>
+
+    <!-- ============================================================
+         الأفق 05: هوية الفريق وبصمة الصانع
+         ============================================================ -->
+    <article class="horizon-pane" id="pane_horizon_4">
+      <div class="horizon-head">
+        <div>
+          <span class="horizon-tag">HORIZON 05 • TEAM IDENTITY</span>
+          <h1 class="horizon-title">القسم الخامس: من نحن؟ (هوية الفريق وبصمة الصانع)</h1>
+          <p class="horizon-desc">البعد الإنساني وروح الفريق: توثيق البطاقات التعريفية للمشرف والطلبة، ورصد بصمة الأثر الفردي والرسالة المستدامة للمشروع.</p>
+        </div>
+        <span class="horizon-state-pill" id="badge_h5">قيد الاكتمال</span>
+      </div>
+
+      <!-- 01: البطاقات التعريفية الرسمية -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">01</span>
+            <h2 class="stage-name">بطاقات التعريف الرسمية بأعضاء الفريق</h2>
+          </div>
+          <div class="team-size-picker">
+            <span class="caption-muted">هيكل الفريق:</span>
+            <select id="h5_team_size" onchange="adjustTeamSize(this.value)">
+              <option value="3">3 طلاب والمشرف</option>
+              <option value="2">طالبان والمشرف</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="profile-deck-grid" id="h5_profiles_deck"></div>
+      </section>
+
+      <!-- 02: بصمات الأثر والرسالة المستدامة -->
+      <section class="stage-card">
+        <div class="stage-bar">
+          <div class="stage-label-group">
+            <span class="stage-idx">02</span>
+            <h2 class="stage-name">بصمة الصانع والأثر الفردي في المنظومة</h2>
+          </div>
+        </div>
+
+        <div class="footprint-tabs-bar" id="h5_fp_tabs"></div>
+        <div id="h5_fp_panes"></div>
+      </section>
+
+      <footer class="horizon-nav-footer">
+        <button type="button" class="btn-append-atom" onclick="switchHorizon(3)">
+          <span class="arrow-glyph">→</span>
+          <span>العودة للابتكار والتحقق</span>
+        </button>
+        <span class="audit-finished-tag">✓ تم استعراض كافة الآفاق الهندسية للأثر</span>
+      </footer>
+    </article>
+
+  </main>
+
+  <!-- 4. شريط الأفق السفلي العائم (Floating Studio Dock) -->
+  <nav class="studio-dock">
+    <button type="button" class="dock-btn active" onclick="switchHorizon(0)" id="dock_btn_0">
+      <small>01</small>
+      <span>المُنطلق</span>
+      <span class="dock-check" id="dock_chk_0" style="display:none;"></span>
+    </button>
+    <button type="button" class="dock-btn" onclick="switchHorizon(1)" id="dock_btn_1">
+      <small>02</small>
+      <span>التجريب</span>
+      <span class="dock-check" id="dock_chk_1" style="display:none;"></span>
+    </button>
+    <button type="button" class="dock-btn" onclick="switchHorizon(2)" id="dock_btn_2">
+      <small>03</small>
+      <span>التجسيد</span>
+      <span class="dock-check" id="dock_chk_2" style="display:none;"></span>
+    </button>
+    <button type="button" class="dock-btn" onclick="switchHorizon(3)" id="dock_btn_3">
+      <small>04</small>
+      <span>الابتكار</span>
+      <span class="dock-check" id="dock_chk_3" style="display:none;"></span>
+    </button>
+    <button type="button" class="dock-btn" onclick="switchHorizon(4)" id="dock_btn_4">
+      <small>05</small>
+      <span>البصمة</span>
+      <span class="dock-check" id="dock_chk_4" style="display:none;"></span>
+    </button>
+  </nav>
+
+  <!-- ============================================================
+       5. النوافذ المنبثقة التفاعلية (Modals & Menus)
+       ============================================================ -->
+
+  <!-- القائمة الدائرية الشعاعية لدبابيس الإسقاط (The Radial Pie Menu) -->
+  <div class="radial-pie-scrim" id="radialScrim" onclick="closeRadialMenu(event)">
+    <div class="radial-menu-wheel" id="radialWheel">
+      <div class="pie-center-hub">
+        <span class="hub-comp-digit" id="pieHubNum">01</span>
+        <span class="hub-comp-tag">مكون</span>
+      </div>
+      <button type="button" class="pie-sector-petal petal-top" onclick="triggerRadialAction('relocate')">
+        <span class="petal-icon">✥</span>
+        <span class="petal-label">تحريك</span>
+      </button>
+      <button type="button" class="pie-sector-petal petal-right" onclick="triggerRadialAction('inspect')">
+        <span class="petal-icon">ⓘ</span>
+        <span class="petal-label">فحص</span>
+      </button>
+      <button type="button" class="pie-sector-petal petal-bottom petal-del" onclick="triggerRadialAction('remove')">
+        <span class="petal-icon">✕</span>
+        <span class="petal-label">إزالة</span>
+      </button>
+      <button type="button" class="pie-sector-petal petal-left" onclick="triggerRadialAction('reassign')">
+        <span class="petal-icon">⇄</span>
+        <span class="petal-label">تبديل</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- نافذة التبديل الواعية للمكون (Reassign Sheet Modal) -->
+  <div class="scrim-modal" id="reassignModal" onclick="if(event.target===this) closeReassignModal()">
+    <div class="scrim-card">
+      <div class="scrim-header">
+        <strong class="scrim-title">تحديد المكون البديل للمؤشر</strong>
+        <button type="button" class="btn-scrim-close" onclick="closeReassignModal()">✕</button>
+      </div>
+      <div id="reassignOptionsStream" class="vertical-stream"></div>
+    </div>
+  </div>
+
+  <!-- نافذة اختيار المسار المعتمد في الأفق 01 -->
+  <div class="scrim-modal" id="adoptedPickerModal" onclick="if(event.target===this) closeAdoptedPickerModal()">
+    <div class="scrim-card">
+      <div class="scrim-header">
+        <strong class="scrim-title">اعتماد المسار الهندسي الفائز للمشروع</strong>
+        <button type="button" class="btn-scrim-close" onclick="closeAdoptedPickerModal()">✕</button>
+      </div>
+      <div id="adoptedOptionsStream" class="vertical-stream"></div>
+    </div>
+  </div>
+
+  <!-- نافذة دليل ومنصة draw.io المعتمدة -->
+  <div class="scrim-modal" id="drawioModal" onclick="if(event.target===this) closeDrawioGuideModal()">
+    <div class="scrim-card">
+      <div class="scrim-header">
+        <strong class="scrim-title">دليل ومنصة إعداد المخطط الانسيابي المعتمد</strong>
+        <button type="button" class="btn-scrim-close" onclick="closeDrawioGuideModal()">✕</button>
+      </div>
+      <div class="drawio-guide-body">
+        <p>المخطط الانسيابي هو لغة بصرية موحدة تترجم منطق البرنامج وفق الأشكال القياسية:</p>
+        <ul class="drawio-shapes-list">
+          <li><strong>الشكل البيضاوي:</strong> نقطة البداية والنهاية الحتمية للبرنامج.</li>
+          <li><strong>المستطيل:</strong> العمليات الحسابية وقراءات الحساسات وتحديث قيم المتغيرات.</li>
+          <li><strong>المعين:</strong> الشروط المنطقية ونقاط اتخاذ القرار (نعم / لا).</li>
+          <li><strong>الأسهم:</strong> اتجاه تدفق البيانات وتسلسل الأوامر التنفيذية.</li>
+        </ul>
+        <div class="links-column">
+          <a href="https://app.diagrams.net/" target="_blank" class="btn-append-atom drawio-btn-link">
+            <span>فتح منصة draw.io الهندسية السحابية</span> <span>↗</span>
+          </a>
+          <a href="https://drive.google.com/file/d/1oISZKI-GKpwcGaVVRuyU-dLCb5_JzqyS/view?usp=drivesdk#page=95" target="_blank" class="btn-append-atom drawio-btn-link">
+            <span>كتاب المهارات الرقمية (ص 95) • درس تصميم الخوارزميات</span> <span>↗</span>
+          </a>
+        </div>
+      </div>
+      <button type="button" class="btn-close-modal" onclick="closeDrawioGuideModal()">إغلاق الدليل والعودة</button>
+    </div>
+  </div>
+
+  <!-- نافذة قبس البصيرة القرآني والنبوي -->
+  <div class="scrim-modal" id="insightModal" onclick="if(event.target===this) closeInsightModal()">
+    <div class="scrim-card insight-modal-card">
+      <span class="insight-modal-category">قبس من نور الوحي والعمل</span>
+      <div class="insight-quran-text" id="modalFullQuote"></div>
+      <span class="insight-quran-source" id="modalQuoteSource"></span>
+      <button type="button" class="btn-close-modal" onclick="closeInsightModal()">تمثّل المعنى ومواصلة الأثر</button>
+    </div>
+  </div>
+
+  <!-- نافذة الإعلانات الميدانية والتوجيهات -->
+  <div class="scrim-modal" id="notifModal" onclick="if(event.target===this) closeNotifModal()">
+    <div class="scrim-card">
+      <div class="scrim-header">
+        <div class="notif-header-group">
+          <span class="live-dot"></span>
+          <strong class="scrim-title">الإعلانات والتوجيهات الميدانية</strong>
+        </div>
+        <button type="button" class="btn-scrim-close" onclick="closeNotifModal()">✕</button>
+      </div>
+      <div class="notif-official-card">
+        <span class="notif-org-tag">إدارة البطولة الوطنية للابتكار والروبوت</span>
+        <h4 class="notif-heading">تأكيد موثوقية الأثر وتكامل التوثيق</h4>
+        <p class="notif-copy">
+          يرجى من جميع الفرق إكمال مسوغات اختيار المكونات، وربط دبابيس الإسقاط بالصورة، وتوثيق التدخل البشري في مخرجات الذكاء الاصطناعي لحفظ الملكية الفكرية للفريق.
+        </p>
+      </div>
+      <button type="button" class="btn-close-modal" onclick="closeNotifModal()">إغلاق</button>
+    </div>
+  </div>
+
+  <!-- ربط ملفات الجافاسكريبت المنفصلة المعيارية -->
+  <script src="js/config.js"></script>
+  <script src="js/pinning.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+          </html>
