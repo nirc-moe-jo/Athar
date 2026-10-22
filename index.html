@@ -9,9 +9,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700&family=JetBrains+Mono:wght@400;500;600;700&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- ملف الأنماط البصرية والهوية التصميمية الموحدة -->
-  <link rel="stylesheet" href="css/style.css">
+
+  <!-- ملف الأنماط البصرية والهوية التصميمية الموحدة مع كسر الذاكرة المخبأة -->
+  <link rel="stylesheet" href="css/style.css?v=2">
 </head>
 <body>
 
@@ -91,7 +91,10 @@
           </div>
         </div>
 
-        <textarea id="h1_narration" rows="4" placeholder="اكتب قصة رصد المشكلة الميدانية، وظروف نشأتها، والأثر السلبي المترتب على بقائها دون حل تقني..." oninput="evaluateOriginWords()"></textarea>
+        <div class="field-group">
+          <label class="field-label">توصيف المشكلة الميدانية وسياق نشأتها الواقعي:</label>
+          <textarea id="h1_narration" rows="4" placeholder="اكتب قصة رصد المشكلة الميدانية، وظروف نشأتها، والأثر السلبي المترتب على بقائها دون حل تقني..." oninput="evaluateOriginWords()"></textarea>
+        </div>
 
         <!-- مسرح صورة واقع المشكلة الموحد -->
         <div class="media-shelf" onclick="document.getElementById('h1_img_file').click()">
@@ -126,7 +129,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             </button>
           </div>
-          <span class="badge-code" id="h1_ch_count">01 تحديات</span>
+          <span class="badge-code" id="h1_ch_count">00 تحديات</span>
         </div>
 
         <div id="h1_challenges_stream" class="vertical-stream"></div>
@@ -143,7 +146,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             </button>
           </div>
-          <span class="badge-code" id="h1_st_count">02 مسارات</span>
+          <span class="badge-code" id="h1_st_count">00 مسارات</span>
         </div>
 
         <div id="h1_strategies_stream" class="vertical-stream"></div>
@@ -167,14 +170,24 @@
           <button type="button" class="btn-append-atom" onclick="openAdoptedPickerModal()">تحديد المسار الفائز ↗</button>
         </div>
 
-        <input type="text" id="h1_statement" placeholder="الصياغة المنهجية الشاملة للاستراتيجية المعتمدة..." oninput="persistState()">
+        <div class="field-group">
+          <label class="field-label">الصياغة المنهجية الشاملة للاستراتيجية المعتمدة:</label>
+          <input type="text" id="h1_statement" placeholder="مثال: بناء منظومة روبوتية مؤتمتة تعتمد الرؤية الحاسوبية ومعالجة الإشارات اللحظية..." oninput="persistState()">
+        </div>
 
         <div class="grid-pillar">
-          <input type="text" id="h1_pillar_axis" placeholder="المحور الحاكم الأساسي (مثال: الموثوقية الميدانية في البيئات الوعرة)..." oninput="persistState()">
-          <input type="text" id="h1_pillar_reason" placeholder="سبب الأهمية وعلاقته بنجاح المنظومة وموثوقيتها التشغيلية..." oninput="persistState()">
+          <div class="field-group">
+            <label class="field-label">المحور الحاكم الأساسي:</label>
+            <input type="text" id="h1_pillar_axis" placeholder="مثال: الموثوقية الميدانية في البيئات الوعرة..." oninput="persistState()">
+          </div>
+          <div class="field-group">
+            <label class="field-label">سبب الأهمية وعلاقته بنجاح المنظومة:</label>
+            <input type="text" id="h1_pillar_reason" placeholder="بيان الأثر المباشر في كفاءة النظام وموثوقيته التشغيلية..." oninput="persistState()">
+          </div>
         </div>
       </section>
 
+      <!-- ذيل الأفق 01 (سهم المتابعة مضبوط يساراً) -->
       <footer class="horizon-nav-footer">
         <span></span>
         <button type="button" class="btn-append-atom btn-next-action" onclick="switchHorizon(1)">
@@ -206,6 +219,7 @@
 
       <button type="button" class="btn-append-atom btn-center" onclick="appendTrialCard()">+ إدراج تجربة جديدة</button>
 
+      <!-- ذيل الأفق 02 (العودة يميناً والمتابعة يساراً) -->
       <footer class="horizon-nav-footer">
         <button type="button" class="btn-append-atom" onclick="switchHorizon(0)">
           <span class="arrow-glyph">→</span>
@@ -325,6 +339,7 @@
         <div class="evolution-quad-grid" id="h3_evolution_grid"></div>
       </section>
 
+      <!-- ذيل الأفق 03 (العودة يميناً والمتابعة يساراً) -->
       <footer class="horizon-nav-footer">
         <button type="button" class="btn-append-atom" onclick="switchHorizon(1)">
           <span class="arrow-glyph">→</span>
@@ -365,7 +380,7 @@
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="7" height="6" rx="1.5"/>
               <path d="M6.5 9v4a3 3 0 0 0 3 3h4.5"/>
-              <polyline points="11.5 13.5 14 16 11.5 18.5"/>
+              <polyline points="11.5 13.5 14 16 11.5" />
               <rect x="14" y="12" width="7" height="8" rx="1.5"/>
             </svg>
             <span class="upload-main-text">المخطط الانسيابي العام لمنطق النظام</span>
@@ -392,18 +407,31 @@
           </div>
         </div>
 
-        <input type="text" id="h4_algo_name" placeholder="اسم الخوارزمية البرمجية (مثال: PID Controller لمعادلة الاتزان)..." oninput="persistState()">
-        <input type="text" id="h4_algo_problem" placeholder="المعضلة الفنية التي تعالجها الخوارزمية في عمل الروبوت..." oninput="persistState()">
-
-        <div class="code-terminal-box">
-          <div class="terminal-meta-bar">
-            <span>CORE ALGORITHM SOURCE CODE</span>
-            <span>UTF-8 • MONO</span>
-          </div>
-          <textarea id="h4_algo_code" class="terminal-textarea" placeholder="// كتابة الشفرة البرمجية المكتوبة بأيدي الفريق بلغة البرمجة المعتمدة..." oninput="persistState()"></textarea>
+        <div class="field-group">
+          <label class="field-label">اسم الخوارزمية البرمجية:</label>
+          <input type="text" id="h4_algo_name" placeholder="مثال: PID Controller لمعادلة الاتزان اللحظي..." oninput="persistState()">
         </div>
 
-        <textarea rows="3" id="h4_algo_logic" placeholder="تفكيك المنطق الهندسي (المدخلات، العمليات والمعادلات الرياضية، شروط القرار، والمخرجات)..." oninput="persistState()"></textarea>
+        <div class="field-group">
+          <label class="field-label">المعضلة الفنية التي تعالجها الخوارزمية:</label>
+          <input type="text" id="h4_algo_problem" placeholder="توصيف الخلل الميداني أو الرياضي الذي صممت الخوارزمية لتصحيحه..." oninput="persistState()">
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" style="font-weight:700;">الشفرة المصدرية المكتوبة بلغة البرمجة المعتمدة:</label>
+          <div class="code-terminal-box">
+            <div class="terminal-meta-bar">
+              <span>CORE ALGORITHM SOURCE CODE</span>
+              <span>UTF-8 • MONO</span>
+            </div>
+            <textarea id="h4_algo_code" class="terminal-textarea" placeholder="// كتابة الشفرة البرمجية المكتوبة بأيدي الفريق بلغة البرمجة المعتمدة..." oninput="persistState()"></textarea>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">تفكيك المنطق الهندسي (المدخلات، العمليات والمعادلات، شروط القرار، والمخرجات):</label>
+          <textarea rows="3" id="h4_algo_logic" placeholder="تفكيك خطوات المعالجة البرمجية بالتفصيل الهندسي المنضبط..." oninput="persistState()"></textarea>
+        </div>
       </section>
 
       <!-- 03: ابتكارات التصنيع الرقمي CAD vs Real -->
@@ -434,6 +462,7 @@
         <button type="button" class="btn-append-atom" onclick="appendAiItem()">+ إضافة دراسة حالة أداة ذكاء اصطناعي</button>
       </section>
 
+      <!-- ذيل الأفق 04 (العودة يميناً والمتابعة يساراً) -->
       <footer class="horizon-nav-footer">
         <button type="button" class="btn-append-atom" onclick="switchHorizon(2)">
           <span class="arrow-glyph">→</span>
@@ -491,6 +520,7 @@
         <div id="h5_fp_panes"></div>
       </section>
 
+      <!-- ذيل الأفق 05 (العودة يميناً وشارة الختام) -->
       <footer class="horizon-nav-footer">
         <button type="button" class="btn-append-atom" onclick="switchHorizon(3)">
           <span class="arrow-glyph">→</span>
@@ -535,7 +565,7 @@
        5. النوافذ المنبثقة التفاعلية (Modals & Menus)
        ============================================================ -->
 
-  <!-- القائمة الدائرية الشعاعية لدبابيس الإسقاط (The Radial Pie Menu) -->
+  <!-- القائمة الدائرية الشعاعية لدبابيس الإسقاط (The Radial Pie Menu) مع زر "نقل" -->
   <div class="radial-pie-scrim" id="radialScrim" onclick="closeRadialMenu(event)">
     <div class="radial-menu-wheel" id="radialWheel">
       <div class="pie-center-hub">
@@ -544,7 +574,7 @@
       </div>
       <button type="button" class="pie-sector-petal petal-top" onclick="triggerRadialAction('relocate')">
         <span class="petal-icon">✥</span>
-        <span class="petal-label">تحريك</span>
+        <span class="petal-label">نقل</span>
       </button>
       <button type="button" class="pie-sector-petal petal-right" onclick="triggerRadialAction('inspect')">
         <span class="petal-icon">ⓘ</span>
@@ -642,10 +672,10 @@
     </div>
   </div>
 
-  <!-- ربط ملفات الجافاسكريبت المنفصلة المعيارية -->
-  <script src="js/config.js"></script>
-  <script src="js/pinning.js"></script>
-  <script src="js/app.js"></script>
+  <!-- ربط ملفات الجافاسكريبت المنفصلة المعيارية مع كسر الذاكرة المخبأة -->
+  <script src="js/config.js?v=2"></script>
+  <script src="js/pinning.js?v=2"></script>
+  <script src="js/app.js?v=2"></script>
 
 </body>
-          </html>
+  </html>
