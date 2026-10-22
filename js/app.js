@@ -1,5 +1,5 @@
 /* =========================================================================
-   أَثَـر • ATHAR ENGINE: MASTER ORCHESTRATOR & APPLICATION BRAIN
+   أَثَـر • ATHAR ENGINE: MASTER ORCHESTRATOR & APPLICATION BRAIN (V2 MASTER)
    البطولة الوطنية للابتكار والروبوت — وزارة التربية والتعليم وتنمية الموارد البشرية
    ========================================================================= */
 
@@ -13,14 +13,17 @@ window.currentInsightIndex = 0;
 function switchHorizon(index) {
   activeHorizonIndex = index;
 
+  // إظهار الأفق المختار وإخفاء باقي الآفاق لضمان التركيز الذهني الكامل
   document.querySelectorAll('.horizon-pane').forEach((pane, i) => {
     pane.classList.toggle('active', i === index);
   });
 
+  // تحديث حالة الأزرار في الشريط السفلي العائم
   document.querySelectorAll('.dock-btn').forEach((btn, i) => {
     btn.classList.toggle('active', i === index);
   });
 
+  // تحديث عنوان الأفق في رادار الرأس
   const horizonTitles = [
     "الأفق 01: أساس المشروع والمشكلة",
     "الأفق 02: مسار التجريب والتطوير",
@@ -31,7 +34,10 @@ function switchHorizon(index) {
   const radarLabel = document.getElementById('radarHorizonLabel');
   if (radarLabel) radarLabel.innerText = horizonTitles[index];
 
+  // انزلاق سلس ومريح لأعلى الصفحة
   window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // تدقيق الإنجاز وتحديث المؤشرات
   triggerProgressAudit();
 }
 
@@ -54,6 +60,7 @@ async function runInsightEngine() {
     textEl.style.opacity = '1';
     await sleep(2200);
 
+    // حساب فيضان النص وتمريره أفقياً بنعومة إذا تجاوز العرض
     const overflow = textEl.scrollWidth - vpEl.clientWidth;
     if (overflow > 6) {
       const duration = overflow / 28;
@@ -248,7 +255,7 @@ function closeAdoptedPickerModal() {
 }
 
 // ============================================================
-// 4. الأفق 02: مسار التجريب ودورات التطوير المستمر
+// 4. الأفق 02: مسار التجريب والتعلّم المستمر
 // ============================================================
 
 function renderTrials() {
@@ -271,6 +278,9 @@ function renderTrials() {
   state.h2.trials.forEach((t, idx) => {
     const card = document.createElement('div');
     card.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-md); padding:16px; display:flex; flex-direction:column; gap:12px;";
+    
+    const summaryWords = (t.summary || '').trim().split(/\s+/).filter(Boolean).length;
+
     card.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:8px;">
         <div style="display:flex; align-items:center; gap:8px;">
@@ -295,7 +305,32 @@ function renderTrials() {
         <label class="field-label">هدف المحاولة وتوزيع أدوار الفريق في الاختبار:</label>
         <textarea rows="2" placeholder="تحديد الغرض العلمي وتوزيع مهام الملاحظة والقياس بين الأعضاء..." oninput="state.h2.trials[${idx}].goal=this.value; persistState();">${esc(t.goal)}</textarea>
       </div>
+
+      <!-- شبكة صورة النتيجة والخلاصة الاستنتاجية -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:10px;">
+        <div class="field-group">
+          <label class="field-label">صورة نتيجة الاختبار (رسم بياني/قراءة فنية):</label>
+          <div class="media-shelf" onclick="document.getElementById('tr_res_file_${idx}').click()" style="min-height:100px;">
+            <input type="file" id="tr_res_file_${idx}" accept="image/png, image/jpeg, image/webp" style="display:none;" onchange="handleSubImgUpload('h2', 'trials', ${idx}, 'resImg', this)">
+            ${t.resImg ? `<img src="${t.resImg}" style="display:block;">` : `
+              <div class="upload-placeholder-content">
+                <span class="upload-main-text">رفع صورة نتيجة الاختبار</span>
+                <span class="upload-sub-text">PNG, JPEG, WebP</span>
+              </div>
+            `}
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <label class="field-label">الخلاصة الاستنتاجية للمحاولة:</label>
+            <span class="word-meter ${summaryWords <= 25 ? 'in-range' : 'out-range'}">${summaryWords}/25 كلمة</span>
+          </div>
+          <textarea rows="3" placeholder="أهم استنتاج جوهري خرج به الفريق..." oninput="state.h2.trials[${idx}].summary=this.value; persistState();">${esc(t.summary)}</textarea>
+        </div>
+      </div>
       
+      <!-- مصفوفة التحليل الثنائي -->
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px;">
         <div style="background:var(--emerald-bg); border:1px solid rgba(15,118,110,0.2); border-radius:var(--radius-sm); padding:10px; display:flex; flex-direction:column; gap:6px;">
           <span style="font-size:11px; font-weight:700; color:var(--emerald-serene);">ما الذي نجح؟</span>
@@ -318,6 +353,32 @@ function renderTrials() {
           <div class="field-group">
             <label class="field-label">قرار الفريق لمعالجته:</label>
             <textarea rows="2" placeholder="قرار الفريق الإجرائي لتجاوز هذا الخلل..." oninput="state.h2.trials[${idx}].failD=this.value; persistState();">${esc(t.failD)}</textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- صور العمل الميداني أثناء إجراء التجربة -->
+      <div class="field-group">
+        <label class="field-label">توثيق الفريق أثناء إجراء التجربة (صورتان):</label>
+        <div class="dual-media-grid">
+          <div class="media-shelf" onclick="document.getElementById('tr_act1_file_${idx}').click()" style="min-height:90px;">
+            <input type="file" id="tr_act1_file_${idx}" accept="image/png, image/jpeg, image/webp" style="display:none;" onchange="handleSubImgUpload('h2', 'trials', ${idx}, 'act1Img', this)">
+            ${t.act1Img ? `<img src="${t.act1Img}" style="display:block;">` : `
+              <div class="upload-placeholder-content">
+                <span class="upload-main-text">صورة أثناء العمل 01</span>
+                <span class="upload-sub-text">PNG, JPEG, WebP</span>
+              </div>
+            `}
+          </div>
+
+          <div class="media-shelf" onclick="document.getElementById('tr_act2_file_${idx}').click()" style="min-height:90px;">
+            <input type="file" id="tr_act2_file_${idx}" accept="image/png, image/jpeg, image/webp" style="display:none;" onchange="handleSubImgUpload('h2', 'trials', ${idx}, 'act2Img', this)">
+            ${t.act2Img ? `<img src="${t.act2Img}" style="display:block;">` : `
+              <div class="upload-placeholder-content">
+                <span class="upload-main-text">صورة أثناء العمل 02</span>
+                <span class="upload-sub-text">PNG, JPEG, WebP</span>
+              </div>
+            `}
           </div>
         </div>
       </div>
@@ -361,8 +422,23 @@ function removeTrial(idx) {
 }
 
 // ============================================================
-// 5. الأفق 03: جدول المكونات ومراحل التطور الزمني للتصميم
+// 5. الأفق 03: جدول المكونات (BOM) ومراحل التطور الزمني
 // ============================================================
+
+// تحديث المجموع الحسابي لحظياً دون مقاطعة التركيز (No Focus Loss)
+function updateCatalogTotalCost() {
+  let sum = 0;
+  if (state.h3.catalog) {
+    state.h3.catalog.forEach(item => {
+      const cost = parseFloat(item.cost) || 0;
+      const qty = parseInt(item.qty, 10) || 1;
+      sum += cost * qty;
+    });
+  }
+  const costEl = document.getElementById('h3_total_cost');
+  if (costEl) costEl.innerText = `${sum.toFixed(2)} د.أ`;
+  persistState();
+}
 
 function renderCatalog() {
   const stream = document.getElementById('h3_catalog_stream');
@@ -391,6 +467,7 @@ function renderCatalog() {
 
     const row = document.createElement('div');
     row.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:12px; display:flex; flex-direction:column; gap:8px;";
+    
     row.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:6px;">
         <span style="font-family:var(--font-code); font-size:11px; font-weight:700;">المكون ${String(idx+1).padStart(2,'0')}</span>
@@ -414,17 +491,28 @@ function renderCatalog() {
         </div>
         <div class="field-group">
           <label class="field-label">الكلفة (د.أ):</label>
-          <input type="number" step="0.5" placeholder="0.00" value="${item.cost}" oninput="state.h3.catalog[${idx}].cost=this.value; renderCatalog(); persistState();">
+          <input type="number" step="0.5" placeholder="0.00" value="${item.cost}" oninput="state.h3.catalog[${idx}].cost=this.value; updateCatalogTotalCost();">
         </div>
         <div class="field-group">
           <label class="field-label">الكمية:</label>
-          <input type="number" min="1" placeholder="1" value="${item.qty}" oninput="state.h3.catalog[${idx}].qty=this.value; renderCatalog(); persistState();">
+          <input type="number" min="1" placeholder="1" value="${item.qty}" oninput="state.h3.catalog[${idx}].qty=this.value; updateCatalogTotalCost();">
         </div>
       </div>
 
       <div class="field-group">
         <label class="field-label">مسوغات الاختيار الهندسية وعلاقتها بالتحديات:</label>
         <input type="text" placeholder="تفسير سبب اختيار هذه القطعة بالذات..." value="${esc(item.reason)}" oninput="state.h3.catalog[${idx}].reason=this.value; persistState();">
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <div class="field-group">
+          <label class="field-label">أفق التطوير والترقية المستقبلي:</label>
+          <input type="text" placeholder="خطة الترقية للمنظومة لاحقاً..." value="${esc(item.upgrade)}" oninput="state.h3.catalog[${idx}].upgrade=this.value; persistState();">
+        </div>
+        <div class="field-group">
+          <label class="field-label">رابط الشراء أو المصدر الفني:</label>
+          <input type="text" placeholder="https://..." value="${esc(item.link)}" oninput="state.h3.catalog[${idx}].link=this.value; persistState();" style="direction:ltr; text-align:left;">
+        </div>
       </div>
     `;
     stream.appendChild(row);
@@ -459,6 +547,7 @@ function renderEvolution() {
   if (!grid) return;
   grid.innerHTML = '';
 
+  // التحصين الذاتي لضمان ظهور المحطات الأربع دائماً
   if (!state.h3.evolution || !Array.isArray(state.h3.evolution) || state.h3.evolution.length < 4) {
     state.h3.evolution = [
       { img: "", note: "" }, { img: "", note: "" }, { img: "", note: "" }, { img: "", note: "" }
@@ -734,7 +823,7 @@ function renderIdentity() {
       
       <div class="field-group">
         <label class="field-label">الاسم الثلاثي الكامل:</label>
-        <input type="text" placeholder="الاسم الكامل للطالب..." value="${esc(m.name)}" oninput="state.h5.members['${k}'].name=this.value; renderFpTabs(); persistState();" style="font-weight:600;">
+        <input type="text" placeholder="الاسم الكامل..." value="${esc(m.name)}" oninput="state.h5.members['${k}'].name=this.value; renderFpTabs(); persistState();" style="font-weight:600;">
       </div>
 
       <div class="field-group">
@@ -792,6 +881,7 @@ function renderFpPanes() {
   const container = document.getElementById('h5_fp_panes');
   if (!container || !m || !fp) return;
 
+  // إدراج نص quote المحفوظ بشكل منضبط داخل وسم textarea
   container.innerHTML = `
     <div class="stage-card" style="background:#fff; gap:10px;">
       <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:6px;">
@@ -819,7 +909,7 @@ function renderFpPanes() {
 
       <div class="field-group">
         <label class="field-label" style="font-weight:700; color:var(--gold-deep);">الرسالة والأثر المستدام المراد تركه:</label>
-        <textarea rows="2" placeholder="الصياغة الشخصية للأثر والرسالة التي أطمح لغرسها في وطني..." oninput="state.h5.footprints['${curKey}'].quote=this.value; persistState();"></textarea>
+        <textarea rows="2" placeholder="الصياغة الشخصية للأثر والرسالة التي أطمح لغرسها في وطني..." oninput="state.h5.footprints['${curKey}'].quote=this.value; persistState();">${esc(fp.quote)}</textarea>
       </div>
     </div>
   `;
@@ -861,6 +951,7 @@ function handleSubImgUpload(section, subArray, idx, key, input) {
     compressImageFile(input.files[0], 800, 0.8, base64 => {
       state[section][subArray][idx][key] = base64;
       if (subArray === 'fabItems') renderFab();
+      else if (subArray === 'trials') renderTrials();
       persistState();
     });
   }
@@ -884,17 +975,23 @@ function confirmShelfDel(stateProp, imgId, promptId, delContainerId, inputId) {
 }
 
 // ============================================================
-// 9. محرك قياس التقدم والتدقيق الهندسي المحصّن والتراكمي (Progress Radar)
+// 9. محرك قياس التقدم والتدقيق الهندسي المحصّن والمعاير رياضياً
 // ============================================================
 
 function triggerProgressAudit() {
   const has = s => Boolean(String(s || '').trim());
 
-  // 1. تدقيق أفق 01 (الأساس)
+  // 1. تدقيق أفق 01 (الأساس): اشتراط وقوع الكلمات بدقة بين 50 و 100 كلمة
   let h1_score = 0;
   const h1_words = (state.h1.narration || '').trim().split(/\s+/).filter(Boolean).length;
-  if (h1_words >= 50) h1_score += 25;
-  else if (h1_words > 0) h1_score += Math.round((h1_words / 50) * 20);
+  
+  if (h1_words >= 50 && h1_words <= 100) {
+    h1_score += 25; // النطاق المثالي
+  } else if (h1_words > 100) {
+    h1_score += 15; // حسم جزئي لتجاوز الحد والإسهاب الإنشائي
+  } else if (h1_words > 0) {
+    h1_score += Math.round((h1_words / 50) * 15); // نسبة جزئية لمن لم يستوفِ الحد الأدنى
+  }
 
   if (state.h1.challenges && state.h1.challenges.some(c => has(c.challenge) && has(c.analysis))) h1_score += 25;
   if (state.h1.strategies && state.h1.strategies.some(s => has(s.title))) h1_score += 25;
@@ -909,10 +1006,11 @@ function triggerProgressAudit() {
   if (state.h2.trials && state.h2.trials.length > 0) {
     let t_scores = state.h2.trials.map(t => {
       let s = 0;
-      if (has(t.title)) s += 25;
-      if (has(t.goal)) s += 25;
-      if (has(t.passT) || has(t.failT)) s += 25;
-      if (has(t.nextV)) s += 25;
+      if (has(t.title)) s += 20;
+      if (has(t.goal)) s += 20;
+      if (has(t.summary)) s += 20;
+      if (has(t.passT) || has(t.failT)) s += 20;
+      if (has(t.nextV)) s += 20;
       return s;
     });
     h2_score = Math.round(t_scores.reduce((a, b) => a + b, 0) / state.h2.trials.length);
@@ -921,11 +1019,18 @@ function triggerProgressAudit() {
   updateBadgeSafe('badge_h1', h2_ok ? 'مكتمل ومستوفٍ ✓' : `${h2_score}% منجز`);
   updateDockCheckSafe('dock_chk_1', h2_ok);
 
-  // 3. تدقيق أفق 03 (التجسيد)
+  // 3. تدقيق أفق 03 (التجسيد): احتساب نسبة الدبابيس مقارنة بعدد قطع BOM الفعلية
   let h3_score = 0;
-  if (state.h3.catalog && state.h3.catalog.some(c => has(c.name) && has(c.reason))) h3_score += 35;
+  const totalCatalog = state.h3.catalog ? state.h3.catalog.length : 0;
+  const totalPins = state.h3.pins ? state.h3.pins.length : 0;
+
+  if (totalCatalog > 0 && state.h3.catalog.some(c => has(c.name) && has(c.reason))) h3_score += 35;
   if (Boolean(state.h3.robotImg)) h3_score += 35;
-  if (state.h3.pins && state.h3.pins.length > 0) h3_score += 30;
+
+  if (totalCatalog > 0 && totalPins > 0) {
+    const pinRatio = Math.min(1, totalPins / totalCatalog);
+    h3_score += Math.round(pinRatio * 30);
+  }
 
   const h3_ok = h3_score >= 95;
   updateBadgeSafe('badge_h2', h3_ok ? 'مكتمل ومستوفٍ ✓' : `${h3_score}% منجز`);
@@ -949,9 +1054,10 @@ function triggerProgressAudit() {
     let s = 0;
     const m = state.h5.members[k] || {};
     const fp = state.h5.footprints[k] || {};
-    if (has(m.name)) s += 40;
+    if (has(m.name)) s += 30;
     if (has(m.role)) s += 20;
-    if (has(fp.impact) || has(fp.quote)) s += 40;
+    if (has(fp.impact)) s += 25;
+    if (has(fp.quote)) s += 25;
     return s;
   });
   h5_score = Math.round(mem_scores.reduce((a, b) => a + b, 0) / activeKeys.length);
@@ -960,6 +1066,7 @@ function triggerProgressAudit() {
   updateBadgeSafe('badge_h5', h5_ok ? 'مكتمل ومستوفٍ ✓' : `${h5_score}% منجز`);
   updateDockCheckSafe('dock_chk_4', h5_ok);
 
+  // حساب المعدل العام التراكمي للمنظومة
   const overallPct = Math.round((h1_score + h2_score + h3_score + h4_score + h5_score) / 5);
 
   const pctEl = document.getElementById('radarPercentDigit');
@@ -967,12 +1074,13 @@ function triggerProgressAudit() {
   if (pctEl) pctEl.innerText = `${overallPct}%`;
   if (barEl) barEl.style.width = `${overallPct}%`;
 
+  // التوجيه الذكي المباشر بحسب الأفق النشط أمام الطالب
   const horizonScores = [h1_score, h2_score, h3_score, h4_score, h5_score];
   const curScore = horizonScores[activeHorizonIndex];
   const hints = [
-    `الأفق 01 (${h1_score}%): ${h1_words < 50 ? 'اكتب 50 كلمة في المشكلة' : (state.h1.adoptedIndex === null ? 'حدد المسار المعتمد' : 'استكمل تفكيك التحديات')}`,
-    `الأفق 02 (${h2_score}%): استكمل توثيق القرارات وتوزيع الأدوار في التجارب المسجلة`,
-    `الأفق 03 (${h3_score}%): ${!state.h3.robotImg ? 'ارفع صورة النموذج النهائي' : (state.h3.pins.length === 0 ? 'أسقط دبابيس المكونات على الصورة' : 'أكمل مسوغات قطع BOM')}`,
+    `الأفق 01 (${h1_score}%): ${h1_words < 50 ? 'اكتب 50 كلمة على الأقل' : (h1_words > 100 ? 'اختصر المشكلة لتكون تحت 100 كلمة' : (state.h1.adoptedIndex === null ? 'حدد المسار المعتمد' : 'استكمل تفكيك التحديات'))}`,
+    `الأفق 02 (${h2_score}%): استكمل توثيق الخلاصة والقرارات والصور في التجارب المسجلة`,
+    `الأفق 03 (${h3_score}%): ${!state.h3.robotImg ? 'ارفع صورة النموذج النهائي' : (totalPins < totalCatalog ? `أسقط دبابيس باقي المكونات (${totalPins} من ${totalCatalog} مسقطة)` : 'أكمل مسوغات قطع BOM')}`,
     `الأفق 04 (${h4_score}%): ${!state.h4.flowImg ? 'ارفع المخطط الانسيابي' : (!has(state.h4.algoCode) ? 'اكتب شفرة الخوارزمية في الطرفية' : 'وثق دراسة التحقق البشري من الذكاء الاصطناعي')}`,
     `الأفق 05 (${h5_score}%): دوّن أسماء أعضاء الفريق ورسالة الأثر المستدام لكل عضو`
   ];
@@ -1030,6 +1138,7 @@ function restoreMasterState() {
       const parsed = JSON.parse(raw);
       state = { ...state, ...parsed };
       
+      // ضمان سلامة بنية المحطات الأربع دائماً حتى لو كانت الذاكرة قديمة
       if (!state.h3.evolution || !Array.isArray(state.h3.evolution) || state.h3.evolution.length < 4) {
         state.h3.evolution = [
           { img: "", note: "" }, { img: "", note: "" }, { img: "", note: "" }, { img: "", note: "" }
@@ -1096,6 +1205,7 @@ function restoreMasterState() {
   if (teamSizeEl) teamSizeEl.value = state.h5.teamSize || '3';
   renderIdentity();
 
+  // التدقيق النهائي الشامل
   triggerProgressAudit();
 }
 
