@@ -113,7 +113,7 @@ function renderChallenges() {
           <div>
             <button type="button" class="btn-discrete-del" onclick="armDel('ch_del_${idx}', 'ch_conf_${idx}')" id="ch_del_${idx}">استبعاد</button>
             <div class="confirm-deck" id="ch_conf_${idx}">
-              <button type="button" class="btn-affirm" onclick="removeChallenge(${idx})">تأكيد</button>
+              <button type="button" class="btn-affirm" onclick="removeChallenge(${idx})">تأكيد الاستبعاد</button>
               <button type="button" class="btn-cancel" onclick="disarmDel('ch_del_${idx}', 'ch_conf_${idx}')">تراجع</button>
             </div>
           </div>
@@ -170,7 +170,7 @@ function renderStrategies() {
           <div>
             <button type="button" class="btn-discrete-del" onclick="armDel('st_del_${sIdx}', 'st_conf_${sIdx}')" id="st_del_${sIdx}">استبعاد</button>
             <div class="confirm-deck" id="st_conf_${sIdx}">
-              <button type="button" class="btn-affirm" onclick="removeStrategy(${sIdx})">تأكيد</button>
+              <button type="button" class="btn-affirm" onclick="removeStrategy(${sIdx})">تأكيد الاستبعاد</button>
               <button type="button" class="btn-cancel" onclick="disarmDel('st_del_${sIdx}', 'st_conf_${sIdx}')">تراجع</button>
             </div>
           </div>
@@ -290,7 +290,7 @@ function renderTrials() {
         <div>
           <button type="button" class="btn-discrete-del" onclick="armDel('tr_del_${idx}', 'tr_conf_${idx}')" id="tr_del_${idx}">استبعاد التجربة</button>
           <div class="confirm-deck" id="tr_conf_${idx}">
-            <button type="button" class="btn-affirm" onclick="removeTrial(${idx})">تأكيد</button>
+            <button type="button" class="btn-affirm" onclick="removeTrial(${idx})">تأكيد الاستبعاد</button>
             <button type="button" class="btn-cancel" onclick="disarmDel('tr_del_${idx}', 'tr_conf_${idx}')">تراجع</button>
           </div>
         </div>
@@ -466,26 +466,27 @@ function renderCatalog() {
     sum += cost * qty;
 
     const row = document.createElement('div');
-    row.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:12px; display:flex; flex-direction:column; gap:8px;";
+    row.style.cssText = "background:#fff; border:1px solid var(--border-whisper); border-radius:var(--radius-sm); padding:14px; display:flex; flex-direction:column; gap:10px;";
     
     row.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:6px;">
         <span style="font-family:var(--font-code); font-size:11px; font-weight:700;">المكون ${String(idx+1).padStart(2,'0')}</span>
         <div>
-          <button type="button" class="btn-discrete-del" onclick="armDel('cat_del_${idx}', 'cat_conf_${idx}')" id="cat_del_${idx}">استبعاد</button>
+          <button type="button" class="btn-discrete-del" onclick="armDel('cat_del_${idx}', 'cat_conf_${idx}')" id="cat_del_${idx}">استبعاد المكون</button>
           <div class="confirm-deck" id="cat_conf_${idx}">
-            <button type="button" class="btn-affirm" onclick="removeCatalogItem(${idx})">تأكيد</button>
+            <button type="button" class="btn-affirm" onclick="removeCatalogItem(${idx})">تأكيد الاستبعاد</button>
             <button type="button" class="btn-cancel" onclick="disarmDel('cat_del_${idx}', 'cat_conf_${idx}')">تراجع</button>
           </div>
         </div>
       </div>
 
-      <div style="display:grid; grid-template-columns:1.5fr 1.2fr 0.8fr 0.8fr; gap:8px;">
-        <div class="field-group">
+      <!-- شبكة مريحة تتكيف تلقائياً مع الهواتف -->
+      <div class="bom-grid-responsive">
+        <div class="field-group field-full-mobile">
           <label class="field-label">اسم المكون:</label>
           <input type="text" placeholder="مثال: محرك سيرفو رقمي..." value="${esc(item.name)}" oninput="state.h3.catalog[${idx}].name=this.value; renderBomChips(); persistState();">
         </div>
-        <div class="field-group">
+        <div class="field-group field-full-mobile">
           <label class="field-label">الطراز والإصدار:</label>
           <input type="text" placeholder="مثال: MG996R Metal Gear..." value="${esc(item.model)}" oninput="state.h3.catalog[${idx}].model=this.value; persistState();">
         </div>
@@ -504,7 +505,7 @@ function renderCatalog() {
         <input type="text" placeholder="تفسير سبب اختيار هذه القطعة بالذات..." value="${esc(item.reason)}" oninput="state.h3.catalog[${idx}].reason=this.value; persistState();">
       </div>
 
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+      <div class="bom-grid-sub">
         <div class="field-group">
           <label class="field-label">أفق التطوير والترقية المستقبلي:</label>
           <input type="text" placeholder="خطة الترقية للمنظومة لاحقاً..." value="${esc(item.upgrade)}" oninput="state.h3.catalog[${idx}].upgrade=this.value; persistState();">
@@ -644,7 +645,13 @@ function renderFab() {
     card.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:6px;">
         <span style="font-family:var(--font-code); font-size:11px; font-weight:700;">ابتكار التصنيع ${String(idx+1).padStart(2,'0')}</span>
-        <button type="button" class="btn-discrete-del" onclick="removeFabItem(${idx})">استبعاد</button>
+        <div>
+          <button type="button" class="btn-discrete-del" onclick="armDel('fab_del_${idx}', 'fab_conf_${idx}')" id="fab_del_${idx}">استبعاد</button>
+          <div class="confirm-deck" id="fab_conf_${idx}">
+            <button type="button" class="btn-affirm" onclick="removeFabItem(${idx})">تأكيد الاستبعاد</button>
+            <button type="button" class="btn-cancel" onclick="disarmDel('fab_del_${idx}', 'fab_conf_${idx}')">تراجع</button>
+          </div>
+        </div>
       </div>
 
       <div class="field-group">
@@ -744,7 +751,13 @@ function renderAiStudies() {
     card.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-whisper); padding-bottom:6px;">
         <span style="font-family:var(--font-code); font-size:11px; font-weight:700;">دراسة الحالة ${String(idx+1).padStart(2,'0')}</span>
-        <button type="button" class="btn-discrete-del" onclick="removeAiItem(${idx})">استبعاد</button>
+        <div>
+          <button type="button" class="btn-discrete-del" onclick="armDel('ai_del_${idx}', 'ai_conf_${idx}')" id="ai_del_${idx}">استبعاد</button>
+          <div class="confirm-deck" id="ai_conf_${idx}">
+            <button type="button" class="btn-affirm" onclick="removeAiItem(${idx})">تأكيد الاستبعاد</button>
+            <button type="button" class="btn-cancel" onclick="disarmDel('ai_del_${idx}', 'ai_conf_${idx}')">تراجع</button>
+          </div>
+        </div>
       </div>
 
       <div class="field-group">
@@ -1066,7 +1079,6 @@ function triggerProgressAudit() {
   updateBadgeSafe('badge_h5', h5_ok ? 'مكتمل ومستوفٍ ✓' : `${h5_score}% منجز`);
   updateDockCheckSafe('dock_chk_4', h5_ok);
 
-  // حساب المعدل العام التراكمي للمنظومة
   const overallPct = Math.round((h1_score + h2_score + h3_score + h4_score + h5_score) / 5);
 
   const pctEl = document.getElementById('radarPercentDigit');
