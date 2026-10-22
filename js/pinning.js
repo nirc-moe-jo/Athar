@@ -1,5 +1,5 @@
 /* =========================================================================
-   أَثَـر • ATHAR ENGINE: SPATIAL HARDWARE PINNING THEATER (MASTER)
+   أَثَـر • ATHAR ENGINE: SPATIAL HARDWARE PINNING THEATER (MASTER V2)
    البطولة الوطنية للابتكار والروبوت — وزارة التربية والتعليم وتنمية الموارد البشرية
    ========================================================================= */
 
@@ -280,41 +280,61 @@ function showSwapOptionsView(pinIdx, targetCompIdx) {
   if (!stream) return;
 
   const currentCompIdx = state.h3.pins[pinIdx].compIndex;
-  const currentItem = state.h3.catalog[currentCompIdx] || { name: 'المكون الحالي' };
-  const targetItem = state.h3.catalog[targetCompIdx] || { name: 'المكون المختار' };
+  const currentItem = state.h3.catalog[currentCompIdx] || { name: 'المكون الحالي', model: '-' };
+  const targetItem = state.h3.catalog[targetCompIdx] || { name: 'المكون المختار', model: '-' };
   const otherPinIdx = state.h3.pins.findIndex(p => p.compIndex === targetCompIdx);
 
+  const currentPinNum = String(currentCompIdx + 1).padStart(2, '0');
+  const targetPinNum = String(targetCompIdx + 1).padStart(2, '0');
+
   stream.innerHTML = `
-    <div style="background:var(--gold-soft); border:1px solid var(--gold-border); border-radius:var(--radius-sm); padding:12px; display:flex; flex-direction:column; gap:6px;">
-      <div style="display:flex; align-items:center; gap:6px;">
-        <span style="font-size:16px;">⇄</span>
-        <strong style="font-size:12.5px; color:var(--gold-deep);">المكون [${targetItem.name || 'المكون'}] مسقط مسبقاً على النموذج</strong>
+    <div class="swap-comparison-deck">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <strong style="font-size:12.5px; color:var(--gold-deep);">المكون المختار مثبت مسبقاً على نقطة أخرى</strong>
+        <span style="font-family:var(--font-code); font-size:10px; background:var(--gold-primary); color:#fff; padding:2px 7px; border-radius:var(--radius-pill);">مقارنة الموضعين</span>
       </div>
-      <p style="font-size:11px; color:var(--ink-soft); line-height:1.6; margin:0;">
+
+      <!-- مقارنة بصرية واضحة بين الدبوسين -->
+      <div class="swap-comparison-nodes">
+        <div class="swap-node-badge">
+          <span style="font-size:10px; color:var(--ink-subtle);">الموضع الحالي (هذا الدبوس):</span>
+          <strong style="font-size:11.5px; color:var(--ink-deep);">${currentPinNum} • ${esc(currentItem.name)}</strong>
+        </div>
+        <div class="swap-node-badge">
+          <span style="font-size:10px; color:var(--gold-primary);">الموضع المقابل (الدبوس الآخر):</span>
+          <strong style="font-size:11.5px; color:var(--ink-deep);">${targetPinNum} • ${esc(targetItem.name)}</strong>
+        </div>
+      </div>
+
+      <p style="font-size:11px; color:var(--ink-soft); line-height:1.5; margin:0;">
         حدد الإجراء المطلوب لتنفيذ عملية التبديل لهذا الدبوس:
       </p>
     </div>
 
     <div style="display:flex; flex-direction:column; gap:8px; margin-top:10px;">
-      <!-- الخيار الأول: مبادلة الموضعين بين الدبوسين -->
-      <button type="button" class="btn-append-atom" id="btnSwapBoth" style="width:100%; justify-content:space-between; padding:12px 14px; background:#ffffff; border-color:var(--gold-primary);">
-        <div style="text-align:right;">
-          <strong style="font-size:12px; color:var(--ink-deep); display:block;">🔄 مبادلة الموضعين (استبدال هذا مكان هذا)</strong>
-          <span style="font-size:10px; color:var(--ink-subtle);">يأخذ هذا الدبوس [${targetItem.name}]، وينتقل [${currentItem.name}] إلى موضع النقطة الأخرى.</span>
+      <!-- الخيار 1: مبادلة الموضعين (استبدال هذا مكان هذا) -->
+      <button type="button" class="swap-action-card-btn" id="btnSwapBoth">
+        <div>
+          <strong style="font-size:12px; color:var(--ink-deep); display:block; margin-bottom:2px;">🔄 مبادلة الموضعين بين الدبوسين</strong>
+          <span style="font-size:10.5px; color:var(--ink-soft); display:block; line-height:1.4;">
+            يأخذ هذا الدبوس (${esc(targetItem.name)})، وينتقل (${esc(currentItem.name)}) إلى موضع الدبوس المقابل.
+          </span>
         </div>
-        <span style="font-size:11px; font-weight:700; color:var(--gold-primary);">مبادلة</span>
+        <span style="font-size:11px; font-weight:700; color:var(--gold-primary); white-space:nowrap;">مبادلة الموضعين</span>
       </button>
 
-      <!-- الخيار الثاني: استبدال هذا مع إزالة النقطة المستبدل بها -->
-      <button type="button" class="btn-append-atom" id="btnRemoveReplacedPoint" style="width:100%; justify-content:space-between; padding:12px 14px; background:#ffffff; border-color:var(--border-whisper);">
-        <div style="text-align:right;">
-          <strong style="font-size:12px; color:var(--ink-deep); display:block;">✕ استبدال هذا المكون مع إزالة النقطة المستبدل بها</strong>
-          <span style="font-size:10px; color:var(--ink-subtle);">يُعيّن [${targetItem.name}] لهذا الدبوس، وتُحذف النقطة المستبدل بها من على النموذج.</span>
+      <!-- الخيار 2: استبدال هذا مع إزالة النقطة المستبدل بها -->
+      <button type="button" class="swap-action-card-btn" id="btnRemoveReplacedPoint">
+        <div>
+          <strong style="font-size:12px; color:var(--ink-deep); display:block; margin-bottom:2px;">✕ استبدال هذا المكون مع إزالة النقطة المستبدل بها</strong>
+          <span style="font-size:10.5px; color:var(--ink-soft); display:block; line-height:1.4;">
+            يُعتمد المكون (${esc(targetItem.name)}) في هذا الدبوس، وتُحذف النقطة الأخرى المستبدل بها من على النموذج.
+          </span>
         </div>
-        <span style="font-size:11px; font-weight:700; color:var(--red-alert);">إزالة المستبدل بها</span>
+        <span style="font-size:11px; font-weight:700; color:var(--red-alert); white-space:nowrap;">إزالة المستبدل بها</span>
       </button>
 
-      <!-- زر رجوع للقائمة -->
+      <!-- زر التراجع -->
       <button type="button" class="btn-append-atom" id="btnBackToList" style="width:100%; justify-content:center; padding:8px; background:transparent; border-style:dashed;">
         <span>← تراجع واختيار مكون آخر</span>
       </button>
@@ -337,7 +357,7 @@ function showSwapOptionsView(pinIdx, targetCompIdx) {
   document.getElementById('btnRemoveReplacedPoint').onclick = () => {
     if (otherPinIdx !== -1) {
       state.h3.pins[pinIdx].compIndex = targetCompIdx;
-      state.h3.pins.splice(otherPinIdx, 1); // إزالة النقطة المستبدل بها
+      state.h3.pins.splice(otherPinIdx, 1);
       renderPins();
       closeReassignModal();
       if (typeof persistState === 'function') persistState();
@@ -429,4 +449,4 @@ function showToast(msg) {
 function hideToast() {
   const toast = document.getElementById('targetToast');
   if (toast) toast.style.display = 'none';
-}
+                                                                                                }
