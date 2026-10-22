@@ -1,5 +1,5 @@
 /* =========================================================================
-   أَثَـر • ATHAR UNIFIED DESIGN SYSTEM (MASTER STYLESHEET)
+   أَثَـر • ATHAR UNIFIED DESIGN SYSTEM (DEFINITIVE MASTER STYLESHEET)
    البطولة الوطنية للابتكار والروبوت — وزارة التربية والتعليم وتنمية الموارد البشرية
    ========================================================================= */
 
@@ -65,7 +65,7 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-  padding-bottom: 100px; /* حيز مريح للشريط السفلي العائم */
+  padding-bottom: 105px; /* حيز مريح جداً للشريط السفلي العائم */
 }
 
 button, input, textarea, select {
@@ -409,20 +409,20 @@ button, input, textarea, select {
 }
 
 /* =========================================================================
-   5. العناوين الدائمة والحقول والنصوص الدلالية (Form System & Ghost Placeholders)
+   5. نظام العناوين الدائمة والحقول والنصوص الدلالية (Form System & Ghost Placeholders)
    ========================================================================= */
 
-/* العناوين الحقلية الدائمة فوق المربعات - حل مشكلة الـ UX جذرياً */
+/* العناوين الحقلية الدائمة فوق المربعات لضمان أقصى درجات الوضوح والـ UX */
 .field-group {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
   width: 100%;
 }
 
 .field-label {
   display: block;
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 600;
   color: var(--ink-soft);
   margin-bottom: 2px;
@@ -434,7 +434,7 @@ textarea, input[type="text"], input[type="number"], input[type="date"], select, 
   width: 100%;
   border: 1px solid var(--border-whisper);
   border-radius: var(--radius-sm);
-  padding: 9px 12px;
+  padding: 10px 12px;
   font-size: 12.5px;
   line-height: 1.65;
   color: var(--ink-deep);
@@ -448,10 +448,10 @@ textarea:focus, input[type="text"]:focus, input[type="number"]:focus, input[type
 }
 textarea {
   resize: vertical;
-  min-height: 64px;
+  min-height: 68px;
 }
 
-/* نصوص دلالية إرشادية باهتة تختفي فور النقر أو التركيز */
+/* نصوص دلالية إرشادية شبه شفافة تختفي فور النقر أو التركيز */
 input::placeholder, textarea::placeholder {
   color: var(--ink-subtle);
   opacity: 0.52;
@@ -591,7 +591,7 @@ input:focus::placeholder, textarea:focus::placeholder {
   object-fit: contain;
 }
 
-/* منصة إزالة الصورة بنظام التأكيد المهدّأ */
+/* منصة إزالة الصورة وتأكيد الحذف بخطوتين */
 .del-btn-container {
   position: absolute;
   top: 8px;
@@ -642,8 +642,40 @@ input:focus::placeholder, textarea:focus::placeholder {
 }
 
 /* =========================================================================
-   7. مسرح الإسقاط المكاني التفاعلي للمجسم (Hardware Pinning Theater)
+   7. تجاوب شبكة المكونات (BOM) على الهواتف ومسرح الإسقاط المكاني
    ========================================================================= */
+
+/* شبكة مدخلات المكونات المتجاوبة بالكامل على الهواتف والشاشات الصغيرة */
+.bom-grid-responsive {
+  display: grid;
+  grid-template-columns: 1.5fr 1.2fr 0.8fr 0.8fr;
+  gap: 8px;
+}
+
+@media (max-width: 680px) {
+  .bom-grid-responsive {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .bom-grid-responsive .field-full-mobile {
+    grid-column: span 2;
+  }
+}
+
+.bom-grid-sub {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+@media (max-width: 680px) {
+  .bom-grid-sub {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+/* مسرح الإسقاط المكاني للنموذج النهائي */
 .stage-viewport-boundary {
   position: relative;
   width: 100%;
@@ -725,7 +757,7 @@ input:focus::placeholder, textarea:focus::placeholder {
   pointer-events: none;
 }
 
-/* المؤشرات الهندسية */
+/* دبابيس المؤشرات الهندسية */
 .pin-specimen-node {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -865,7 +897,62 @@ input:focus::placeholder, textarea:focus::placeholder {
 }
 
 /* =========================================================================
-   8. محرر طرفية الكود والتصنيع الرقمي (Terminal & Fabrication)
+   8. شاشة التبديل والمبادلة المتناغمة (The Smart Swap Dialog Card)
+   ========================================================================= */
+.swap-comparison-deck {
+  background: var(--gold-soft);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.swap-comparison-nodes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+@media (max-width: 500px) {
+  .swap-comparison-nodes {
+    grid-template-columns: 1fr;
+  }
+}
+
+.swap-node-badge {
+  background: #ffffff;
+  border: 1px solid var(--border-whisper);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.swap-action-card-btn {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid var(--border-whisper);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  text-align: right;
+  transition: all 0.2s var(--ease-smooth);
+}
+
+.swap-action-card-btn:hover {
+  border-color: var(--gold-primary);
+  background: var(--gold-soft);
+}
+
+/* =========================================================================
+   9. محرر طرفية الكود والتصنيع الرقمي (Terminal & Fabrication)
    ========================================================================= */
 .code-terminal-box {
   background: #141619;
@@ -921,7 +1008,7 @@ input:focus::placeholder, textarea:focus::placeholder {
 }
 
 /* =========================================================================
-   9. هوية الفريق وبصمات الأثر (Team Identity & Footprints)
+   10. هوية الفريق وبصمات الأثر (Team Identity & Footprints)
    ========================================================================= */
 .team-size-picker {
   display: inline-flex;
@@ -1009,7 +1096,7 @@ input:focus::placeholder, textarea:focus::placeholder {
 }
 
 /* =========================================================================
-   10. أزرار التنقل وشريط الأفق السفلي (Navigation & Floating Dock)
+   11. أزرار التنقل وشريط الأفق السفلي (Navigation & Floating Dock)
    ========================================================================= */
 .horizon-nav-footer {
   display: flex;
@@ -1121,7 +1208,7 @@ input:focus::placeholder, textarea:focus::placeholder {
 }
 
 /* =========================================================================
-   11. القائمة الدائرية والنوافذ المنبثقة (Modals & Radial Pie Menu)
+   12. القائمة الدائرية والنوافذ المنبثقة (Modals & Radial Pie Menu)
    ========================================================================= */
 
 /* القائمة الدائرية الشعاعية */
