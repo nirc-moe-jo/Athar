@@ -3,10 +3,11 @@
    البطولة الوطنية للابتكار والروبوت — وزارة التربية والتعليم وتنمية الموارد البشرية
    ========================================================================= */
 
-// 1. مفتاح التخزين السحابي والمحلي المعتمد (V2 النظيف الخالي من البيانات الوهمية)
+// 1. مفتاح التخزين السحابي والمحلي المعتمد (V2 النظيف الخالي من البيانات التجريبية السابقة)
 const STORAGE_KEY = 'ATHAR_MASTER_STUDIO_V2';
 
 // 2. الحالة الشاملة المركزية للمشروع (Single Source of Truth)
+// تبدأ المصفوفات فارغة تماماً حتى يضيف الطالب عنصره الأول بنقاء
 let state = {
   h1: {
     narration: "",
@@ -22,10 +23,10 @@ let state = {
     pillarReason: ""
   },
   h2: {
-    trials: [] // تبدأ فارغة؛ أول ضغطة تضيف التجربة رقم 01 فقط
+    trials: [] // تبدأ فارغة؛ أول نقرة تضيف التجربة رقم 01 فقط
   },
   h3: {
-    catalog: [], // تبدأ فارغة تماماً بدون أي مكون وهمي سابق
+    catalog: [], // تبدأ فارغة بدون أي مكون تجريبي مسبق
     robotImg: "",
     pins: [],
     evolution: [
@@ -93,6 +94,7 @@ const INSIGHTS = [
 // 4. الأدوات الهندسية المشتركة (Utility Functions)
 // =========================================================================
 
+// تأمين النصوص لمنع تكسر القوالب الحقلية
 const esc = str => String(str || '').replace(/[&<>"']/g, m => ({
   '&': '&amp;',
   '<': '&lt;',
@@ -101,6 +103,7 @@ const esc = str => String(str || '').replace(/[&<>"']/g, m => ({
   "'": '&#39;'
 }[m]));
 
+// تأخير زمني مخصص للمؤثرات الحركية
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 // محرك ضغط الصور المسبق عبر Canvas (يدعم WebP و PNG و JPEG)
@@ -123,6 +126,7 @@ function compressImageFile(file, maxDimension, quality, callback) {
       const ctx = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0, w, h);
       
+      // تصدير الصورة المضغوطة بصيغة WebP فائقة الخفة والكفاءة
       callback(canvas.toDataURL('image/webp', quality || 0.82));
     };
     img.src = e.target.result;
